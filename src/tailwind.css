@@ -1,0 +1,10 @@
+/**
+* @name: tailwind
+* @author: mahai
+* @date: 2021-07-09 09:12
+* @description：tailwind
+* @update: 2021-07-09 09:12
+*/
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

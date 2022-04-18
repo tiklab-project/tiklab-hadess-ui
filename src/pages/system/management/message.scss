@@ -1,0 +1,14 @@
+
+
+#message-management{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    .message-management-btn {
+        display: flex;
+        justify-content: flex-end;
+        button:nth-of-type(2n+1) {
+            margin-right: 20px;
+        }
+    }
+}

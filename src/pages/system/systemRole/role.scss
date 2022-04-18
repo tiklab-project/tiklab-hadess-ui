@@ -1,0 +1,34 @@
+
+
+
+
+.privilege{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    &-wrap {
+        width: 100%;
+        height: 100%;
+        background: #eef0f3;
+    }
+    &-container{
+        padding: 20px;
+        width: 100%;
+        position: relative;
+    }
+
+    &-btn {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        button:nth-of-type(2n+1) {
+            margin-right: 20px;
+        }
+    }
+}
+.role-col{
+    background: white;
+    height: 100%;
+}

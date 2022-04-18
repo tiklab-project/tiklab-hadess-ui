@@ -1,0 +1,96 @@
+$gray-600: #f6f7f9;
+$gray-700: #dfe5ed;
+.privilege-tree{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    &-wrap{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        max-width: 300px;
+        height: 100%;
+        background: $gray-600;
+        &-tree {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            width: 100%;
+            overflow: auto;
+        }
+    }
+}
+
+
+/*****       tree 的组织结构       ******/
+.tree{
+    display: block;
+    height: 100%;
+    width: 260px;
+    padding: 10px;
+    ul {
+        width: 100%;
+        padding-left: 20px;
+        padding-right: 8px;
+
+    }
+    ul,li {
+        cursor: pointer;
+        list-style:none;
+
+    }
+
+    &-children{
+        display: flex;
+        justify-items: center;
+        align-items: center;
+    }
+    &-node{
+        margin-left: 6px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        height: 40px;
+        line-height: 40px;
+        > span {
+            height: 100%;
+        }
+        &-hidden {
+            display: none;
+        }
+    }
+    &-active{
+        background: $gray-700;
+    }
+    &-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+        padding: 4px 0;
+        &-action {
+            display: none;
+            height: 100%;
+            width: 100%;
+            span {
+                padding: 0 12px;
+                cursor: pointer;
+                color: #2d90f9;
+                height: 100%;
+            }
+        }
+    }
+}
+.tree-item-wrap{
+    display: flex;
+    align-items: center;
+    height: 100%;
+    width: 100%;
+    &:hover{
+        background: $gray-700;
+        .tree-item-action {
+            display: block;
+            white-space: pre;
+        }
+    }
+}

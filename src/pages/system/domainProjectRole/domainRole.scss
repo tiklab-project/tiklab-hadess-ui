@@ -1,0 +1,27 @@
+
+
+
+
+.privilege-domain{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    //&-main {
+    //    max-width: 1280px;
+    //    min-width: 1280px;
+    //    margin: 0 auto;
+    //}
+    &-container{
+        padding: 20px;
+        width: 100%;
+        height: 100%;
+        position: relative;
+    }
+    &-btn {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+}
