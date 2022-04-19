@@ -12,7 +12,7 @@ const DIST_PATH = path.resolve(__dirname, 'dist');
 
 
 const customEnv = process.env.CUSTOM_ENV;
-const {webpackGlobal} = require('../environment/environment-' + customEnv)
+const {webpackGlobal} = require('./environment/environment-' + customEnv)
 
 
 const cssRegex = /\.css$/;
