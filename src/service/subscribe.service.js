@@ -13,6 +13,7 @@ export const deleteSubscribeApi = '/subscribe/deleteSubscribe';
 export const findAllSubscribeApi = '/subscribe/findAllSubscribe';
 export const updateSubscribeApi = '/subscribe/updateSubscribe';
 
+export const findSubscribeListApi = '/subscribe/findSubscribeList';
 class SubscribeService {
     constructor() {
     }
@@ -40,6 +41,11 @@ class SubscribeService {
     // 删除订阅
     async deleteSubscribeService(data){
         const response = await Axios.post(deleteSubscribeApi, data)
+        return response
+    }
+
+    async findSubscribeList(data){
+        const response = await Axios.post(findSubscribeListApi, data)
         return response
     }
 

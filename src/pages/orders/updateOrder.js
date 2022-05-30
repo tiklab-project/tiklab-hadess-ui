@@ -2,13 +2,13 @@
  * @name: index
  * @author: mahai
  * @date: 2021-08-09 16:49
- * @description：修改订单
+ * @description：编辑订单
  * @update: 2021-08-09 16:49
  */
 import React, {useEffect} from "react";
 import {Col, Row, Form, Modal, Input,Select} from 'antd';
-import orderService from "../../../service/order.service";
-import {getUser} from "../../../utils";
+import orderService from "../../service/order.service";
+import {getUser} from "../../utils";
 const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
@@ -16,7 +16,7 @@ const layout = {
 };
 
 
-const AddOrder = props => {
+const UpdateOrder = props => {
     const [form] = Form.useForm();
     const {visible, onCancel, editData} = props;
 
@@ -37,12 +37,12 @@ const AddOrder = props => {
     const handleOk =   () => {
         form.validateFields().then(async values => {
             if (editData) {
-               const res = await orderService.createOrder({...values, member:{id:getUser().member},id: editData.id})
+                const res = await orderService.createOrder({...values, member:{id:getUser().member},id: editData.id})
                 if (!res.code) {
                     onCancel()
                 }
             } else {
-               const res = await orderService.updateOrder({...values,member:{id:getUser().member}})
+                const res = await orderService.updateOrder({...values,member:{id:getUser().member}})
                 if (!res.code) {
                     onCancel()
                 }
@@ -111,4 +111,4 @@ const AddOrder = props => {
     )
 }
 
-export default AddOrder
+export default UpdateOrder

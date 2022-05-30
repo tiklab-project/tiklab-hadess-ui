@@ -10,7 +10,8 @@ import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Input, Select} from 'antd';
 const { Option } = Select;
 import documentService from "../../../service/document.service"
-import {getUser} from "doublekit-frame-ui";
+import {getUser} from "doublekit-core-ui";
+const repositoryType=[{key:'project',value:'项目管理'},{key:'apibox',value:'接口测试'},{key:'jtest',value:'性能测试'},{key:'wiki',value:'知识库'},{key:'other',value:'其他'}]
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
@@ -25,7 +26,8 @@ const CreateOrUpdateRepository = props => {
             form.setFieldsValue({
                 id: editData.id,
                 name: editData.name,
-                user:editData.user.id,
+                user:editData.id,
+                type:editData.type,
                 desc:editData.desc,
 
             })
@@ -39,9 +41,8 @@ const CreateOrUpdateRepository = props => {
             const params={
                 name:values.name, //订单价格
                 desc:values.desc,
-                user:{
-                    id:getUser().userId
-                }
+                type:values.type,
+                master:getUser().userId
             }
             if (id){
                await update(params)
@@ -58,6 +59,7 @@ const CreateOrUpdateRepository = props => {
 
         }
         await documentService.updateRepository(param)
+        setId('')
     }
     return(
         <Modal
@@ -83,6 +85,23 @@ const CreateOrUpdateRepository = props => {
                             required="required"
                         >
                             <Input />
+                        </Form.Item>
+                        <Form.Item
+                            name="type"
+                            label='空间类型'
+                            required="required"
+                        >
+                            <Select  showArrow>
+                                {
+                                    repositoryType.map(item=>{
+                                        return (
+                                            <Option  key={item.key} value={item.key}>
+                                                {item.value}
+                                            </Option>
+                                        )
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
 
                         <Form.Item

@@ -16,16 +16,16 @@ const layout = {
     wrapperCol: { span: 20 },
 };
 
- //const BASE_URL_PROD = 'http://192.168.2.7:8081';  //线下
-// const BASE_URL_PROD = 'http://192.168.2.88:8081';  //线上
- const BASE_URL_PROD = 'http://139.196.76.221:8081';  //线上
+ import {PROJECT_URL_DEV} from "../../../const";
 const Version = props => {
     const [form] = Form.useForm();
+    const param=props.history.location.params
     const [fileList, setFileList] = useState([]);
 
     const [fileName, setFileName] = useState(); //文件名字
     const [surfacePlot,SetSurfacePlot] =useState(); //封面图名字
-    const param=props.history.location.params
+    const [size,setSize]=useState(); //文件大小  字节
+
     useEffect(()=>{
         if (param) {
             form.setFieldsValue({
@@ -43,8 +43,7 @@ const Version = props => {
             product:{
                 id:param.id
             },
-
-            size:"",
+            size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
             versionData:value.versionData
         }
         const response=  await productService.createProductVersion(params)
@@ -56,7 +55,7 @@ const Version = props => {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: BASE_URL_PROD + '/dfs/upload',
+        action: PROJECT_URL_DEV + '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },
@@ -73,6 +72,8 @@ const Version = props => {
             let fileList = [...info.fileList];
             fileList = fileList.slice(-1);
             fileList = fileList.map(file => {
+                const size=file.originFileObj.size
+                setSize(size)
                 if (file.response) {
                     file.url = file.response.url;
                     setFileName(file.response.data.fileName)
@@ -103,8 +104,8 @@ const Version = props => {
             uid: '1',
             name: surfacePlot,
             status: 'done',
-            url:`${BASE_URL_PROD}/image/${surfacePlot}`,
-            thumbUrl:`${BASE_URL_PROD}/image/${surfacePlot}`
+            url:`${PROJECT_URL_DEV}/image/${surfacePlot}`,
+            thumbUrl:`${PROJECT_URL_DEV}/image/${surfacePlot}`
         }
     ]
     return (

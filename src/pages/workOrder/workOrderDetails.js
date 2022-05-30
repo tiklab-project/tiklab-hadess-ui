@@ -9,7 +9,7 @@
 import React ,{useState,useEffect}from "react";
 import {Breadcrumb, Input, Form, Button, Col, Row} from "antd";
 import workOrderServer from "../../service/workOrder.server";
-import {getUser} from "doublekit-frame-ui";
+import {getUser} from "doublekit-core-ui";
 import CustomEditor from "../../common/editSlate/editor";
 import PreviewEditor from "../../common/editSlate/previewEditor";
 import {withRouter} from "react-router";

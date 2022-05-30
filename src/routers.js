@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Redirect } from 'react-router';
-
+import {Logout} from 'doublekit-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './layout/layout';
 // 设置运营管理模块
@@ -24,17 +24,17 @@ const AuthConfig = SyncComponent(() => import('./pages/authConfig/authConfig'));
 // 订阅服务
 const Subscribe = SyncComponent(() => import('./pages/subscription'))
 // 订阅服务详情
-const SubscribeDetails = SyncComponent(() => import('./pages/subscription/details'))
+const SubscribeDetails = SyncComponent(() => import('./pages/subscription/subscribeDetails'))
 
 // 订单管理
 const Orders = SyncComponent(() => import('./pages/orders'))
 // 订单详情
-const OrdersDetails = SyncComponent(() => import('./pages/orders/details'))
+const OrdersDetails = SyncComponent(() => import('./pages/orders/orderDetails'))
 
 // 产品
 const Product = SyncComponent(() => import('./pages/product'))
 // 产品详情
-const ProductDetails = SyncComponent(() => import('./pages/product/details'))
+const ProductDetails = SyncComponent(() => import('./pages/product/productDetails'))
 // 产品版本
 const addVersion = SyncComponent(() => import('./pages/product/addVersion'))
 
@@ -46,7 +46,8 @@ const MemberDetails = SyncComponent(() => import('./pages/member/details'))
 // 租户管理
 const Tenant = SyncComponent(() => import('./pages/tenant'))
 //租户详情
-const TenantDetails = SyncComponent(() => import('./pages/tenant/details'))
+const TenantDetails = SyncComponent(() => import('./pages/tenant/tenantDetails'))
+
 
 //统计管理
 const Statistics = SyncComponent(() => import('./pages/statistics'))
@@ -78,6 +79,15 @@ const InvoiceManage = SyncComponent(() => import('./pages/invoice/invoiceManage'
 const workOrderList = SyncComponent(() => import('./pages/workOrder/workOrderList'))
 //工单详情
 const workOrderDetails = SyncComponent(() => import('./pages/workOrder/workOrderDetails'))
+
+//数据源管理- db list
+const dbSourceList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceList'))
+//数据源管理- tenantDb list
+const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/tenantDbList'))
+//数据源管理- dss list
+const dssSourceList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceList'))
+//数据源管理- tenantDss list
+const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/tenantDssList'))
 const routers = [
     {
         path: "/login",
@@ -86,9 +96,14 @@ const routers = [
         key:'login'
     },
     {
+        path: "/logout",
+        exact: true,
+        component: Logout,
+        key:'logout'
+    },
+    {
         component: LayoutHoc,
         key: 'setting',
-        path:'/',
         routes: [
             {
                 component: Setting,
@@ -155,7 +170,7 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/tenant/details',
+                        path: '/setting/tenant/tenantDetails',
                         component:TenantDetails ,
                         exact: true,
                     },
@@ -229,7 +244,26 @@ const routers = [
                         component: workOrderDetails,
                         exact: true,
                     },
-
+                    {
+                        path: '/setting/sourceManage/manageDb',
+                        component: dbSourceList,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/sourceManage/manageDb/tenantManageDb',
+                        component: tenantDbList,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/sourceManage/manageDss',
+                        component: dssSourceList,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/sourceManage/manageDss/tenantManageDss',
+                        component:tenantDssList,
+                        exact: true,
+                    },
                     {
                         path: '/setting',
                         exact: true,

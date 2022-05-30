@@ -6,7 +6,7 @@
  * @update: 2021-08-09 14:07
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Space, Switch} from "antd";
+import {Breadcrumb, Row, Col, Input, Button, Table, Space, Switch, Tooltip, Tag} from "antd";
 import subscribeService from "../../service/subscribe.service";
 
 const Subscription = props => {
@@ -31,17 +31,27 @@ const Subscription = props => {
         {
             title: '企业名称',
             dataIndex: ['tenant','name'],
+            render: (text, record) => (
+                <>
+                    {record.tenant&&filedState(record.tenant.name)}
+                </>
+            )
 
         },
         {
             title: '用户',
             dataIndex: ['member','name'],
+            render: (text, record) => (
+                <>
+                    {filedState(record.member.name)}
+                </>
+            )
         },
         {
             title: '支付类型',
             dataIndex: 'subscribeType',
             render: text => {
-                return text === 1 ? '试用' : "购买"
+                return text === 1 && '试用'||text === 2&& "购买"||text === 3&& "免费"
             }
         },
         {
@@ -54,18 +64,24 @@ const Subscription = props => {
         {
             title: '订阅状态',
             dataIndex: 'status',
-            render: text => {
-                return text === 1 ? '使用中' : "已过期"
-            }
+            render:(text)=>(
+                <Space size="middle">
+                    {
+                        text===1&&<Tag color={'green'} key={text}>使用中</Tag>||
+                        text===2&&<Tag color={'volcano'} key={text}>已过期</Tag>
+                    }
+                </Space>
+            )
         },
         {
             title: '订阅时长',
             dataIndex: 'duration',
-            render: text => {
-                return text / 12 === 1 ? '1年' : `${text}月`
+            render: (text, record)  => {
+                return record.subscribeType===3?" N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
             }
         },
         {
+
             title: '订阅有效期',
             dataIndex: 'date',
             render:(text, record) => {
@@ -106,11 +122,28 @@ const Subscription = props => {
         await getSubscribeData(params)
     }, []);
 
+    const filedState = (value) => {
+        return(
+            value&&value.length>20?
+                <Tooltip placement="right" title={value}>
+                    <div style={{
+                        width: 100,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}>
+                        {value}
+                    </div>
+                </Tooltip>
+                :
+                <div>{value}</div>
+        )
+    }
     const findDetails=async (record)=>{
-        props.history.push({
+        /*props.history.push({
             pathname:"/setting/subscribe/details",
             params:record
-        });
+        });*/
     }
 
     //停用

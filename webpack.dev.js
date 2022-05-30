@@ -21,7 +21,7 @@ module.exports = merge(baseWebpackConfig,{
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
             title:'组织中心',
-            template: path.resolve(__dirname, '../public/index.html'),
+            template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',
             inject: 'body',

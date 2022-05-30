@@ -1,6 +1,4 @@
 
-
-
 const { merge } = require('webpack-merge');
 const path = require('path');
 const os = require('os');
@@ -12,7 +10,7 @@ const optimizeCss = require('optimize-css-assets-webpack-plugin');
 const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 
-const baseWebpackConfig = require('./webpack.base-test');
+const baseWebpackConfig = require('./webpack.base.js');
 
 
 

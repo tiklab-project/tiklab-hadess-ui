@@ -16,7 +16,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
-const BASE_URL = 'http://192.168.10.3:8081';
+import {PROJECT_URL_DEV} from "../../../const";
 const type=[{key:'ce',value:'ce社区版'},{key:'ee',value:'ee企业版'},{key:'saas',value:'saas版'}]
 const AddProduct = props => {
     const [form] = Form.useForm();
@@ -38,7 +38,6 @@ const AddProduct = props => {
                 icon: editData.icon,
                 price:editData.price,
                 code:editData.code,
-                sort:editData.sort,
                 type:editData.type,
             })
             if (editData.icon){
@@ -49,10 +48,9 @@ const AddProduct = props => {
 
     const handleOk =   () => {
         form.validateFields().then(async values => {
-            debugger
             if (editData) {
                const res = await productService.updateProductService({...values, member:{id:getUser().member},
-                                                                            id: editData.id,productType:{id:values.productType}})
+                   id: editData.id,productType:{id:values.productType}})
                 if (!res.code) {
                     onCancel()
                 }
@@ -78,7 +76,7 @@ const AddProduct = props => {
         multiple:true,
         //  showUploadList:false,
         name: "uploadFile",
-        action:  `${BASE_URL}/dfs/upload`,
+        action:  `${PROJECT_URL_DEV}/dfs/upload`,
         headers: {
             ticket: getUser().ticket,
         },
@@ -105,8 +103,8 @@ const AddProduct = props => {
             uid: '-1',
             name: surfacePlot,
             status: 'done',
-            url:`${BASE_URL}/image/${surfacePlot}`,
-            thumbUrl:`${BASE_URL}/image/${surfacePlot}`
+            url:`${PROJECT_URL_DEV}/image/${surfacePlot}`,
+            thumbUrl:`${PROJECT_URL_DEV}/image/${surfacePlot}`
         }
     ]
     return(
@@ -143,7 +141,7 @@ const AddProduct = props => {
                         </Form.Item>
                         <Form.Item
                             name="code"
-                            label='产品'
+                            label='产品类型'
                             rules={
                                 [
                                     {
@@ -167,7 +165,7 @@ const AddProduct = props => {
                         </Form.Item>
                         <Form.Item
                             name="type"
-                            label='产品类型'
+                            label='产品版本'
                             rules={
                                 [
                                     {
@@ -191,12 +189,12 @@ const AddProduct = props => {
                         </Form.Item>
                         <Form.Item
                             name="productUrl"
-                            label='产品域名'
+                            label='访问路径'
                             rules={
                                 [
                                     {
                                         required: true,
-                                        message: '请输入产品域名'
+                                        message: '请输入产品访问路径'
                                     }
                                 ]
                             }
@@ -208,15 +206,6 @@ const AddProduct = props => {
                             label='产品价格'
                         >
                             <Input placeholder='***元'/>
-                        </Form.Item>
-                        {
-
-                        }
-                        <Form.Item
-                            name="sort"
-                            label='排序'
-                        >
-                            <Input  placeholder='整数，例:1'  />
                         </Form.Item>
                         <Form.Item
                             name="icon"

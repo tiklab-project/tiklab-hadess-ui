@@ -83,6 +83,7 @@ const DocumentList = props => {
     }
     //编辑文档空间
     const editRepository=(record)=> {
+        debugger
         setEditData(record)
         openCreatePopup()
     }

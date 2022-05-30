@@ -5,7 +5,7 @@ import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
 import { privilegeStores } from 'doublekit-privilege-ui';
-import { useLoadLanguage} from 'doublekit-plugin-ui';
+import { useLoadLanguage} from 'doublekit-plugin-manage';
 
 import { Provider } from 'mobx-react';
 import routes from './routers'

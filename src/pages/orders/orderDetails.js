@@ -1,20 +1,16 @@
 /**
- * @name: Details
+ * @name: OrderDetails
  * @author: limingliang
  * @date: 2021-08-09 16:48
  * @description：订单详情
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Form,Upload,Descriptions } from "antd";
-import orderService from "../../../service/order.service"
+import {Breadcrumb,Table} from "antd";
+import orderService from "../../service/order.service"
 import {withRouter} from "react-router";
-const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 20 },
-};
 
-const Details = props => {
+const OrderDetails = props => {
     const orders=props.history.location.params
     const [orderData,setOrderData]=useState('')
     const [tableData,setTableData]=useState()
@@ -31,6 +27,9 @@ const Details = props => {
         {
             title: '购买数量',
             dataIndex: 'math',
+            render: (text, record)  => {
+                return record.subscribeType===3?" N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
+            }
         },
         {
             title: '租户',
@@ -63,25 +62,16 @@ const Details = props => {
             <div className='w-full p-6 max-w-screen-xl m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item  href='#/setting/order'>订单管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">{orderData.id}</Breadcrumb.Item>
+                    <Breadcrumb.Item href="">订单详情</Breadcrumb.Item>
                 </Breadcrumb>
                 {JSON.parse(sessionStorage.getItem("orders"))
-                &&<Form
-                        {...layout}
-                        name="nest-messages"
-                        className='mt-6'>
-                        <Form.Item label="订单编号">
-                            {orderData.id}
-                        </Form.Item>
-                        <Form.Item label="订单价格">
-                            {orderData.orderPrice}
-                        </Form.Item>
-                        <Form.Item label="支付人">
-                            {JSON.parse(sessionStorage.getItem("orders")).member.name}
-                        </Form.Item>
-                        <div className='p-9'>
-                            <h4 className='text-lg p-4'>订单产品:</h4>
-                            <Form.Item >
+                    &&<div className='grid gap-y-6 pt-6 pl-4'>
+                        <div >订单编号：{orderData.id}</div>
+                        <div >订单价格:{orderData.orderPrice}</div>
+                        <div >支付人：{JSON.parse(sessionStorage.getItem("orders")).member.name}</div>
+                        <div className=''>
+                            <h4 className='text-lg'>订单产品:</h4>
+                            <div >
                                 <Table
                                     className='p-4'
                                     dataSource={tableData}
@@ -90,9 +80,9 @@ const Details = props => {
                                     pagination={false}
                                 />
 
-                            </Form.Item>
+                            </div>
                         </div>
-                    </Form>
+                    </div>
                 }
 
             </div>
@@ -101,4 +91,4 @@ const Details = props => {
     )
 };
 
-export default withRouter(Details)
+export default withRouter(OrderDetails)

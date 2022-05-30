@@ -21,7 +21,6 @@ class WorkOrderServer {
     }
 
     async findWorkOrderPage(data){
-        debugger
         const response = await Axios.post(findWorkOrderPageApi, data)
         return response
     }

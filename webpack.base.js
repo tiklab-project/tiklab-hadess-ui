@@ -28,7 +28,6 @@ module.exports = {
         filename: 'js/[name].[hash:8].js',
         chunkFilename: 'js/[name].[hash:8].js',
         path: DIST_PATH,
-        publicPath: '/',
     },
     resolve: {
         extensions: ['.js', '.jsx', '.json'],
@@ -137,7 +136,6 @@ module.exports = {
             },
             {
                 test: /\.(png|jpg|jpeg|gif|svg)/,
-                exclude: /node_modules/,
                 use: {
                     loader: 'url-loader',
                     options: {
@@ -165,10 +163,12 @@ module.exports = {
     },
     plugins: [
         new CleanWebpackPlugin(),
+
+        new webpack.DefinePlugin({ENV:JSON.stringify(customEnv), ...webpackGlobal}),
+
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'组织中心',
-            template: path.resolve(__dirname, '../public/index.html'),
+            template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',
             inject: 'body',
@@ -178,8 +178,6 @@ module.exports = {
                 removeAttributeQuotes: true
             }
         }),
-
-        new webpack.DefinePlugin({ENV:JSON.stringify(customEnv), ...webpackGlobal}),
 
         new MiniCssExtractPlugin({
             filename: 'css/[name].css',

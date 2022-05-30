@@ -22,6 +22,8 @@ export const createProductVersionApi = '/productVersion/createProductVersion';
 //通过条件查询
 export const findProductVersionListApi = '/productVersion/findProductVersionList';
 
+export const deleteProductVersionApi = '/productVersion/deleteProductVersion';  //删除产品版本
+
 class ProductService {
     constructor() {
     }
@@ -72,6 +74,11 @@ class ProductService {
     //条件所有类型
     async findAllProductTypeService(data){
         const response = await Axios.post(findAllProductTypeApi, data)
+        return response
+    }
+
+    async deleteProductVersion(data){
+        const response = await Axios.post(deleteProductVersionApi, data)
         return response
     }
 

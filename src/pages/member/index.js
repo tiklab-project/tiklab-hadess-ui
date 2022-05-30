@@ -6,7 +6,7 @@
  * @update: 2021-08-09 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table,Space,Modal,Switch } from "antd";
+import {Breadcrumb, Row, Col, Input, Button, Table,Space,Modal,Switch ,Tooltip} from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import memberService from "../../service/member.service"
 import {withRouter} from "react-router";
@@ -18,39 +18,54 @@ const Member = props => {
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState(props.total);
-    const [visible, setVisible] = useState(false);
-    const [memberData, setMemberData] = useState(null);
+
 
     const columns = [
         {
             title: '姓名',
             dataIndex: 'name',
-            render: (text, record) => {
-                return <a className='text-blue-500' onClick={() => findDetails(record)}>{record.name}</a>
-           }
+            width:'10%',
+            render: (text, record) => (
+                <>
+                    {
+                        filedState(record)
+                    }
+                </>)
         },
-
         {
             title: '手机号',
             dataIndex: 'phone',
+            width:'10%',
         },
         {
             title: '邮箱',
             dataIndex: 'email',
+            width:'10%',
+            render: (text, record) => (
+                <>
+                    {
+                        filedState(record)
+                    }
+                </>
+            )
         },
         {
             title: '认证方式',
             dataIndex: 'memberType',
+            width:'10%',
             render:(text)=>text===1?'内部':null||text===2?'第三方':null
+
         },
 
         {
             title: '创建时间',
             dataIndex: 'createTime',
+            width:'20%',
         },
         {
             title: '启用状态',
             dataIndex: 'useState',
+            width:'10%',
             render: (text, record) => (
                 console.info("查询text",text),
                 <Switch checkedChildren="启用" unCheckedChildren="停用" checked={text===1?true:false} onChange={(e)=>changeEnable(e,record)} />
@@ -60,6 +75,7 @@ const Member = props => {
         {
             title: '操作',
             key: 'activity',
+            width:'20%',
             render: (text, record) => (
                 <Space size="useState">
                     <a >编辑</a>
@@ -78,6 +94,24 @@ const Member = props => {
         await getMemberData(param)
     },[])
 
+
+    const filedState = (value) => {
+      return(
+              value.name.length>25?
+                  <Tooltip placement="right" title={value.name}>
+                      <div style={{
+                          width: 150,
+                          overflow: "hidden",
+                          textOverflow: "ellipsis",
+                          whiteSpace: "nowrap"
+                      }}>
+                          {value.name}
+                      </div>
+                  </Tooltip>
+                  :
+                  <div>{value.name}</div>
+      )
+    }
     const findDetails=async (record)=>{
         props.history.push({
             pathname:"/setting/member/details",

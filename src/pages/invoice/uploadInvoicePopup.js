@@ -28,13 +28,14 @@ const  UploadInvoicePopup=props=>{
         const param={
             id:invoiceData.id,
             invoiceTitleType:invoiceData.invoiceTitleType,
-            invoiceType:'',
+            invoiceType:invoiceData.invoiceType,
             invoiceState:1,
-            buyerName:''
+            orderType:invoiceData.orderType,
+            buyerName:invoiceData.buyerName
         }
         const res=await invoiceService.updateInvoice(param)
         if (res.code===0){
-
+            onClose()
         }
     }
 

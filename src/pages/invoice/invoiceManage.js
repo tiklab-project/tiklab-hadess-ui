@@ -93,7 +93,7 @@ const InvoiceManage =props=>{
                                 <div className='border'>
                                     <div className='flex py-2 bg-gray-100'>
                                         <div className='pl-2'>
-                                            购买企业：腾飞企业
+                                            会员：{invoice.memberId}
                                         </div>
                                         <div className='pl-8'>
                                           类型：saas

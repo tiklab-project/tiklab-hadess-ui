@@ -5,18 +5,18 @@
     "main": "index.js",
     "scripts": {
         "start": "cross-env NODE_ENV=development CUSTOM_ENV=dev webpack-dev-server --progress --config webpack.dev.js ",
-        "build:dev": "cross-env NODE_ENV=production CUSTOM_ENV=dev webpack --config webpack.prod.js ",
-        "build:test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.prod.js ",
-        "build:prod": "cross-env NODE_ENV=production CUSTOM_ENV=prod webpack --config webpack.prod.js ",
-        "build-test": "cross-env NODE_ENV=production webpack --config webpack.test.js "
+        "build:dev": "cross-env NODE_ENV=production CUSTOM_ENV=dev webpack --config webpack.dev.js ",
+        "build:test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.test.js ",
+        "build:prod": "cross-env NODE_ENV=production  CUSTOM_ENV=prod webpack --config webpack.prod.js ",
+        "build-test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.test.js "
     },
     "dependencies": {
         "@ant-design/icons": "^4.3.0",
         "antd": "^4.16.7",
         "axios": "^0.21.1",
         "doublekit-core-ui": "^1.0.0",
-        "doublekit-frame-ui": "^1.0.2",
-        "doublekit-plugin-ui": "^1.0.0",
+        "doublekit-eam-ui": "^1.0.0",
+        "doublekit-plugin-manage": "^1.0.0",
         "doublekit-privilege-ui": "^1.0.0",
         "echarts": "^5.2.2",
         "i18next": "^19.8.4",

@@ -29,7 +29,7 @@ const Product = props => {
             title: '产品名称',
             dataIndex: 'name',
             render: (text, record) => {
-                return <a className='hover:text-blue-400' onClick={() => findDetails(record)}>{record.name}</a>
+                return <a className='text-blue-400' onClick={() => findDetails(record)}>{record.name}</a>
             },
             width:'20%'
         },
@@ -51,7 +51,7 @@ const Product = props => {
         },
         {
             title: '当前版本',
-            dataIndex: ['productVersion','version'],
+            dataIndex: 'productVersion',
             ellipsis: true,
             width:'10%'
         },

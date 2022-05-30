@@ -374,14 +374,14 @@ const Document = props => {
                     <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='flex items-center  border-b border-solid pb-4 pt-4 text-center ' >
-                   <h6 className='pl-72  text-2xl' >{categoryData.name }</h6>
-                    <div className=' cursor-pointer pl-72'>
+                   <h2 className='w-1/2 text-2xl text-right' >{categoryData.name}</h2>
+                    <div className='cursor-pointer w-1/2'>
                         <Dropdown  overlay={categoryMenu}  >
                             <span onClick={e => e.preventDefault()}>添加内容</span>
                         </Dropdown>
                     </div>
                 </div>
-                <div className='pl-96 pt-3'>
+                <div className=' pt-3 w-1/2'>
                     {categoryDetails(categoryData)}
                 </div>
             </div>
@@ -395,7 +395,7 @@ const Document = props => {
                     item.children&&item.children.map(twoItem=>{
                         return(
                             <div  key={twoItem.id}>
-                                <div className='flex items-center pt-1' >
+                                <div className='flex  pt-1 justify-end' >
                                     <div >{twoItem.name}</div>
                                 </div>
                             </div>
@@ -568,7 +568,7 @@ const Document = props => {
                     <div className='m-auto pb-6 px-4 pt-6'>
                         <Input placeholder="搜索内容" size="large" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch}/>
                     </div>
-                    <div className='w-full bg-gray-50 '  >
+                    <div className='w-full bg-gray-50'>
                         {categoryTree(categoryDataList,documentDataList)}
                     </div>
                 </div>
@@ -592,8 +592,6 @@ const Document = props => {
                             </Dropdown>
                         </section>
                     </div>
-
-
                 }
             </div>
             <CreateOrUpdateCategory visible={visible} onCancel={onCancel} onOk={onOK} editData={editData}

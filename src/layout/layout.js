@@ -6,19 +6,17 @@
  * @update: 2021-05-21 16:53
  */
 
-import React from 'react';
-import {Menu } from 'antd';
-import { Portal } from "doublekit-frame-ui";
-import logo from '../assets/images/logo.jpeg';
+import React ,{Fragment}from 'react';
+import { verifyUserHOC, EAM_STORE } from "doublekit-eam-ui";
+import {inject, observer} from 'mobx-react'
 import {renderRoutes} from "react-router-config";
 import {getUser} from "../utils";
-
 const HeaderConfig = [
-    {
+   /* {
         to:'/',
         title:'首页',
         key: '/'
-    },{
+    },*/{
         to:`/setting`,
         title:'运营管理',
         key: '/setting'
@@ -32,21 +30,22 @@ const HeaderConfig = [
 
 const SaasLayout = props => {
 
-
-    const onSearch = e => {
-        console.log(e)
-    }
     const changeCurrentLink = item => {
-        props.history.push(item.to)
+        if (item==='/logout'){
+            props.history.push(item)
+        }else {
+            props.history.push(item.to)
+        }
+
     }
     const renderRouter = () => {
 
         if (HeaderConfig) {
             return (
-                <div defaultValue='/setting' className={'portal-header-link'}>
+                <div defaultValue='/setting' className={'flex h-14  '}>
                     {
                         HeaderConfig.map(item => {
-                            return <div key={item.key} onClick={ () => changeCurrentLink(item)} > {item.title}</div>
+                            return <div key={item.key} className='py-4 px-3 cursor-pointer' onClick={ () => changeCurrentLink(item)} > {item.title}</div>
                         })
                     }
                 </div>
@@ -54,24 +53,26 @@ const SaasLayout = props => {
         }
     }
     return (
-
-        <Portal
-            {...props}
-            logo={logo}
-            HeaderRouterComponent={renderRouter()}
-            redirect={'/login'}
-            enterSearch={onSearch}
-            userMessageLink={'/message/usermessage'}
-            fetchMethod={method}
-            languageUrl={plugin_url}
-            isSSO = {false}
-        >
-            <div style={{    display: 'flex',height: '100%'}}>
+        <Fragment>
+            <header className='flex border-b'>
+                <div className='flex w-4/5'>
+                    <div className='font-extrabold italic text-3xl w-40 pl-12 pt-2 '>oms</div>
+                    {renderRouter()}
+                </div>
+                <div className='flex py-4 w-1/5 justify-end pr-12 '>
+                    <div className='border border-gray-200 bg-blue-400 px-4 py-2 cursor-pointer' onClick={()=>changeCurrentLink('/logout')}>
+                        退出
+                    </div>
+                </div>
+            </header>
+            <div stye={{display: 'flex',height: '100%'}}>
                 <div style={{width:'100%'}}>
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
-        </Portal>
+        </Fragment>
+
     )
 };
-export default SaasLayout
+
+export default verifyUserHOC(inject(EAM_STORE)(observer(SaasLayout)))

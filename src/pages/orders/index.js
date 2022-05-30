@@ -6,9 +6,9 @@
  * @update: 2021-08-09 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table,Space,Modal,Select} from "antd";
+import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal, Select, Tag, Tooltip} from "antd";
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import AddOrder from "./addOrder";
+import UpdateOrder from "./updateOrder";
 import orderService from "../../service/order.service"
 const { Option } = Select;
 const { confirm } = Modal;
@@ -32,11 +32,17 @@ const Orders = props => {
         {
             title: '企业名称',
             dataIndex: ['tenant','name'],
+            render: (text, record) => (
+                <>
+                    {record.tenant&&filedState(record.tenant.name)}
+                </>
+            )
         },
 
         {
             title: '产品名称',
             dataIndex: 'productName',
+
         },
         {
             title: '订单价格',
@@ -45,11 +51,25 @@ const Orders = props => {
         {
             title: '用户',
             dataIndex: ['member','name'],
+            render: (text, record) => (
+                <>
+                    {filedState(record.member.name)}
+                </>
+            )
         },
         {
             title: '订单状态',
             dataIndex: 'paymentStatus',
-            render:(text)=>text===1?'待支付':null||text===2?'已完成':null||text===3?'已取消':null
+            render:(text)=>(
+                <Space size="middle">
+                    {
+                        text===1&& <Tag color={'volcano'} key={text}>待支付</Tag>||
+                        text===2&&<Tag color={'green'} key={text}>已完成</Tag>||
+                        text===3&&<Tag color={'gray'} key={text}>已取消</Tag>
+                    }
+
+                </Space>
+            )
         },
         {
             title: '下单时间',
@@ -72,6 +92,24 @@ const Orders = props => {
     }, [])
 
 
+    const filedState = (value) => {
+        return(
+            value&&value.length>20?
+                <Tooltip placement="right" title={value}>
+                    <div style={{
+                        width: 100,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}>
+                        {value}
+                    </div>
+                </Tooltip>
+                :
+                <div>{value}</div>
+        )
+    }
+
     const editProduct = (item) => {
         setEditData(item)
         addProduct()
@@ -89,6 +127,7 @@ const Orders = props => {
             title: '是否删除该订单',
             icon: <ExclamationCircleOutlined />,
             content: '',
+            style: {top: 300},
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
@@ -170,15 +209,15 @@ const Orders = props => {
                     <Col span={6}>
                         <Input placeholder={'搜索订单ID'} style={{ width: 240 }} value={name} onChange={onInputName} onPressEnter={onSearch}/>
                     </Col>
-                    <div className='space-x-6 pt-2'>
-                        <label>时间排序</label>
+                    <div className='space-x-6 '>
+                        <label>订单类型</label>
                         <Select defaultValue='' style={{ width: 240 }}  onChange={findOrderType} >
                             <Option value='' >全部</Option>
                             <Option value='1'>sass</Option>
                             <Option value='2'>企业</Option>
                         </Select>
                     </div>
-                    <Col span={10}  className='flex justify-end pt-2' style={{display:'flex'}}>
+                    <Col span={10}  className='flex justify-end ' style={{display:'flex'}}>
                         <Button type="primary" >+导出</Button>
                     </Col>
                 </Row>
@@ -198,7 +237,7 @@ const Orders = props => {
                     </Col>
                 </Row>
             </div>
-            <AddOrder visible={visible} onCancel={onCancel} editData={editData}/>
+            <UpdateOrder visible={visible} onCancel={onCancel} editData={editData}/>
         </section>
     )
 }

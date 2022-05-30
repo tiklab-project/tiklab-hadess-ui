@@ -93,8 +93,7 @@ const System = props => {
     }
 
     return (
-        <div style={{    display: 'flex',height: '100%'}}>
-
+        <div style={{display: 'flex',height: '100%'}}>
             <MenuList
                 data={menuData}
                 onSelectMenu={onSelectMenu}

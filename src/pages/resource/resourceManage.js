@@ -1,15 +1,15 @@
 /**
- * @name: index
+ * @name: ResourceManage
  * @author: limingliang
- * @date: 2022-03-15 14:30
- * @description：在线工单
- * @update: 2022-03-15 14:30
+ * @date: 2022-05-16 14:30
+ * @description：资源配置管理
+ * @update: 2022-05-16 14:30
  */
 import React ,{useState,useEffect}from "react";
 import {Breadcrumb, Radio,Tooltip,Space,Tag,Table} from "antd";
 import workOrderServer from "../../service/workOrder.server";
 import PreviewEditor from "../../common/editSlate/previewEditor";
-const WorkOrderList=props=>{
+const ResourceManage=(props)=>{
     const type=props.history.location.params
 
     const [tableData, setTableData] = useState([]);  //数据
@@ -38,7 +38,7 @@ const WorkOrderList=props=>{
                     <PreviewEditor
                         value={JSON.parse(text)}
                     />
-                    </div>
+                </div>
                 </Tooltip>
             }
         },
@@ -47,6 +47,7 @@ const WorkOrderList=props=>{
             dataIndex:'state',
             key: 'state',
             render:(text)=>(
+
                 <Space size="middle">
                     {
                         text==='await'?
@@ -57,7 +58,9 @@ const WorkOrderList=props=>{
                                 已完成
                             </Tag>
                     }
+
                 </Space>
+
             )
         },
         {
@@ -146,4 +149,4 @@ const WorkOrderList=props=>{
         </section>
     )
 }
-export default WorkOrderList
+export default ResourceManage

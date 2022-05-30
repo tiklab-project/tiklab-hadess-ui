@@ -94,7 +94,22 @@ const Setting = props => {
             key:'9',
             title: '在线工单',
         },
-
+        {
+            id:'10',
+            key:'10',
+            title: '数据源管理',
+            children:[
+                {
+                    id:'10-1',
+                    key:'10-1',
+                    title: 'db数据源管理',
+                },
+                {
+                    id:'10-2',
+                    key:'10-2',
+                    title: 'dss数据源管理',
+                }]
+        },
     ]
 
 
@@ -160,6 +175,14 @@ const Setting = props => {
                 key:'9',
                 router:`/setting/workOrder`,
             },
+            {
+                key:'10-1',
+                router:'/setting/sourceManage/manageDb',
+            },
+            {
+                key:'10-2',
+                router:`/setting/sourceManage/manageDss`,
+            },
 
         ];
         onSelectMenuSetting(props.history, key, links)
@@ -172,8 +195,7 @@ const Setting = props => {
     }
 
     return (
-        <div style={{    display: 'flex',height: '100%'}}>
-
+        <div style={{display: 'flex',height: '100%'}}>
             <MenuList
                 data={menuData}
                 onSelectMenu={onSelectMenu}

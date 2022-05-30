@@ -1,4 +1,4 @@
-import { LoginStore, LOGIN_STATUS } from 'doublekit-frame-ui';
+import {EAM_STORE, EamStore} from "doublekit-eam-ui";
 
 import {DomainRoleStore, PRIVILEGE_DOMAIN_ROLE_STORE} from "./pages/system/store/domainRole";
 import {
@@ -59,7 +59,7 @@ function createStores() {
         [USER_STORE]: new UserStore(),
         [SLATE_STORE]: new SlateStore(),
         [AUTH_CONFIG_STORE]: new AuthConfigStore(),
-        [LOGIN_STATUS]: new LoginStore(),
+        [EAM_STORE]: new EamStore(),
 
     };
 }

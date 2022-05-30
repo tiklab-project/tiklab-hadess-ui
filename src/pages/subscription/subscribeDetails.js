@@ -6,17 +6,15 @@
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Form,Upload,Modal } from "antd";
-import { UploadOutlined } from '@ant-design/icons';
-import productService from "../../../service/product.service";
-import {getUser} from "../../../utils";
+import {Breadcrumb, Form} from "antd";
+
 import {withRouter} from "react-router";
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 15 },
 };
 
-const Details = props => {
+const SubscribeDetails = props => {
     const [subscriberData,setSubscriberData]=useState('')
     const subscribers=props.history.location.params
     useEffect(async ()=>{
@@ -59,4 +57,4 @@ const Details = props => {
     )
 };
 
-export default withRouter(Details)
+export default withRouter(SubscribeDetails)

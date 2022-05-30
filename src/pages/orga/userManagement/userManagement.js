@@ -4,7 +4,7 @@
 import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {observer, inject} from "mobx-react";
 import {Row, Col, Input, Tabs, Space, Table, Button} from "antd";
-import { Plugin } from 'doublekit-plugin-ui';
+
 import {Axios} from 'doublekit-core-ui';
 import {useTranslation} from "react-i18next";
 
@@ -114,7 +114,7 @@ const User = props => {
                 <Space size="middle">
                     <a onClick={() => onEditUser(record)}>{t('orga-common.edit')}</a>
                     <a onClick={() => onDeleteUser(record.id)}>{t('orga-common.delete')}</a>
-                    <Plugin point='userTable'/>
+
                 </Space>
             ),
         },

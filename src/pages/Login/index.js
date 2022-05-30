@@ -1,20 +1,19 @@
 import React from 'react';
-import {ProjectLogin} from "doublekit-frame-ui";
+import {Login, EAM_STORE} from "doublekit-eam-ui";
+//import logo from "../../assets/images/logo.png";
 import {inject, observer} from "mobx-react";
 
 
-const Login  = props => {
-
+const LoginOMS  = props => {
     return (
         <div>
-            <ProjectLogin
+            <Login
                 {...props}
                 loginGoRouter={'/setting'}
-                fetchMethod={method}
-                languageUrl={plugin_url}
+                title = {'OMS管理'}
             />
         </div>
     )
 }
 
-export default inject()(observer(Login))
+export default inject(EAM_STORE)(observer(LoginOMS));

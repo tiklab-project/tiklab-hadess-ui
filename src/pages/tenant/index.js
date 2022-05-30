@@ -6,15 +6,13 @@
  * @update: 2021-08-09 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal, Switch} from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
-import userService from "../../service/user.service"
+import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal, Switch, Tooltip} from "antd";
+import tenantService from "../../service/tenant.service"
 import {withRouter} from "react-router";
 
 const { confirm } = Modal;
 const Tenant = props => {
     const [name, setName] = useState('');
-    const [editData, setEditData] = useState(null);
     const [tableData, setTableData] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
@@ -30,12 +28,22 @@ const Tenant = props => {
             }
         },
         {
-            title: '域名地址',
-            dataIndex: 'domainUrl',
+            title: '访问地址',
+            dataIndex: 'id',
+            render: (text, record) => (
+                <>
+                    {filedState(record.id)}
+                </>
+            )
         },
         {
             title: '用户',
             dataIndex: ['master','name'],
+            render: (text, record) => (
+                <>
+                    {filedState(record.master.name)}
+                </>
+            )
         },
         {
             title: '创建时间',
@@ -75,9 +83,27 @@ const Tenant = props => {
         await getFindMemberData(param)
     },[])
 
+
+    const filedState = (value) => {
+        return(
+            value.length>25?
+                <Tooltip placement="right" title={value}>
+                    <div style={{
+                        width: 150,
+                        overflow: "hidden",
+                        textOverflow: "ellipsis",
+                        whiteSpace: "nowrap"
+                    }}>
+                        {value}
+                    </div>
+                </Tooltip>
+                :
+                <div>{value}</div>
+        )
+    }
     const findDetails=async (record)=>{
         props.history.push({
-            pathname:"/setting/tenant/details",
+            pathname:"/setting/tenant/tenantDetails",
             params:record
         });
     }
@@ -101,7 +127,7 @@ const Tenant = props => {
 
       const updateTenant=async param=>{
           //修改租户
-          const pre=await userService.updateTenantService(param)
+          const pre=await tenantService.updateTenantService(param)
           if (pre.code===0){
               const params={
                   pageParam: {
@@ -115,7 +141,7 @@ const Tenant = props => {
 
     //分页条件查询租户
     const getFindMemberData=async (param)=>{
-        const pre = await  userService.findTenantListPage(param)
+        const pre = await  tenantService.findTenantListPage(param)
         if(pre.code===0){
             setTotalRecord(pre.data.totalRecord)
             setTableData(pre.data.dataList)
@@ -148,6 +174,10 @@ const Tenant = props => {
             }
         }
         await getFindMemberData(newParams)
+    }
+    //跳转数据源管理
+    const goManageDb =async () => {
+        await props.history.push('/setting/tenant/manageDb')
     }
 
     return(
