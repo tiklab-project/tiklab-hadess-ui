@@ -120,7 +120,7 @@ const TenantDbList = props => {
     }
     return(
         <section className='flex-row p-6'>
-            <div className='w-full  max-w-screen-xl m-auto '>
+            <div className='w-full  max-w-full m-auto '>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item href="#/setting/sourceManage/manageDb">db数据源列表</Breadcrumb.Item>
                     <Breadcrumb.Item >租户db数据源管理</Breadcrumb.Item>

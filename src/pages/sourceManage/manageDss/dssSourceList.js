@@ -48,7 +48,7 @@ const DssSourceList = props => {
             render: (text, record) => (
                 <Space size="useState" className='flex  gap-x-2'>
                     <div className='border border-gray-200 bg-blue-400 px-2 text-white cursor-pointer'onClick={()=>updateDb(record)} >
-                        修改
+                        编辑
                     </div>
                     <div  className='border border-gray-200 px-2 cursor-pointer' onClick={()=>openDeletePop(record)} >
                         删除
@@ -118,7 +118,7 @@ const DssSourceList = props => {
     }
     return(
         <section className='flex-row p-6'>
-            <div className='w-full  max-w-screen-xl m-auto'>
+            <div className='w-full  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item >数据源管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">dss列表</Breadcrumb.Item>

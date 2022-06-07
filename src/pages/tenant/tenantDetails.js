@@ -141,7 +141,7 @@ const TenantDetails = props => {
 
     return (
         <section className='w-full flex flex-row'>
-            <div className=' w-full p-6  max-w-screen-xl m-auto'>
+            <div className=' w-full p-6  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item  href='#/setting/tenant'>租户管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">{tenantData.name}</Breadcrumb.Item>

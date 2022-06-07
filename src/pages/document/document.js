@@ -99,6 +99,7 @@ const Document = props => {
         setRepositoryData(repositoryData)
     }
 
+
     //添加查询内容
     const onInputName=(e)=>{
         const value = e.target.value;
@@ -127,13 +128,16 @@ const Document = props => {
     const mouseOverId = async (id) => {
         setMouseOverMenuId(id)
     }
+    //左侧目录栏移除id
+    const removeOverId = async () => {
+        setMouseOverMenuId('')
+    }
     //左侧目录栏移入
     const  mouseOverMouse=async ()=>{
         setExpand(true)
     }
     // 左侧目录栏移出
     const leaveMouseNav = () => {
-
         setExpand(false)
     }
     //这是在目录下面打开的创建
@@ -289,17 +293,17 @@ const Document = props => {
     //第一级目录树
     const categoryTree=(value,documentDataList)=>{
         return(
-            <div className='pl-7'>
+            <div className='pl-7 cursor-pointer'>
                 {documentDataList&&document(documentDataList)}
                 {value&&value.map(item=>{
                         return(
                             <div key={item.id} className='pt-1'>
-                                <div  className={`flex  justify-between ${highlightId===item.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(item.id)} >
+                                <div  className={`flex  justify-between ${highlightId===item.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(item.id)}  onClick={()=>openOrCloseTree(item.id)}>
                                     <div className='flex items-center'>
                                         {
-                                            !isExpandedTree(item.id)
-                                                ?<CaretDownOutlined onClick={()=>openOrCloseTree(item.id)} />
-                                                :<CaretRightOutlined onClick={()=>openOrCloseTree(item.id)}/>
+                                            isExpandedTree(item.id)
+                                                ?<CaretDownOutlined />
+                                                :<CaretRightOutlined/>
                                         }
                                         <div onClick={()=>findCategory(item)}>{item.name}</div>
                                     </div>
@@ -313,9 +317,8 @@ const Document = props => {
                                             </div>
                                         }
                                     </div>
-
                                 </div>
-                                {!isExpandedTree(item.id)&&categorySecondTree(item)}
+                                {isExpandedTree(item.id)&&categorySecondTree(item)}
                             </div>
                         )
                     }
@@ -334,12 +337,12 @@ const Document = props => {
                     item.children&&item.children.map(twoItem=>{
                         return(
                             <div  key={twoItem.id} className='pt-1'>
-                                <div className={`flex  justify-between ${highlightId===twoItem.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(twoItem.id)} >
+                                <div className={`flex  justify-between ${highlightId===twoItem.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(twoItem.id)} onClick={()=>openOrCloseTree(twoItem.id)} >
                                     <div className='flex items-center'>
                                         {
-                                            !isExpandedTree(twoItem.id)
-                                                ?< CaretDownOutlined onClick={()=>openOrCloseTree(twoItem.id)}/>
-                                                :<CaretRightOutlined onClick={()=>openOrCloseTree(twoItem.id)}/>
+                                            isExpandedTree(twoItem.id)
+                                                ?< CaretDownOutlined/>
+                                                :<CaretRightOutlined/>
                                         }
                                         <div onClick={()=>findCategory(twoItem)}>{twoItem.name}</div>
                                     </div>
@@ -511,6 +514,7 @@ const Document = props => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
+            style:{top: 200} ,
             onOk() {
                 deleteComment(data,type)
             },
@@ -546,12 +550,10 @@ const Document = props => {
 
     }
 
-
-
     return(
         <section className='w-full flex flex-row'>
             <div className='flex flex-col  pl-6 ' >
-                <div className='flex items-center justify-between w-96  border-b-2 py-2 cursor-pointer relative pr-3'>
+                <div className='flex items-center justify-between max-w-full  border-b-2 py-2 cursor-pointer relative pr-3'>
                     <div className='w-96 text-xl py-2 pr-3'>
                         {repositoryData.name}
                     </div>
@@ -568,7 +570,7 @@ const Document = props => {
                     <div className='m-auto pb-6 px-4 pt-6'>
                         <Input placeholder="搜索内容" size="large" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch}/>
                     </div>
-                    <div className='w-full bg-gray-50'>
+                    <div className='w-full bg-gray-50' onMouseOut={removeOverId}>
                         {categoryTree(categoryDataList,documentDataList)}
                     </div>
                 </div>

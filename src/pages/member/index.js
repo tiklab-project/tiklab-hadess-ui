@@ -213,7 +213,7 @@ const Member = props => {
 
     return(
         <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
+            <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>会员管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 会员列表</Breadcrumb.Item>

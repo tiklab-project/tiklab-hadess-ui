@@ -52,6 +52,7 @@ const CreateOrUpdateCategory = props => {
             okText='创建'
             cancelText='取消'
             width={500}
+            style={{ top: 300 }}
             destroyOnClose={true}
             onOk={handleOk}
         >

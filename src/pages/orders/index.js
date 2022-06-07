@@ -30,6 +30,13 @@ const Orders = props => {
             }
         },
         {
+            title: '订单类型',
+            dataIndex: 'bGroup',
+            render: (text, record) => {
+                return record.bGroup===1?'saas版':'线下企业版'
+            }
+        },
+        {
             title: '企业名称',
             dataIndex: ['tenant','name'],
             render: (text, record) => (
@@ -38,7 +45,6 @@ const Orders = props => {
                 </>
             )
         },
-
         {
             title: '产品名称',
             dataIndex: 'productName',
@@ -60,6 +66,7 @@ const Orders = props => {
         {
             title: '订单状态',
             dataIndex: 'paymentStatus',
+            sorter: (a, b) => a.paymentStatus - b.paymentStatus,
             render:(text)=>(
                 <Space size="middle">
                     {
@@ -67,13 +74,13 @@ const Orders = props => {
                         text===2&&<Tag color={'green'} key={text}>已完成</Tag>||
                         text===3&&<Tag color={'gray'} key={text}>已取消</Tag>
                     }
-
                 </Space>
             )
         },
         {
             title: '下单时间',
             dataIndex: 'createTime',
+            sorter: (a, b) => a.createTime - b.createTime,
         },
         {
             title: '操作',
@@ -149,16 +156,18 @@ const Orders = props => {
     }
 
     //查询订单
-    const getOrderData = async (currentPage,e) => {
+    const getOrderData = async (currentPage,e,sorter) => {
         const params = {
             pageParam: {
                 pageSize: pageSize,
                 currentPage: currentPage,
             },
-            orderType:e,
+            bGroup:e,
             orderCode:name,
-            subscribetype:2
+            subscribeType:2,
+            orderParams:sorter&&sorter.field?[{name:sorter.field,orderType:sorter.order==='ascend'?'asc':'desc'}]:[{name:'paymentStatus',orderType:'asc'}]
         }
+
         const data = await orderService.findOrderPage(params)
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)
@@ -187,10 +196,12 @@ const Orders = props => {
         setEditData(null)
         await getOrderData(1)
     }
-    //分页
+    //分页 排序查询
     const handleTableChange = async (pagination, filters, sorter) => {
+        const a=sorter.field
+        debugger
         setPage(pagination.current)
-        await getOrderData(pagination.current)
+        await getOrderData(pagination.current,null,sorter)
     }
 
     //通过订单类型查询
@@ -200,7 +211,7 @@ const Orders = props => {
     }
     return(
         <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
+            <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>订单管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 订单列表</Breadcrumb.Item>
@@ -232,7 +243,7 @@ const Orders = props => {
                                 pageSize: pageSize,
                                 total: totalRecord,
                             }}
-                            onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
+                            onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
                         />
                     </Col>
                 </Row>

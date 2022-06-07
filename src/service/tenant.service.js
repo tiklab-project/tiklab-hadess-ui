@@ -9,9 +9,7 @@ import {Axios} from 'doublekit-core-ui';
 
 export const createTenantApi = '/tenant/createTenant'; // 创建租户
 export const findTenantMember = '/tenantMember/findTenantMemberList';  // 根据查询对象查询租户成员
-
 export const findTenantListPageApi = '/tenant/findTenantListPage';  // 根据查询对象分页查询租户列表
-
 export const updateTenantApi = '/tenant/updateTenant';  // 更新租户
 export const findAllTenantApi = '/tenant/findAllTenant';  // 查找所有租户
 export const deleteTenantUserApi = '/tenant/deleteTenant';  // 根据租户ID删除租户

@@ -140,7 +140,7 @@ const InvoiceManage =props=>{
     }
     return(
         <section className='container mx-auto flex flex-col my-6'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
+            <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>发票管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 统计</Breadcrumb.Item>

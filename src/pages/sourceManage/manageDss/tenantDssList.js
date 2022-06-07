@@ -120,7 +120,7 @@ const TenantDssList = props => {
 
     return(
         <section className='flex-row p-6'>
-            <div className='w-full  max-w-screen-xl m-auto'>
+            <div className='w-full  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item href="#/setting/sourceManage/manageDss">dss数据源列表</Breadcrumb.Item>
                     <Breadcrumb.Item href="">租户dss数据源管理</Breadcrumb.Item>

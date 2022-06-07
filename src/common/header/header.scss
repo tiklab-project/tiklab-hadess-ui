@@ -1,0 +1,24 @@
+.header-nav{
+
+        position: absolute;
+        display: none;
+        top: 60px;
+        left: -13px;
+        background-color: #fff;
+        box-shadow: 0 10px 16px 0 rgb(0 0 0 / 18%);
+        border-radius: 6px;
+        z-index: 9999;
+
+}
+.item {
+    position: relative;
+    display: flex;
+    height: 60px;
+    margin: 0 26px 0 0;
+    align-items: center;
+    cursor: pointer;
+ }
+
+.logout-menu{
+    left: -20px;
+}

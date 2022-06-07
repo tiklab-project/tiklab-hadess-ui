@@ -75,6 +75,7 @@ const DocumentList = props => {
                 currentPage: page,
              }
         }
+
      const res=  await documentService.findRepositoryPage(param)
         if (res.code===0){
             setRepositoryData(res.data.dataList)
@@ -140,7 +141,7 @@ const DocumentList = props => {
     }
     return(
         <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
+            <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>文档管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 文档列表</Breadcrumb.Item>

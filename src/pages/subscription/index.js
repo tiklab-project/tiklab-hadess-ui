@@ -15,7 +15,7 @@ const Subscription = props => {
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState(props.total);
     const [name, setName] = useState('');
-    const [tableData, setTableData] = useState(props.subscribeList);
+    const [tableData, setTableData] = useState([]);
     const columns = [
        /* {
             title: '订阅ID',
@@ -56,7 +56,7 @@ const Subscription = props => {
         },
         {
             title: '订阅类型',
-            dataIndex: 'type',
+            dataIndex: 'bGroup',
             render: text => {
                 return text === 1 ? 'sass' : "企业"
             }
@@ -77,7 +77,7 @@ const Subscription = props => {
             title: '订阅时长',
             dataIndex: 'duration',
             render: (text, record)  => {
-                return record.subscribeType===3?" N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
+                return record.subscribeType===2?"N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
             }
         },
         {
@@ -217,7 +217,7 @@ const Subscription = props => {
 
     return(
         <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
+            <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>产品订阅管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 产品订阅列表</Breadcrumb.Item>

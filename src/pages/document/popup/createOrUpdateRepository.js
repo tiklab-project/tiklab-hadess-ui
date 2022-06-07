@@ -70,6 +70,7 @@ const CreateOrUpdateRepository = props => {
             cancelText='取消'
             width={600}
             destroyOnClose={true}
+            style={{ top: 300 }}
             onOk={handleOk}
         >
             <Row>

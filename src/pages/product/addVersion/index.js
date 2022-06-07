@@ -110,8 +110,8 @@ const Version = props => {
     ]
     return (
         <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
+            <div className='w-full p-6 max-w-full m-auto'>
+                <Breadcrumb separator=">" className='border-b  border-solid pb-4'>
                     <Breadcrumb.Item  href='#/setting/product'>产品列表 </Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 版本添加</Breadcrumb.Item>
                 </Breadcrumb>
