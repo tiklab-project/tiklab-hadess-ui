@@ -16,7 +16,7 @@ const layout = {
     wrapperCol: { span: 20 },
 };
 
- import {PROJECT_URL_DEV} from "../../../const";
+ import {BASE_URL_DEV} from "../../../const";
 const Version = props => {
     const [form] = Form.useForm();
     const param=props.history.location.params
@@ -55,7 +55,7 @@ const Version = props => {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: PROJECT_URL_DEV + '/dfs/upload',
+        action: BASE_URL_DEV + '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },
@@ -104,8 +104,8 @@ const Version = props => {
             uid: '1',
             name: surfacePlot,
             status: 'done',
-            url:`${PROJECT_URL_DEV}/image/${surfacePlot}`,
-            thumbUrl:`${PROJECT_URL_DEV}/image/${surfacePlot}`
+            url:`${BASE_URL_DEV}/image/${surfacePlot}`,
+            thumbUrl:`${BASE_URL_DEV}/image/${surfacePlot}`
         }
     ]
     return (

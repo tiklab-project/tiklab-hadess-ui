@@ -16,7 +16,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
-import {PROJECT_URL_DEV} from "../../../const";
+import {BASE_URL_DEV} from "../../../const";
 const type=[{key:'ce',value:'ce社区版'},{key:'ee',value:'ee企业版'},{key:'saas',value:'saas版'}]
 const AddProduct = props => {
     const [form] = Form.useForm();
@@ -76,7 +76,7 @@ const AddProduct = props => {
         multiple:true,
         //  showUploadList:false,
         name: "uploadFile",
-        action:  `${PROJECT_URL_DEV}/dfs/upload`,
+        action:  `${BASE_URL_DEV}/dfs/upload`,
         headers: {
             ticket: getUser().ticket,
         },
@@ -103,8 +103,8 @@ const AddProduct = props => {
             uid: '-1',
             name: surfacePlot,
             status: 'done',
-            url:`${PROJECT_URL_DEV}/image/${surfacePlot}`,
-            thumbUrl:`${PROJECT_URL_DEV}/image/${surfacePlot}`
+            url:`${BASE_URL_DEV}/image/${surfacePlot}`,
+            thumbUrl:`${BASE_URL_DEV}/image/${surfacePlot}`
         }
     ]
     return(
