@@ -66,6 +66,7 @@ const ProductDetails = props => {
             productId:productData.id
         }
         const res=await productService.findProductVersionList(param)
+
         if (res.code===0){
             setTableData(res.data)
         }

@@ -72,38 +72,41 @@ const Header = props => {
                     <div className='font-extrabold italic text-3xl w-40 pl-4 pt-2 '>oms</div>
                     {renderRouter()}
                 </div>
-                <div className=' w-1/5  pr-16 '>
-                    <div className=' flex py-2 justify-end ' >
-                        <div  className='cursor-pointer'>
-                            <SettingOutlined className='pr-6  text-2xl'  onMouseOver={()=>openPortal('system')} />
-                            {
-                                openValue==='system'&&
-                                <div className='absolute pt-4 w-28 ' onMouseOut={closePortal} >
-                                    <div className='rounded-none border grid gap-y-2 py-2 pl-2 relative' >
-                                        <div className=' '>
+                <div className=' w-1/5   '>
+                    <div className=' flex  justify-end ' >
+                        <div  className='dk-head-nav-item'>
+                            <SettingOutlined className={'dk-head-nav-item-link pr-6  text-2xl'}   />
+                            <div className='dk-head-product-nav '  >
+                                <div className={'dk-head-product-content-nav'} >
+                                    <div className={'dk-head-product-left'}>
+                                        <div className={'dk-head-product-left-item'}>
                                             用户管理
                                         </div>
-                                        <div>
+                                        <div className={'dk-head-product-left-item'}>
                                             系统设置
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
                         </div>
-                        <Avatar size={36} icon={<UserOutlined/>} />
-                        <div className='py-2 pl-3'>{getUser().name}</div>
-                        <div>
-                            <DownOutlined className={'py-3 pl-1 cursor-pointer'} onMouseOut={()=>openPortal('user')}/>
-                            {
-                                openValue==='user'&&
-                                <div className={'absolute  pt-2.5 '}>
-                                    <div className='rounded-none logout-menu border grid gap-y-2 py-2 pl-2 relative  w-24' onMouseOut={closePortal}>
-                                        <div className=' ' onClick={()=>changeCurrentLink('/logout')}>
+                        <div className={'dk-head-nav-item'}>
+                            <Avatar size={36} icon={<UserOutlined/>} />
+                        </div>
+
+
+                        <div className='dk-head-nav-item flex mr-12'>
+                            <div className='py-2 pl-3'>{getUser().name}</div>
+                            <DownOutlined className={'py-3 pl-1 cursor-pointer dk-head-nav-item-link'}/>
+                            <div className={'dk-head-product-nav '}>
+                                <div className={'dk-head-product-content-nav'}>
+                                    <div className={'dk-head-product-left'}>
+                                        <div className='dk-head-product-left-item ' onClick={()=>changeCurrentLink('/logout')}>
                                             退出
                                         </div>
                                     </div>
                                 </div>
-                            }
+                            </div>
+
                         </div>
 
                     </div>
