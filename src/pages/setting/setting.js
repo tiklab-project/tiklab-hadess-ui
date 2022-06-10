@@ -8,7 +8,7 @@
 import React,{useState} from 'react';
 import {renderRoutes} from 'react-router-config'
 import MenuList from "../../common/menu/menu";
-
+import './setting.scss'
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
@@ -46,11 +46,6 @@ const Setting = props => {
             key:'7',
             title: '文档管理',
         },
-       /* {
-            id:'6',
-            key:'6',
-            title: '统计管理',
-        },*/
         {
            id:'6',
            key:'6',
@@ -195,7 +190,7 @@ const Setting = props => {
     }
 
     return (
-        <div style={{display: 'flex',height: '100%'}}>
+        <div className='setting-height'>
             <MenuList
                 data={menuData}
                 onSelectMenu={onSelectMenu}

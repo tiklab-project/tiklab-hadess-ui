@@ -41,7 +41,7 @@ const Tenant = props => {
             dataIndex: ['master','name'],
             render: (text, record) => (
                 <>
-                    {filedState(record.master.name)}
+                    {record.master.name&&filedState(record.master.name)}
                 </>
             )
         },
@@ -85,6 +85,7 @@ const Tenant = props => {
 
 
     const filedState = (value) => {
+        debugger
         return(
             value.length>25?
                 <Tooltip placement="right" title={value}>
@@ -142,6 +143,7 @@ const Tenant = props => {
     //分页条件查询租户
     const getFindMemberData=async (param)=>{
         const pre = await  tenantService.findTenantListPage(param)
+        debugger
         if(pre.code===0){
             setTotalRecord(pre.data.totalRecord)
             setTableData(pre.data.dataList)

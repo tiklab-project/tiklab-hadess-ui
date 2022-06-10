@@ -12,6 +12,7 @@ import {AppstoreFilled, DownOutlined, SettingOutlined, UserOutlined} from "@ant-
 import {Avatar} from "antd";
 import {getUser} from "doublekit-core-ui";
 import {useWorkAppConfig } from "doublekit-eam-ui";
+//import {} from "doublekit-user-ui"
 import './header.scss'
 const HeaderConfig = [
     /* {
@@ -23,7 +24,7 @@ const HeaderConfig = [
         title:'运营管理',
         key: '/setting'
     },
-    /*{
+   /* {
         to:`/system`,
         title:'系统管理',
         key: '/system'

@@ -31,17 +31,17 @@ const TableElement = (props) => {
                 return <thead >{children}</thead>
             case 'table-tbody':
                 return <tbody>{children}</tbody>
-            case 'table-th':
-                return <th >{children}</th>
+            case 'table-ths':
+                return <ths>{children}</ths>
             case 'table-row':
                 return <tr {...attributes} >{children}</tr>
             case 'table-cell':
-                return <td {...attributes}
+                return <tds {...attributes}
                     style={{ width: "100px", height: "40px" }}
                     
                 >
                     {children}
-                </td>
+                </tds>
             case 'table-delete':
                 return <div {...attributes} style={{ width: "100px" }} onClick={() => { console.log(element.itemId) }}>{children}</div>
             case 'table-cell-add':
