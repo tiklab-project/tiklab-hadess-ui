@@ -157,7 +157,7 @@ const Version = props => {
                         <Input/>
                     </Form.Item>
                     <Row>
-                        <Col span={24} style={{ textAlign: 'right' }}>
+                        <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
                             <Button type="primary" htmlType="submit">
                                 提交
                             </Button>

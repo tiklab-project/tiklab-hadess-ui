@@ -9,6 +9,8 @@ import {Axios} from 'doublekit-core-ui';
 
 
 export const findProductPageApi = '/product/findProductPage';
+export const findChargeProductListApi = '/product/findChargeProductList';  //查询收费的产品
+
 export const createProductApi = '/product/createProduct';
 export const deleteProductApi = '/product/deleteProduct';
 export const findAllProductApi = '/product/findAllProduct';
@@ -35,6 +37,10 @@ class ProductService {
         return response
     }
 
+    async findChargeProductList(){
+        const response = await Axios.post(findChargeProductListApi)
+        return response
+    }
     // 分页查询产品
     async findProductPageService(data){
         const response = await Axios.post(findProductPageApi, data)
@@ -77,12 +83,13 @@ class ProductService {
         return response
     }
 
+
+
+
     async deleteProductVersion(data){
         const response = await Axios.post(deleteProductVersionApi, data)
         return response
     }
-
-
 }
 const productService = new ProductService()
 export default productService

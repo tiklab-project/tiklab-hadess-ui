@@ -122,7 +122,7 @@ const WorkOrderList=props=>{
         })
     }
     return(
-        <section className='container mx-auto flex flex-col my-6'>
+        <section className='w-full flex flex-row'>
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>在线工单</Breadcrumb.Item>

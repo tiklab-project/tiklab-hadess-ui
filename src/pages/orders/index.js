@@ -18,7 +18,7 @@ const Orders = props => {
     const [tableData, setTableData] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState(props.total);
+    const [totalRecord, setTotalRecord] = useState();
     const [visible, setVisible] = useState(false);
     const [orderType,setOrderType]=useState('')
     const columns = [
@@ -51,7 +51,11 @@ const Orders = props => {
 
         },
         {
-            title: '订单价格',
+            title: '订单原价',
+            dataIndex: 'originalPrice',
+        },
+        {
+            title: '订单优惠价',
             dataIndex: 'orderPrice',
         },
         {
@@ -94,8 +98,8 @@ const Orders = props => {
         },
     ];
 
-    useEffect(()=>{
-        getOrderData(1)
+    useEffect(async ()=>{
+     await   getOrderData(1)
     }, [])
 
 

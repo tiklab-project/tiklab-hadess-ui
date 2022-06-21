@@ -21,6 +21,8 @@ const DocumentList = props => {
     const [visible, setVisible] = useState(false); //创建弹窗状态
     const [editData, setEditData] = useState(null);  //编辑空间传到弹窗的数据
     const [name,setName]=useState('');// 搜索名称
+
+    const [compileType,setCompileType]=useState('')   //编辑类型
     const columns = [
         {
             title: '知识库名称',
@@ -84,9 +86,9 @@ const DocumentList = props => {
     }
     //编辑文档空间
     const editRepository=(record)=> {
-        debugger
         setEditData(record)
-        openCreatePopup()
+        setVisible(true)
+        setCompileType('update')
     }
     //删除弹窗
     const deletePop=async (data)=>{
@@ -97,6 +99,7 @@ const DocumentList = props => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
+
             onOk() {
                 deleteRepository(data)
             },
@@ -116,10 +119,12 @@ const DocumentList = props => {
 
     //打开创建弹窗
    const openCreatePopup=()=>{
+       setCompileType('add')
        setVisible(true)
    }
     //取消创建弹窗
     const onCancel = async () => {
+        setEditData(null)
         setVisible(false)
     }
     //确认添加
@@ -184,7 +189,7 @@ const DocumentList = props => {
 
                 }
             </div>
-            <CreateOrUpdateRepository visible={visible} onCancel={onCancel} onok={onOk} editData={editData}/>
+            <CreateOrUpdateRepository visible={visible} onCancel={onCancel} onok={onOk} editData={editData} compileType={compileType}/>
         </section>
     )
 }

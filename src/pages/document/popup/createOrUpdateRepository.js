@@ -20,7 +20,8 @@ const { TextArea } = Input;
 const CreateOrUpdateRepository = props => {
     const [form] = Form.useForm();
     const [id,setId]=useState('')
-    const {visible, onCancel,onok,editData} = props;
+    const {visible, onCancel,onok,editData,compileType} = props;
+
     useEffect(()=>{
         if (editData) {
             form.setFieldsValue({
@@ -35,6 +36,7 @@ const CreateOrUpdateRepository = props => {
         }
 
     }, [editData])
+
     //提交创建
     const handleOk=async ()=>{
         form.validateFields().then(async values => {
@@ -64,13 +66,13 @@ const CreateOrUpdateRepository = props => {
     return(
         <Modal
             visible={visible}
-            title='创建文档空间'
+            title={compileType==='add'?'创建文档空间':'修改文档空间'}
             onCancel={onCancel}
             okText='创建'
             cancelText='取消'
             width={600}
             destroyOnClose={true}
-            style={{ top: 300 }}
+            style={{ top: 200 }}
             onOk={handleOk}
         >
             <Row>

@@ -17,7 +17,7 @@ const Member = props => {
     const [tableData, setTableData] = useState([]);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState(props.total);
+    const [totalRecord, setTotalRecord] = useState();
 
 
     const columns = [

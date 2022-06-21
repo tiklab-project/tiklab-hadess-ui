@@ -42,68 +42,90 @@ const Setting = props => {
             title: '会员管理',
         },
         {
+            id:'6',
+            key:'6',
+            title: '促销管理',
+            children:[
+                {
+                    id:'6-1',
+                    key:'6-1',
+                    title: '活动管理',
+                },
+                {
+                    id:'6-2',
+                    key:'6-2',
+                    title: '现金卷管理',
+                },
+            ]},
+
+        {
             id:'7',
             key:'7',
             title: '文档管理',
         },
         {
-           id:'6',
-           key:'6',
+           id:'8',
+           key:'8',
            title: '统计管理',
            children:[
                {
-                   id:'6-1',
-                   key:'6-1',
+                   id:'8-1',
+                   key:'8-1',
                    title: '会员统计',
                },
                {
-                   id:'6-2',
-                   key:'6-2',
+                   id:'8-2',
+                   key:'8-2',
                    title: '租户统计',
                },
                {
-                   id:'6-3',
-                   key:'6-3',
+                   id:'8-3',
+                   key:'8-3',
                    title: '订单统计',
                },
                {
-                   id:'6-4',
-                   key:'6-4',
+                   id:'8-4',
+                   key:'8-4',
                    title: '支付统计',
                },
                {
-                   id:'6-5',
-                   key:'6-5',
+                   id:'8-5',
+                   key:'8-5',
                    title: '浏览量统计',
                }
 
            ]
        },
         {
-            id:'8',
-            key:'8',
-            title: '发票管理',
-        },
-        {
             id:'9',
             key:'9',
-            title: '在线工单',
+            title: '发票管理',
         },
         {
             id:'10',
             key:'10',
+            title: '在线工单',
+        },
+        {
+            id:'11',
+            key:'11',
             title: '数据源管理',
             children:[
                 {
-                    id:'10-1',
-                    key:'10-1',
+                    id:'11-1',
+                    key:'11-1',
                     title: 'db数据源管理',
                 },
                 {
-                    id:'10-2',
-                    key:'10-2',
+                    id:'11-2',
+                    key:'11-2',
                     title: 'dss数据源管理',
                 }]
+        },
+        {
+            id:'12',
+            key:'12',
+            title: '对公转账支付',
         },
     ]
 
@@ -135,48 +157,56 @@ const Setting = props => {
                 router:`/setting/member`,
             },
             {
+                key:'6-1',
+                router:`/setting/activity`,
+            },
+            {
+                key:'6-2',
+                router:`/setting/activity/cashVolumeList`,
+            },
+            {
                 key:'7',
                 router:`/setting/documentList`,
             },
             {
-                key:'6-1',
+                key:'8-1',
                 router:`/setting/memberStatistics`,
             },
             {
-                key:'6-2',
+                key:'8-2',
                 router:`/setting/tenantStatistics`,
             },
               {
-               key:'6-3',
+               key:'8-3',
                router:`/setting/orderStatistics`,
            },
             {
-                key:'6-4',
+                key:'8-4',
                 router:`/setting/payStatistics`,
             },
             {
-                key:'6-5',
+                key:'8-5',
                 router:`/setting/viewStatistics`,
             },
             {
-                key:'6',
-                router:`/setting/statistics`,
-            },
-            {
-                key:'8',
+                key:'9',
                 router:`/setting/invoiceManage`,
             },
             {
-                key:'9',
+                key:'10',
                 router:`/setting/workOrder`,
             },
             {
-                key:'10-1',
+                key:'11-1',
                 router:'/setting/sourceManage/manageDb',
             },
             {
-                key:'10-2',
+                key:'11-2',
                 router:`/setting/sourceManage/manageDss`,
+            },
+            {
+                key:'12',
+                router:`/setting/publicTransfer`,
             },
 
         ];

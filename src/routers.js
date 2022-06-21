@@ -48,6 +48,17 @@ const Tenant = SyncComponent(() => import('./pages/tenant'))
 //租户详情
 const TenantDetails = SyncComponent(() => import('./pages/tenant/tenantDetails'))
 
+// 活动管理列表
+const activityList = SyncComponent(() => import('./pages/promotion/activity/activityList'))
+// 活动编辑
+const compileActivity = SyncComponent(() => import('./pages/promotion/activity/compileActivity'))
+//现金卷列表
+const cashVolumeList = SyncComponent(() => import('./pages/promotion/coupon/cashVolumeList'))
+//编辑现金卷  （创建和修改）
+const compileCashVolume = SyncComponent(() => import('./pages/promotion/coupon/compileCashVolume'))
+//现金卷详情
+const cashVolumeDetails = SyncComponent(() => import('./pages/promotion/coupon/cashVolumeDetails'))
+
 
 //统计管理
 const Statistics = SyncComponent(() => import('./pages/statistics'))
@@ -88,6 +99,10 @@ const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/t
 const dssSourceList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceList'))
 //数据源管理- tenantDss list
 const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/tenantDssList'))
+
+//对公转账订单管理
+const publicTransferList =SyncComponent(()=>import('./pages/publicTransfer/publicTransferList'))
+
 const routers = [
     {
         path: "/login",
@@ -172,6 +187,31 @@ const routers = [
                     {
                         path: '/setting/tenant/tenantDetails',
                         component:TenantDetails ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/activity',
+                        component:activityList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/activity/compileActivity',
+                        component:compileActivity ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/activity/cashVolumeList',
+                        component:cashVolumeList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/activity/cashVolumeDetails',
+                        component:cashVolumeDetails ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/activity/compileCashVolume',
+                        component:compileCashVolume ,
                         exact: true,
                     },
                     {
@@ -262,6 +302,11 @@ const routers = [
                     {
                         path: '/setting/sourceManage/manageDss/tenantManageDss',
                         component:tenantDssList,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/publicTransfer',
+                        component:publicTransferList,
                         exact: true,
                     },
                     {

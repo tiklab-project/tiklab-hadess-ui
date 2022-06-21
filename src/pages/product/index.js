@@ -24,6 +24,8 @@ const Product = props => {
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState(props.total);
     const [visible, setVisible] = useState(false);
+
+    const [compileType,setCompileType]=useState('')   //编辑类型
     const columns = [
         {
             title: '产品名称',
@@ -122,7 +124,8 @@ const Product = props => {
 
     const editProduct = (item) => {
         setEditData(item)
-        addProduct()
+        setCompileType('update')
+        setVisible(true)
     }
     //删除产品
     const deleteProduct = async (id) => {
@@ -174,6 +177,7 @@ const Product = props => {
         await getProductionData(params)
     }
     const addProduct = () => {
+        setCompileType("add")
         setVisible(true)
     }
 
@@ -262,7 +266,7 @@ const Product = props => {
                     </Col>
                 </Row>
             </div>
-            <AddProduct visible={visible} onCancel={onCancel} editData={editData}/>
+            <AddProduct visible={visible} onCancel={onCancel} editData={editData} compileType={compileType}/>
 
         </section>
     )

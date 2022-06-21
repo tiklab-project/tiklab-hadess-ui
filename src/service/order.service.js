@@ -15,6 +15,10 @@ export const createOrderApi='/order/createOrder';
 export const updateOrderApi='/order/updateOrder';
 
 export const findOrderProductListApi='/orderProduct/findOrderProductList';
+
+export const findPaymentPageApi='/payment/findPaymentPage';   //条件分页查询支付记录
+export const verifyPublicTraApi='/payment/verifyPublicTra';   //确认对公转账
+
 class ProductService {
     constructor() {
     }
@@ -55,6 +59,15 @@ class ProductService {
     //查询订单产品
     async findOrderProductList(data){
         const response = await Axios.post(findOrderProductListApi, data)
+        return response
+    }
+
+    async findPaymentPage(data){
+        const response = await Axios.post(findPaymentPageApi, data)
+        return response
+    }
+    async verifyPublicTra(data){
+        const response = await Axios.post(verifyPublicTraApi, data)
         return response
     }
 }

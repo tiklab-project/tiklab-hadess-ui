@@ -6,7 +6,7 @@
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb,Table} from "antd";
+import {Breadcrumb, Descriptions, Table} from "antd";
 import orderService from "../../service/order.service"
 import {withRouter} from "react-router";
 
@@ -65,22 +65,42 @@ const OrderDetails = props => {
                     <Breadcrumb.Item href="">订单详情</Breadcrumb.Item>
                 </Breadcrumb>
                 {JSON.parse(sessionStorage.getItem("orders"))
-                    &&<div className='grid gap-y-6 pt-6 pl-4'>
-                        <div >订单编号：{orderData.id}</div>
-                        <div >订单价格:{orderData.orderPrice}</div>
-                        <div >支付人：{JSON.parse(sessionStorage.getItem("orders")).member.name}</div>
-                        <div className=''>
-                            <h4 className='text-lg'>订单产品:</h4>
-                            <div >
-                                <Table
-                                    className='p-4'
-                                    dataSource={tableData}
-                                    columns={columns}
-                                    rowKey={record => record.id}
-                                    pagination={false}
-                                />
+                    &&  <div >
 
-                            </div>
+                        <Descriptions title="订单信息" className='pt-4'>
+                            <Descriptions.Item label="订单编号">{orderData.orderCode}</Descriptions.Item>
+                            <Descriptions.Item label="订单类型">{orderData.bGroup===1?'saas':'企业'}</Descriptions.Item>
+                            <Descriptions.Item  label="状态">
+                                {
+                                    orderData.paymentStatus==1&&<p className='text-red-500'>待支付</p>||
+                                    orderData.paymentStatus==2&&<p className='text-green-500'>已完成</p>||
+                                    orderData.paymentStatus==3&&<p className='text-gray-400'>取消</p>
+                                }
+                            </Descriptions.Item>
+                            <Descriptions.Item label="订单原价">￥{orderData.originalPrice}</Descriptions.Item>
+                            <Descriptions.Item label="订单优惠价">￥{orderData.orderPrice}</Descriptions.Item>
+                            <Descriptions.Item label="创建时间">
+                                {orderData.createTime}
+                            </Descriptions.Item>
+                            <Descriptions.Item label="优惠券">
+                                {orderData.rollName}
+                            </Descriptions.Item>
+                            {
+                                orderData.bGroup===1&&
+                                <Descriptions.Item label="企业">
+                                    {orderData.tenant.name}
+                                </Descriptions.Item>
+                            }
+                        </Descriptions>
+                        <div className='pt-12'>
+                            <h4 className='text-lg'>订单产品:</h4>
+                            <Table
+                                className='pt-4'
+                                dataSource={tableData}
+                                columns={columns}
+                                rowKey={record => record.id}
+                                pagination={false}
+                            />
                         </div>
                     </div>
                 }

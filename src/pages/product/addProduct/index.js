@@ -21,13 +21,9 @@ const type=[{key:'ce',value:'ce社区版'},{key:'ee',value:'ee企业版'},{key:'
 const AddProduct = props => {
     const [form] = Form.useForm();
     const [productType,setProductType]=useState([]);
-    const {visible, onCancel, editData} = props;
+    const {visible, onCancel, editData,compileType} = props;
     const [surfacePlot,setSurfacePlot]=useState('') //封面图
-    const finAllProductType=async ()=>{
-      const res=await productService.findAllProductTypeService();
-       setProductType(res.data)
 
-    }
 
     useEffect(()=>{
         finAllProductType()
@@ -45,6 +41,12 @@ const AddProduct = props => {
             }
         }
     }, [editData])
+
+    const finAllProductType=async ()=>{
+        const res=await productService.findAllProductTypeService();
+        setProductType(res.data)
+
+    }
 
     const handleOk =   () => {
         form.validateFields().then(async values => {
@@ -107,10 +109,11 @@ const AddProduct = props => {
             thumbUrl:`${BASE_URL_DEV}/image/${surfacePlot}`
         }
     ]
+    debugger
     return(
         <Modal
             visible={visible}
-            title='添加产品'
+            title={compileType==='add'?'添加产品':'修改产品'}
             onCancel={onCancel}
             okText='保存'
             cancelText='取消'
