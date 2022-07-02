@@ -1,39 +1,49 @@
- /**
- * @name: index
- * @author: mahai
+
+/**
+ * @name: CompileVersion
+ * @author: limingliang
  * @date: 2021-08-09 16:48
- * @description：版本添加
+ * @description：编辑版本  （添加或修改）
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Row, Col, Input, Button, Table, Form,Upload,Modal } from "antd";
 import { UploadOutlined } from '@ant-design/icons';
-import productService from "../../../service/product.service";
-import {getUser} from "../../../utils";
-import {withRouter} from "react-router";
+import productService from "../../service/product.service";
+import {getUser} from "../../utils";
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
-
- import {HOMES_URL} from "../../../const";
-const Version = props => {
+import {HOMES_URL} from "../../const";
+import CustomEditor from "../../common/editSlate/editor";
+const CompileVersion = props=> {
     const [form] = Form.useForm();
     const param=props.history.location.params
     const [fileList, setFileList] = useState([]);
 
+    const [productData,setProductData]=useState(null)  //产品详情
     const [fileName, setFileName] = useState(); //文件名字
     const [surfacePlot,SetSurfacePlot] =useState(); //封面图名字
     const [size,setSize]=useState(); //文件大小  字节
 
+    const [value] = useState([
+        {
+            type: "paragraph",
+            children: [{ text: "" }],
+        },
+    ]);
+
     useEffect(()=>{
         if (param) {
-            form.setFieldsValue({
-                productName: param.name,
-            })
+           sessionStorage.setItem("param", JSON.stringify(param));
         }
+        const product=JSON.parse(sessionStorage.getItem("param"));
+        setProductData(product)
+        form.setFieldsValue({
+            productName: product?.name,
+        })
     }, [param])
-
     //添加插件版本
     const onFinish =async (value) => {
         const params = {
@@ -41,10 +51,12 @@ const Version = props => {
             version:value.version,
             productUrl:fileName,
             product:{
-                id:param.id
+                id:productData.id
             },
             size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
-            versionData:value.versionData
+            newFeature:value.versionData&&JSON.stringify(value.versionData),
+            optFeature:value.optFeature&&JSON.stringify(value.optFeature),
+            updateFeature:value.updateFeature&&JSON.stringify(value.updateFeature)
         }
         const response=  await productService.createProductVersion(params)
         if (response.code===0){
@@ -109,7 +121,7 @@ const Version = props => {
         }
     ]
     return (
-        <section className='w-full flex flex-row'>
+        <section className='w-full flex flex-row ' >
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b  border-solid pb-4'>
                     <Breadcrumb.Item  href='#/setting/product'>产品列表 </Breadcrumb.Item>
@@ -133,11 +145,11 @@ const Version = props => {
                     <Form.Item name={['plugIn']} label="添加项目" rules={[{ required: true }]}>
                         {
                             fileName
-                             ?<Upload {...fileUpload} fileList={fileList}>
+                                ?<Upload {...fileUpload} fileList={fileList}>
                                 </Upload>
-                            : <Upload {...fileUpload} >
-                                <Button icon={<UploadOutlined />}>Upload</Button>
-                            </Upload>
+                                : <Upload {...fileUpload} >
+                                    <Button icon={<UploadOutlined />}>Upload</Button>
+                                </Upload>
                         }
 
                     </Form.Item>
@@ -153,8 +165,14 @@ const Version = props => {
                                 </Upload>
                         }
                     </Form.Item>
-                    <Form.Item name={['versionData']} label="版本描述" >
-                        <Input/>
+                    <Form.Item name={['newFeature']} label="新增功能"  initialValue={value}>
+                        <CustomEditor/>
+                    </Form.Item>
+                    <Form.Item name={['optFeature']} label="优化功能" initialValue={value} >
+                        <CustomEditor/>
+                    </Form.Item>
+                    <Form.Item name={['updateFeature']} label="修改功能" initialValue={value}>
+                        <CustomEditor/>
                     </Form.Item>
                     <Row>
                         <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
@@ -177,6 +195,6 @@ const Version = props => {
 
         </section>
     )
-};
+}
 
-export default withRouter(Version)
+export default CompileVersion

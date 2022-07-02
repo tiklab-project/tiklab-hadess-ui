@@ -9,9 +9,10 @@
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Button, Radio, Space, Switch, Table,Modal} from "antd";
 import activityService from "../../../service/avtivity.service";
-import CompileActivity from '../activity/compileActivity'
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
+
+const ActivityTypeList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'}]
 const ActivityList = props => {
 
     const [activityList,setActivityList]=useState([])   //活动列表数据
@@ -24,7 +25,7 @@ const ActivityList = props => {
     const [visible, setVisible] = useState(false);   //弹窗状态
     const [editData, setEditData] = useState(null);  //弹窗数据
     const [compileType,setCompileType]=useState(null)   //弹出的类型
-    const [activityTypeList,setActivityTypeList]=useState([])  //活动类型
+    const [activityType,setActivityType]=useState('dis')  //活动类型
 
 
     const columns = [
@@ -35,8 +36,8 @@ const ActivityList = props => {
         },
         {
             title: '活动类型',
-            dataIndex: ['activityType','activityType'],
-
+            dataIndex: 'activityType',
+            render:text => text==='dis'&&'折扣'||text==='full'&&'满减'
         },
         {
             title: '活动时间',
@@ -69,24 +70,19 @@ const ActivityList = props => {
             ),
         },
     ];
+
     useEffect(async ()=>{
 
-        await findActivity(null,page)
-        await findActivityType()
+        await findActivity(activityType,page)
+
     },[])
 
-//查询活动分类
-    const findActivityType = async () => {
-        const res=await activityService.findAllActivityType()
-        if (res.code===0){
-            setActivityTypeList(res.data)
-        }
-    }
+
 
     //分页查询活动
     const findActivity = async (param,page) => {
         const params={
-            activityTypeId:param,
+            activityType:param,
             pageParam: {
                 pageSize: 10,
                 currentPage: page,
@@ -121,11 +117,8 @@ const ActivityList = props => {
 
     //切换活动类型
     const cutType =async (e) => {
-        const value=e.target.value
-       const activityTypeId= activityTypeList.filter(item=>item.activityCode===value)[0].id
-        setUseTypeId(activityTypeId)
-
-      await findActivity(activityTypeId,page)
+        setActivityType(e.target.value)
+      await findActivity(e.target.value,page)
     }
 
     const handleTableChange = async (pagination, filters, sorter) => {
@@ -186,10 +179,10 @@ const ActivityList = props => {
                 </Breadcrumb>
                 <div className='pt-6 space-y-6'>
                     <div className='flex'>
-                            <Radio.Group  defaultValue="a" buttonStyle="solid"  className='w-2/3' onChange={cutType}>
-                            {activityTypeList&&activityTypeList.map(item=>{
+                            <Radio.Group  value={activityType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
+                            {ActivityTypeList.map(item=>{
                                 return(
-                                    <Radio.Button key={item.activityCode} value={item.activityCode}>{item.activityType}</Radio.Button>
+                                    <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
                                 )
                             })}
                             </Radio.Group>

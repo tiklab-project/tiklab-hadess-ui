@@ -17,7 +17,7 @@ const SaasLayout = props => {
     return (
         <Fragment>
           <Header {...props} />
-            <div stye={{display: 'flex',height: '100%'}}>
+            <div stye={{display: 'flex',height: '100%'}} className={'pt-14'} >
                 <div style={{width:'100%'}}>
                     {renderRoutes(props.route.routes)}
                 </div>

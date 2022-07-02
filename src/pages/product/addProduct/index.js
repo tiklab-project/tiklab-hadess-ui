@@ -16,7 +16,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
-import {BASE_URL_DEV} from "../../../const";
+import {HOMES_URL} from "../../../const";
 const type=[{key:'ce',value:'ce社区版'},{key:'ee',value:'ee企业版'},{key:'saas',value:'saas版'}]
 const AddProduct = props => {
     const [form] = Form.useForm();
@@ -63,10 +63,13 @@ const AddProduct = props => {
                         id:res.data,
                         name:values.name
                     }
-                    props.history.push({
-                        pathname:"/setting/product/addVersion",
-                        params:person
+                    //saas 不需要添加版本
+                    if (values.type!=='saas'){
+                        props.history.push({
+                            pathname:"/setting/product/addVersion",
+                            params:person
                         });
+                    }
                     onCancel()
                 }
             }
@@ -78,7 +81,7 @@ const AddProduct = props => {
         multiple:true,
         //  showUploadList:false,
         name: "uploadFile",
-        action:  `${BASE_URL_DEV}/dfs/upload`,
+        action:  `${HOMES_URL}/dfs/upload`,
         headers: {
             ticket: getUser().ticket,
         },
@@ -105,11 +108,10 @@ const AddProduct = props => {
             uid: '-1',
             name: surfacePlot,
             status: 'done',
-            url:`${BASE_URL_DEV}/image/${surfacePlot}`,
-            thumbUrl:`${BASE_URL_DEV}/image/${surfacePlot}`
+            url:`${HOMES_URL}/image/${surfacePlot}`,
+            thumbUrl:`${HOMES_URL}/image/${surfacePlot}`
         }
     ]
-    debugger
     return(
         <Modal
             visible={visible}

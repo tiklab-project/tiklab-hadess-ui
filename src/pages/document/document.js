@@ -21,9 +21,12 @@ import {
 import "./scss/drop-down.scss"
 import documentService from "../../service/document.service"
 import CreateOrUpdateCategory from "./popup/createOrUpdateCategory";
-import PreviewEditor from "../../common/editSlate/previewEditor";
+//import PreviewEditor from "../../common/editSlate/previewEditor";
+import {PreviewEditor} from 'doublekit-slate-ui'
 const { TextArea } = Input;
 const { confirm } = Modal;
+import './scss/document.scss'
+
 const Document = props => {
     const repositorys=props.history.location.params
     const [categoryDataList, setCategoryDataList] = useState([]);  //目录树详情
@@ -194,7 +197,6 @@ const Document = props => {
     }
     //跳转修改u文档页面
     const skipUpdateDocument=(data)=>{
-       debugger
         props.history.push({
             pathname:"/setting/document/updateDocument",
             params:data
@@ -426,7 +428,7 @@ const Document = props => {
                     <div className='text-gray-400'>
                         创建时间: {documentData.createTime}
                     </div>
-                    <div className='pt-6'>
+                    <div className='pt-6 bg-white'>
                          {documentData.details&&
                             <PreviewEditor
                                 value={documentData.details}
@@ -502,7 +504,7 @@ const Document = props => {
         }
         const res=await documentService.findCommentTreePage(param)
         if (res.code===0){
-            setCommentTree(res.data.dataList)
+            setCommentTree(res.data)
         }
     }
     //删除弹窗  type=1评论删除 type=2 目录删除  type=3 文档删除
@@ -552,7 +554,7 @@ const Document = props => {
 
     return(
         <section className='w-full flex flex-row'>
-            <div className='flex flex-col  pl-6 ' >
+            <div className={' flex flex-col  pl-6'}>
                 <div className='flex items-center justify-between max-w-full  border-b-2 py-2 cursor-pointer relative pr-3'>
                     <div className='w-96 text-xl py-2 pr-3'>
                         {repositoryData.name}
@@ -566,16 +568,16 @@ const Document = props => {
                         <MenuOutlined className='text-lg '/>
                     </Dropdown>
                 </div>
-                <div onMouseOut={leaveMouseNav}>
+                <div onMouseOut={leaveMouseNav} className={' bg-gray-100'}>
                     <div className='m-auto pb-6 px-4 pt-6'>
                         <Input placeholder="搜索内容" size="large" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch}/>
                     </div>
-                    <div className='w-full bg-gray-50' onMouseOut={removeOverId}>
+                    <div className='w-full ' onMouseOut={removeOverId}>
                         {categoryTree(categoryDataList,documentDataList)}
                     </div>
                 </div>
             </div>
-            <div className='w-full p-6  max-w-screen-xl '>
+            <div className={'w-full p-6  max-w-screen-xl right-hight'}>
                 {
                 categoryDataList.length>0||documentDataList.length>0
                     ?

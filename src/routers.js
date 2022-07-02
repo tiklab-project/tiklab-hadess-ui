@@ -10,9 +10,19 @@ const Setting = SyncComponent(() => import('./pages/setting/setting'));
 // 系统管理模块
 const System = SyncComponent(() => import('./pages/setting/system'));
 
-// 权限模块
+/*// 权限模块  (角色管理)
 const ProjectFeature = SyncComponent(() => import('./pages/system/projectFeature/projectFeature'));
-const ProjectSystemRole = SyncComponent(() => import('./pages/system/projectSystemRole/projectSystemRole'));
+const ProjectSystemRole = SyncComponent(() => import('./pages/system/projectSystemRole/projectSystemRole'));*/
+
+// 权限模块  (角色管理)
+const RoleManage = SyncComponent(() => import('./pages/system/authorityCenter/roleManage'));
+//功能管理
+const functionManage = SyncComponent(() => import('./pages/system/authorityCenter/functionManage'));
+
+//组织中心（组织管理）
+const orgaManage = SyncComponent(() => import('./pages/system/organization/orgaManage'));
+//用户管理
+const userManage = SyncComponent(() => import('./pages/system/organization/userManage'));
 
 // 组织模块
 const OrgaManagement = SyncComponent(() => import('./pages/orga/orgaManagement/org'));
@@ -36,7 +46,7 @@ const Product = SyncComponent(() => import('./pages/product'))
 // 产品详情
 const ProductDetails = SyncComponent(() => import('./pages/product/productDetails'))
 // 产品版本
-const addVersion = SyncComponent(() => import('./pages/product/addVersion'))
+const compileVersion = SyncComponent(() => import('./pages/product/compileVersion'))
 
 // 会员管理
 const Member = SyncComponent(() => import('./pages/member'))
@@ -155,8 +165,8 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/product/addVersion',
-                        component: addVersion,
+                        path: '/setting/product/compileVersion',
+                        component: compileVersion,
                         exact: true,
                     },
                     {
@@ -321,30 +331,29 @@ const routers = [
                 path:'/system',
                 routes: [
                     {
-                        path: '/system/accountconfig',
-                        component: AuthConfig,
+                        path: '/system/authority/roleManage',
+                        component: RoleManage,
                         exact: true,
                     },
                     {
-                        path: '/system/projectfeature',
-                        component: ProjectFeature,
-                        exact: true,
-                    },
-
-                    {
-                        path: '/system/projectrole',
-                        component: ProjectSystemRole,
+                        path: '/system/authority/functionManage',
+                        component: functionManage,
                         exact: true,
                     },
                     {
-                        path: '/system/orga',
-                        component:OrgaManagement,
+                        path: '/system/organization/orgaManage',
+                        component:orgaManage,
                         exact: true
+                    },
+                    {
+                        path: '/system/organization/userManage',
+                        component: userManage,
+                        exact: true,
                     },
                     {
                         path: '/system',
                         exact: true,
-                        render: ()=><Redirect to="/system/accountconfig"/>
+                        render: ()=><Redirect to="/system/authority/roleManage"/>
                     },
                 ]
             }

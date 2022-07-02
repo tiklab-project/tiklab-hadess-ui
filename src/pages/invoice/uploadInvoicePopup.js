@@ -8,13 +8,13 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Button   , Select, Upload, message} from 'antd';
 import {UploadOutlined} from "@ant-design/icons";
-import {BASE_URL_DEV} from "../../const";
+import {HOMES_URL} from "../../const";
 import {getUser} from "../../utils";
 import invoiceService from "../../service/invoice.service";
 const { Option } = Select;
 const layout = {
-    labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    labelCol: { span: 8},
+    wrapperCol: { span: 5},
 };
 
 const  UploadInvoicePopup=props=>{
@@ -24,14 +24,16 @@ const  UploadInvoicePopup=props=>{
 
 
     //提交
-    const handleOk = async () => {
+    const handleOk = async (invoiceUrl) => {
         const param={
             id:invoiceData.id,
             invoiceTitleType:invoiceData.invoiceTitleType,
             invoiceType:invoiceData.invoiceType,
             invoiceState:1,
             orderType:invoiceData.orderType,
-            buyerName:invoiceData.buyerName
+            buyerName:invoiceData.buyerName,
+            invoiceUrl:invoiceUrl
+
         }
         const res=await invoiceService.updateInvoice(param)
         if (res.code===0){
@@ -42,7 +44,7 @@ const  UploadInvoicePopup=props=>{
     //上传发票
     const uploadInvoice = {
         name: 'uploadFile',
-        action: BASE_URL_DEV+ '/dfs/upload',
+        action: HOMES_URL+ '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },
@@ -55,10 +57,8 @@ const  UploadInvoicePopup=props=>{
                 console.log(info.file, info.fileList);
             }
             if (info.file.status === 'done') {
-                debugger
                 setInvoiceUrl(info.file.response.data.fileName)
-
-                message.success('上传成功');
+                handleOk(info.file.response.data.fileName)
 
             } else if (info.file.status === 'error') {
                 message.error('上传失败，请重新上传');
@@ -70,12 +70,11 @@ const  UploadInvoicePopup=props=>{
         <Modal
             visible={visible}
             title='上传发票'
+            footer={false}
             onCancel={onClose}
-            okText='确定'
-            cancelText='取消'
-            width={600}
+            width={400}
+            style={{ top: 200 }}
             destroyOnClose={true}
-            onOk={handleOk}
         >
             <Row>
                 <Col span={24}>

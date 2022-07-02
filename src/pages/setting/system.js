@@ -13,11 +13,11 @@ const System = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
-        {
+        /*{
             id:'3',
             key:'3',
             title: '认证配置',
-        },
+        },*/
         {
             id:'1',
             key:'1',
@@ -62,20 +62,20 @@ const System = props => {
         let links = [
               {
                  key:'1-1',
-                 router:`/system/projectrole`,
+                 router:`/system/authority/roleManage`,
              },
              {
                  key:'1-2',
-                 router:`/system/projectfeature`,
+                 router:`/system/authority/functionManage`,
              },
 
             {
                 key:'2-1',
-                router:`/system/orga`,
+                router:`/system/organization/orgaManage`,
             },
             {
                 key:'2-2',
-                router:`/system/user`,
+                router:`/system/organization/userManage`,
             },
             {
                 key:'3',
@@ -93,13 +93,13 @@ const System = props => {
     }
 
     return (
-        <div style={{display: 'flex',height: '100%'}}>
+        <div className={'setting-height ' }>
             <MenuList
                 data={menuData}
                 onSelectMenu={onSelectMenu}
                 defaultSelectedKeys={[key]}
             />
-            <div style={{width:'100%'}}>
+            <div  style={{width:'100%'}}>
                 {renderRoutes(props.route.routes)}
             </div>
         </div>

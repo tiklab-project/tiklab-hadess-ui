@@ -79,7 +79,7 @@ const ProductDetails = props => {
             name:productData.name
         }
         props.history.push({
-            pathname:"/setting/product/addVersion",
+            pathname:"/setting/product/compileVersion",
             params:person
         });
     }
@@ -125,7 +125,6 @@ const ProductDetails = props => {
                         <div>产品价格:{productData.price}</div>
                         <div >产品地址: {productData.productUrl}</div>
                     </div>
-
                 <div >
                     <Row gutter={[16, 16]} className='mt-6'>
                         <Col span={6}>

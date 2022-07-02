@@ -6,10 +6,10 @@
  * @update: 2021-07-19 09:32
  */
 
-//const BASE_URL_DEV = 'http://192.168.10.5:8080';  //开发环境 （线下）
-const BASE_URL_DEV = 'http://172.11.1.11:8080';  //test环境 （test）
-
+//const HOMES_URL = 'http://192.168.10.5:8080';  //开发环境 （线下）
+//const HOMES_URL = 'http://172.11.1.11:8080';  //test环境 （test）
+const HOMES_URL = 'http://139.196.76.221:8080';  //prd环境 （prd）
 
 export {
-    BASE_URL_DEV,
+    HOMES_URL,
 }

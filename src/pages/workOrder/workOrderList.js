@@ -128,7 +128,7 @@ const WorkOrderList=props=>{
                     <Breadcrumb.Item>在线工单</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 工单列表</Breadcrumb.Item>
                 </Breadcrumb>
-                <Radio.Group size='large' value={state} className='py-6' onChange={cutType} >
+                <Radio.Group size='large' buttonStyle="solid" value={state} className='py-6' onChange={cutType} >
                     <Radio.Button value={'await'}>待处理 </Radio.Button>
                     <Radio.Button value={'finish'} >已处理</Radio.Button>
                 </Radio.Group>

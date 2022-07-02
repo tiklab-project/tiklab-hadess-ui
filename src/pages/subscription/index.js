@@ -13,14 +13,11 @@ const Subscription = props => {
     const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState(props.total);
+    const [totalRecord, setTotalRecord] = useState();
     const [name, setName] = useState('');
     const [tableData, setTableData] = useState([]);
     const columns = [
-       /* {
-            title: '订阅ID',
-            dataIndex: 'id',
-        },*/
+
         {
             title: '产品名称',
             dataIndex: ['product','name'],
@@ -77,7 +74,7 @@ const Subscription = props => {
             title: '订阅时长',
             dataIndex: 'duration',
             render: (text, record)  => {
-                return record.subscribeType===2?"N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
+                return record.subscribeType!==2&&record.bGroup!==2?"N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
             }
         },
         {
@@ -113,13 +110,8 @@ const Subscription = props => {
     ];
 
     useEffect(async () => {
-        const params = {
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1,
-            }
-        }
-        await getSubscribeData(params)
+
+        await getSubscribeData(page)
     }, []);
 
     const filedState = (value) => {
@@ -166,18 +158,20 @@ const Subscription = props => {
     const updateSubscribe=async params=>{
        const pre=await subscribeService.updateSubscribeService(params)
         if (pre.code===0){
-           const param={
-               pageParam: {
-                   pageSize: 10,
-                   currentPage: 1,
-               }
-           }
-           await getSubscribeData(param)
+           await getSubscribeData(page)
         }
     }
+
     //分页条件查询订阅
-    const getSubscribeData = async params => {
-        const data = await subscribeService.findSubscribePageService(params)
+    const getSubscribeData = async(page) => {
+        const param={
+            name: name,
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: page,
+            }
+        }
+        const data = await subscribeService.findSubscribePageService(param)
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)
             setTableData(data.data.dataList)
@@ -190,29 +184,15 @@ const Subscription = props => {
     }
 
     const onSearch = async () => {
-        const params = {
-            name,
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1,
-            }
-        }
-        await getSubscribeData(params)
+
+        await getSubscribeData(1)
     }
 
-    const addSubscription = () => {
-        setVisible(true)
-    }
-    const handleTableChange = async (pagination, filters, sorter) => {
+
+    const handleTableChange = async (pagination) => {
         setPage(pagination.current)
-        const newParams = {
-            name,
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: pagination.current
-            }
-        }
-        await getSubscribeData(newParams)
+
+        await getSubscribeData(pagination.current)
     }
 
     return(
@@ -226,9 +206,6 @@ const Subscription = props => {
                     <Col span={6}>
                         <Input placeholder={'搜索名称'} value={name}  onChange={onInputName} onPressEnter={onSearch} />
                     </Col>
-                    {/*<Col span={8} offset={8} className='flex justify-end' style={{display:'flex'}}>*/}
-                    {/*    <Button type="primary" onClick={addSubscription}>+添加产品订阅</Button>*/}
-                    {/*</Col>*/}
                 </Row>
                 <Row gutter={[16, 16]} >
                     <Col span={24}>
@@ -237,11 +214,11 @@ const Subscription = props => {
                             columns={columns}
                             rowKey={record => record.id}
                             pagination={{
-                                current:page,
                                 pageSize: pageSize,
+                                current:page,
                                 total: totalRecord,
                             }}
-                            onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
+                            onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
                         />
                     </Col>
                 </Row>

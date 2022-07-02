@@ -3,7 +3,7 @@
  * @author: limingliang
  * @date: 2022-06-15 14:30
  * @description：现金卷详情
- * @update: 2022-06-15 14:30
+ * @update: 2022-06-15 14:30r
  */
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Button, Descriptions, Input, Space, Table, Tag} from "antd";
@@ -11,8 +11,8 @@ import activityService from "../../../service/avtivity.service";
 import {withRouter} from "react-router";
 const CashVolumeDetails = props => {
     const cashDetail=props.history.location.params
-    const [cashVolumeDetail,setCashVolumeDetail]=useState('')
-    const [cashVolumeList,setCashVolumeList]=useState([])   //现金卷
+    const [couponDetail,setCouponDetails]=useState('')
+    const [couponList,setCouponList]=useState([])   //券
     const [page, setPage] = useState(1);  //当前页
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState();  //总条数
@@ -21,6 +21,7 @@ const CashVolumeDetails = props => {
         {
             title: '编码',
             dataIndex: 'rollCode',
+
         },
         {
             title: '是否领用',
@@ -64,7 +65,9 @@ const CashVolumeDetails = props => {
     const findCashVolumePage = async (page) => {
         const cashDetail=JSON.parse(sessionStorage.getItem("cashDetail"));
 
-        setCashVolumeDetail(cashDetail)
+        setCouponDetails(cashDetail)
+
+        let res;
         const param={
             pageParam: {
                 pageSize: pageSize,
@@ -72,10 +75,17 @@ const CashVolumeDetails = props => {
             },
             rollId:cashDetail.id
         }
-        const res=await activityService.findMergeCashVolumePage(param)
-        if (res.code===0){
-            setCashVolumeList(res.data.dataList)
-            setTotalRecord(res.data.totalRecord)
+        //现金券
+        if (cashDetail.rollKind==='cash'){
+             res=await activityService.findMergeCashVolumePage(param)
+        }
+        //折扣券
+        if (cashDetail.rollKind==='coupon'){
+            res=await activityService.findMergeDiscountCouponPage(param)
+        }
+        if (res?.code===0){
+            setCouponList(res?.data.dataList)
+            setTotalRecord(res?.data.totalRecord)
         }
     }
 
@@ -84,46 +94,59 @@ const CashVolumeDetails = props => {
         setPage(pagination.current)
         await findCashVolumePage(pagination.current)
     }
+
+    const goCashList =async (type) => {
+        props.history.push({
+            pathname:"/setting/activity/cashVolumeList",
+            params:type
+        })
+    }
     return(
         <section className='flex-row p-6'>
             <div className='w-full  max-w-full m-auto '>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href="#/setting/activity/cashVolumeList">现金卷列表</Breadcrumb.Item>
-                    <Breadcrumb.Item >现金卷详情</Breadcrumb.Item>
+                    {
+                        couponDetail?.rollKind==='cash'&&
+                        <Breadcrumb.Item  onClick={()=>goCashList('cash')} className={'cursor-pointer'}>现金券列表</Breadcrumb.Item> ||
+                        couponDetail.rollKind==='coupon'&&
+                        <Breadcrumb.Item onClick={()=>goCashList('coupon')} className={'cursor-pointer'}>折扣券列表</Breadcrumb.Item>
+                    }
+
+                    <Breadcrumb.Item >详情</Breadcrumb.Item>
                 </Breadcrumb>
             </div>
 
-                {
-                    cashVolumeDetail&&
-                    <Descriptions title=" 券基本信息" className='pt-4'>
-                        <Descriptions.Item label="卷名字">{cashVolumeDetail.rollName}</Descriptions.Item>
-                        <Descriptions.Item label="券类型">{cashVolumeDetail.rollType==='ee'&&'线下企业版本'||cashVolumeDetail.rollType==='saas'&&'线上saas版本'}</Descriptions.Item>
-                        <Descriptions.Item label="券种类">{cashVolumeDetail.rollKind==='cash'&&'现金卷'||cashVolumeDetail.rollKind==='coupon'&&'折扣卷'}</Descriptions.Item>
-                        {
-                            cashVolumeDetail.rollKind==='cash'?
-                                <Descriptions.Item label="卷金额">¥{cashVolumeDetail.rollLimit}</Descriptions.Item>:
-                                <Descriptions.Item label="折扣数">{cashVolumeDetail.rollLimit} 折</Descriptions.Item>
-                        }
-                        <Descriptions.Item label="有效期">{cashVolumeDetail.startTime}～{cashVolumeDetail.endTime}</Descriptions.Item>
-                        <Descriptions.Item label="使用规则">满{cashVolumeDetail.rollRule}使用</Descriptions.Item>
-                    </Descriptions>
-                }
-                <div className='pt-12'>
-                    <div className='border border-gray-200  '>
-                        <Table
-                            columns={columns}
-                            dataSource={cashVolumeList}
-                            rowKey = {record => record.id}
-                            scroll={{ y: 600 }}
-                            pagination={{
-                                current:page,
-                                pageSize: pageSize,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                        />
-                    </div>
+            {
+                couponDetail&&
+                <Descriptions title=" 券基本信息" className='pt-4'>
+                    <Descriptions.Item label="券名字">{couponDetail.rollName}</Descriptions.Item>
+                    <Descriptions.Item label="券类型">{couponDetail.rollType==='ee'&&'线下企业版本'||couponDetail.rollType==='saas'&&'线上saas版本'}</Descriptions.Item>
+                    <Descriptions.Item label="券种类">{couponDetail.rollKind==='cash'&&'现金券'||couponDetail.rollKind==='coupon'&&'折扣卷'}</Descriptions.Item>
+                    {
+                        couponDetail.rollKind==='cash'?
+                            <Descriptions.Item label="券金额">¥{couponDetail.rollLimit}</Descriptions.Item>:
+                            <Descriptions.Item label="折扣数">{couponDetail.rollLimit} 折</Descriptions.Item>
+                    }
+                    <Descriptions.Item label="有效期">{couponDetail.startTime}～{couponDetail.endTime}</Descriptions.Item>
+                    <Descriptions.Item label="使用规则">满{couponDetail.rollRule}使用</Descriptions.Item>
+                </Descriptions>
+            }
+            <div className='pt-12'>
+                <div className='border border-gray-200  '>
+                    <Table
+                        columns={columns}
+                        dataSource={couponList}
+                        rowKey = {record => record.id}
+                        scroll={{ y: 600 }}
+                        pagination={{
+                            current:page,
+                            pageSize: pageSize,
+                            total: totalRecord,
+                        }}
+                        onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
+                    />
                 </div>
+            </div>
 
         </section>
 

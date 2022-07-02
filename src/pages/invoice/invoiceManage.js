@@ -47,6 +47,7 @@ const InvoiceManage =props=>{
             setInvoiceType(true)
         }else {
             setInvoiceType(false)
+           await findInvoice()
         }
     }
     //打开待开发票信息弹窗
@@ -62,8 +63,9 @@ const InvoiceManage =props=>{
         setInvoiceData(invoice)
         setUploadVisible(true)
     }
-    const onCloseUpload=()=>{
+    const onCloseUpload=async ()=>{
         setUploadVisible(false)
+        await findInvoice()
     }
 
 
@@ -91,11 +93,18 @@ const InvoiceManage =props=>{
                             <div key={invoice.id} className='pt-5 '>
                                 <div className='border'>
                                     <div className='flex py-2 bg-gray-100'>
-                                        <div className='pl-2'>
-                                            会员：{invoice.memberId}
-                                        </div>
+                                        {
+                                            invoice.bGroup===1?
+                                            <div className='pl-2'>
+                                                开票租户：{invoice.memberId}
+                                            </div>:
+                                            <div className='pl-2'>
+                                             开票人：{invoice.memberId}
+                                            </div>
+                                        }
+
                                         <div className='pl-8'>
-                                          类型：saas
+                                            类型：{invoice.bGroup===1&&'线上saas版'||invoice.bGroup===2&&'线下企业版'}
                                         </div>
                                     </div>
                                     <div className='flex'>
@@ -119,7 +128,7 @@ const InvoiceManage =props=>{
                                             })}
                                         </div>
                                         <div className='w-1/4 text-left md:text-center border-r align-middle'>
-                                            普通电子发票
+                                            {invoice.invoiceType===1&&'电子普通发票'||invoice.invoiceType===2&&'增值税发票'}
                                         </div>
                                         <div className='w-1/4 text-left md:text-center border-r align-middle  ' >
                                             {invoice.createTime}
@@ -145,7 +154,7 @@ const InvoiceManage =props=>{
                     <Breadcrumb.Item>发票管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 统计</Breadcrumb.Item>
                 </Breadcrumb>
-                <Radio.Group size='large' defaultValue={1} className='py-6' onChange={cutType} >
+                <Radio.Group size='large' buttonStyle="solid" defaultValue={1} className='py-6' onChange={cutType} >
                     <Radio.Button value={1}>待开发票</Radio.Button>
                     <Radio.Button value={2} >已开发票</Radio.Button>
                 </Radio.Group>

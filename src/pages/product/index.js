@@ -69,21 +69,21 @@ const Product = props => {
             width:'20%',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={() => editProduct(record)}>编辑</a>
+                    <a   onClick={() => editProduct(record)}>编辑</a>
                     <a onClick={() => deletePop(record.id)}>删除</a>
-                    <a onClick={() => addVersion(record)}>添加版本</a>
+                    {
+                        record.type==='saas'?
+                        <a disabled >添加版本</a>:
+                            <a  onClick={() => addVersion(record)}>添加版本</a>
+                    }
+
                 </Space>
             ),
         },
     ];
 
     useEffect(async () => {
-        const params = {
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: page,
-            }
-        }
+
         await getProductionData(params)
     }, []);
 
@@ -100,7 +100,7 @@ const Product = props => {
             name:record.name
         }
         props.history.push({
-            pathname:"/setting/product/addVersion",
+            pathname:"/setting/product/compileVersion",
             params:person
         });
     }
@@ -113,6 +113,7 @@ const Product = props => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
+            style:{top: 200},
             onOk() {
                 deleteProduct(data)
             },
@@ -139,12 +140,19 @@ const Product = props => {
                     currentPage: 1,
                 }
             }
+            setPage(1)
             await getProductionData(params)
         }
     }
     //分页条件查询产品
-    const getProductionData = async params => {
-        const data = await productService.findProductPageService(params)
+    const getProductionData = async()  => {
+        const param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: page,
+            }
+        }
+        const data = await productService.findProductPageService(param)
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)
             setTableData(data.data.dataList)

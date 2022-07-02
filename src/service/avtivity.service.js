@@ -20,7 +20,6 @@ export const updateDiscountApi = '/discount/updateDiscount';  //修改折扣活�
 export const createFullReductionApi = '/fullReduction/createFullReduction';  //创建满减活动
 export const updateFullReductionApi = '/fullReduction/updateFullReduction';  //修改满减活动
 
-export const findAllActivityTypeApi = '/activityType/findAllActivityType';  //分页查询活动列表
 
 export const createRollApi = '/roll/createRoll';  //创建卷主表
 export const findRollPageApi = '/roll/findRollPage';  //条件分页查询卷主表
@@ -29,8 +28,9 @@ export const updateRollApi = '/roll/updateRoll';  // 修改
 
 export const findCashVolumePageApi = '/cashVolume/findCashVolumePage';  //条件分页查询现金卷
 export const findMergeCashVolumePageApi = '/cashVolume/findMergeCashVolumePage';  //合并条件分页查询现金卷
-export const createCashVolumeApi = '/cashVolume/createCashVolume';  //创建现金卷活动
-export const updateCashVolumeApi = '/cashVolume/updateCashVolume';  //修改现金卷活动
+
+export const findMergeDiscountCouponPageApi = '/discountCoupon/findMergeDiscountCouponPage';  //折扣券的领取使用情况
+
 
 class ActivityService {
     constructor() {
@@ -41,10 +41,7 @@ class ActivityService {
         return authAccount
     }
 
-    async findAllActivityType(){
-        const authAccount = await Axios.post(findAllActivityTypeApi)
-        return authAccount
-    }
+
     async createActivity(data){
         const authAccount = await Axios.post(createActivityApi,data)
         return authAccount
@@ -86,12 +83,9 @@ class ActivityService {
         const authAccount = await Axios.post(findMergeCashVolumePageApi,data)
         return authAccount
     }
-    async createCashVolume(data){
-        const authAccount = await Axios.post(createCashVolumeApi,data)
-        return authAccount
-    }
-    async updateCashVolume(data){
-        const authAccount = await Axios.post(updateCashVolumeApi,data)
+
+    async findMergeDiscountCouponPage(data){
+        const authAccount = await Axios.post(findMergeDiscountCouponPageApi,data)
         return authAccount
     }
 

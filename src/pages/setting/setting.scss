@@ -1,4 +1,10 @@
 .setting-height{
-    height: calc(100vh - 0px);
+    height: calc(100vh - 60px);
+    width: calc(100vh - 600px);
+    overflow: auto;
     display: flex;
+}
+.setting_right_height{
+    height: calc(100vh - 60px);
+    overflow: auto;
 }

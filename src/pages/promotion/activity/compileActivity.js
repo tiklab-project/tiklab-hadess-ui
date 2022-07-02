@@ -17,15 +17,17 @@ import {
     Breadcrumb,
     InputNumber, Row, Col, Button
 } from 'antd';
-import activityService, {createFullReductionApi} from "../../../service/avtivity.service";
+import activityService from "../../../service/avtivity.service";
 import {MinusSquareOutlined, PlusSquareOutlined} from "@ant-design/icons";
-import productService, {findChargeProductListApi} from "../../../service/product.service";
+import productService from "../../../service/product.service";
 const { RangePicker } = DatePicker;
 const { Option } = Select;
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
+
+const ActivityTypeList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'}]
 const CompileActivity = props => {
     const [form] = Form.useForm();
 
@@ -36,50 +38,25 @@ const CompileActivity = props => {
 
     const [fullPrice,seFullPrice]=useState('')  //满多少金额
     const [reducePrice,setReducePrice]=useState('')  //减多少金额
-    const [type,setType]=useState('')  //添加选择的类型
 
-    const [activityTypeList,setActivityTypeList]=useState([])  //活动类型
-
-    const [activityTypeId,setActivityTypeId]=useState('')
+    const [activityType,setActivityType]=useState('dis')
 
     const [number,setNumber]=useState([1]);
-    const [fullReductionList,setFullReductionList]=useState([])
 
     useEffect(async ()=>{
 
-      await findActivityType()
         await findChargeProductList()
     },[])
 
-//查询活动分类
-    const findActivityType = async () => {
-        const res=await activityService.findAllActivityType()
-        if (res.code===0){
-            setActivityTypeList(res.data)
-        }
-    }
+
 
     const findChargeProductList = async () => {
       const res=await productService.findChargeProductList()
         if (res.code===0){
-            debugger
             setProductList(res.data)
         }
     }
 
-
-    //提交
-    const handleOk = () => {
-        form.validateFields().then(async values => {
-          const res= await activityService.createActivity({activityName:values.activityName,activityType:{id:activityTypeId}, activityStartTime:startTime,activityEndTime:endTime})
-            if (res.code===0){
-                if (type==='full'){
-                    await activityService.createFullReduction({fullPrice:fullPrice,reducePrice:values.reducePrice,activity:{id:res.data}})
-                }
-            }
-            onCancel()
-        })
-    }
     const onChange =async (value, dateString) => {
 
         setStartTime(dateString[0])
@@ -87,15 +64,9 @@ const CompileActivity = props => {
 
     }
 
-    const cancel =async () => {
-        setType('')
-        onCancel()
-    }
-
+    //切换活动类型
     const cuteType = (value) => {
-        setType(value)
-       const id=activityTypeList.filter(item=>value===item.activityCode)[0].id
-        setActivityTypeId(id)
+        setActivityType(value)
     }
 
     const optionProduct = (value) => {
@@ -116,18 +87,16 @@ const CompileActivity = props => {
     const onFinish =async (value) => {
         const param={
             activityName:value.activityName,
-            activityType:{
-                id:activityTypeId
-            },
+            activityType: activityType,
             activityStartTime:startTime,
             activityEndTime:endTime
         }
         const res= await activityService.createActivity(param)
         if (res.code===0){
-            if (type==='full'){
+            if (activityType==='full'){
              await   FullReduction(res.data)
             }
-            if (type==='dis'){
+            if (activityType==='dis'){
                await Discount(value,res.data)
             }
         }
@@ -205,12 +174,12 @@ const CompileActivity = props => {
                         </Space>
                     </Form.Item>
                     <Form.Item name={['activityType']} label="活动类型" rules={[{ required: true }]}>
-                        <Select  showArrow onChange={cuteType} >
+                        <Select  value={activityType} showArrow onChange={cuteType} >
                             {
-                                activityTypeList&&activityTypeList.map(item=>{
+                                ActivityTypeList.map(item=>{
                                     return(
-                                        <Option key={item.id}  value={item.activityCode} >
-                                            {item.activityType}
+                                        <Option key={item.id}  value={item.code} >
+                                            {item.name}
                                         </Option>
                                     )
                                 })
@@ -218,7 +187,7 @@ const CompileActivity = props => {
                         </Select>
                     </Form.Item>
                     {
-                        type&&type==='full'&&
+                        activityType&&activityType==='full'&&
                         <Form.Item
                             name="reducePrice"
                             label='满减规则'
@@ -250,7 +219,7 @@ const CompileActivity = props => {
 
                             </div>
                         </Form.Item>||
-                        type==='dis'&&
+                        activityType==='dis'&&
                         <>
                             <Form.Item
                                 name="discount"

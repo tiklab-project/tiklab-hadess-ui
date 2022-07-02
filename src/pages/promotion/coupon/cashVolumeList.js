@@ -14,6 +14,7 @@ const { confirm } = Modal;
 import {getUser} from "doublekit-core-ui"
 const rollTypeList= [{code:'cash',name:'现金卷'},{code: 'coupon',name:'折扣卷'}]
 const CashVolumeList = props => {
+    const type=props.history.location.params
 
     const [cashVolumeList,setCashVolumeList]=useState([])   //现金卷数据
     const [rollKind,setRollKind]=useState(null)   //卷类型
@@ -73,16 +74,24 @@ const CashVolumeList = props => {
             key: 'activity',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={() => editCashVolume(record)}>编辑</a>
-                    <a onClick={() => deleteCashVolumePop(record.id)}>删除</a>
+                    {record.activityInvoke==='true'?
+                        <div className='text-gray-200'>删除</div>:
+                        <a onClick={() => deleteCashVolumePop(record.id)}>删除</a>
+                    }
                 </Space>
             ),
         },
     ];
 
     useEffect(async ()=>{
+        if (type){
+            setRollKind(type)
+            await findRollPage(type,page)
+        }else {
+            setRollKind('cash')
+            await findRollPage(rollKind,page)
+        }
 
-        await findRollPage(null,page)
     },[])
 
     //分页查询现金卷数据
@@ -188,12 +197,12 @@ const CashVolumeList = props => {
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>活动管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">优惠卷</Breadcrumb.Item>
+                    <Breadcrumb.Item >优惠券</Breadcrumb.Item>
                 </Breadcrumb>
 
                 <div className='pt-6 space-y-6'>
                     <div className='flex'>
-                        <Radio.Group  defaultValue="a" buttonStyle="solid"  className='w-2/3' onChange={cutType}>
+                        <Radio.Group  value={rollKind} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
                             {rollTypeList.map(item=>{
                                 return(
                                     <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>

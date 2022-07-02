@@ -28,7 +28,7 @@ const Member = props => {
             render: (text, record) => (
                 <>
                     {
-                        filedState(record)
+                        filedState(record,'name')
                     }
                 </>)
         },
@@ -44,7 +44,7 @@ const Member = props => {
             render: (text, record) => (
                 <>
                     {
-                        filedState(record)
+                        filedState(record,'email')
                     }
                 </>
             )
@@ -53,7 +53,7 @@ const Member = props => {
             title: '认证方式',
             dataIndex: 'memberType',
             width:'10%',
-            render:(text)=>text===1?'内部':null||text===2?'第三方':null
+            render:(text)=>text===1&&'内部'||text===2&&'第三方'||text===3&&'演示账号'
 
         },
 
@@ -78,7 +78,9 @@ const Member = props => {
             width:'20%',
             render: (text, record) => (
                 <Space size="useState">
-                    <a >编辑</a>
+                    {record.memberType===1&&
+                        <a onClick={()=>updateMemberType(record)}>演示账号</a>}
+
                 </Space>
             ),
         },
@@ -95,21 +97,21 @@ const Member = props => {
     },[])
 
 
-    const filedState = (value) => {
+    const filedState = (value,type) => {
       return(
-              value.name.length>25?
-                  <Tooltip placement="right" title={value.name}>
-                      <div style={{
-                          width: 150,
-                          overflow: "hidden",
-                          textOverflow: "ellipsis",
-                          whiteSpace: "nowrap"
-                      }}>
-                          {value.name}
-                      </div>
-                  </Tooltip>
-                  :
-                  <div>{value.name}</div>
+          value.name.length>25?
+              <Tooltip placement="right" title={value.name}>
+                  <div style={{
+                      width: 150,
+                      overflow: "hidden",
+                      textOverflow: "ellipsis",
+                      whiteSpace: "nowrap"
+                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={type='name'&&findDetails}>
+                      {value.name}
+                  </div>
+              </Tooltip>
+              :
+              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={type='name'&&findDetails}>{value.name}</div>
       )
     }
     const findDetails=async (record)=>{
@@ -134,8 +136,13 @@ const Member = props => {
         await  getMemberData(param)
     }
 
+    //设置为演示账号
+    const updateMemberType = (record) => {
+        record.memberType=3
+        updateMember(record)
+    }
+    //启用停用
     const changeEnable =(e,record)=>{
-        console.log(record)
         if (e===true){
             record.useState=1
             updateMember(record)
@@ -145,42 +152,10 @@ const Member = props => {
         }
     }
 
-    //停用
-    const stopUse =async (param)=>{
-        debugger
-        const params={
-            phone:name,
-            ...param,
-            useState:2
-        }
-        await updateMember(params)
-    }
-    //启用
-    const openUse =async (param)=>{
-        debugger
-        const params={
-            phone:name,
-            ...param,
-            useState:1
-        }
-        const pre= await updateMember(params)
-        if (pre.code===0){
-            const param={
-                pageParam: {
-                    pageSize: 10,
-                    currentPage: 1,
-                },
-            }
-            await getMemberData()
-        }
-    }
-
     //修改会员
     const updateMember=async(param) =>{
       const pre=await memberService.updateMember(param)
-
         if (pre.code===0){
-            debugger
             const param={
                 pageParam: {
                     pageSize: 10,
@@ -208,6 +183,7 @@ const Member = props => {
             }
         }
         await getMemberData(newParams)
+
     }
 
 

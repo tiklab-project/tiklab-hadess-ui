@@ -17,7 +17,7 @@ import {
     Select,
     Space
 } from "antd";
-import activityService from "../../../service/avtivity.service";
+import activityService, {updateRollApi} from "../../../service/avtivity.service";
 import moment from "moment";
 const { RangePicker } = DatePicker;
 const layout = {
@@ -48,7 +48,6 @@ const compileCashVolume = props => {
             form.setFieldsValue({
                 rollName: data.rollName,
                 rollType:data.rollType,
-                desc: data.startTime,
                 activityKind:data.rollKind,
                 rollLimit:data.rollLimit,
                 rollNumber:data.rollNumber,
@@ -75,10 +74,22 @@ const compileCashVolume = props => {
             startTime:startTime,
             endTime:endTime
         }
-        const res=await activityService.createRoll(param)
-        if (res.code===0){
-            props.history.push("/setting/activity/cashVolumeList")
+        if (rollData){
+            await updateRoll(param)
+        }else {
+            const res=await activityService.createRoll(param)
+            if (res.code===0){
+                props.history.push("/setting/activity/cashVolumeList")
+            }
         }
+    }
+
+    const updateRoll = async (value) => {
+        const param={
+            ...value,
+            id:rollData.id
+        }
+        const res=await activityService.updateRoll(param)
     }
     const onChange =async (value, dateString) => {
         setStartTime(dateString[0])
@@ -98,8 +109,8 @@ const compileCashVolume = props => {
         <section className='w-full flex flex-row'>
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href='#/setting/activity/cashVolumeList'>现金卷列表</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">创建优惠卷</Breadcrumb.Item>
+                    <Breadcrumb.Item href='#/setting/activity/cashVolumeList' className={'cursor-pointer'}>现金券列表</Breadcrumb.Item>
+                    <Breadcrumb.Item >创建优惠券</Breadcrumb.Item>
                 </Breadcrumb>
                 <Form
                     {...layout}
@@ -129,15 +140,25 @@ const compileCashVolume = props => {
                         label='优惠卷有效期'
                     >
                         <Space direction="vertical" size={12}>
-                            <RangePicker
-                                showTime={{
-                                    format: 'HH:mm',
-                                }}
-                                format="YYYY-MM-DD HH:mm"
-                                onChange={onChange}
+                            {
+                                rollData&&rollData.startTime?
+                                <RangePicker
+                                    showTime={{
+                                        format: 'HH:mm',
+                                    }}
+                                    format="YYYY-MM-DD HH:mm"
+                                    onChange={onChange}
+                                    value={[moment(rollData.startTime, "YYYY-MM-DD HH:mm"), moment(rollData.endTime, "YYYY-MM-DD HH:mm")]}
+                                />:
+                                    <RangePicker
+                                        showTime={{
+                                            format: 'HH:mm',
+                                        }}
+                                        format="YYYY-MM-DD HH:mm"
+                                        onChange={onChange}
+                                    />
+                            }
 
-                                value={rollData&&rollData.startTime?[moment(rollData.startTime, "YYYY-MM-DD HH:mm"), moment(rollData.endTime, "YYYY-MM-DD HH:mm")]:null}
-                            />
                         </Space>
                     </Form.Item>
                     <Form.Item name={['activityKind']} label="优惠卷种类" rules={[{ required: true }]}>

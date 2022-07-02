@@ -1,4 +1,14 @@
 .dk-head{
+    position: fixed;
+    width: 100%;
+    min-width: 1100px;
+    height: 60px;
+    top: 0;
+    background-color: #ffffff;
+    z-index: 100;
+
+
+
     &-nav{
         width: 760px;
         height: 60px;

@@ -220,13 +220,16 @@ const Setting = props => {
     }
 
     return (
-        <div className='setting-height'>
-            <MenuList
-                data={menuData}
-                onSelectMenu={onSelectMenu}
-                defaultSelectedKeys={[key]}
-            />
-            <div style={{width:'100%'}}>
+        <div className='flex'>
+            <div className={'setting-height'}>
+                <MenuList
+                    data={menuData}
+                    onSelectMenu={onSelectMenu}
+                    defaultSelectedKeys={[key]}
+                />
+            </div>
+
+            <div style={{width:'100%'}} className={'setting_right_height'}>
                 {renderRoutes(props.route.routes)}
             </div>
         </div>

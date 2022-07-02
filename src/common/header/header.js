@@ -41,6 +41,10 @@ const Header = props => {
         }
 
     }
+    
+    const goSystem = value => {
+        props.history.push(value)
+    }
     const renderRouter = () => {
         if (HeaderConfig) {
             return (
@@ -64,8 +68,8 @@ const Header = props => {
     }
 
     return(
-        <Fragment>
-            <header className='flex border-b'>
+        <div className='dk-head' >
+            <header className='flex border-b ' >
                 <div className='flex w-4/5'>
                     <div className='pt-2'>
                         {component}
@@ -80,7 +84,7 @@ const Header = props => {
                             <div className='dk-head-product-nav '  >
                                 <div className={'dk-head-product-content-nav'} >
                                     <div className={'dk-head-product-left'}>
-                                        <div className={'dk-head-product-left-item'}>
+                                        <div className={'dk-head-product-left-item'} onClick={()=>goSystem('/system')}>
                                             用户管理
                                         </div>
                                         <div className={'dk-head-product-left-item'}>
@@ -115,7 +119,7 @@ const Header = props => {
             </header>
             {ModalComponent}
             {editOrAddModal}
-        </Fragment>
+        </div>
     )
 
 }

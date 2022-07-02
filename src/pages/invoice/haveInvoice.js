@@ -5,8 +5,40 @@
  * @description：已开发票
  * @update: 2022-02-26 14:30
  */
-import React, {useState, useEffect,Component} from "react";
+import React, {useState, useEffect} from "react";
+import invoiceService from "../../service/invoice.service";
 const HaveInvoice=props=>{
+
+    const [invoiceList,setInvoiceList]=useState([]) //已开发票发票数据list
+    const [pageSize,setPageSize]=useState(10)
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalRecord, setTotalRecord] = useState(props.total);  //总条数
+
+    useEffect(async ()=>{
+        await findInvoice()
+    },[])
+
+    //查询已开的发票
+    const findInvoice = async () => {
+        const param = {
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: currentPage,
+            },
+            invoiceState:1
+        }
+        const res=await invoiceService.findOpenInvoicePage(param)
+        if (res.code===0){
+            setTotalRecord(res.data.totalRecord)
+            setInvoiceList(res.data.dataList)
+        }
+    }
+
+    //查询发票详情
+    const openMakeInvoice = () => {
+
+    }
+
     return(
         <div >
             <div className='flex bg-gray-100 py-2 text-center'>
@@ -17,7 +49,7 @@ const HaveInvoice=props=>{
                     开票类型
                 </div>
                 <div className='w-1/6'>
-                    开票人
+                    录入人
                 </div>
                 <div className='w-1/6'>
                     录入时间
@@ -26,58 +58,60 @@ const HaveInvoice=props=>{
                     操作
                 </div>
             </div>
-           {/* {
-                datas.map(items=>{
+            {
+                invoiceList&& invoiceList.map(invoice=>{
                     return(
-                        <div key={items} className='pt-5 '>
+                        <div key={invoice.id} className='pt-5 '>
                             <div className='border'>
                                 <div className='flex py-2 bg-gray-100'>
-                                    <div >
-                                        2022-02-16 12:12:12
-                                    </div>
-                                    <div className='pl-8'>
-                                        购买企业：腾飞企业
-                                    </div>
+                                    {
+                                        invoice.bGroup===1?
+                                            <div className='pl-2'>
+                                                开票租户：{invoice.memberId}
+                                            </div>:
+                                            <div className='pl-2'>
+                                                开票人：{invoice.memberId}
+                                            </div>
+                                    }
                                 </div>
                                 <div className='flex'>
-                                    <div className='w-2/4 border-r'>
-                                        {data.map(item=>{
+                                    <div className='w-2/5 border-r'>
+                                        {invoice.invoiceOrderList.map(item=>{
                                             return(
                                                 <div key={item} className=' '>
                                                     <div className='flex pt-3 border-b py-3'>
-                                                        <div className='pl-2' >
-                                                            {item.name}
+                                                        <div className='w-3/4 pl-3' >
+                                                            {item.order.orderProductList[0].product.name}
                                                         </div>
-                                                        <div className='pl-8'>
-                                                            金额：{item.price}
+                                                        <div className='w-2/4'>
+                                                            金额：{item.order.orderProductList[0].orderProductPrice}
                                                         </div>
-                                                        <div className='pl-8'>
-                                                            类型：{item.world}
-                                                        </div >
-                                                        <div className='pl-8'>
-                                                            数量：{item.math}
+                                                        <div className='w-2/4'>
+                                                            数量：{item.order.orderProductList[0].math}月
                                                         </div>
                                                     </div>
                                                 </div>
                                             )
                                         })}
                                     </div>
-                                    <div className='w-1/4 text-left md:text-center border-r align-middle'>
-                                        普通电子发票
+                                    <div className='w-1/5 text-left md:text-center border-r align-middle'>
+                                        {invoice.invoiceType===1&&'电子普通发票'||invoice.invoiceType===2&&'增值税发票'}
                                     </div>
-                                    <div className='w-1/4 text-left md:text-center border-r align-middle  ' >
-                                        2022-02-26 17:58
+                                    <div className='w-1/5 text-left md:text-center border-r align-middle  ' >
+                                        {invoice.member.name}
                                     </div>
-                                    <div className='w-1/4 text-center  py-2 ' >
-                                        <a className='px-5 ' onClick={()=>openMakeInvoice()}>开票详情</a>
-                                        <a>录入发票</a>
+                                    <div className='w-1/5 text-left md:text-center border-r align-middle  ' >
+                                        {invoice.createTime}
+                                    </div>
+                                    <div className='w-1/5 text-center  py-2 ' >
+                                        <a className='px-5 ' onClick={()=>openMakeInvoice()}>发票详情</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     )
                 })
-            }*/}
+            }
         </div>
     )
 }

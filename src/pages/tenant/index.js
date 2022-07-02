@@ -85,7 +85,6 @@ const Tenant = props => {
 
 
     const filedState = (value) => {
-        debugger
         return(
             value.length>25?
                 <Tooltip placement="right" title={value}>

@@ -1,5 +1,6 @@
 import {EAM_STORE, EamStore} from "doublekit-eam-ui";
-
+//import {SLATE_STORE, SlateStore} from 'doublekit-slate-ui'
+import {SLATE_STORE,SlateStore} from "./slateStore"
 import {DomainRoleStore, PRIVILEGE_DOMAIN_ROLE_STORE} from "./pages/system/store/domainRole";
 import {
     PRIVILEGE_SYSTEM_STORE,
@@ -39,7 +40,7 @@ import {
     DOMAIN_USER_STORE,
     DomainUserStore
 } from "./pages/orga/projectPeopleManagement/store/domainUserStore";
-import {SLATE_STORE,SlateStore} from "./slateStore"
+
 import {USER_STORE, UserStore} from "./pages/orga/userManagement/store/userStore";
 import {AUTH_CONFIG_STORE, AuthConfigStore} from "./pages/authConfig/store/authConfigStore";
 function createStores() {
@@ -57,10 +58,9 @@ function createStores() {
         [ORG_STORE]: new OrgStore(),
         [DOMAIN_USER_STORE]: new DomainUserStore(),
         [USER_STORE]: new UserStore(),
-        [SLATE_STORE]: new SlateStore(),
         [AUTH_CONFIG_STORE]: new AuthConfigStore(),
         [EAM_STORE]: new EamStore(),
-
+        [SLATE_STORE]: new SlateStore(),
     };
 }
 

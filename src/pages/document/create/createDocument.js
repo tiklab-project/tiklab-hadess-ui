@@ -12,6 +12,7 @@ import documentService from "../../../service/document.service"
 import {getUser} from "../../../utils";
 import CustomEditor from "../../../common/editSlate/editor";
 import {withRouter} from "react-router";
+import {DocumentEditor} from 'doublekit-slate-ui'
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
@@ -21,7 +22,7 @@ const CreateDocument = props => {
     const data=props.history.location.params
     const [form] = Form.useForm();
     const [details,setDetails]=useState(null)
-    const [value] = useState([
+    const [value, setValue] = useState([
         {
             type: "paragraph",
             children: [{ text: "" }],
