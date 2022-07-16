@@ -27,16 +27,20 @@ export const updateTenantDbGroupApi = '/tenantDbGroup/updateTenantDbGroup';  // 
 export const deleteTenantDbGroupApi = '/tenantDbGroup/deleteTenantDbGroup';  //删除数据源
 
 
-export const findAllTenantDssGroupApi = '/tenantDssGroup/findAllTenantDssGroup';  //查询所有dss数据源
-export const deleteTenantDssGroupApi = '/tenantDssGroup/deleteTenantDssGroup';  //删除dss数据源
-export const updateTenantDssGroupApi = '/tenantDssGroup/updateTenantDssGroup';  //修改dss数据源
-export const createTenantDssGroupApi = '/tenantDssGroup/createTenantDssGroup';  //创建dss数据源
+export const findAllTenantDsGroupApi = '/tenantDsGroup/findAllTenantDsGroup';  //查询所有dss数据源
+export const findTenantDsGroupListApi = '/tenantDsGroup/findTenantDsGroupList';  //条件查询dss数据源
+export const deleteTenantDsGroupApi = '/tenantDsGroup/deleteTenantDsGroup';  //删除dss数据源
+export const updateTenantDsGroupApi = '/tenantDsGroup/updateTenantDsGroup';  //修改dss数据源
+export const createTenantDsGroupApi = '/tenantDsGroup/createTenantDsGroup';  //创建dss数据源
 
 
 export const findTenantDssByConApi = '/tenantDss/findTenantDssByCon';
 export const findTenantDssListApi = '/tenantDss/findTenantDssList';   //条件查询
 export const updateTenantDssApi = '/tenantDss/updateTenantDss';   //修改租户dss数据源
 export const updateTenantDssByIdsApi = '/tenantDss/updateTenantDssByIds';   //批量修改租户dss数据源
+
+export const findTenantDfsByConApi = '/tenantDfs/findTenantDfsByCon';
+export const findTenantDcsByConApi = '/tenantDcs/findTenantDcsByCon';
 class TenantService {
     constructor() {
     }
@@ -107,19 +111,23 @@ class TenantService {
     }
 
     async findAllTenantDssGroup(params){
-        const res = await Axios.post(findAllTenantDssGroupApi,params)
+        const res = await Axios.post(findAllTenantDsGroupApi,params)
+        return res
+    }
+    async findTenantDsGroupList(params){
+        const res = await Axios.post(findTenantDsGroupListApi,params)
         return res
     }
     async deleteTenantDssGroup(params){
-        const res = await Axios.post(deleteTenantDssGroupApi,params)
+        const res = await Axios.post(deleteTenantDsGroupApi,params)
         return res
     }
     async updateTenantDssGroup(params){
-        const res = await Axios.post(updateTenantDssGroupApi,params)
+        const res = await Axios.post(updateTenantDsGroupApi,params)
         return res
     }
     async createTenantDssGroup(params){
-        const res = await Axios.post(createTenantDssGroupApi,params)
+        const res = await Axios.post(createTenantDsGroupApi,params)
         return res
     }
     async updateTenantDatabaseByIds(params){
@@ -144,7 +152,14 @@ class TenantService {
         return res
     }
 
-
+    async findTenantDfsByCon(params){
+        const res = await Axios.post(findTenantDfsByConApi,params)
+        return res
+    }
+    async findTenantDcsByCon(params){
+        const res = await Axios.post(findTenantDcsByConApi,params)
+        return res
+    }
 
 }
 const tenantService = new TenantService()

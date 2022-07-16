@@ -75,11 +75,12 @@ const Document = props => {
             repositoryId:repository.id
         }
         const res=await documentService.findCategoryListTree(param)
+        debugger
         if (res.code===0){
             setDocumentDataList(res.data.document)
             setCategoryDataList(res.data.category)
             //第一次默认打开第一个文档
-            if (res.data.document&&type){
+            if (res.data.document){
                 await findDocument(res.data.document[0])
                 await findCommentByDocumentId(res.data.document[0].id)
             }
@@ -360,7 +361,7 @@ const Document = props => {
                                    </div>
                                 </div>
                                 {
-                                    twoItem.children&&!isExpandedTree(twoItem.id)&&categorySecondTree(twoItem)
+                                    twoItem.children&&isExpandedTree(twoItem.id)&&categorySecondTree(twoItem)
                                 }
                             </div>
                         )
@@ -422,7 +423,7 @@ const Document = props => {
                 <div className='w-full p-4' id='slate'>
                     <div className='flex items-center justify-between'>
                         <div className='w-96 text-xl py-2 pr-3'>{documentData.name}</div>
-                        <div onClick={()=>skipUpdateDocument(documentData)}>编辑</div>
+                        <div onClick={()=>skipUpdateDocument(documentData)} className='cursor-pointer'>编辑</div>
                     </div>
 
                     <div className='text-gray-400'>
@@ -551,7 +552,6 @@ const Document = props => {
         }
 
     }
-
     return(
         <section className='w-full flex flex-row'>
             <div className={' flex flex-col  pl-6'}>

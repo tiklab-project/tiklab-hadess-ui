@@ -8,7 +8,7 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Button   , Select, Upload, message} from 'antd';
 import {UploadOutlined} from "@ant-design/icons";
-import {HOMES_URL} from "../../const";
+import {OCS_URL} from "../../const";
 import {getUser} from "../../utils";
 import invoiceService from "../../service/invoice.service";
 const { Option } = Select;
@@ -44,7 +44,7 @@ const  UploadInvoicePopup=props=>{
     //上传发票
     const uploadInvoice = {
         name: 'uploadFile',
-        action: HOMES_URL+ '/dfs/upload',
+        action: OCS_URL+ '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },

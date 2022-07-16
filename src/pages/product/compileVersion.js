@@ -15,7 +15,7 @@ const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
-import {HOMES_URL} from "../../const";
+import {OCS_URL} from "../../const";
 import CustomEditor from "../../common/editSlate/editor";
 const CompileVersion = props=> {
     const [form] = Form.useForm();
@@ -54,7 +54,7 @@ const CompileVersion = props=> {
                 id:productData.id
             },
             size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
-            newFeature:value.versionData&&JSON.stringify(value.versionData),
+            newFeature:value.newFeature&&JSON.stringify(value.newFeature),
             optFeature:value.optFeature&&JSON.stringify(value.optFeature),
             updateFeature:value.updateFeature&&JSON.stringify(value.updateFeature)
         }
@@ -67,7 +67,7 @@ const CompileVersion = props=> {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: HOMES_URL + '/dfs/upload',
+        action: OCS_URL + '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },
@@ -116,8 +116,8 @@ const CompileVersion = props=> {
             uid: '1',
             name: surfacePlot,
             status: 'done',
-            url:`${HOMES_URL}/image/${surfacePlot}`,
-            thumbUrl:`${HOMES_URL}/image/${surfacePlot}`
+            url:`${OCS_URL}/image/${surfacePlot}`,
+            thumbUrl:`${OCS_URL}/image/${surfacePlot}`
         }
     ]
     return (
@@ -148,7 +148,7 @@ const CompileVersion = props=> {
                                 ?<Upload {...fileUpload} fileList={fileList}>
                                 </Upload>
                                 : <Upload {...fileUpload} >
-                                    <Button icon={<UploadOutlined />}>Upload</Button>
+                                    <Button zicon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                         }
 

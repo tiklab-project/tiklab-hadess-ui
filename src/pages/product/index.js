@@ -12,7 +12,7 @@ import update from 'immutability-helper';
 import DraggableBodyRow from "../../common/sort/DraggableBodyRow"
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import productService from "../../service/product.service";
-import AddProduct from "./addProduct";
+import AddProduct from "../product/addProduct";
 import {ExclamationCircleOutlined,UpCircleOutlined,DownCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 import {withRouter} from "react-router";
@@ -43,7 +43,8 @@ const Product = props => {
         {
             title: '产品类型',
             dataIndex: 'type',
-            width:'10%'
+            width:'10%',
+            render:text => text==='saas'?'线上saas版':'线下安装版'
         },
         {
             title: '产品价格',
@@ -83,8 +84,7 @@ const Product = props => {
     ];
 
     useEffect(async () => {
-
-        await getProductionData(params)
+        await getProductionData()
     }, []);
 
     const findDetails=async (record)=>{
@@ -153,6 +153,7 @@ const Product = props => {
             }
         }
         const data = await productService.findProductPageService(param)
+        debugger
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)
             setTableData(data.data.dataList)

@@ -51,7 +51,7 @@ const compileVersion = SyncComponent(() => import('./pages/product/compileVersio
 // 会员管理
 const Member = SyncComponent(() => import('./pages/member'))
 //会员详情
-const MemberDetails = SyncComponent(() => import('./pages/member/details'))
+const MemberDetails = SyncComponent(() => import('./pages/member/memberDetails'))
 
 // 租户管理
 const Tenant = SyncComponent(() => import('./pages/tenant'))

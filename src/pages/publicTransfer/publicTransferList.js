@@ -25,6 +25,10 @@ const PublicTransferList = props => {
 
         },
         {
+            title: '会员',
+            dataIndex: ['member','name'],
+        },
+        {
             title: '订单类型',
             dataIndex: 'bGroup',
             render: (text, record) => {
@@ -107,7 +111,10 @@ const PublicTransferList = props => {
           ...data,
           payState:2
       }
-      await orderService.verifyPublicTra(param)
+     const res=await orderService.verifyPublicTra(param)
+        if (res.code===0){
+           await findOrderPay(1)
+        }
     }
     //切换卷类型
     const cutType =async (e) => {

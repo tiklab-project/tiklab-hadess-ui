@@ -22,6 +22,7 @@ const DbAddOrUpdate = props => {
                 url: editData.url,
                 userName:editData.userName,
                 password: editData.password,
+                serialNumber:editData.serialNumber,
                 details:editData.details,
             })
         }
@@ -82,6 +83,13 @@ const DbAddOrUpdate = props => {
                             rules={[{required: true}]}
                         >
                             <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            name="serialNumber"
+                            label='序号'
+                            rules={[{required: true}]}
+                        >
+                            <Input placeholder="注意：整数且大于列表的序号"/>
                         </Form.Item>
                         <Form.Item
                             name="details"

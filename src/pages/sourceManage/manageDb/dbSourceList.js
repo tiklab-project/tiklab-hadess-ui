@@ -40,6 +40,11 @@ const DbSourceList = props => {
             )
         },
         {
+            title: '序号 (使用db顺序)',
+            dataIndex: 'serialNumber',
+
+        },
+        {
             title: '描述',
             dataIndex: 'details',
         },
@@ -124,7 +129,7 @@ const DbSourceList = props => {
         <section className='flex-row p-6'>
             <div className='w-full  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item >数据源管理</Breadcrumb.Item>
+                    <Breadcrumb.Item>数据源管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">db列表</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='flex justify-end py-6' >

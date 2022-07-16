@@ -106,12 +106,10 @@ const Member = props => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap"
-                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={type='name'&&findDetails}>
-                      {value.name}
-                  </div>
+                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.name}</div>
               </Tooltip>
               :
-              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={type='name'&&findDetails}>{value.name}</div>
+              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.name}</div>
       )
     }
     const findDetails=async (record)=>{

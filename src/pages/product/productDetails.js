@@ -126,20 +126,26 @@ const ProductDetails = props => {
                         <div >产品地址: {productData.productUrl}</div>
                     </div>
                 <div >
-                    <Row gutter={[16, 16]} className='mt-6'>
-                        <Col span={6}>
-                            <h4 className='text-lg p-4'>产品版本</h4>
-                        </Col>
-                        <Col span={10} offset={8} className='flex justify-end'>
-                            <Button type="primary" onClick={() => addVersion()}>添加版本</Button>
-                        </Col>
-                    </Row>
-                    <Table
-                        dataSource={tableData}
-                        columns={columns}
-                        rowKey={record => record.id}
-                        pagination={false}
-                    />
+                    {
+                        productData?.type==='offline'&&
+                        <>
+                            <Row gutter={[16, 16]} className='mt-6'>
+                                <Col span={6}>
+                                    <h4 className='text-lg p-4'>产品版本</h4>
+                                </Col>
+                                <Col span={10} offset={8} className='flex justify-end'>
+                                    <Button type="primary" onClick={() => addVersion()}>添加版本</Button>
+                                </Col>
+                            </Row>
+                            <Table
+                                dataSource={tableData}
+                                columns={columns}
+                                rowKey={record => record.id}
+                                pagination={false}
+                            />
+                        </>
+                    }
+
                 </div>
 
             </div>

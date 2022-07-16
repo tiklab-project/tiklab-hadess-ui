@@ -7,7 +7,7 @@
  */
 import {withRouter} from "react-router";
 import React,  {useState, useEffect} from "react";
-import {Breadcrumb, Button, Col, Input, Row, Select, Space, Table,Modal,Tooltip } from "antd";
+import {Breadcrumb, Button, Col, Input, Row, Select, Space, Table,Modal,Tooltip,Empty } from "antd";
 import documentService from "../../service/document.service"
 import CreateOrUpdateRepository from "./popup/createOrUpdateRepository";
 import {comment} from "postcss";
@@ -181,10 +181,9 @@ const DocumentList = props => {
                         </div>
 
                     : <div>
-                        <section className='w-full m-auto border-solid border-2 p-6 mt-6 max-w-screen-xl text-center'>
-                        还没有创建任何文档
-                        <span className='text-blue-600 cursor-pointer' onClick={openCreatePopup}>创建</span>
-                        </section>
+                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}  >
+                                <Button type="primary" onClick={openCreatePopup}>现在创建</Button>
+                        </Empty>
                     </div>
 
                 }

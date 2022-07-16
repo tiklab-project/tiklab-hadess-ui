@@ -8,7 +8,7 @@
  */
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Button, Input, message, Select, Space, Table} from "antd";
-import tenantService, {findAllTenantDssGroupApi} from "../../../service/tenant.service";
+import tenantService from "../../../service/tenant.service";
 const { Option } = Select;
 import TenantDssUpdate from "./tenantDssUpdate";
 const TenantDssList = props => {
@@ -31,7 +31,7 @@ const TenantDssList = props => {
             dataIndex: 'app',
         },
         {
-            title: 'dss',
+            title: '地址',
             dataIndex: 'url',
         },
         {
@@ -51,7 +51,7 @@ const TenantDssList = props => {
             sessionStorage.setItem("dss", JSON.stringify(dss));
         }
         await findTenantDss(1)
-        await findAllDss()
+
     },[])
 
     const findTenantDss =async (type,name) => {
@@ -61,21 +61,35 @@ const TenantDssList = props => {
             dssGroupId:dss.id,
             tenantName:name
         }
-      const res= await tenantService.findTenantDssByCon(param)
+        let res;
+        if (dss.dsType==="dss"){
+             res= await tenantService.findTenantDssByCon(param)
+        }
+         if (dss.dsType==="dfs"){
+              res= await tenantService.findTenantDfsByCon(param)
+         }
+        if (dss.dsType==="dcs"){
+             res= await tenantService.findTenantDcsByCon(param)
+        }
+
         if (res.code===0){
             if (!res.data.length&&type===1){
                 setDataState(false)
             }
             setTenantDssDataList(res.data)
         }
+        await findAllDss(dss)
     }
 
     const findTenantByName = () => {
 
     }
     //查询所有dss数据源
-    const findAllDss = async () => {
-        const res=await tenantService.findAllTenantDssGroup()
+    const findAllDss = async (value) => {
+        const param={
+            dsType:value.dsType
+        }
+        const res=await tenantService.findTenantDsGroupList(param)
         if (res.code===0){
             setAllDssData(res.data)
         }
@@ -106,9 +120,10 @@ const TenantDssList = props => {
 
     }
     const onSearch = async () => {
-        if (tenantDbIds.length){
+        if (tenantDssIds.length){
             return message.warn('请取消多选在搜索');
         }
+
         await findTenantDss(2,name)
     }
 
@@ -123,12 +138,15 @@ const TenantDssList = props => {
             <div className='w-full  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item href="#/setting/sourceManage/manageDss">dss数据源列表</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">租户dss数据源管理</Breadcrumb.Item>
+                    <Breadcrumb.Item href="">租户ds数据源管理</Breadcrumb.Item>
                 </Breadcrumb>
                 {
                     dssData&&
                     <div className='grid gap-y-6 pt-6 pl-4 pb-8'>
-                        <div>dss路径: {dssData.url}</div>
+                        <div>
+                            {dssData.dsType==='dss'&&'dss路径'||dssData.dsType==='dfs'&&'dfs路径'||dssData.dsType==='dcs'&&'dcs路径'}: {dssData.url}
+                        </div>
+                        <div>类型: {dssData.dsType}</div>
                         <div>简介: {dssData.details}</div>
                     </div>
                 }

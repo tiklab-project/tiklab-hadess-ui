@@ -6,7 +6,7 @@
  * @description：发票管理
  * @update: 2022-02-26 14:30
  */
-import {Breadcrumb, Radio} from "antd";
+import {Breadcrumb, Radio,Pagination} from "antd";
 import React, {useState, useEffect,Component} from "react";
 import invoiceService from "../../service/invoice.service";
 import MakeInvoicePopup from './makeInvoicePopup'
@@ -24,11 +24,11 @@ const InvoiceManage =props=>{
     const [visible, setVisible] = useState(false);  //开票详情 弹窗状态
     const [uploadVisible, setUploadVisible] = useState(false);  //上传发票 弹窗状态
     useEffect(async ()=>{
-        await findInvoice()
+        await findInvoice(currentPage)
     },[])
 
     //分页条件待开发查询发票
-    const findInvoice=async ()=>{
+    const findInvoice=async (currentPage)=>{
         const param = {
             pageParam: {
                 pageSize: pageSize,
@@ -68,6 +68,10 @@ const InvoiceManage =props=>{
         await findInvoice()
     }
 
+    //翻页
+    const changPag =async (e) => {
+        await findInvoice(e)
+    }
 
     //待开发票列表
     const notOpenedInvoice=()=>{
@@ -162,6 +166,13 @@ const InvoiceManage =props=>{
                     invoiceType?
                         notOpenedInvoice():<HaveInvoice/>
                 }
+                {
+                    invoiceType&&totalRecord>0&&
+                    <div className='mt-16 flex justify-end'>
+                        <Pagination current={currentPage} total={totalRecord} onChange={changPag}  />
+                    </div>
+                }
+
             </div>
            <MakeInvoicePopup onClose={onClose} visible={visible} invoiceData={invoiceData}/>
             <UploadInvoicePopup onClose={onCloseUpload} visible={uploadVisible} invoiceData={invoiceData} />

@@ -27,6 +27,11 @@ const DssSourceList = props => {
             },
         },
         {
+            title: '类型',
+            dataIndex: 'dsType',
+
+        },
+        {
             title: '当前使用',
             dataIndex: 'present',
             render:(text)=>(

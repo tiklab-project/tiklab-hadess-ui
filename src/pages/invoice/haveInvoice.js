@@ -7,6 +7,7 @@
  */
 import React, {useState, useEffect} from "react";
 import invoiceService from "../../service/invoice.service";
+import {Pagination} from "antd";
 const HaveInvoice=props=>{
 
     const [invoiceList,setInvoiceList]=useState([]) //已开发票发票数据list
@@ -15,11 +16,11 @@ const HaveInvoice=props=>{
     const [totalRecord, setTotalRecord] = useState(props.total);  //总条数
 
     useEffect(async ()=>{
-        await findInvoice()
+        await findInvoice(currentPage)
     },[])
 
     //查询已开的发票
-    const findInvoice = async () => {
+    const findInvoice = async (currentPage) => {
         const param = {
             pageParam: {
                 pageSize: pageSize,
@@ -37,6 +38,11 @@ const HaveInvoice=props=>{
     //查询发票详情
     const openMakeInvoice = () => {
 
+    }
+
+    //翻页
+    const changPag =async (e) => {
+        await findInvoice(e)
     }
 
     return(
@@ -111,6 +117,12 @@ const HaveInvoice=props=>{
                         </div>
                     )
                 })
+            }
+            {
+                totalRecord>0&&
+                <div className='mt-16 flex justify-end'>
+                    <Pagination current={currentPage} total={totalRecord} onChange={changPag}  />
+                </div>
             }
         </div>
     )

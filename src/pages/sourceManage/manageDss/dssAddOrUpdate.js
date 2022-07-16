@@ -6,16 +6,21 @@
  * @update: 2022-05-16 14:30
  */
 
-import React, {useEffect} from "react";
-import {Col, Form, Input, Modal, Row} from "antd";
+import React, {useEffect, useState} from "react";
+import {Col, Form, Input, Modal, Row,Select} from "antd";
 import tenantService from "../../../service/tenant.service";
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
+const { Option } = Select;
+const typeList=[{key:'dfs',value:'dfs'},{key:'dcs',value:'dcs'},{key:'dss',value:'dss'}]
 const DssAddOrUpdate = props => {
     const [form] = Form.useForm();
     const {visible, onCancel, editData} = props;
+
+    const [type,setType]=useState(null)   //产品类型
+
     useEffect(()=>{
         if (editData) {
             form.setFieldsValue({
@@ -41,7 +46,9 @@ const DssAddOrUpdate = props => {
             }
         })
     }
-
+    const selectType = (e) => {
+        setType(e)
+    }
     return(
         <Modal
             visible={visible}
@@ -67,6 +74,23 @@ const DssAddOrUpdate = props => {
                             rules={[{required: true}]}
                         >
                             <Input   placeholder="例如：192.10.1.10:3306"/>
+                        </Form.Item>
+                        <Form.Item
+                            name="dsType"
+                            label='类型'
+                            rules={[{required: true}]}
+                        >
+                            <Select showArrow onChange={selectType}>
+                                {
+                                    typeList.map(item=>{
+                                        return(
+                                            <Option key={item.key} value={item.key}>
+                                                {item.value}
+                                            </Option>
+                                        )
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
                         <Form.Item
                             name="details"
