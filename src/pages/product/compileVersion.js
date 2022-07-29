@@ -7,7 +7,7 @@
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Form,Upload,Modal } from "antd";
+import {Breadcrumb, Row, Col, Input, Button, Table, Form, Upload, Modal, Select} from "antd";
 import { UploadOutlined } from '@ant-design/icons';
 import productService from "../../service/product.service";
 import {getUser} from "../../utils";
@@ -17,6 +17,8 @@ const layout = {
 };
 import {OCS_URL} from "../../const";
 import CustomEditor from "../../common/editSlate/editor";
+const { Option } = Select;
+const systemTypeList=[{key:'windows',value:'windows'},{key:'macOs',value:'macOs'},{key:'linux',value:'linux'}]
 const CompileVersion = props=> {
     const [form] = Form.useForm();
     const param=props.history.location.params
@@ -44,22 +46,32 @@ const CompileVersion = props=> {
             productName: product?.name,
         })
     }, [param])
-    //添加插件版本
+    //添加版本
     const onFinish =async (value) => {
         const params = {
             captureUrl:surfacePlot,
             version:value.version,
-            productUrl:fileName,
+
             product:{
                 id:productData.id
             },
-            size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
+            code:productData.code,
+            type:productData.type,
+            des:value.desc,
             newFeature:value.newFeature&&JSON.stringify(value.newFeature),
-            optFeature:value.optFeature&&JSON.stringify(value.optFeature),
-            updateFeature:value.updateFeature&&JSON.stringify(value.updateFeature)
+
         }
         const response=  await productService.createProductVersion(params)
         if (response.code===0){
+            const productUrlParam={
+                productUrl:fileName,
+                productId:productData.id,
+                productVersionId:response.data,
+                systemType:value.systemType,
+                size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
+            }
+           await productService.createProductUrl(productUrlParam)
+
             props.history.push("/setting/product");
         }
     }
@@ -139,6 +151,19 @@ const CompileVersion = props=> {
                             disabled
                         />
                     </Form.Item>
+                    <Form.Item name={['systemType']} label="系统类型" rules={[{ required: true }]}>
+                        <Select showArrow >
+                            {
+                                systemTypeList.map(item=>{
+                                    return(
+                                        <Option key={item.key} value={item.key}>
+                                            {item.value}
+                                        </Option>
+                                    )
+                                })
+                            }
+                        </Select>
+                    </Form.Item>
                     <Form.Item name={['version']} label="版本" rules={[{ required: true }]}>
                         <Input/>
                     </Form.Item>
@@ -153,7 +178,7 @@ const CompileVersion = props=> {
                         }
 
                     </Form.Item>
-                    <Form.Item name={['captureUrl']} label="项目截图">
+                    <Form.Item name={['captureUrl']} label="项目封面">
                         {
                             surfacePlot
                                 ? <Upload {...pictureUpload} listType="picture" defaultFileList={[...pictureList]}
@@ -165,15 +190,18 @@ const CompileVersion = props=> {
                                 </Upload>
                         }
                     </Form.Item>
-                    <Form.Item name={['newFeature']} label="新增功能"  initialValue={value}>
+                  {/*  <Form.Item name={['newFeature']} label="功能简介"  initialValue={value}>
+                        <CustomEditor/>
+                    </Form.Item>*/}
+                    <Form.Item name={['desc']} label="版本描述" rules={[{ required: true }]}>
+                        <Input/>
+                    </Form.Item>
+                    <Form.Item name={['newFeature']} label="版本详情" initialValue={value} >
                         <CustomEditor/>
                     </Form.Item>
-                    <Form.Item name={['optFeature']} label="优化功能" initialValue={value} >
+                   {/* <Form.Item name={['updateFeature']} label="修改功能" initialValue={value}>
                         <CustomEditor/>
-                    </Form.Item>
-                    <Form.Item name={['updateFeature']} label="修改功能" initialValue={value}>
-                        <CustomEditor/>
-                    </Form.Item>
+                    </Form.Item>*/}
                     <Row>
                         <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
                             <Button type="primary" htmlType="submit">

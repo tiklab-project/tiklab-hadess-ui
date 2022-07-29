@@ -17,15 +17,15 @@ import {ExclamationCircleOutlined,UpCircleOutlined,DownCircleOutlined} from "@an
 const { confirm } = Modal;
 import {withRouter} from "react-router";
 const Product = props => {
-    const [name, setName] = useState('');
+    const [name, setName] = useState(null);
     const [editData, setEditData] = useState(null);
-    const [tableData, setTableData] = useState(props.productList);
+    const [tableData, setTableData] = useState(null);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState(props.total);
     const [visible, setVisible] = useState(false);
 
-    const [compileType,setCompileType]=useState('')   //编辑类型
+    const [compileType,setCompileType]=useState(null)   //编辑类型
     const columns = [
         {
             title: '产品名称',
@@ -44,12 +44,12 @@ const Product = props => {
             title: '产品类型',
             dataIndex: 'type',
             width:'10%',
-            render:text => text==='saas'?'线上saas版':'线下安装版'
+            render:text => text==='saas'&&'线上saas版'||text==='ce'&&'线下社区(ce)版'||text==='ee'&&'线下企业(ee)版'
         },
         {
             title: '产品价格',
             dataIndex: 'price',
-            render: (text) => '$'+text,
+            render: (text,record) => record.type==='ce'?'免费':'$'+text,
             width:'10%'
         },
         {
@@ -84,7 +84,7 @@ const Product = props => {
     ];
 
     useEffect(async () => {
-        await getProductionData()
+        await getProductionData(name,page)
     }, []);
 
     const findDetails=async (record)=>{
@@ -97,7 +97,9 @@ const Product = props => {
     const addVersion=async (record)=>{
         const person={
             id:record.id,
-            name:record.name
+            name:record.name,
+            code:record.code,
+            type:record.type
         }
         props.history.push({
             pathname:"/setting/product/compileVersion",
@@ -134,26 +136,20 @@ const Product = props => {
         formData.append('id', id);
         const response = await productService.deleteProductService(formData)
         if (response.code === 0) {
-            const params = {
-                pageParam: {
-                    pageSize: 10,
-                    currentPage: 1,
-                }
-            }
             setPage(1)
-            await getProductionData(params)
+            await getProductionData(name,page)
         }
     }
     //分页条件查询产品
-    const getProductionData = async()  => {
+    const getProductionData = async(name,page)  => {
         const param = {
+            name:name,
             pageParam: {
                 pageSize: pageSize,
                 currentPage: page,
             }
         }
         const data = await productService.findProductPageService(param)
-        debugger
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)
             setTableData(data.data.dataList)
@@ -171,48 +167,29 @@ const Product = props => {
        }
         await productService.updateSortService(param)
     }
+
     const onInputName = (e) => {
         const value = e.target.value
         setName(value)
     }
     const onSearch = async () => {
-        const params = {
-            name,
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1,
-            }
-        }
-        await getProductionData(params)
+        await getProductionData(name,page)
     }
     const addProduct = () => {
         setCompileType("add")
         setVisible(true)
     }
 
+    //分页
     const handleTableChange = async (pagination, filters, sorter) => {
         setPage(pagination.current)
-        const newParams = {
-            name,
-            pageParam: {
-                pageSize: pageSize,
-                currentPage: pagination.current
-            }
-        }
-        await getProductionData(newParams)
+        await getProductionData(name,pagination.current)
     }
 
     const onCancel = async () => {
         setVisible(false)
         setEditData(null)
-        const params = {
-            name,
-            pageParam: {
-                pageSize: 10,
-                currentPage: 1,
-            }
-        }
-        await getProductionData(params)
+        await getProductionData(name,page)
     }
      const components = {
            body: {

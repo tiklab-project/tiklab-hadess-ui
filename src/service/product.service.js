@@ -23,8 +23,10 @@ export const findAllProductTypeApi = '/productType/findAllProductType';
 export const createProductVersionApi = '/productVersion/createProductVersion';
 //通过条件查询
 export const findProductVersionListApi = '/productVersion/findProductVersionList';
-
 export const deleteProductVersionApi = '/productVersion/deleteProductVersion';  //删除产品版本
+
+export const createProductUrlApi = '/productUrl/createProductUrl';  //添加产品路径
+export const deleteProductUrlApi = '/productUrl/deleteProductUrl';  //删除产品路径
 
 class ProductService {
     constructor() {
@@ -82,12 +84,17 @@ class ProductService {
         const response = await Axios.post(findAllProductTypeApi, data)
         return response
     }
-
-
-
-
     async deleteProductVersion(data){
         const response = await Axios.post(deleteProductVersionApi, data)
+        return response
+    }
+
+    async createProductUrl(data){
+        const response = await Axios.post(createProductUrlApi, data)
+        return response
+    }
+    async deleteProductUrl(data){
+        const response = await Axios.post(deleteProductUrlApi, data)
         return response
     }
 }
