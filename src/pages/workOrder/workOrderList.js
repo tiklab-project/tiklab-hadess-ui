@@ -35,9 +35,10 @@ const WorkOrderList=props=>{
             dataIndex:'description',
             render: (text, record) => {
                 return <Tooltip placement="top" title={text}><div style={{width:180,overflow:"hidden",textOverflow:"ellipsis",whiteSpace:"nowrap"}}>
-                    <PreviewEditor
+                    {/*<PreviewEditor
                         value={JSON.parse(text)}
-                    />
+                    />*/}
+                    {text}
                     </div>
                 </Tooltip>
             }
@@ -95,7 +96,6 @@ const WorkOrderList=props=>{
             state:state
         }
         const res=await workOrderServer.findWorkOrderPage(param);
-
         if (res.code===0){
             setTableData(res.data.dataList)
             setTotalRecord(res.data.totalRecord)

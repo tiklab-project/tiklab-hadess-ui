@@ -161,7 +161,7 @@ const Setting = props => {
         let links = [
             {
                 key:'1',
-                router:`/setting/product`,
+                router:`/`,
             },
             {
                 key:'2-1',

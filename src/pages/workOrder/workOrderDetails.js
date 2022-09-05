@@ -16,7 +16,7 @@ import {withRouter} from "react-router";
 const { TextArea } = Input;
 
 const layout = {
-    labelCol: { span: 4 },
+    labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
 const WorkOrderDetails=props=>{
@@ -118,11 +118,12 @@ const WorkOrderDetails=props=>{
                                     <p className='py-2 w-2/5'>所属产品 : {data.product.name}</p>
                                     <p className='py-2'>手机号 : {data.userPhone}</p>
                                 </div>
-                                <div className='py-2'>问题描述 :
+                                <div className='py-2 pt-6'>问题描述 :
                                     <p className='pt-2 pl-6 leading-loose '>
-                                        <PreviewEditor
+                                        {data.description}
+                                       {/* <PreviewEditor
                                             value={JSON.parse(data.description)}
-                                        />
+                                        />*/}
                                     </p>
                                 </div>
                             </div>
@@ -140,7 +141,7 @@ const WorkOrderDetails=props=>{
                                            {/* <Form.Item name={['description']} initialValue={value}  rules={[{ required: true }]}>
                                                 <CustomEditor/>
                                             </Form.Item>*/}
-                                            <Form.Item name={['description']} label="问题描述" rules={[{ required: true }]}>
+                                            <Form.Item name={['description']}  rules={[{ required: true }]}>
                                                 <TextArea rows={5} />
                                             </Form.Item>
                                             <Row>

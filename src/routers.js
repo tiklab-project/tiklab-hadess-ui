@@ -132,7 +132,7 @@ const routers = [
         routes: [
             {
                 component: Setting,
-                path:'/setting',
+                path:'/',
                 routes:[
                     {
                         path: '/setting/subscribe',
@@ -155,7 +155,7 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/product',
+                        path: '/',
                         component: Product,
                         exact: true,
                     },
@@ -320,9 +320,9 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting',
+                        path: '/',
                         exact: true,
-                        render: ()=><Redirect to="/setting/subscribe"/>
+                        render: ()=><Redirect to="/setting"/>
                     },
                 ]
             },
