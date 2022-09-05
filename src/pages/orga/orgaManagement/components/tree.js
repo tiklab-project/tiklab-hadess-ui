@@ -11,7 +11,7 @@ import {observer} from "mobx-react";
 import { useTranslation } from 'react-i18next';
 import {Input, Button} from "antd";
 import {DarthTree} from "../../../../common";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import AddOrg from './orgAdd'
 import './tree.scss'
 

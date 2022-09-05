@@ -10,7 +10,7 @@ import React, {useEffect, useState} from 'react';
 import {Col, Row, Modal, Input, Form,Select} from "antd";
 import {useTranslation} from "react-i18next";
 import { v4 as uuidv4 } from 'uuid';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 const layout = {
     labelCol: { span: 6},

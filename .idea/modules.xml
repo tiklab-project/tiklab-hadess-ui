@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/doublekit-oms-web.iml" filepath="$PROJECT_DIR$/.idea/doublekit-oms-web.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/tiklab-oms-web.iml" filepath="$PROJECT_DIR$/.idea/tiklab-oms-web.iml" />
     </modules>
   </component>
 </project>

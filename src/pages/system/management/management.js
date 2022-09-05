@@ -16,7 +16,7 @@ import {deleteSuccessReturnCurrenPage} from "../../../utils";
 import SendDetail from "./components/sendDetail";
 import ViewMessageModal from "./components/viewMessageModal";
 import SendModal from "./components/sendModal";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {MESSAGE_MANAGEMENT_STORE} from "./store/messageStore";
 import './message.scss';
 

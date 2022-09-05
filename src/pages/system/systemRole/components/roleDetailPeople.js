@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react'
 import {Button, Row, Col, Input, Table, Space} from "antd";
 import { useTranslation } from 'react-i18next';
 import AddRoleUser from "./roleUserAdd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 
 const RolePeople = props => {

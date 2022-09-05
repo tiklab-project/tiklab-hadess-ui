@@ -8,7 +8,7 @@ import React,{useState, useEffect, useRef} from 'react';
 import { useTranslation } from 'react-i18next';
 import {Col, Row, Tabs} from "antd";
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import ProjectRolePeople from "./projectRoleDetailPeople";
 import ProjectRolePromise from "./projectRoleDetailPromiss";
 import {BreadCrumb} from "../../../../common";

@@ -41,7 +41,7 @@ const Group = () => {
                 name="password"
                 rules={[{ required: true, message: '请输入子域名地址!' }]}
             >
-                <Input addonBefore="http://" addonAfter=".doublekit.com" />
+                <Input addonBefore="http://" addonAfter=".tiklab.com" />
             </Form.Item>
 
 

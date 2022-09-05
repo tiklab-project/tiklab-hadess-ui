@@ -11,7 +11,7 @@ import {Row, Col, Input, Tabs, Button, Table, Space} from 'antd'
 
 import {useTranslation} from "react-i18next";
 import UserSelect from "./userSelect";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import './deltailsOrg.scss';
 const { TabPane } = Tabs;
 

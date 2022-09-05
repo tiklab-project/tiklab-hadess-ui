@@ -23,7 +23,7 @@ const Member = props => {
     const columns = [
         {
             title: '姓名',
-            dataIndex: 'name',
+            dataIndex: 'nikeName',
             width:'10%',
             render: (text, record) => (
                 <>
@@ -78,8 +78,8 @@ const Member = props => {
             width:'20%',
             render: (text, record) => (
                 <Space size="useState">
-                    {record.memberType===1&&
-                        <a onClick={()=>updateMemberType(record)}>演示账号</a>}
+                    {/*{record.memberType===1&&
+                        <a onClick={()=>updateMemberType(record)}>演示账号</a>}*/}
 
                 </Space>
             ),
@@ -106,10 +106,10 @@ const Member = props => {
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap"
-                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.name}</div>
+                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.nickName}</div>
               </Tooltip>
               :
-              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.name}</div>
+              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.nickName}</div>
       )
     }
     const findDetails=async (record)=>{

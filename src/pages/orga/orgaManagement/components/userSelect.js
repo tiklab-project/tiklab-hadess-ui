@@ -9,7 +9,7 @@
 
 import React, {useState, useEffect, memo} from 'react';
 import {Modal, Form, Input, Button, Col, Row, Table, message} from 'antd';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {useTranslation} from "react-i18next";
 
 const UserSelect = props => {

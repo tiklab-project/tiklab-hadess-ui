@@ -9,7 +9,7 @@
 import React, {useEffect} from 'react';
 import {Col, Row, Form, Modal, Input} from 'antd';
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
@@ -68,7 +68,7 @@ const AddMessageService = props => {
                     >
                         <Form.Item
                             name="name"
-                            label={t("doublekit-message-service-modal-name")}
+                            label={t("tiklab-message-service-modal-name")}
                             rules={
                                 [
                                     {

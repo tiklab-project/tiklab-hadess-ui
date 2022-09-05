@@ -19,7 +19,7 @@ import {useTranslation} from "react-i18next";
 import {Col, Row, Tabs, Pagination} from "antd";
 
 import './myMessage.scss';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {getUser} from '../../../utils'
 import {USER_MESSAGE_STORE} from "./store/myMessageStore";
 import SiteTemplate from "../template/components/siteTemplate";

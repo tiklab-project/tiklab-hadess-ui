@@ -9,7 +9,7 @@
 import React, {useEffect, useState} from 'react';
 import {Col, Row, Modal, Input, Table, Tabs, Button, Form, Space, Select} from "antd";
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import templateContent from '../../template-data.json'
 
 import './SendMessage.scss'

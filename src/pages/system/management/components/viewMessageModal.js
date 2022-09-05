@@ -20,20 +20,20 @@ const ViewMessageModal = props => {
 
     const columns = [
         {
-            title: t('doublekit-message-management-detail-tab-table-title'),
+            title: t('tiklab-message-management-detail-tab-table-title'),
             dataIndex: ['receiver', 'name'],
         },
         {
-            title: t('doublekit-message-management-detail-tab-table-phone'),
+            title: t('tiklab-message-management-detail-tab-table-phone'),
             dataIndex: 'receiverContact',
         },
         {
-            title: t('doublekit-message-table-action'),
+            title: t('tiklab-message-table-action'),
             dataIndex: 'action',
             key: 'action',
             // render: (text, record) => (
             //     <Space size="middle">
-            //         <a onClick={() => onRemove(record.id)}>{t('doublekit-message-delete')}</a>
+            //         <a onClick={() => onRemove(record.id)}>{t('tiklab-message-delete')}</a>
             //     </Space>
             // )
         },
@@ -49,7 +49,7 @@ const ViewMessageModal = props => {
         <Modal
             visible={visible}
             closable={false}
-            title={t("doublekit-message-modal-title")}
+            title={t("tiklab-message-modal-title")}
             width={1200}
             footer={[
                 <Button key="submit" type="primary" onClick={handleCancel}>
@@ -105,7 +105,7 @@ const ViewMessageModal = props => {
                 <Col span={24} >
                     <div className="card-container">
                         <Tabs type="card">
-                            <TabPane tab={t('doublekit-message-management-detail-tab-table-title')} key="1">
+                            <TabPane tab={t('tiklab-message-management-detail-tab-table-title')} key="1">
                                 <Row>
                                     <Col span={24}>
                                         <Table

@@ -6,7 +6,7 @@
  * @update: 2022-03-15 14:30
  */
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 export const findWorkOrderPageApi = '/workOrder/findWorkOrderPage';  //条件分页查询工单
 export const deleteWorkOrderApi = '/workOrder/deleteWorkOrder';  //删除工单
 export const findWorkOrderApi = '/workOrder/findWorkOrder';  //通过id查询

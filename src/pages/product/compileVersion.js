@@ -15,7 +15,7 @@ const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
-import {OCS_URL} from "../../const";
+import {DFS_URL} from "../../const";
 import CustomEditor from "../../common/editSlate/editor";
 const { Option } = Select;
 const systemTypeList=[{key:'windows',value:'windows'},{key:'macOs',value:'macOs'},{key:'linux',value:'linux'}]
@@ -70,6 +70,7 @@ const CompileVersion = props=> {
                 systemType:value.systemType,
                 size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
             }
+
            await productService.createProductUrl(productUrlParam)
 
             props.history.push("/setting/product");
@@ -79,7 +80,7 @@ const CompileVersion = props=> {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: OCS_URL + '/dfs/upload',
+        action: DFS_URL + '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },
@@ -101,6 +102,7 @@ const CompileVersion = props=> {
                 if (file.response) {
                     file.url = file.response.url;
                     setFileName(file.response.data.fileName)
+                    debugger
                 }
                 return file;
             });
@@ -128,10 +130,16 @@ const CompileVersion = props=> {
             uid: '1',
             name: surfacePlot,
             status: 'done',
-            url:`${OCS_URL}/image/${surfacePlot}`,
-            thumbUrl:`${OCS_URL}/image/${surfacePlot}`
+            url:`${DFS_URL}/image/${surfacePlot}`,
+            thumbUrl:`${DFS_URL}/image/${surfacePlot}`
         }
     ]
+
+    const skip =async () => {
+        props.history.push({
+            pathname:"/setting/product",
+        });
+    }
     return (
         <section className='w-full flex flex-row ' >
             <div className='w-full p-6 max-w-full m-auto'>
@@ -209,11 +217,12 @@ const CompileVersion = props=> {
                             </Button>
                             <Button
                                 style={{ margin: '0 8px' }}
-                                onClick={() => {
+                                /*onClick={() => {
                                     form.resetFields();
-                                }}
+                                }}*/
+                                onClick={skip}
                             >
-                                重置
+                               取消
                             </Button>
                         </Col>
                     </Row>

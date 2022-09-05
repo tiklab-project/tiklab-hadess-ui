@@ -12,7 +12,7 @@ import documentService from "../../../service/document.service"
 import {getUser} from "../../../utils";
 import CustomEditor from "../../../common/editSlate/editor";
 import {withRouter} from "react-router";
-import {DocumentEditor} from 'doublekit-slate-ui'
+import {DocumentEditor} from 'tiklab-slate-ui'
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },

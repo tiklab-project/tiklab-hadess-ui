@@ -5,7 +5,7 @@
  * @description：tenant.service
  */
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 export const createTenantApi = '/tenant/createTenant'; // 创建租户
 export const findTenantMember = '/tenantMember/findTenantMemberList';  // 根据查询对象查询租户成员

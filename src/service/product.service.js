@@ -5,7 +5,7 @@
  * @description：产品管理
  * @update: 2021-08-10 15:00
  */
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 
 export const findProductPageApi = '/product/findProductPage';

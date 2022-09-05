@@ -9,42 +9,64 @@ import React,{useState} from 'react';
 import {renderRoutes} from 'react-router-config'
 import MenuList from "../../common/menu/menu";
 import './setting.scss'
+import {CopyOutlined, MessageOutlined} from "@ant-design/icons";
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
+
         {
             id:'1',
             key:'1',
-            title: '服务订阅',
-
+            title: '产品管理',
+            icon:<CopyOutlined />
         },
         {
             id:'2',
             key:'2',
-            title: '订单管理',
+            title: '订阅中心',
+            icon:<MessageOutlined />,
+            children:[
+                {
+                    id:'2-1',
+                    key:'2-1',
+                    title: '服务订阅',
+                },
+                {
+                    id:'2-2',
+                    key:'2-2',
+                    title: '订单管理',
+                },
+                {
+                    id:'2-3',
+                    key:'2-3',
+                    title: '发票管理',
+                },
+            ]
         },
-
         {
             id:'3',
             key:'3',
-            title: '产品管理',
-        },
-        {
-            id:'4',
-            key:'4',
-            title: '租户管理',
-        }
-        ,
-        {
-            id:'5',
-            key:'5',
-            title: '会员管理',
+            title: '用户中心',
+            icon:<MessageOutlined /> ,
+            children:[
+                {
+                    id:'3-1',
+                    key:'3-1',
+                    title: '会员管理',
+                },
+                {
+                    id:'3-2',
+                    key:'3-2',
+                    title: '租户管理',
+                }
+            ]
         },
         {
             id:'6',
             key:'6',
             title: '促销管理',
+            icon:<MessageOutlined />,
             children:[
                 {
                     id:'6-1',
@@ -54,19 +76,22 @@ const Setting = props => {
                 {
                     id:'6-2',
                     key:'6-2',
-                    title: '现金卷管理',
+                    title: '优惠卷管理',
                 },
+
             ]},
 
         {
             id:'7',
             key:'7',
             title: '文档管理',
+            icon:<MessageOutlined />
         },
         {
            id:'8',
            key:'8',
            title: '统计管理',
+            icon:<MessageOutlined />,
            children:[
                {
                    id:'8-1',
@@ -96,20 +121,18 @@ const Setting = props => {
 
            ]
        },
-        {
-            id:'9',
-            key:'9',
-            title: '发票管理',
-        },
+
         {
             id:'10',
             key:'10',
             title: '在线工单',
+            icon:<MessageOutlined />,
         },
         {
             id:'11',
             key:'11',
             title: '数据源管理',
+            icon:<MessageOutlined />,
             children:[
                 {
                     id:'11-1',
@@ -120,12 +143,14 @@ const Setting = props => {
                     id:'11-2',
                     key:'11-2',
                     title: 'dss数据源管理',
+
                 }]
         },
         {
             id:'12',
             key:'12',
             title: '对公转账支付',
+            icon:<MessageOutlined />,
         },
     ]
 
@@ -136,26 +161,29 @@ const Setting = props => {
         let links = [
             {
                 key:'1',
-                router:`/setting/subscribe`,
-            },
-
-            {
-                key:'2',
-                router:`/setting/order`,
-            },
-
-            {
-                key:'3',
                 router:`/setting/product`,
             },
             {
-                key:'4',
-                router:`/setting/tenant`,
+                key:'2-1',
+                router:`/setting/subscribe`,
             },
             {
-                key:'5',
+                key:'2-2',
+                router:`/setting/order`,
+            },
+            {
+                key:'2-3',
+                router:`/setting/invoiceManage`,
+            },
+            {
+                key:'3-1',
                 router:`/setting/member`,
             },
+            {
+                key:'3-2',
+                router:`/setting/tenant`,
+            },
+
             {
                 key:'6-1',
                 router:`/setting/activity`,
@@ -188,10 +216,7 @@ const Setting = props => {
                 key:'8-5',
                 router:`/setting/viewStatistics`,
             },
-            {
-                key:'9',
-                router:`/setting/invoiceManage`,
-            },
+
             {
                 key:'10',
                 router:`/setting/workOrder`,

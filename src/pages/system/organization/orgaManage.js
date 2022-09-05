@@ -6,15 +6,14 @@
  * @update: 2022-06-24 10:30
  */
 import React from "react";
-import { observer, inject} from "mobx-react"
-import { OrgList, ORG_STORE} from 'doublekit-user-ui';
+import {OrgaList} from 'tiklab-user-ui';
 const OrgaManage = props => {
 
     return(
-        <OrgList
+        <OrgaList
             {...props}
         />
 
     )
 }
-export default inject(ORG_STORE)(observer(OrgaManage)) ;
+export default OrgaManage;

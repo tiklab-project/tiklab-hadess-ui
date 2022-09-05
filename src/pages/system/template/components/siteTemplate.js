@@ -8,7 +8,7 @@
 
 import React from 'react';
 import {Col, Row} from "antd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 import './siteTemplate.scss'
 

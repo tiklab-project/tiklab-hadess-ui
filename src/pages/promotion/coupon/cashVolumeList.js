@@ -11,7 +11,7 @@ import {Breadcrumb, Button, Modal, Radio, Space, Switch, Table} from "antd";
 import activityService from "../../../service/avtivity.service";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
-import {getUser} from "doublekit-core-ui"
+import {getUser} from "tiklab-core-ui"
 const rollTypeList= [{code:'cash',name:'现金卷'},{code: 'coupon',name:'折扣卷'}]
 const CashVolumeList = props => {
     const type=props.history.location.params

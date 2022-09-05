@@ -22,7 +22,7 @@ import "./scss/drop-down.scss"
 import documentService from "../../service/document.service"
 import CreateOrUpdateCategory from "./popup/createOrUpdateCategory";
 //import PreviewEditor from "../../common/editSlate/previewEditor";
-import {PreviewEditor} from 'doublekit-slate-ui'
+import {PreviewEditor} from 'tiklab-slate-ui'
 const { TextArea } = Input;
 const { confirm } = Modal;
 import './scss/document.scss'
@@ -257,7 +257,7 @@ const Document = props => {
 
     //目录文档展示
     const document=(value,type)=>{
-        return <div >
+        return <div  className='space-y-2'>
             {
                 value&&value.map(documentItem=>{
                     return(
@@ -296,7 +296,7 @@ const Document = props => {
     //第一级目录树
     const categoryTree=(value,documentDataList)=>{
         return(
-            <div className='pl-7 cursor-pointer'>
+            <div className='pl-7 cursor-pointer space-y-3'>
                 {documentDataList&&document(documentDataList)}
                 {value&&value.map(item=>{
                         return(
@@ -334,8 +334,8 @@ const Document = props => {
     }
     //二级及以下目录 （能打开的）
     const categorySecondTree=(item)=>{
-        return <div className='pl-4  pt-1'>
-            <div>
+        return <div className='pl-4  pt-1 space-y-2'>
+            <div className='space-y-2'>
                 {
                     item.children&&item.children.map(twoItem=>{
                         return(
@@ -376,7 +376,7 @@ const Document = props => {
         return(
             <div className='w-full p-6  max-w-screen-xl '>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/document'>文档管理</Breadcrumb.Item>
+                    <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='flex items-center  border-b border-solid pb-4 pt-4 text-center ' >
@@ -586,7 +586,7 @@ const Document = props => {
                     :documentDetails()
                     :<div className='w-full p-6  max-w-screen-xl '>
                         <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                            <Breadcrumb.Item  href='#/setting/document'>文档管理</Breadcrumb.Item>
+                            <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
                             <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
                         </Breadcrumb>
                         <section className='w-full m-auto border-solid border-2 p-6 mt-6 max-w-screen-xl text-center'>

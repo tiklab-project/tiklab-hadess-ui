@@ -1,21 +1,21 @@
 
-import React from 'react';
+import React,{useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 
-import { privilegeStores } from 'doublekit-privilege-ui';
-import { useLoadLanguage} from 'doublekit-plugin-manage';
-
+import { privilegeStores } from 'tiklab-privilege-ui/es/store';
+import {PluginProvider} from "tiklab-plugin-ui"
+import {initFetch} from "tiklab-plugin-ui/es/_utils"
 import { Provider } from 'mobx-react';
 import routes from './routers'
-import resources from './common/language/resources';
-
+import {stores} from './stores'
 import './common/language/i18n';
 import "./assets/font-icon/iconfont";
-import {stores} from './stores'
+
 import './App.scss';
 import './tailwind.css';
+import {useTranslation} from "react-i18next";
 const App = () => {
     // 注册所有插件
     let allStore = {
@@ -23,14 +23,39 @@ const App = () => {
         ...privilegeStores
     };
 
-    useLoadLanguage(resources, method, plugin_url, 'zh')
+    const {i18n} = useTranslation();
 
+    const [viable,setViable] = useState(true);
+
+    const [pluginData,setPluginData] = useState({
+        routes,
+        pluginStore:[],
+        languageStore:[]
+    });
+    const resources = {
+        zh: {
+            translation: {},
+        },
+    }
+    // useEffect(() => {
+    //     initFetch('post', routes, resources, i18n).then(res => {
+    //         setPluginData(res)
+    //         setViable(false)
+    //     })
+    //
+    // }, []);
+
+    // if (viable) {
+    //     return <div>加载中</div>
+    // }
 
     return (
         <Provider {...allStore}>
-            <HashRouter>
-                {renderRoutes(routes)}
-            </HashRouter>
+            <PluginProvider store={pluginData}>
+                <HashRouter>
+                    {renderRoutes(routes)}
+                </HashRouter>
+            </PluginProvider>
         </Provider>
     );
 };

@@ -28,7 +28,7 @@ const webpackGlobal = {
     //     ]
     // ),
     // saas 版本 cookie
-    // cookieDomain:  JSON.stringify('doublekit.com'),
+    // cookieDomain:  JSON.stringify('tiklab.com'),
 }
 
 module.exports = {

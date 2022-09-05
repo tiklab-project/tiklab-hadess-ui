@@ -1,7 +1,7 @@
 import React, {useState, useEffect}  from 'react';
 import {renderRoutes} from 'react-router-config';
 import {orgaMenuData} from "../../../utils/staticConfig";
-import {pluginConfig, plugins,} from 'doublekit-plugin-ui';
+import {pluginConfig, plugins,} from 'tiklab-plugin-ui';
 import MenuList from "../../../common/menu/menu";
 
 

@@ -6,7 +6,7 @@
  */
 import React, {useState, useEffect} from 'react';
 import { Checkbox } from 'antd';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 const CheckboxGroup = Checkbox.Group;
 

@@ -13,7 +13,7 @@ import {useTranslation} from "react-i18next";
 import {Col, Row, Table, Button, Input, Space} from "antd";
 import {BreadCrumb} from "../../../common";
 import {deleteSuccessReturnCurrenPage} from "../../../utils";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 import AddMessageType from "./components/addMessageType";
 import {MESSAGE_SEND_TYPE_STORE} from "./store/messageSendTypeStore";

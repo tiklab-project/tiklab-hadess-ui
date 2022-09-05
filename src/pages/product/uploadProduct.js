@@ -8,7 +8,7 @@
 import React, {useState, useEffect} from "react";
 import {Col, Row, Form, Modal, Input,Select,Upload, Button} from 'antd';
 import {UploadOutlined} from "@ant-design/icons";
-import {OCS_URL} from "../../const";
+import {DFS_URL} from "../../const";
 import {getUser} from "../../utils";
 import productService from "../../service/product.service";
 const { Option } = Select;
@@ -43,7 +43,7 @@ const UploadProduct = props => {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: OCS_URL + '/dfs/upload',
+        action: DFS_URL + '/dfs/upload',
         headers:{
             ticket:getUser().ticket
         },

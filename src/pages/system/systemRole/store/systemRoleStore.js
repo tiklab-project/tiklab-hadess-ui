@@ -6,7 +6,7 @@
  * @update: 2021-05-06 15:19
  */
 import { action, observable } from 'mobx';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 export class SystemRoleStore {
     // 系统权限角色

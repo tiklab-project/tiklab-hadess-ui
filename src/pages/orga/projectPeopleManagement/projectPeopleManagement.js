@@ -3,7 +3,7 @@ import React, {useState, useEffect, useRef, useMemo, useCallback} from 'react';
 import {observer, inject} from "mobx-react";
 import {Table, Col, Row, Button, Input, Space} from "antd";
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {BreadCrumb} from "../../../common";
 import AddDomainUser from "./components/addUser";
 import {DOMAIN_USER_STORE} from "./store/domainUserStore";

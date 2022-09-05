@@ -16,7 +16,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
-import {OCS_URL} from "../../const";
+import {DFS_URL} from "../../const";
 const typeList=[{key:'saas',value:'线上saas版'},{key:'ce',value:'线下社区版'},{key:'ee',value:'线下企业版'}]
 const AddProduct = props => {
     const [form] = Form.useForm();
@@ -35,6 +35,7 @@ const AddProduct = props => {
                 price:editData.price,
                 code:editData.code,
                 type:editData.type,
+                des:editData.des,
             })
             if (editData.icon){
                 setSurfacePlot(editData.icon)
@@ -84,7 +85,7 @@ const AddProduct = props => {
         multiple:true,
         //  showUploadList:false,
         name: "uploadFile",
-        action:  `${OCS_URL}/dfs/upload`,
+        action:  `${DFS_URL}/dfs/upload`,
         headers: {
             ticket: getUser().ticket,
         },
@@ -109,8 +110,8 @@ const AddProduct = props => {
             uid: '-1',
             name: surfacePlot,
             status: 'done',
-            url:`${OCS_URL}/image/${surfacePlot}`,
-            thumbUrl:`${OCS_URL}/image/${surfacePlot}`
+            url:`${DFS_URL}/image/${surfacePlot}`,
+            thumbUrl:`${DFS_URL}/image/${surfacePlot}`
         }
     ]
 
@@ -219,7 +220,7 @@ const AddProduct = props => {
                             name="price"
                             label='产品价格'
                             >
-                            <Input placeholder='***元'/>
+                            <Input placeholder='***元' addonAfter="/人/月"/>
                             </Form.Item>
                         }
 
@@ -238,6 +239,13 @@ const AddProduct = props => {
                                         <Button icon={<UploadOutlined />}>Upload</Button>
                                     </Upload>
                             }
+                        </Form.Item>
+                        <Form.Item
+                            name="des"
+                            label='描述'
+
+                        >
+                            <Input />
                         </Form.Item>
                     </Form>
                 </Col>

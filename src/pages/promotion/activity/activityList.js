@@ -12,7 +12,7 @@ import activityService from "../../../service/avtivity.service";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 
-const ActivityTypeList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'}]
+const ActivityTypeList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'},{code: 'sub',name:'订阅活动'}]
 const ActivityList = props => {
 
     const [activityList,setActivityList]=useState([])   //活动列表数据
@@ -37,7 +37,12 @@ const ActivityList = props => {
         {
             title: '活动类型',
             dataIndex: 'activityType',
-            render:text => text==='dis'&&'折扣'||text==='full'&&'满减'
+            render:text => text==='saas'&&'线上版本'||text==='ee'&&'线下版本'||text==='all'&&'所有版本'
+        },
+        {
+            title: '活动种类',
+            dataIndex: 'activityKind',
+            render:text => text==='dis'&&'折扣活动'||text==='full'&&'满减活动'||text==='sub'&&'订阅活动'
         },
         {
             title: '活动时间',
@@ -82,7 +87,7 @@ const ActivityList = props => {
     //分页查询活动
     const findActivity = async (param,page) => {
         const params={
-            activityType:param,
+            activityKind:param,
             pageParam: {
                 pageSize: 10,
                 currentPage: page,

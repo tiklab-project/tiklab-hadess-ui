@@ -10,9 +10,9 @@ import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Input, Select} from 'antd';
 const { Option } = Select;
 import documentService from "../../../service/document.service"
-import {getUser} from "doublekit-core-ui";
-const repositoryType=[{key:'project',value:'项目管理'},{key:'apibox',value:'接口测试'},{key:'jtest',value:'性能测试'},{key:'wiki',value:'知识库'}
-    ,{key:'pipeline',value:'流水线管理'},{key:'other',value:'其他'}]
+import {getUser} from "tiklab-core-ui";
+const repositoryType=[{key:'teamwire',value:'teamwire项目管理'},{key:'postin',value:'postin接口测试'},{key:'teston',value:'teston自动化测试'},{key:'kanass',value:'kanass知识库'}
+    ,{key:'matflow',value:'matflow流水线管理'},{key:'other',value:'其他'}]
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},

@@ -7,7 +7,7 @@
  */
 import React, {useEffect, useState} from 'react';
 import { useTranslation } from 'react-i18next';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {Button, Row, Col, Input, Table, Space} from "antd";
 import AddDomainRoleUser from "./dmRoleUserAdd";
 

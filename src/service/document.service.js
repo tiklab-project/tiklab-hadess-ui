@@ -6,7 +6,7 @@
  * @update: 2022-01-20 15:00
  */
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {findOrderApi} from "./order.service";
 import {data} from "autoprefixer";
 

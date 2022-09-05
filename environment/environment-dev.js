@@ -8,7 +8,7 @@ const webpackGlobal = {
     base_url: base_url,
     //plugin_base_url : JSON.stringify( 'http://localhost:8080/plugins'),
     // 这个不是固定的
-    plugin_url: JSON.stringify( 'http://localhost:8080/plugins/config.json'),
+    plugin_url: JSON.stringify( api + 'pluginConfig/getPluginConfig'),
     method:JSON.stringify('get'),
 
     appKey: JSON.stringify('appKey-1'),
@@ -16,10 +16,10 @@ const webpackGlobal = {
     version: JSON.stringify('version-1'),
     client: JSON.stringify('client-1'),
 
-    // cookieDomain:  JSON.stringify('doublekit.com'),
+    // cookieDomain:  JSON.stringify('tiklab.com'),
 
     // 本地开发测试acc登录 配置的账号统一登录跳转那个登录页面
-    // accUrl_env: JSON.stringify('http://www.doublekit.com'),
+    // accUrl_env: JSON.stringify('http://www.tiklab.com'),
 }
 
 module.exports =  {

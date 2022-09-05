@@ -7,7 +7,8 @@
  */
 
 import React ,{Fragment,useState}from 'react';
-import { verifyUserHOC, EAM_STORE,useWorkAppConfig } from "doublekit-eam-ui";
+import { verifyUserHoc,useWorkAppConfig } from "tiklab-eam-ui";
+import {  EAM_STORE } from "tiklab-eam-ui/es/store";
 import {inject, observer} from 'mobx-react'
 import {renderRoutes} from "react-router-config";
 
@@ -28,4 +29,4 @@ const SaasLayout = props => {
     )
 };
 
-export default verifyUserHOC(inject(EAM_STORE)(observer(SaasLayout)))
+export default verifyUserHoc(inject(EAM_STORE)(observer(SaasLayout)))

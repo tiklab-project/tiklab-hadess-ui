@@ -9,7 +9,7 @@
 
 import React, {useState, useEffect, useCallback, useRef} from 'react';
 import {observer, inject} from "mobx-react";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import { useTranslation } from 'react-i18next';
 import {Table, Col, Row, Input, Space, Button} from "antd";
 import {BreadCrumb, RoleAdd} from '../../../common';

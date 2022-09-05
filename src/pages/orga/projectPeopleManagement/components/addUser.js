@@ -8,7 +8,7 @@
 import React, {useEffect, memo} from 'react';
 import { Modal, Form, Input, Select } from 'antd';
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 const layout = {
     labelCol: { span: 6 },

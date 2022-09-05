@@ -8,7 +8,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {inject, observer} from 'mobx-react'
 import {Col, Row, Form, Select, Input, Button, message} from "antd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {AUTH_CONFIG_STORE} from "./store/authConfigStore";
 
 const layout = {

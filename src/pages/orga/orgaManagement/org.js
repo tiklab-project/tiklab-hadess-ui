@@ -12,7 +12,7 @@ import {Col, Row} from "antd";
 import OrgTree from './components/tree';
 import {BreadCrumb} from "../../../common";
 import OraDetailOrgName from "./components/deltailsOrg";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {ORG_STORE} from "./store/orgaStore";
 import './org.scss'
 const OrgContent = (props) => {

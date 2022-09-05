@@ -10,7 +10,7 @@ import React, { useState } from 'react';
 import { Modal, Upload, message, Input, Form, Button } from 'antd';
 import { InboxOutlined } from '@ant-design/icons';
 import { Point, Transforms, Editor, Element as SlateElement, Range } from 'slate'
-import {getUser} from "doublekit-core-ui"
+import {getUser} from "tiklab-core-ui"
 import "./upload.scss"
 import Tabs from "./tabs"
 const { Dragger } = Upload;

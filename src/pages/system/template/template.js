@@ -12,7 +12,7 @@ import {inject, observer} from 'mobx-react';
 import {useTranslation} from "react-i18next";
 
 import {Col, Row, Table, Button, Input, Space} from "antd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {BreadCrumb} from "../../../common";
 import {deleteSuccessReturnCurrenPage} from "../../../utils";
 import AddMessageTemplate from "./components/addMessageTemplate";

@@ -6,7 +6,7 @@
  * @update: 2022-02-26 14:30
  */
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 export const findOpenInvoicePageApi = '/invoice/findOpenInvoicePage';  //条件分页查询
 export const updateInvoiceApi = '/invoice/updateInvoice';  //修改发票
 

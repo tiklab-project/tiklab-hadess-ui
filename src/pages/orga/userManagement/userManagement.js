@@ -5,7 +5,7 @@ import React, {useState, useEffect, useRef, useCallback} from 'react';
 import {observer, inject} from "mobx-react";
 import {Row, Col, Input, Tabs, Space, Table, Button} from "antd";
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {useTranslation} from "react-i18next";
 
 import {BreadCrumb} from "../../../common";

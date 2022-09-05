@@ -10,7 +10,7 @@ import React,{useEffect, useState} from 'react';
 
 import {Col, Row, Modal, Input, Table, Space, Button} from "antd";
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import './sendDetail.scss'
 
 

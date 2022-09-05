@@ -63,7 +63,7 @@ const Orders = props => {
             dataIndex: ['member','name'],
             render: (text, record) => (
                 <>
-                    {filedState(record.member.name)}
+                    {filedState(record.member?.name)}
                 </>
             )
         },
@@ -169,9 +169,8 @@ const Orders = props => {
             bGroup:e,
             orderCode:name,
             subscribeType:2,
-            orderParams:sorter&&sorter.field?[{name:sorter.field,orderType:sorter.order==='ascend'?'asc':'desc'}]:[{name:'paymentStatus',orderType:'asc'}]
+            orderParams:sorter&&sorter?.field?[{name:sorter.field,orderType:sorter.order==='ascend'?'asc':'desc'}]:[{name:'paymentStatus',orderType:'asc'}]
         }
-
         const data = await orderService.findOrderPage(params)
         if (data.code === 0) {
             setTotalRecord(data.data.totalRecord)

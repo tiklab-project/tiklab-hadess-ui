@@ -9,7 +9,7 @@
 import React ,{useState,useEffect}from "react";
 import {Breadcrumb, Input, Form, Button, Col, Row} from "antd";
 import workOrderServer from "../../service/workOrder.server";
-import {getUser} from "doublekit-core-ui";
+import {getUser} from "tiklab-core-ui";
 import CustomEditor from "../../common/editSlate/editor";
 import PreviewEditor from "../../common/editSlate/previewEditor";
 import {withRouter} from "react-router";
@@ -69,13 +69,13 @@ const WorkOrderDetails=props=>{
 
     //提交回复内容
     const onFinish=async (value)=>{
-        const replyContent = JSON.stringify(value.description)
+      //  const replyContent = JSON.stringify(value.description)
         const param={
             workOrder:{
                id:data.id
             },
             userId:getUser().userId,
-            replyContent:replyContent,
+            replyContent:value.description,
 
         }
         const res=await workOrderServer.createWorkOrderReply(param)
@@ -137,8 +137,11 @@ const WorkOrderDetails=props=>{
                                             form={form}
 
                                         >
-                                            <Form.Item name={['description']} initialValue={value}  rules={[{ required: true }]}>
+                                           {/* <Form.Item name={['description']} initialValue={value}  rules={[{ required: true }]}>
                                                 <CustomEditor/>
+                                            </Form.Item>*/}
+                                            <Form.Item name={['description']} label="问题描述" rules={[{ required: true }]}>
+                                                <TextArea rows={5} />
                                             </Form.Item>
                                             <Row>
                                                 <Col span={20} style={{ textAlign: 'right' }}>

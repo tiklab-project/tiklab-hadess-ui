@@ -6,7 +6,7 @@
  * @update: 2021-06-23 13:15
  */
 import { action, observable } from 'mobx';
-import {Axios} from "doublekit-core-ui";
+import {Axios} from "tiklab-core-ui";
 
 export class AuthConfigStore{
     @observable authentication = JSON.parse(localStorage.getItem('authConfig')) || {};

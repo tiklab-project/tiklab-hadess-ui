@@ -1,7 +1,7 @@
 
 import React from 'react';
 import { Redirect } from 'react-router';
-import {Logout} from 'doublekit-eam-ui'
+import {Logout} from 'tiklab-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './layout/layout';
 // 设置运营管理模块

@@ -9,7 +9,7 @@
 import React, {useEffect} from 'react';
 import {Col, Row, Form, Modal, Input} from 'antd';
 import {useTranslation} from "react-i18next";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 
 const layout = {

@@ -1,5 +1,5 @@
-import {EAM_STORE, EamStore} from "doublekit-eam-ui";
-//import {SLATE_STORE, SlateStore} from 'doublekit-slate-ui'
+import {EAM_STORE, EamStore} from "tiklab-eam-ui/es/store";
+//import {SLATE_STORE, SlateStore} from 'tiklab-slate-ui'
 import {SLATE_STORE,SlateStore} from "./slateStore"
 import {DomainRoleStore, PRIVILEGE_DOMAIN_ROLE_STORE} from "./pages/system/store/domainRole";
 import {

@@ -6,7 +6,7 @@
  * @update: 2022-06-13 15:00
  */
 
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {likeFindCategoryListTreeApi} from "./document.service";
 
 export const findActivityPageApi = '/activity/findActivityPage';  //分页查询活动列表
@@ -20,6 +20,8 @@ export const updateDiscountApi = '/discount/updateDiscount';  //修改折扣活�
 export const createFullReductionApi = '/fullReduction/createFullReduction';  //创建满减活动
 export const updateFullReductionApi = '/fullReduction/updateFullReduction';  //修改满减活动
 
+export const createSubActivityApi = '/subActivity/createSubActivity';  //创建满减活动
+export const updateSubActivityApi = '/subActivity/updateSubActivity';  //修改满减活动
 
 export const createRollApi = '/roll/createRoll';  //创建卷主表
 export const findRollPageApi = '/roll/findRollPage';  //条件分页查询卷主表
@@ -105,6 +107,15 @@ class ActivityService {
     }
     async updateFullReduction(data){
         const authAccount = await Axios.post(updateFullReductionApi,data)
+        return authAccount
+    }
+
+    async createSubActivity(data){
+        const authAccount = await Axios.post(createSubActivityApi,data)
+        return authAccount
+    }
+    async updateSubActivity(data){
+        const authAccount = await Axios.post(updateSubActivityApi,data)
         return authAccount
     }
 }

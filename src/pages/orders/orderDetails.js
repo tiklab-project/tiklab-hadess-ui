@@ -68,7 +68,7 @@ const OrderDetails = props => {
                     &&  <div >
 
                         <Descriptions title="订单信息" className='pt-4'>
-                            <Descriptions.Item label="订单编号">{orderData.orderCode}</Descriptions.Item>
+                            <Descriptions.Item label="订单编号">{orderData?.orderCode}</Descriptions.Item>
                             <Descriptions.Item label="订单类型">{orderData.bGroup===1?'saas':'企业'}</Descriptions.Item>
                             <Descriptions.Item  label="状态">
                                 {

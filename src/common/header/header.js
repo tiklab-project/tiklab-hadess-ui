@@ -10,9 +10,9 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {AppstoreFilled, DownOutlined, SettingOutlined, UserOutlined} from "@ant-design/icons";
 import {Avatar} from "antd";
-import {getUser} from "doublekit-core-ui";
-import {useWorkAppConfig } from "doublekit-eam-ui";
-//import {} from "doublekit-user-ui"
+import {getUser} from "tiklab-core-ui";
+import {useWorkAppConfig } from "tiklab-eam-ui";
+//import {} from "tiklab-user-ui"
 import './header.scss'
 const HeaderConfig = [
     /* {

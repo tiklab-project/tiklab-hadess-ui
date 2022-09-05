@@ -1,5 +1,5 @@
 {
-    "name": "doublekit-tmc-ui",
+    "name": "tiklab-tmc-ui",
     "version": "1.0.0",
     "description": "",
     "main": "index.js",
@@ -12,15 +12,8 @@
     },
     "dependencies": {
         "@ant-design/icons": "^4.3.0",
-        "antd": "^4.16.7",
+        "antd": "^4.15.2",
         "axios": "^0.21.1",
-        "doublekit-core-ui": "^1.0.0",
-        "doublekit-eam-ui": "^1.0.0",
-        "doublekit-plugin-manage": "^1.0.0",
-        "doublekit-plugin-ui": "^1.0.0",
-        "doublekit-privilege-ui": "^1.0.0",
-        "doublekit-slate-ui": "^1.0.0",
-        "doublekit-user-ui": "^1.0.0",
         "echarts": "^5.2.2",
         "i18next": "^19.8.4",
         "i18next-browser-languagedetector": "^6.0.1",
@@ -29,7 +22,7 @@
         "mobx": "^5.15.4",
         "mobx-react": "^6.2.2",
         "moment": "^2.29.3",
-        "react": "^17.0.2",
+        "react": "^16.8.0",
         "react-dnd": "^14.0.5",
         "react-dnd-html5-backend": "^14.1.0",
         "react-dom": "^17.0.2",
@@ -40,7 +33,13 @@
         "slate": "^0.65.3",
         "slate-history": "^0.65.3",
         "slate-react": "^0.65.3",
-        "tailwindcss": "^2.2.7"
+        "tailwindcss": "^2.2.7",
+        "tiklab-core-ui": "^1.0.0",
+        "tiklab-eam-ui": "^1.0.0",
+        "tiklab-plugin-ui": "^1.0.0",
+        "tiklab-privilege-ui": "^1.0.0",
+        "tiklab-slate-ui": "^1.0.0",
+        "tiklab-user-ui": "^1.0.0"
     },
     "browserslist": [
         "defaults",
@@ -103,7 +102,7 @@
     },
     "repository": {
         "type": "git",
-        "url": "http://101.37.162.45/boss/doublekit-oms-ui.git"
+        "url": "http://101.37.162.45/boss/tiklab-oms-ui.git"
     },
     "keywords": [],
     "author": "",

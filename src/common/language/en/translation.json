@@ -111,16 +111,16 @@
     "message-type-modal-desc": "描述",
     "message-service-modal-code": "发送方式编码",
 
-    "doublekit-message-service-name": "消息类型名称",
-    "doublekit-message-service-desc": "消息类型描述",
-    "doublekit-message-service-addtype": "添加消息类型",
-    "doublekit-message-service-edittype": "编辑消息类型",
-    "doublekit-message-service-modal-name": "业务类型名称",
+    "tiklab-message-service-name": "消息类型名称",
+    "tiklab-message-service-desc": "消息类型描述",
+    "tiklab-message-service-addtype": "添加消息类型",
+    "tiklab-message-service-edittype": "编辑消息类型",
+    "tiklab-message-service-modal-name": "业务类型名称",
 
-    "doublekit-message-user-tab1": "任务代办",
-    "doublekit-message-user-tab2": "发布审批",
+    "tiklab-message-user-tab1": "任务代办",
+    "tiklab-message-user-tab2": "发布审批",
 
-    "doublekit-message-mymessage": "我的消息",
+    "tiklab-message-mymessage": "我的消息",
 
 
     "orga-common": {

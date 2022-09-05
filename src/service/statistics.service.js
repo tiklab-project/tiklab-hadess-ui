@@ -5,7 +5,7 @@
  * @description：统计
  * @update: 2021-08-10 15:00
  */
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 export const statisticsByDateApi = '/statistics/statisticsByDate';
 export const statisticsByMonthApi = '/statistics/statisticsByMonth';   //月统计

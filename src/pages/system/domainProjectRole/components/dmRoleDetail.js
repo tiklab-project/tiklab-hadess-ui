@@ -9,7 +9,7 @@ import React,{useState, useEffect, useRef} from 'react';
 import { useTranslation } from 'react-i18next';
 import {Col, Row, Tabs} from "antd";
 import BreadCrumb from "../../../../common/breadCrumb/breadCrumb";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import DmRolePeople from "./dmRolePeople";
 
 import DomainRolePromise from "./dmRoleDetailPromiss";

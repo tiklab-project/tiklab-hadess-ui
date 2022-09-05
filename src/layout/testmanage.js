@@ -1,5 +1,5 @@
 
-import {useWorkAppConfig } from "doublekit-eam-ui";
+import {useWorkAppConfig } from "tiklab-eam-ui";
 const TestManage = () => {
 
     return(

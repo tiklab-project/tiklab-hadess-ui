@@ -6,11 +6,11 @@
  * @update: 2022-06-24 10:30
  */
 import React from 'react'
-import { RoleList } from 'doublekit-privilege-ui';
+import { SystemRoleList} from 'tiklab-privilege-ui';
 const RoleManage = props => {
 
     return(
-        <RoleList
+        <SystemRoleList
             {...props}
             group={'system'}
         />

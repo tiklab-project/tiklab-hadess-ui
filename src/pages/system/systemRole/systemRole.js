@@ -13,7 +13,7 @@ import {Table, Col, Row, Input, Space, Button} from "antd";
 
 
 import RoleDetail from "./components/roleDetail";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {BreadCrumb, RoleAdd} from '../../../common';
 import {SYSTEM_ROLE_STORE} from "./store/systemRoleStore";
 import './role.scss'

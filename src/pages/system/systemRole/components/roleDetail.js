@@ -10,7 +10,7 @@ import {Col, Row, Tabs} from "antd";
 import {BreadCrumb} from "../../../../common";
 import RolePeople from "./roleDetailPeople";
 import RolePromise from "./roleDetailPromiss";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import './roleDetail.scss';
 const { TabPane } = Tabs;
 

@@ -8,7 +8,7 @@
 import React, {useState, useEffect, useCallback, useMemo, useRef} from 'react';
 import {observer, inject} from "mobx-react";
 import {Col, Row} from "antd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {CommonFeatureTree, AddTree} from '../../../common'
 import {PRIVILEGE_SYSTEM_STORE} from "./store/systemFeatureStore";
 

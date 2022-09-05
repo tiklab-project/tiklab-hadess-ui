@@ -1,6 +1,4 @@
 
-
-
 {
     "presets": [
         [
@@ -25,6 +23,26 @@
             "libraryDirectory": "es",
             "style": "css"
         }],
+        ["import", {
+            "libraryName": "tiklab-eam-ui",
+            "libraryDirectory": "es",
+            "style": true
+        },"eam"],
+        ["import", {
+            "libraryName": "tiklab-plugin-ui",
+            "libraryDirectory": "es",
+            "style": true
+        },"plugin"],
+        ["import", {
+            "libraryName": "tiklab-privilege-ui",
+            "libraryDirectory": "es",
+            "style": true
+        },"privilege"],
+        ["import", {
+            "libraryName": "tiklab-user-ui",
+            "libraryDirectory": "es",
+            "style": true
+        },"user"],
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
         ["@babel/plugin-proposal-class-properties", { "loose" : false }],
         ["dynamic-import-webpack"],

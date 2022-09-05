@@ -43,7 +43,7 @@ const Product = props => {
         {
             title: '产品类型',
             dataIndex: 'type',
-            width:'10%',
+            width:'20%',
             render:text => text==='saas'&&'线上saas版'||text==='ce'&&'线下社区(ce)版'||text==='ee'&&'线下企业(ee)版'
         },
         {
@@ -61,7 +61,7 @@ const Product = props => {
         {
             title: '产品地址',
             dataIndex: 'productUrl',
-            width:'20%'
+            width:'15%'
 
         },
         {

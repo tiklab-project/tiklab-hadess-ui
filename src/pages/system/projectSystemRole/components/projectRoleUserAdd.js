@@ -7,7 +7,7 @@
 import React, {useState, useEffect} from 'react';
 import { useTranslation } from 'react-i18next';
 import {Modal, Form, Input, Button, Col, Row, Table} from 'antd';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 
 const AddProjectRoleUser = props => {

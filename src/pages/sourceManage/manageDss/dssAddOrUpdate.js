@@ -20,12 +20,12 @@ const DssAddOrUpdate = props => {
     const {visible, onCancel, editData} = props;
 
     const [type,setType]=useState(null)   //产品类型
-
     useEffect(()=>{
         if (editData) {
             form.setFieldsValue({
                 url: editData.url,
                 details:editData.details,
+                dsType:editData.dsType
             })
         }
     }, [editData])

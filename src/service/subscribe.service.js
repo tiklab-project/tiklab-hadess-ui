@@ -5,7 +5,7 @@
  * @description：订阅管理
  * @update: 2021-08-10 15:00
  */
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 export const findSubscribePageApi = '/subscribe/findSubscribePage';
 export const createSubscribeApi = '/subscribe/createSubscribe';

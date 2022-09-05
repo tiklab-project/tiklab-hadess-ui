@@ -10,7 +10,7 @@ import React, {useEffect, memo} from 'react';
 import {toJS} from "mobx";
 import {useTranslation} from "react-i18next";
 import { Modal, Form, Input, TreeSelect } from 'antd';
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import './orgAdd.scss';
 
 

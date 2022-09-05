@@ -8,7 +8,7 @@ import React, {useEffect, useState} from 'react'
 import {Row, Col, Input, Table, Space} from "antd";
 import { useTranslation } from 'react-i18next';
 import AddProjectRoleUser from "./projectRoleUserAdd";
-import {Axios} from 'doublekit-core-ui';
+import {Axios} from 'tiklab-core-ui';
 
 
 
