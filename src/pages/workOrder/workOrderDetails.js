@@ -74,6 +74,7 @@ const WorkOrderDetails=props=>{
             workOrder:{
                id:data.id
             },
+            tenantId:data.tenantId,
             userId:getUser().userId,
             replyContent:value.description,
 

@@ -3,7 +3,7 @@ import React,{useEffect, useState} from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-
+import enableAxiosCE from 'tiklab-enable-axios-ce'
 import { privilegeStores } from 'tiklab-privilege-ui/es/store';
 import {PluginProvider} from "tiklab-plugin-ui"
 import {initFetch} from "tiklab-plugin-ui/es/_utils"
@@ -16,6 +16,8 @@ import "./assets/font-icon/iconfont";
 import './App.scss';
 import './tailwind.css';
 import {useTranslation} from "react-i18next";
+
+enableAxiosCE()
 const App = () => {
     // 注册所有插件
     let allStore = {

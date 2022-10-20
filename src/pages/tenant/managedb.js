@@ -262,7 +262,7 @@ const ManageDb = props=> {
         <section className='flex-row p-6'>
             <div className='w-full  max-w-screen-xl m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href="#/setting/tenant">租户列表</Breadcrumb.Item>
+                    <Breadcrumb.Item href="#/">租户列表</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 数据源管理</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='pt-6'>

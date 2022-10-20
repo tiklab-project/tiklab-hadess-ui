@@ -6,12 +6,14 @@
  * @update: 2022-05-16 14:30
  */
 import React, {useEffect} from "react";
-import { Col, Form, Input, Modal, Row} from "antd";
+import {Col, Form, Input, Modal, Row, Select} from "antd";
+const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 18},
 };
 import tenantService from "../../../service/tenant.service"
+const dbType=[{code:"eas",value:"eas"},{code:"homes",value:"homes"},{code:"more",value:"other"}]
 const DbAddOrUpdate = props => {
     const [form] = Form.useForm();
     const {visible, onCancel, editData} = props;
@@ -85,11 +87,21 @@ const DbAddOrUpdate = props => {
                             <Input/>
                         </Form.Item>
                         <Form.Item
-                            name="serialNumber"
-                            label='序号'
+                            name="type"
+                            label='类型'
                             rules={[{required: true}]}
                         >
-                            <Input placeholder="注意：整数且大于列表的序号"/>
+                            <Select showArrow  >
+                                {
+                                    dbType.map(item=>{
+                                        return(
+                                            <Option key={item.code} value={item.code}>
+                                                {item.value}
+                                            </Option>
+                                        )
+                                    })
+                                }
+                            </Select>
                         </Form.Item>
                         <Form.Item
                             name="details"

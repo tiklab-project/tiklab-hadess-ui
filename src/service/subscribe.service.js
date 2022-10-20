@@ -8,12 +8,12 @@
 import {Axios} from 'tiklab-core-ui';
 
 export const findSubscribePageApi = '/subscribe/findSubscribePage';
-export const createSubscribeApi = '/subscribe/createSubscribe';
 export const deleteSubscribeApi = '/subscribe/deleteSubscribe';
-export const findAllSubscribeApi = '/subscribe/findAllSubscribe';
 export const updateSubscribeApi = '/subscribe/updateSubscribe';
-
 export const findSubscribeListApi = '/subscribe/findSubscribeList';
+export const findSubscribeApi = '/subscribe/findSubscribe';  //通过id查询
+
+export const findSubscribeRecordListApi = '/subscribeRecord/findSubscribeRecordList';  //条件查询订阅记录
 class SubscribeService {
     constructor() {
     }
@@ -23,16 +23,7 @@ class SubscribeService {
         const response = await Axios.post(findSubscribePageApi, data)
         return response
     }
-    // 查询所有订阅
-    async findAllSubscribeService(){
-        const response = await Axios.post(findAllSubscribeApi)
-        return response
-    }
-    // 添加订阅
-    async createSubscribeService(data){
-        const response = await Axios.post(createSubscribeApi, data)
-        return response
-    }
+
     // 编辑订阅
     async updateSubscribeService(data){
         const response = await Axios.post(updateSubscribeApi, data)
@@ -46,6 +37,16 @@ class SubscribeService {
 
     async findSubscribeList(data){
         const response = await Axios.post(findSubscribeListApi, data)
+        return response
+    }
+
+    async findSubscribe(data){
+        const response = await Axios.post(findSubscribeApi, data)
+        return response
+    }
+
+    async findSubscribeRecordList(data){
+        const response = await Axios.post(findSubscribeRecordListApi, data)
         return response
     }
 

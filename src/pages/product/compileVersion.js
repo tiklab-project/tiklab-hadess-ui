@@ -15,7 +15,7 @@ const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
 };
-import {DFS_URL} from "../../const";
+import {FTP_URl,DFS_URL} from "../../const";
 import CustomEditor from "../../common/editSlate/editor";
 const { Option } = Select;
 const systemTypeList=[{key:'windows',value:'windows'},{key:'macOs',value:'macOs'},{key:'linux',value:'linux'}]
@@ -26,6 +26,7 @@ const CompileVersion = props=> {
 
     const [productData,setProductData]=useState(null)  //产品详情
     const [fileName, setFileName] = useState(); //文件名字
+    const [fileUrl, setFileUrl] = useState(); //文件地址
     const [surfacePlot,SetSurfacePlot] =useState(); //封面图名字
     const [size,setSize]=useState(); //文件大小  字节
 
@@ -46,6 +47,7 @@ const CompileVersion = props=> {
             productName: product?.name,
         })
     }, [param])
+
     //添加版本
     const onFinish =async (value) => {
         const params = {
@@ -59,28 +61,29 @@ const CompileVersion = props=> {
             type:productData.type,
             des:value.desc,
             newFeature:value.newFeature&&JSON.stringify(value.newFeature),
-
         }
         const response=  await productService.createProductVersion(params)
         if (response.code===0){
             const productUrlParam={
-                productUrl:fileName,
+                productUrl:fileUrl,
                 productId:productData.id,
                 productVersionId:response.data,
+                name:fileName,
                 systemType:value.systemType,
                 size:(size/1048576).toFixed(2),  //将字节转为mb 并保留两位数,
             }
 
            await productService.createProductUrl(productUrlParam)
 
-            props.history.push("/setting/product");
+            props.history.push("/setting/productList");
         }
     }
 
     //文件上传
     const uploadPros = {
-        name: 'uploadFile',
-        action: DFS_URL + '/dfs/upload',
+        name: "uploadFile",
+        data:{type:"projectPage"},
+        action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket
         },
@@ -100,9 +103,8 @@ const CompileVersion = props=> {
                 const size=file.originFileObj.size
                 setSize(size)
                 if (file.response) {
-                    file.url = file.response.url;
                     setFileName(file.response.data.fileName)
-                    debugger
+                    setFileUrl(file.response.data.url)
                 }
                 return file;
             });
@@ -144,7 +146,7 @@ const CompileVersion = props=> {
         <section className='w-full flex flex-row ' >
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b  border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/product'>产品列表 </Breadcrumb.Item>
+                    <Breadcrumb.Item  href='#/setting/productList'>产品列表 </Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 版本添加</Breadcrumb.Item>
                 </Breadcrumb>
                 <Form
@@ -186,7 +188,7 @@ const CompileVersion = props=> {
                         }
 
                     </Form.Item>
-                    <Form.Item name={['captureUrl']} label="项目封面">
+                    {/*<Form.Item name={['captureUrl']} label="项目封面">
                         {
                             surfacePlot
                                 ? <Upload {...pictureUpload} listType="picture" defaultFileList={[...pictureList]}
@@ -197,7 +199,7 @@ const CompileVersion = props=> {
                                     <Button icon={<UploadOutlined />}>Upload</Button>
                                 </Upload>
                         }
-                    </Form.Item>
+                    </Form.Item>*/}
                   {/*  <Form.Item name={['newFeature']} label="功能简介"  initialValue={value}>
                         <CustomEditor/>
                     </Form.Item>*/}

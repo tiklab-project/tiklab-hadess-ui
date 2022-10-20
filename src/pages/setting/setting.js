@@ -14,10 +14,21 @@ const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
-
         {
             id:'1',
             key:'1',
+            title: '租户管理',
+            icon:<CopyOutlined />
+        },
+        {
+            id:'3',
+            key:'3',
+            title: '会员管理',
+            icon:<MessageOutlined /> ,
+        },
+        {
+            id:'9',
+            key:'9',
             title: '产品管理',
             icon:<CopyOutlined />
         },
@@ -44,24 +55,7 @@ const Setting = props => {
                 },
             ]
         },
-        {
-            id:'3',
-            key:'3',
-            title: '用户中心',
-            icon:<MessageOutlined /> ,
-            children:[
-                {
-                    id:'3-1',
-                    key:'3-1',
-                    title: '会员管理',
-                },
-                {
-                    id:'3-2',
-                    key:'3-2',
-                    title: '租户管理',
-                }
-            ]
-        },
+
         {
             id:'6',
             key:'6',
@@ -85,6 +79,12 @@ const Setting = props => {
             id:'7',
             key:'7',
             title: '文档管理',
+            icon:<MessageOutlined />
+        },
+        {
+            id:'13',
+            key:'13',
+            title: '插件管理',
             icon:<MessageOutlined />
         },
         {
@@ -164,6 +164,10 @@ const Setting = props => {
                 router:`/`,
             },
             {
+                key:'9',
+                router:`/setting/productList`,
+            },
+            {
                 key:'2-1',
                 router:`/setting/subscribe`,
             },
@@ -176,13 +180,10 @@ const Setting = props => {
                 router:`/setting/invoiceManage`,
             },
             {
-                key:'3-1',
+                key:'3',
                 router:`/setting/member`,
             },
-            {
-                key:'3-2',
-                router:`/setting/tenant`,
-            },
+
 
             {
                 key:'6-1',
@@ -190,7 +191,7 @@ const Setting = props => {
             },
             {
                 key:'6-2',
-                router:`/setting/activity/cashVolumeList`,
+                router:`/setting/coupon`,
             },
             {
                 key:'7',
@@ -233,6 +234,10 @@ const Setting = props => {
                 key:'12',
                 router:`/setting/publicTransfer`,
             },
+            {
+                key:'13',
+                router:`/setting/plugList`,
+            },
 
         ];
         onSelectMenuSetting(props.history, key, links)
@@ -254,7 +259,7 @@ const Setting = props => {
                 />
             </div>
 
-            <div style={{width:'100%'}} className={'setting_right_height'}>
+            <div style={{width:'170%'}} className={'setting_right_height'}>
                 {renderRoutes(props.route.routes)}
             </div>
         </div>

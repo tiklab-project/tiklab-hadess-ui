@@ -6,11 +6,10 @@
  * @update: 2021-08-09 14:07
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Space, Switch, Tooltip, Tag} from "antd";
+import {Breadcrumb, Row, Col, Input,Table, Space, Switch, Tooltip, Tag} from "antd";
 import subscribeService from "../../service/subscribe.service";
 
 const Subscription = props => {
-    const [visible, setVisible] = useState(false);
     const [page, setPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalRecord, setTotalRecord] = useState();
@@ -37,18 +36,18 @@ const Subscription = props => {
         },
         {
             title: '用户',
-            dataIndex: ['member','name'],
+            dataIndex: ['member','nickName'],
             render: (text, record) => (
                 <>
-                    {filedState(record.member.name)}
+                    {filedState(record.member.nickName)}
                 </>
             )
         },
         {
             title: '支付类型',
-            dataIndex: 'subscribeType',
+            dataIndex: 'subType',
             render: text => {
-                return text === 1 && '试用'||text === 2&& "购买"||text === 3&& "免费"
+                return text === 1 && '免费'||text === 2&& "购买"||text === 3&& "免费"
             }
         },
         {
@@ -65,25 +64,33 @@ const Subscription = props => {
                 <Space size="middle">
                     {
                         text===1&&<Tag color={'green'} key={text}>使用中</Tag>||
-                        text===2&&<Tag color={'volcano'} key={text}>已过期</Tag>
+                        text===2&&<Tag color={'volcano'} key={text}>已过期</Tag>||
+                        text===3&&<Tag color={'default'} key={text}>试用</Tag>
                     }
                 </Space>
             )
         },
         {
+            title: '订阅人数',
+            dataIndex: 'subAllNum',
+            render: (text,record)  => <div>{record.productCode==='eas'?'max':`${text}人`}</div>
+        },
+        {
             title: '订阅时长',
-            dataIndex: 'duration',
+            dataIndex: 'subAllMath',
             render: (text, record)  => {
-                return record.subscribeType!==2&&record.bGroup!==2?"N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
+                return record.subType!==2&&record.bGroup!==2?"N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
             }
         },
         {
 
             title: '订阅有效期',
             dataIndex: 'date',
-            render:(text, record) => {
-                if (record.endDate && record.fromDate) return record.fromDate + '~' + record.endDate
-            }
+            render:(text, record) =>(
+                record.subType===2?
+                    <div>{record.fromDate + '~' + record.endDate}</div>:
+                    <div>max</div>
+            )
         },
         {
             title: '启用状态',
@@ -132,10 +139,10 @@ const Subscription = props => {
         )
     }
     const findDetails=async (record)=>{
-        /*props.history.push({
+        props.history.push({
             pathname:"/setting/subscribe/details",
-            params:record
-        });*/
+            params:record.id
+        });
     }
 
     //停用
@@ -200,7 +207,7 @@ const Subscription = props => {
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item>产品订阅管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 产品订阅列表</Breadcrumb.Item>
+                    <Breadcrumb.Item href="">订阅列表</Breadcrumb.Item>
                 </Breadcrumb>
                 <Row gutter={[16, 16]} className='py-6'>
                     <Col span={6}>

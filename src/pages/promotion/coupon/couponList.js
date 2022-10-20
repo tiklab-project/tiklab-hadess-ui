@@ -2,7 +2,7 @@
  * @name: CashVolumeList
  * @author: limingliang
  * @date: 2022-06-15 14:30
- * @description：现金卷管理列表
+ * @description：优惠卷管理列表
  * @update: 2022-06-15 14:30
  */
 
@@ -13,36 +13,37 @@ import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 import {getUser} from "tiklab-core-ui"
 const rollTypeList= [{code:'cash',name:'现金卷'},{code: 'coupon',name:'折扣卷'}]
-const CashVolumeList = props => {
+const CouponList = props => {
     const type=props.history.location.params
 
     const [cashVolumeList,setCashVolumeList]=useState([])   //现金卷数据
-    const [rollKind,setRollKind]=useState(null)   //卷类型
+    const [couponType,setCouponType]=useState(null)   //卷类型
     const [page, setPage] = useState(1);  //当前页
     const [totalRecord, setTotalRecord] = useState();  //总条数
 
     const columns = [
         {
             title: '名称',
-            dataIndex: 'rollName',
+            dataIndex: 'couponName',
             render: (text, record) => {
-                return <a className='text-blue-400 cursor-pointer' onClick={() => goDetails(record)}>{record.rollName}</a>
+                return <a className='text-blue-400 cursor-pointer' onClick={() => goDetails(record)}>{record.couponName}</a>
             },
         },
         {
             title: '类型',
-            dataIndex: 'rollType',
+            dataIndex: 'bGroup',
+            render:(text)=>text===1?"saas券":"ee企业券"
 
         },
         {
             title: '种类',
-            dataIndex: 'rollKind',
+            dataIndex: 'couponType',
             render: (text) => text==='cash'&&'现金卷'||text==="coupon"&&'折扣卷'
 
         },
         {
             title: '总数量',
-            dataIndex: 'rollNumber',
+            dataIndex: 'couponNumber',
 
         },
         {
@@ -64,7 +65,7 @@ const CashVolumeList = props => {
         },
         {
             title: '启用状态',
-            dataIndex: 'activityInvoke',
+            dataIndex: 'isInvoke',
             render: (text, record) => (
                 <Switch checkedChildren="启用" unCheckedChildren="停用" checked={text==='false'?false:true} onChange={(e)=>changeEnable(e,record)} />
             ),
@@ -85,11 +86,11 @@ const CashVolumeList = props => {
 
     useEffect(async ()=>{
         if (type){
-            setRollKind(type)
+            setCouponType(type)
             await findRollPage(type,page)
         }else {
-            setRollKind('cash')
-            await findRollPage(rollKind,page)
+            setCouponType('cash')
+            await findRollPage(couponType,page)
         }
 
     },[])
@@ -97,14 +98,14 @@ const CashVolumeList = props => {
     //分页查询现金卷数据
     const findRollPage = async (value,page) => {
         const param={
-            rollKind:value,
+            couponType:value,
             pageParam: {
                 pageSize: 10,
                 currentPage: page,
             },
             memberId:getUser().userId
         }
-        const res=await activityService.findRollPage(param)
+        const res=await activityService.findCouponPage(param)
         if (res.code===0){
             setCashVolumeList(res.data.dataList)
             setTotalRecord(res.data.totalRecord)
@@ -122,16 +123,16 @@ const CashVolumeList = props => {
     //修改
     const updateCashVolume =async (value) => {
 
-      const res= await activityService.updateRoll(value);
+      const res= await activityService.updateCoupon(value);
         if (res.code===0){
-            await findRollPage(rollKind,page)
+            await findRollPage(couponType,page)
         }
     }
 
     //删除弹窗
-    const deleteCashVolumePop =async (CashVolumeId) => {
+    const deleteCashVolumePop =async (couponId) => {
         confirm({
-            title: '注意，回删除相对应的所有现金券，请谨慎操作',
+            title: '注意，回删除相对应的所有优惠券，请谨慎操作',
             icon: <ExclamationCircleOutlined />,
             content: '',
             okText: '确认',
@@ -139,7 +140,7 @@ const CashVolumeList = props => {
             cancelText: '取消',
             style:{top: 200} ,
             onOk() {
-                deleteCashVolume(CashVolumeId)
+                deleteCoupon(couponId)
             },
             onCancel() {
             },
@@ -147,21 +148,22 @@ const CashVolumeList = props => {
     }
 
     //删除
-    const deleteCashVolume =async (CashVolumeId) => {
+    const deleteCoupon =async (couponId) => {
         const formData = new FormData()
-        formData.append('id', CashVolumeId);
-       const res=await activityService.deleteRoll(formData)
+        formData.append('id', couponId);
+       const res=await activityService.deleteCoupon(formData)
         if (res.code===0){
-           await findRollPage(rollKind,page)
+           await findRollPage(couponType,page)
         }
     }
 
     //启用停用
     const changeEnable =async (e,record)=>{
+        debugger
         if (e){
-            await  updateCashVolume({...record,activityInvoke:'true'})
+            await  updateCashVolume({...record,isInvoke:'true'})
         }else {
-            await  updateCashVolume({...record,activityInvoke:'false'})
+            await  updateCashVolume({...record,isInvoke:'false'})
         }
 
     }
@@ -173,7 +175,7 @@ const CashVolumeList = props => {
 
     const goDetails = async (record) => {
         props.history.push({
-            pathname:"/setting/activity/cashVolumeDetails",
+            pathname:"/setting/coupon/details",
             params:record
         });
     }
@@ -181,13 +183,13 @@ const CashVolumeList = props => {
     //分页
     const handleTableChange = async (pagination, filters, sorter) => {
         setPage(pagination.current)
-        await findRollPage(rollKind,pagination.current)
+        await findRollPage(couponType,pagination.current)
     }
 
     //切换卷类型
     const cutType =async (e) => {
         const value=e.target.value
-        setRollKind(value)
+        setCouponType(value)
 
         await findRollPage(value,page)
     }
@@ -202,7 +204,7 @@ const CashVolumeList = props => {
 
                 <div className='pt-6 space-y-6'>
                     <div className='flex'>
-                        <Radio.Group  value={rollKind} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
+                        <Radio.Group  value={couponType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
                             {rollTypeList.map(item=>{
                                 return(
                                     <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
@@ -233,4 +235,4 @@ const CashVolumeList = props => {
     )
 
 }
-export default CashVolumeList
+export default CouponList

@@ -22,13 +22,24 @@ const Member = props => {
 
     const columns = [
         {
-            title: '姓名',
-            dataIndex: 'nikeName',
+            title: '昵称',
+            dataIndex: 'nickName',
             width:'10%',
             render: (text, record) => (
                 <>
                     {
-                        filedState(record,'name')
+                        filedState(record?.nickName,'name')
+                    }
+                </>)
+        },
+        {
+            title: '账号',
+            dataIndex: 'account',
+            width:'10%',
+            render: (text, record) => (
+                <>
+                    {
+                        filedState(record?.account,'account')
                     }
                 </>)
         },
@@ -36,6 +47,12 @@ const Member = props => {
             title: '手机号',
             dataIndex: 'phone',
             width:'10%',
+            render: (text, record) => (
+                <>
+                    {
+                        filedState(record?.phone,'phone')
+                    }
+                </>)
         },
         {
             title: '邮箱',
@@ -44,7 +61,7 @@ const Member = props => {
             render: (text, record) => (
                 <>
                     {
-                        filedState(record,'email')
+                        filedState(record?.email,'email')
                     }
                 </>
             )
@@ -99,17 +116,17 @@ const Member = props => {
 
     const filedState = (value,type) => {
       return(
-          value.name.length>25?
-              <Tooltip placement="right" title={value.name}>
+          value?.length>25?
+              <Tooltip placement="right" title={value}>
                   <div style={{
                       width: 150,
                       overflow: "hidden",
                       textOverflow: "ellipsis",
                       whiteSpace: "nowrap"
-                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.nickName}</div>
+                  }} className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value}</div>
               </Tooltip>
               :
-              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value.nickName}</div>
+              <div className={type==='name'&&'text-blue-500 cursor-pointer'} onClick={()=>findDetails(value)}>{value}</div>
       )
     }
     const findDetails=async (record)=>{
@@ -184,6 +201,10 @@ const Member = props => {
 
     }
 
+    //添加账号
+    const addMember =async () => {
+        props.history.push("/setting/member/addmember")
+    }
 
     return(
         <section className='w-full flex flex-row'>
@@ -192,9 +213,12 @@ const Member = props => {
                     <Breadcrumb.Item>会员管理</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 会员列表</Breadcrumb.Item>
                 </Breadcrumb>
-                <Row gutter={[16, 16]} className='py-6'>
+                <Row gutter={[16, 16]} className='py-6 '>
                     <Col span={6}>
                         <Input placeholder={'手机号'} value={name}  onChange={onInputName} onPressEnter={onSearch} />
+                    </Col>
+                    <Col span={10} offset={8} className='flex justify-end'>
+                        <Button type="primary" onClick={addMember}>添加账号</Button>
                     </Col>
                 </Row>
                 <Row gutter={[16, 16]} >

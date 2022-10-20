@@ -29,6 +29,10 @@ const TenantDbList = props => {
             dataIndex: ['tenant','name'],
         },
         {
+            title: '租户id',
+            dataIndex: ['tenant','id'],
+        },
+        {
             title: '产品',
             dataIndex: 'app',
         },

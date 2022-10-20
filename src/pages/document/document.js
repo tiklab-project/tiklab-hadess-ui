@@ -29,13 +29,25 @@ import './scss/document.scss'
 
 const Document = props => {
     const repositorys=props.history.location.params
+
+    const [documentTree,setDocumentTree]=useState([])  //文档树
+    const [expandedTree, setExpandedTree] = useState([])  //文档树 展开的id
+
+    const [documentDetails,setDocumentDetails]=useState(null) //文档详情
+    const [type,setType]=useState(null)   //类型  目录：catalog、文档 document
+    const [catalogDetails,setCatalogDetails]=useState(null)  //目录详情
+    const [childDocumentList,setChildDocumentList]=useState()  //子级的数据
+
+    const [repositoryDetails,setRepositoryDetails]=useState('') //文档空间数据
+
+
     const [categoryDataList, setCategoryDataList] = useState([]);  //目录树详情
     const [documentDataList,setDocumentDataList]=useState([]);  //文档list
     const [expand, setExpand] = useState(false);  // 鼠标移动到导航栏哪一个
     const [mouseOverMenuId,setMouseOverMenuId]=useState('')  //鼠标移动到左侧目录栏的哪一个
 
-    const [expandedTree, setExpandedTree] = useState([])  //目录树 展开的id
-    const [repositoryData,setRepositoryData]=useState('') //文档空间数据
+
+   
     const [documentData,setDocumentData]=useState('')  //文档内容
     const [categoryData,setCategoryData]=useState(null)  //目录详情
     const [state,setState]=useState(false) //右边展示目录或者文档状态
@@ -56,8 +68,8 @@ const Document = props => {
             sessionStorage.setItem("repository", JSON.stringify(repositorys));
         }
        const repository=   JSON.parse(sessionStorage.getItem("repository"))
-        setRepositoryData(repository)
-        await findCategoryTree(repository,1)
+        setRepositoryDetails(repository)
+        await findDocumentTree(repository,1)
         await findRepository()
 
     },[])
@@ -69,16 +81,17 @@ const Document = props => {
             setRepository(res.data)
         }
     }
-    //查询目录树  type（创建或修改目录后不需要在查询文档）
-    const findCategoryTree=async (repository,type)=>{
+    //查询文档tree
+    const findDocumentTree=async (repository,type)=>{
         const param={
             repositoryId:repository.id
         }
-        const res=await documentService.findCategoryListTree(param)
-        debugger
+        const res=await documentService.findDocumentTree(param)
         if (res.code===0){
-            setDocumentDataList(res.data.document)
-            setCategoryDataList(res.data.category)
+            setDocumentTree(res.data)
+
+            //setDocumentDataList(res.data.document)
+            //setCategoryDataList(res.data.category)
             //第一次默认打开第一个文档
             if (res.data.document){
                 await findDocument(res.data.document[0])
@@ -98,19 +111,21 @@ const Document = props => {
             })}
         </Menu>
     )
-    const  cutRepositoryData=async (repositoryData)=>{
-       await findCategoryTree(repositoryData)
-        setRepositoryData(repositoryData)
+    const  cutRepositoryData=async (repositoryDetails)=>{
+       await findCategoryTree(repositoryDetails)
+        setRepositoryDetails(repositoryDetails)
     }
 
 
     //添加查询内容
-    const onInputName=(e)=>{
+    const onInputName=async (e)=>{
         const value = e.target.value;
+
+
         setName(value)
     }
     //模糊查询查询
-    const onSearch=async ()=>{
+    const onSearch=async (name)=>{
         const param={
             repositoryId:repository.id,
             name:name
@@ -144,63 +159,19 @@ const Document = props => {
     const leaveMouseNav = () => {
         setExpand(false)
     }
-    //这是在目录下面打开的创建
-    const categoryMenu = (
-        <Menu >
-            <Menu.Item  onClick={()=>CategoryOpenPopup()} >
-                添加目录
-            </Menu.Item>
-            <Menu.Item onClick={()=>CategorySkipDocument()}>
-                添加文档
-            </Menu.Item>
-        </Menu>
-    );
-    //这是在空间下面打开的创建
-    const repositoryMenu = (
-        <Menu >
-            <Menu.Item  onClick={()=>repositoryOpenCategoryPopup()} >
-                添加目录
-            </Menu.Item>
-            <Menu.Item onClick={()=>repositorySkipDocument()}>
-                添加文档
-            </Menu.Item>
-        </Menu>
-    );
-    //空间下面打开创建目录的弹窗
-   const repositoryOpenCategoryPopup= ()=>{
-       setParentCategoryId(null)
-       openCreatCategoryPopup()
-   }
-   //目录下面打开创建目录弹窗
-    const CategoryOpenPopup=()=>{
-        setParentCategoryId(categoryData.id)
-        openCreatCategoryPopup()
-    }
-    //打开创建目录弹窗
-    const openCreatCategoryPopup=()=>{
-        setVisible(true)
-    }
 
-    //空间下面跳转文档页面
-    const repositorySkipDocument=()=>{
-        skipAddDocument(repositoryData)
-    }
-    //目录下面跳转添加文档界面
-    const CategorySkipDocument=()=>{
-        skipAddDocument(categoryData)
-    }
-    //跳转添加文档页面
+    //跳转添加页面
     const skipAddDocument=(data)=>{
         props.history.push({
-            pathname:"/setting/document/addDocument",
+            pathname:"/setting/document/compileDocument",
             params:data
         });
     }
     //跳转修改u文档页面
-    const skipUpdateDocument=(data)=>{
+    const skipCompileDocument=(documentDetails)=>{
         props.history.push({
-            pathname:"/setting/document/updateDocument",
-            params:data
+            pathname:"/setting/document/compileDocument",
+            params:documentDetails.repository
         });
     }
     //取消创建弹窗
@@ -210,7 +181,7 @@ const Document = props => {
     //确认弹窗
     const onOK=async (parentCategoryId)=>{
         setVisible(false)
-        await findCategoryTree(repositoryData)
+        await findCategoryTree(repositoryDetails)
 
        const param=new FormData();
         param.append('categoryId',parentCategoryId)
@@ -225,12 +196,23 @@ const Document = props => {
     const isExpandedTree = (key) => {
         return expandedTree.some(item => item === key)
     }
-    const openOrCloseTree=(key)=>{
-        if (isExpandedTree(key)) {
-            setExpandedTree(expandedTree.filter(item => item !== key))
-        } else {
-            setExpandedTree(expandedTree.concat(key));
-        }
+
+    //打开目录或者打开文档详情
+    const openOrCloseTree=(document)=>{
+        setType(document.type)
+        setDocumentDetails(document)
+       if (document.type==="document"){
+
+       }else {
+           setChildDocumentList(document.childDocument)
+           if (isExpandedTree(document.id)) {
+               setExpandedTree(expandedTree.filter(item => item !== document.id))
+           } else {
+               setExpandedTree(expandedTree.concat(document.id));
+           }
+       }
+
+
     }
 
     //查询目录详情
@@ -293,37 +275,36 @@ const Document = props => {
             }
         </div>
     }
-    //第一级目录树
-    const categoryTree=(value,documentDataList)=>{
+    //第一级文档树
+    const catalogTree=(documentTree)=>{
         return(
             <div className='pl-7 cursor-pointer space-y-3'>
-                {documentDataList&&document(documentDataList)}
-                {value&&value.map(item=>{
-                        return(
-                            <div key={item.id} className='pt-1'>
-                                <div  className={`flex  justify-between ${highlightId===item.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(item.id)}  onClick={()=>openOrCloseTree(item.id)}>
-                                    <div className='flex items-center'>
-                                        {
-                                            isExpandedTree(item.id)
-                                                ?<CaretDownOutlined />
-                                                :<CaretRightOutlined/>
-                                        }
-                                        <div onClick={()=>findCategory(item)}>{item.name}</div>
-                                    </div>
-                                    <div>
-                                        {
-                                            mouseOverMenuId===item.id&&
-                                            <div className='pl-60' >
-                                                <div onClick={()=>deletePop(item,2)}>
-                                                    删除
-                                                </div>
+                {documentTree?.map(item=>{
+                    return(
+                        <div key={item.id} >
+                            <div  className={`flex items-center space-x-2 py-1 hover:bg-gray-200 ${highlightId===item.id?" text-blue-500":null}`} onClick={()=>openOrCloseTree(item)}  >
+                                {
+                                    item.type==="catalog"?
+                                    isExpandedTree(item.id)
+                                        ?<CaretDownOutlined className='text-gray-400 text-sm'/>
+                                        :<CaretRightOutlined className='text-gray-400 text-sm'/>:
+                                        <i className='w-1 h-1 bg-gray-400 rounded-full'/>
+                                }
+                                <div onClick={()=>findCategory(item)}>{item.name}</div>
+                               {/* <div>
+                                    {
+                                        mouseOverMenuId===item.id&&
+                                        <div className='pl-60' >
+                                            <div onClick={()=>deletePop(item,2)}>
+                                                删除
                                             </div>
-                                        }
-                                    </div>
-                                </div>
-                                {isExpandedTree(item.id)&&categorySecondTree(item)}
+                                        </div>
+                                    }
+                                </div>*/}
                             </div>
-                        )
+                            {isExpandedTree(item.id)&&childCatalogTree(item)}
+                        </div>
+                    )
                     }
                 )
                 }
@@ -332,43 +313,40 @@ const Document = props => {
             )
 
     }
-    //二级及以下目录 （能打开的）
-    const categorySecondTree=(item)=>{
-        return <div className='pl-4  pt-1 space-y-2'>
-            <div className='space-y-2'>
+    //子级文档树  (二级及以下文档)
+    const childCatalogTree=(document)=>{
+        return <div className='pl-4  pt-1 space-y-3'>
                 {
-                    item.children&&item.children.map(twoItem=>{
+                    document?.childDocument?.map(childItem=>{
                         return(
-                            <div  key={twoItem.id} className='pt-1'>
-                                <div className={`flex  justify-between ${highlightId===twoItem.id?"aside-select":null}`}  onMouseOver={()=>mouseOverId(twoItem.id)} onClick={()=>openOrCloseTree(twoItem.id)} >
-                                    <div className='flex items-center'>
-                                        {
-                                            isExpandedTree(twoItem.id)
-                                                ?< CaretDownOutlined/>
-                                                :<CaretRightOutlined/>
-                                        }
-                                        <div onClick={()=>findCategory(twoItem)}>{twoItem.name}</div>
-                                    </div>
-                                   <div>
+                            <div  key={childItem.id} className='pt-1'>
+                                <div className={`flex items-center space-x-2 py-1 hover:bg-gray-200 ${highlightId===childItem.id?" text-blue-500":null}`}   onClick={()=>openOrCloseTree(childItem)} >
+                                    {
+                                        childItem.type==="catalog"?
+                                            isExpandedTree(childItem.id)
+                                                ?<CaretDownOutlined className='text-gray-400 text-sm'/>
+                                                :<CaretRightOutlined className='text-gray-400 text-sm'/>:
+                                            <i className='w-1 h-1 bg-gray-400 rounded-full'/>
+                                    }
+                                    <div onClick={()=>findCategory(childItem)}>{childItem.name}</div>
+                                  {/* <div>
                                        {
-                                           mouseOverMenuId===twoItem.id&&
+                                           mouseOverMenuId===childItem.id&&
                                            <div className='pl-52'>
-                                               <div  onClick={()=>deletePop(twoItem,2)}>
+                                               <div  onClick={()=>deletePop(childItem,2)}>
                                                    删除
                                                </div>
                                            </div>
                                        }
-                                   </div>
+                                   </div>*/}
                                 </div>
                                 {
-                                    twoItem.children&&isExpandedTree(twoItem.id)&&categorySecondTree(twoItem)
+                                    childItem.childDocument&&isExpandedTree(childItem.id)&&childCatalogTree(childItem)
                                 }
                             </div>
                         )
                     })
                 }
-            </div>
-            {document(item.documents)}
         </div>
     }
     //目录详情
@@ -379,22 +357,20 @@ const Document = props => {
                     <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
                 </Breadcrumb>
-                <div className='flex items-center  border-b border-solid pb-4 pt-4 text-center ' >
-                   <h2 className='w-1/2 text-2xl text-right' >{categoryData.name}</h2>
-                    <div className='cursor-pointer w-1/2'>
-                        <Dropdown  overlay={categoryMenu}  >
-                            <span onClick={e => e.preventDefault()}>添加内容</span>
-                        </Dropdown>
+                <div className='flex items-center   border-solid pb-4 pt-4 text-center ' >
+                   <h2 className='w-1/2 text-2xl text-right' >{catalogDetails.name}</h2>
+                    <div className='cursor-pointer w-1/2 text-blue-500' onClick={()=>skipAddDocument(catalogDetails)} >
+                        添加内容
                     </div>
                 </div>
-                <div className=' pt-3 w-1/2'>
-                    {categoryDetails(categoryData)}
-                </div>
+                {/*<div className=' pt-3 w-1/2'>
+                    {details(catalogDetails)}
+                </div>*/}
             </div>
         )
     }
     //目录下面的目录（只展示 不能打开）
-    const categoryDetails=(item)=>{
+    const details=(item)=>{
         return <div className='pl-4  pt-1'>
             <div>
                 {
@@ -413,27 +389,31 @@ const Document = props => {
         </div>
     }
     //文档详情
-    const documentDetails=()=>{
+    const documentDetail=()=>{
         return(
             <div className='w-full p-6  max-w-screen-xl '>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
+                    <Breadcrumb.Item  href='#/setting/documentList'>{`${type==="document"?"文档管理":'目录管理'}`}</Breadcrumb.Item>
                     <Breadcrumb.Item href="">文档详情</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='w-full p-4' id='slate'>
                     <div className='flex items-center justify-between'>
-                        <div className='w-96 text-xl py-2 pr-3'>{documentData.name}</div>
-                        <div onClick={()=>skipUpdateDocument(documentData)} className='cursor-pointer'>编辑</div>
-                    </div>
+                        <div className='w-96 text-xl py-2 pr-3'>{documentDetails.name}</div>
+                        <div className='flex space-x-3'>
+                            <div onClick={()=>skipCompileDocument(documentDetails)}  className='cursor-pointer text-blue-500'>编辑</div>
+                            {type==="catalog"&&
+                                <div className='cursor-pointer text-blue-500' onClick={()=>skipAddDocument(catalogDetails)} >
+                                    添加内容
+                                </div>
+                            }
+                        </div>
 
+                    </div>
                     <div className='text-gray-400'>
-                        创建时间: {documentData.createTime}
+                        创建时间: {documentDetails.createTime}
                     </div>
                     <div className='pt-6 bg-white'>
-                         {documentData.details&&
-                            <PreviewEditor
-                                value={documentData.details}
-                            />}
+                        <PreviewEditor value={JSON.parse(documentDetails.details)}/>
                     </div>
                     {comment()}
                 </div>
@@ -540,50 +520,67 @@ const Document = props => {
         if (type===2){
             const res =await documentService.deleteCategory(param)
             if (res.code===0){
-                await findCategoryTree(repositoryData)
+                await findCategoryTree(repositoryDetails)
             }
         }
         //删除文档
         if (type===3){
             const res =await documentService.deleteDocument(param)
             if (res.code===0){
-                await findCategoryTree(repositoryData)
+                await findCategoryTree(repositoryDetails)
             }
         }
 
     }
+
+
     return(
         <section className='w-full flex flex-row'>
             <div className={' flex flex-col  pl-6'}>
                 <div className='flex items-center justify-between max-w-full  border-b-2 py-2 cursor-pointer relative pr-3'>
                     <div className='w-96 text-xl py-2 pr-3'>
-                        {repositoryData.name}
+                        {repositoryDetails.name}
                     </div>
-                    <Dropdown overlay={repositoryMenu}>
-                        <span className='text-blue-600 cursor-pointer' onClick={e => e.preventDefault()}>
+                        <span className='text-blue-600 cursor-pointer' onClick={()=>skipAddDocument(repositoryDetails)}>
                             <PlusOutlined className='pr-4 '/>
                         </span>
-                    </Dropdown>
                     <Dropdown overlay={cutRepository}>
                         <MenuOutlined className='text-lg '/>
                     </Dropdown>
                 </div>
                 <div onMouseOut={leaveMouseNav} className={' bg-gray-100'}>
-                    <div className='m-auto pb-6 px-4 pt-6'>
-                        <Input placeholder="搜索内容" size="large" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch}/>
+                    <div className='m-auto  mx-6 pt-6 border-b'>
+                        <Input placeholder="搜索内容 "  size="middle" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch} bordered={false}/>
                     </div>
-                    <div className='w-full ' onMouseOut={removeOverId}>
-                        {categoryTree(categoryDataList,documentDataList)}
+                    <div className='w-full pt-4'>
+                        {catalogTree(documentTree)}
                     </div>
                 </div>
             </div>
             <div className={'w-full p-6  max-w-screen-xl right-hight'}>
                 {
+                    documentTree?
+                    type&& documentDetail():
+
+                    <div className='w-full p-6  max-w-screen-xl '>
+                        <Breadcrumb separator=">" className='border-b border-solid pb-4'>
+                            <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
+
+                        </Breadcrumb>
+                        <section className='w-full m-auto border-solid border-2 p-6 mt-6 max-w-screen-xl text-center'>
+                            还没有创建任何目录或文档
+                            <span className='text-blue-600 cursor-pointer' onClick={()=>skipAddDocument(repositoryDetails)}> 创建</span>
+                        </section>
+                    </div>
+                }
+
+
+                {/*{
                 categoryDataList.length>0||documentDataList.length>0
                     ?
                     state
                     ?categoryDetail()
-                    :documentDetails()
+                    :documentDetails
                     :<div className='w-full p-6  max-w-screen-xl '>
                         <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                             <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
@@ -591,15 +588,13 @@ const Document = props => {
                         </Breadcrumb>
                         <section className='w-full m-auto border-solid border-2 p-6 mt-6 max-w-screen-xl text-center'>
                             还没有创建任何目录或文档
-                            <Dropdown overlay={repositoryMenu}>
-                                <span className='text-blue-600 cursor-pointer' onClick={e => e.preventDefault()}> 创建</span>
-                            </Dropdown>
+                                <span className='text-blue-600 cursor-pointer' onClick={()=>repositorySkipDocument()}> 创建</span>
                         </section>
                     </div>
-                }
+                }*/}
             </div>
             <CreateOrUpdateCategory visible={visible} onCancel={onCancel} onOk={onOK} editData={editData}
-                                    repository={repositoryData} categoryData={categoryData} parentCategoryId={parentCategoryId}/>
+                                    repository={repositoryDetails} categoryData={categoryData} parentCategoryId={parentCategoryId}/>
         </section>
 )
 }

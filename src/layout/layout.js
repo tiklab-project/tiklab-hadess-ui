@@ -29,4 +29,4 @@ const SaasLayout = props => {
     )
 };
 
-export default verifyUserHoc(inject(EAM_STORE)(observer(SaasLayout)))
+export default verifyUserHoc(inject(EAM_STORE)(observer(SaasLayout)), "oms")

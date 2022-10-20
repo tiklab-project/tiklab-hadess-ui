@@ -7,8 +7,7 @@
         "start": "cross-env NODE_ENV=development CUSTOM_ENV=dev webpack-dev-server --progress --config webpack.dev.js ",
         "build:dev": "cross-env NODE_ENV=production CUSTOM_ENV=dev webpack --config webpack.dev.js ",
         "build:test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.test.js ",
-        "build:prod": "cross-env NODE_ENV=production  CUSTOM_ENV=prod webpack --config webpack.prod.js ",
-        "build-test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.test.js "
+        "build:prod": "cross-env NODE_ENV=production  CUSTOM_ENV=prod webpack --config webpack.prod.js "
     },
     "dependencies": {
         "@ant-design/icons": "^4.3.0",
@@ -36,6 +35,7 @@
         "tailwindcss": "^2.2.7",
         "tiklab-core-ui": "^1.0.0",
         "tiklab-eam-ui": "^1.0.0",
+        "tiklab-enable-axios-ce": "^1.0.0",
         "tiklab-plugin-ui": "^1.0.0",
         "tiklab-privilege-ui": "^1.0.0",
         "tiklab-slate-ui": "^1.0.0",

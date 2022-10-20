@@ -7,9 +7,12 @@
  */
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Button, Descriptions, Input, Space, Table, Tag} from "antd";
-import activityService from "../../../service/avtivity.service";
+import activityService, {
+    findCouponCashAccessPageApi,
+    findCouponDisAccessPageApi
+} from "../../../service/avtivity.service";
 import {withRouter} from "react-router";
-const CashVolumeDetails = props => {
+const Details = props => {
     const cashDetail=props.history.location.params
     const [couponDetail,setCouponDetails]=useState('')
     const [couponList,setCouponList]=useState([])   //券
@@ -20,12 +23,12 @@ const CashVolumeDetails = props => {
     const columns = [
         {
             title: '编码',
-            dataIndex: 'rollCode',
+            dataIndex: 'couponCode',
 
         },
         {
             title: '是否领用',
-            dataIndex: 'receive',
+            dataIndex: 'isAccess',
             render:(text)=>(
                 <Space size="middle">
                     {
@@ -37,7 +40,7 @@ const CashVolumeDetails = props => {
         },
         {
             title: '领用人',
-            dataIndex: 'memberName',
+            dataIndex: 'AccessName',
         },
         {
             title: '是否使用',
@@ -58,11 +61,12 @@ const CashVolumeDetails = props => {
         if (cashDetail){
             sessionStorage.setItem("cashDetail", JSON.stringify(cashDetail));
         }
-        await findCashVolumePage(page)
+        await findCouponPage(page)
     },[])
 
-    //查询所有现金卷
-    const findCashVolumePage = async (page) => {
+
+    //查询所有券列表
+    const findCouponPage = async (page) => {
         const cashDetail=JSON.parse(sessionStorage.getItem("cashDetail"));
 
         setCouponDetails(cashDetail)
@@ -73,15 +77,16 @@ const CashVolumeDetails = props => {
                 pageSize: pageSize,
                 currentPage: page,
             },
-            rollId:cashDetail.id
+            couponId:cashDetail.id
         }
+        debugger
         //现金券
-        if (cashDetail.rollKind==='cash'){
-             res=await activityService.findMergeCashVolumePage(param)
+        if (cashDetail.couponType==='cash'){
+             res=await activityService.findCouponCashAccessPage(param)
         }
         //折扣券
-        if (cashDetail.rollKind==='coupon'){
-            res=await activityService.findMergeDiscountCouponPage(param)
+        if (cashDetail.couponType==='discount'){
+            res=await activityService.findCouponDisAccessPage(param)
         }
         if (res?.code===0){
             setCouponList(res?.data.dataList)
@@ -92,12 +97,12 @@ const CashVolumeDetails = props => {
     //分页
     const handleTableChange = async (pagination, filters, sorter) => {
         setPage(pagination.current)
-        await findCashVolumePage(pagination.current)
+        await findCouponPage(pagination.current)
     }
 
     const goCashList =async (type) => {
         props.history.push({
-            pathname:"/setting/activity/cashVolumeList",
+            pathname:"/setting/coupon",
             params:type
         })
     }
@@ -106,9 +111,9 @@ const CashVolumeDetails = props => {
             <div className='w-full  max-w-full m-auto '>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
                     {
-                        couponDetail?.rollKind==='cash'&&
+                        couponDetail?.couponType==='cash'&&
                         <Breadcrumb.Item  onClick={()=>goCashList('cash')} className={'cursor-pointer'}>现金券列表</Breadcrumb.Item> ||
-                        couponDetail.rollKind==='coupon'&&
+                        couponDetail.couponType==='discount'&&
                         <Breadcrumb.Item onClick={()=>goCashList('coupon')} className={'cursor-pointer'}>折扣券列表</Breadcrumb.Item>
                     }
 
@@ -119,16 +124,16 @@ const CashVolumeDetails = props => {
             {
                 couponDetail&&
                 <Descriptions title=" 券基本信息" className='pt-4'>
-                    <Descriptions.Item label="券名字">{couponDetail.rollName}</Descriptions.Item>
-                    <Descriptions.Item label="券类型">{couponDetail.rollType==='ee'&&'线下企业版本'||couponDetail.rollType==='saas'&&'线上saas版本'}</Descriptions.Item>
-                    <Descriptions.Item label="券种类">{couponDetail.rollKind==='cash'&&'现金券'||couponDetail.rollKind==='coupon'&&'折扣卷'}</Descriptions.Item>
+                    <Descriptions.Item label="券名字">{couponDetail.couponName}</Descriptions.Item>
+                    <Descriptions.Item label="券类型">{couponDetail.bGroup===2&&'线下企业版本'||couponDetail.bGroup===1&&'线上saas版本'}</Descriptions.Item>
+                    <Descriptions.Item label="券种类">{couponDetail.couponType==='cash'&&'现金券'||couponDetail.couponType==='discount'&&'折扣卷'}</Descriptions.Item>
                     {
-                        couponDetail.rollKind==='cash'?
-                            <Descriptions.Item label="券金额">¥{couponDetail.rollLimit}</Descriptions.Item>:
-                            <Descriptions.Item label="折扣数">{couponDetail.rollLimit} 折</Descriptions.Item>
+                        couponDetail.couponType==='cash'?
+                            <Descriptions.Item label="券金额">¥{couponDetail.couponLimit}</Descriptions.Item>:
+                            <Descriptions.Item label="折扣数">{couponDetail.couponLimit} 折</Descriptions.Item>
                     }
-                    <Descriptions.Item label="有效期">{couponDetail.startTime}～{couponDetail.endTime}</Descriptions.Item>
-                    <Descriptions.Item label="使用规则">满{couponDetail.rollRule}使用</Descriptions.Item>
+                    <Descriptions.Item label="有效期">{couponDetail?.startTime}～{couponDetail?.endTime}</Descriptions.Item>
+                    <Descriptions.Item label="使用规则">满¥{couponDetail.couponRule}使用</Descriptions.Item>
                 </Descriptions>
             }
             <div className='pt-12'>
@@ -153,4 +158,4 @@ const CashVolumeDetails = props => {
     )
 }
 
-export default withRouter(CashVolumeDetails)
+export default withRouter(Details)

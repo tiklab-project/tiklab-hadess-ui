@@ -10,6 +10,7 @@ import {Axios} from 'tiklab-core-ui';
 export const findMemberPageApi = '/member/findMemberPage';
 
 export const updateMemberApi = '/member/updateMember';
+export const createMemberApi = '/member/createMember';
 
 class MemberService {
     constructor() {
@@ -24,6 +25,10 @@ class MemberService {
     // 修改会会员
     async updateMember(data){
         const response = await Axios.post(updateMemberApi, data)
+        return response
+    }
+    async createMemberApi(data){
+        const response = await Axios.post(createMemberApi, data)
         return response
     }
 

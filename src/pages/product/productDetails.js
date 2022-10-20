@@ -152,15 +152,15 @@ const ProductDetails = props => {
         <section className='w-full flex flex-row'>
             <div className='w-full p-6 max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/product'>产品管理</Breadcrumb.Item>
+                    <Breadcrumb.Item  href='#/setting/productList'>产品管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">{productData.name}</Breadcrumb.Item>
                 </Breadcrumb>
 
                     <div  className='grid gap-y-6 pt-6 pl-4 pb-8'>
                         <div >产品名称:{productData.name}</div>
                         <div>产品编码: {productData.code}</div>
-                        <div>产品价格:{productData.price}</div>
-                        <div >产品地址: {productData.productUrl}</div>
+                        <div>产品价格:¥{productData.price}/人/月</div>
+                        <div>产品地址: {productData.productUrl}</div>
                     </div>
                 <div >
                     {

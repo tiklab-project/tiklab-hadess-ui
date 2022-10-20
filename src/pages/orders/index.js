@@ -91,7 +91,7 @@ const Orders = props => {
             key: 'action',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={() => editProduct(record)}>编辑</a>
+                    {/*<a onClick={() => editProduct(record)}>编辑</a>*/}
                     <a onClick={() => deletePop(record.id)}>删除</a>
                 </Space>
             ),

@@ -28,7 +28,7 @@ const TenantDetails = props => {
     const columns = [
         {
             title: '姓名',
-            dataIndex:['master','name'],
+            dataIndex:['master','nickName'],
         },
         {
             title: '手机号',
@@ -47,7 +47,7 @@ const TenantDetails = props => {
         },
         {
             title: '订阅类型',
-            dataIndex: 'subscribeType',
+            dataIndex: 'subType',
             render: text => {
                 return text === 1 && '试用'||text === 2&& "购买"||text === 3&& "免费"
             }
@@ -59,26 +59,29 @@ const TenantDetails = props => {
                 <Space size="middle">
                     {
                         text===1&&<Tag color={'green'} key={text}>使用中</Tag>||
-                        text===2&&<Tag color={'gray'} key={text}>已过期</Tag>
+                        text===2&&<Tag color={'gray'} key={text}>已过期</Tag>||
+                        text===3&&<Tag color={'default'} key={text}>未订阅</Tag>
                     }
                 </Space>
             )
-
         },
         {
             title: '订阅时长',
             dataIndex: 'duration',
-            render: (text, record)  => {
-                return record.subscribeType===3?" N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
-            }
+            render: (text, record)  => (
+                record.subType===2?
+                    <div>{(record.duration) / 12 === 1 ? '1年' : `${text}月`}</div>:
+                    <div>{" N/A"}</div>
+            )
         },
         {
-
             title: '订阅有效期',
             dataIndex: 'date',
-            render:(text, record) => {
-                if (record.endDate && record.fromDate) return record.fromDate + '~' + record.endDate
-            }
+            render:(text, record) => (
+                record.subType===2?
+                <div>{ record.fromDate + '~' + record.endDate}</div>:
+                    <div>max</div>
+            )
         },
     ];
     useEffect(async ()=>{
@@ -97,7 +100,6 @@ const TenantDetails = props => {
             tenantId:tenantData.id
         }
         const pre=await tenantService.findTenantMemberService(param)
-        debugger
         if (pre.code===0){
             setMemberDataList(pre.data)
         }
@@ -114,13 +116,15 @@ const TenantDetails = props => {
             setSubscriptionList(res.data)
         }
     }
+
+    //查询租户数据源
     const findDatabase = async () => {
         const tenantData=JSON.parse(sessionStorage.getItem("tenants"));
       const param={
           tenantId:tenantData.id
       }
       const res=await tenantService.findTenantDatabaseList(param)
-        debugger
+
         if (res.code===0&&res.data.length){
             setDatabaseData(res.data[0])
         }
@@ -143,7 +147,7 @@ const TenantDetails = props => {
         <section className='w-full flex flex-row'>
             <div className=' w-full p-6  max-w-full m-auto'>
                 <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/tenant'>租户管理</Breadcrumb.Item>
+                    <Breadcrumb.Item  href='#/'>租户管理</Breadcrumb.Item>
                     <Breadcrumb.Item href="">{tenantData.name}</Breadcrumb.Item>
                 </Breadcrumb>
                 {
@@ -153,10 +157,10 @@ const TenantDetails = props => {
                             租户名称:{tenantData.name}
                         </div>
                         <div >
-                            域名地址:{tenantData.domainUrl}
+                            地址:{tenantData.id}
                         </div>
                         <div>
-                            创建用户: {JSON.parse(sessionStorage.getItem("tenants")).master.name}
+                            创建用户: {JSON.parse(sessionStorage.getItem("tenants")).master.nickName}
                         </div>
 
                         <Tabs defaultActiveKey="1" onChange={cuteType}>
@@ -188,14 +192,12 @@ const TenantDetails = props => {
                                         </div>
                                     }
                                     {
-                                        dssData&&
                                         <div className='grid gap-y-2 border border-gray-200 pl-2 py-3'>
                                             <h1 className='text-center'>dss数据源</h1>
-                                            <p>地址: {dssData.tenantDssGroup.url}</p>
-                                            <p>描述： {dssData.tenantDssGroup.details}</p>
+                                            <p>地址: {dssData?.tenantDsGroup?.url}</p>
+                                            <p>描述： {dssData?.tenantDsGroup?.details}</p>
                                         </div>
                                     }
-
                                 </div>
                             </TabPane>
                         </Tabs>

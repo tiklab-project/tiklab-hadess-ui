@@ -52,6 +52,8 @@ const compileVersion = SyncComponent(() => import('./pages/product/compileVersio
 const Member = SyncComponent(() => import('./pages/member'))
 //会员详情
 const MemberDetails = SyncComponent(() => import('./pages/member/memberDetails'))
+//添加会员
+const addMember = SyncComponent(() => import('./pages/member/addMember'))
 
 // 租户管理
 const Tenant = SyncComponent(() => import('./pages/tenant'))
@@ -62,12 +64,12 @@ const TenantDetails = SyncComponent(() => import('./pages/tenant/tenantDetails')
 const activityList = SyncComponent(() => import('./pages/promotion/activity/activityList'))
 // 活动编辑
 const compileActivity = SyncComponent(() => import('./pages/promotion/activity/compileActivity'))
-//现金卷列表
-const cashVolumeList = SyncComponent(() => import('./pages/promotion/coupon/cashVolumeList'))
+//优惠券列表
+const CouponList = SyncComponent(() => import('./pages/promotion/coupon/CouponList'))
 //编辑现金卷  （创建和修改）
 const compileCashVolume = SyncComponent(() => import('./pages/promotion/coupon/compileCashVolume'))
-//现金卷详情
-const cashVolumeDetails = SyncComponent(() => import('./pages/promotion/coupon/cashVolumeDetails'))
+//优惠券详情
+const couponDetails = SyncComponent(() => import('./pages/promotion/coupon/couponDetails'))
 
 
 //统计管理
@@ -87,10 +89,16 @@ const TenantStatistics = SyncComponent(() => import('./pages/statistics/tenantSt
 const Repository = SyncComponent(() => import('./pages/document/documentList'))
 //文档
 const Document = SyncComponent(() => import('./pages/document/document'))
+//编辑文档  （修改或删除）
+const compileDocument = SyncComponent(() => import('./pages/document/compileDocument'))
 //创建文档
 const AddDocument = SyncComponent(() => import('./pages/document/create/createDocument'))
 //修改文档
 const UpdateDocument = SyncComponent(() => import('./pages/document/update/updateDocument'))
+
+//插件列表
+const plugList = SyncComponent(() => import('./pages/plug/plugList'))
+
 const Login = SyncComponent(() => import('./pages/Login'));
 
 //发票管理
@@ -114,12 +122,12 @@ const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss
 const publicTransferList =SyncComponent(()=>import('./pages/publicTransfer/publicTransferList'))
 
 const routers = [
-    {
+  /*  {
         path: "/login",
         exact: true,
         component: Login,
         key:'login'
-    },
+    },*/
     {
         path: "/logout",
         exact: true,
@@ -155,7 +163,7 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/',
+                        path: '/setting/productList',
                         component: Product,
                         exact: true,
                     },
@@ -190,7 +198,12 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/tenant',
+                        path: '/setting/member/addmember',
+                        component: addMember,
+                        exact: true,
+                    },
+                    {
+                        path: '/',
                         component:Tenant ,
                         exact: true,
                     },
@@ -210,13 +223,13 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/activity/cashVolumeList',
-                        component:cashVolumeList ,
+                        path: '/setting/coupon',
+                        component:CouponList ,
                         exact: true,
                     },
                     {
-                        path: '/setting/activity/cashVolumeDetails',
-                        component:cashVolumeDetails ,
+                        path: '/setting/coupon/details',
+                        component:couponDetails ,
                         exact: true,
                     },
                     {
@@ -270,13 +283,18 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/document/updateDocument',
-                        component:UpdateDocument ,
+                        path: '/setting/document/compileDocument',
+                        component:compileDocument ,
                         exact: true,
                     },
                     {
                         path: '/setting/document/updateDocument',
                         component:UpdateDocument ,
+                        exact: true,
+                    },
+                    {
+                        path: '/setting/plugList',
+                        component:plugList ,
                         exact: true,
                     },
                     {

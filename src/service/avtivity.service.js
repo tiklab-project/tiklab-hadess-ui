@@ -23,15 +23,15 @@ export const updateFullReductionApi = '/fullReduction/updateFullReduction';  //�
 export const createSubActivityApi = '/subActivity/createSubActivity';  //创建满减活动
 export const updateSubActivityApi = '/subActivity/updateSubActivity';  //修改满减活动
 
-export const createRollApi = '/roll/createRoll';  //创建卷主表
-export const findRollPageApi = '/roll/findRollPage';  //条件分页查询卷主表
-export const deleteRollApi = '/roll/deleteRoll';  // 删除
-export const updateRollApi = '/roll/updateRoll';  // 修改
 
-export const findCashVolumePageApi = '/cashVolume/findCashVolumePage';  //条件分页查询现金卷
-export const findMergeCashVolumePageApi = '/cashVolume/findMergeCashVolumePage';  //合并条件分页查询现金卷
+export const createCouponApi = '/coupon/createCoupon';  //创建优惠卷主表
+export const findCouponPageApi = '/coupon/findCouponPage';  //条件分页查询卷主表
+export const deleteCouponApi = '/coupon/deleteCoupon';  // 删除
+export const updateCouponApi = '/coupon/updateCoupon';  // 修改
 
-export const findMergeDiscountCouponPageApi = '/discountCoupon/findMergeDiscountCouponPage';  //折扣券的领取使用情况
+export const findCouponCashAccessPageApi = '/couponCash/findCouponCashAccessPage';  //现金券的领取使用情况
+
+export const findCouponDisAccessPageApi = '/couponDiscount/findCouponDisAccessPage';  //折扣券的领取使用情况
 
 
 class ActivityService {
@@ -57,37 +57,31 @@ class ActivityService {
         return authAccount
     }
 
-
-
-    async createRoll(data){
-        const authAccount = await Axios.post(createRollApi,data)
+    async createCoupon(data){
+        const authAccount = await Axios.post(createCouponApi,data)
         return authAccount
     }
-    async findRollPage(data){
-        const authAccount = await Axios.post(findRollPageApi,data)
+    async findCouponPage(data){
+        const authAccount = await Axios.post(findCouponPageApi,data)
         return authAccount
     }
-    async deleteRoll(data){
-        const authAccount = await Axios.post(deleteRollApi,data)
-        return authAccount
-    }
-
-    async updateRoll(data){
-        const authAccount = await Axios.post(updateRollApi,data)
+    async deleteCoupon(data){
+        const authAccount = await Axios.post(deleteCouponApi,data)
         return authAccount
     }
 
-    async findCashVolumePage(data){
-        const authAccount = await Axios.post(findCashVolumePageApi,data)
-        return authAccount
-    }
-    async findMergeCashVolumePage(data){
-        const authAccount = await Axios.post(findMergeCashVolumePageApi,data)
+    async updateCoupon(data){
+        const authAccount = await Axios.post(updateCouponApi,data)
         return authAccount
     }
 
-    async findMergeDiscountCouponPage(data){
-        const authAccount = await Axios.post(findMergeDiscountCouponPageApi,data)
+    async findCouponCashAccessPage(data){
+        const authAccount = await Axios.post(findCouponCashAccessPageApi,data)
+        return authAccount
+    }
+
+    async findCouponDisAccessPage(data){
+        const authAccount = await Axios.post(findCouponDisAccessPageApi,data)
         return authAccount
     }
 

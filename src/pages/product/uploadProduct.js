@@ -8,7 +8,7 @@
 import React, {useState, useEffect} from "react";
 import {Col, Row, Form, Modal, Input,Select,Upload, Button} from 'antd';
 import {UploadOutlined} from "@ant-design/icons";
-import {DFS_URL} from "../../const";
+import {DFS_URL, FTP_URl} from "../../const";
 import {getUser} from "../../utils";
 import productService from "../../service/product.service";
 const { Option } = Select;
@@ -23,6 +23,7 @@ const UploadProduct = props => {
     const {visible, onCancel, editData} = props;
     const [fileList, setFileList] = useState([]);
     const [fileName, setFileName] = useState(); //文件名字
+    const [fileUrl, setFileUrl] = useState(); //文件地址
     const [size,setSize]=useState(); //文件大小  字节
 
 
@@ -35,7 +36,14 @@ const UploadProduct = props => {
 
     const handleOk =   () => {
         form.validateFields().then(async values => {
-           const res=await productService.createProductUrl({...values, size:(size/1048576).toFixed(2),productId:editData?.product.id,productVersionId:editData.id,productUrl:fileName})
+           const res=await productService.createProductUrl({
+               ...values,
+               size:(size/1048576).toFixed(2),
+               productId:editData?.product.id,
+               productVersionId:editData.id,
+               productUrl:fileUrl,
+               name:fileName,
+           })
             if (!res.code) {
                 onCancel()
             }
@@ -43,19 +51,25 @@ const UploadProduct = props => {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        action: DFS_URL + '/dfs/upload',
+        data:{type:"projectPage"},
+        action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket
         },
         progress:{
-            strokeWidth: 2,
-            showInfo: false
-        }
+            strokeColor: {
+                '0%': '#108ee9',
+                '100%': '#108ee9',
+            },
+            strokeWidth: 3,
+            format: (percent) =>`${parseFloat(percent.toFixed(2))}%`,
+        },
     }
     //文件上传
     const fileUpload={
         ...uploadPros,
         onChange(info) {
+            setFileList([])
             setFileName(null)
             let fileList = [...info.fileList];
             fileList = fileList.slice(-1);
@@ -65,6 +79,7 @@ const UploadProduct = props => {
                 if (file.response) {
                     file.url = file.response.url;
                     setFileName(file.response.data.fileName)
+                    setFileUrl(file.response.data.url)
                 }
                 return file;
             });

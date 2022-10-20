@@ -16,7 +16,7 @@ export const findAllRepositoryApi = '/repository/findAllRepository';  //查询�
 export const deleteRepositoryApi = '/repository/deleteRepository';  //删除空间
 export const updateRepositoryApi = '/repository/updateRepository';  //修改空间
 
-export const findCategoryListTreeApi = '/category/findCategoryListTree';  //查询目录树
+
 export const likeFindCategoryListTreeApi = '/category/likeFindCategoryListTree';  //模糊查询目录树
 export const findChildrenCategoryApi = '/category/findChildrenCategory';  //查询目录及子目录
 export const deleteCategoryApi = '/category/deleteCategory';  //删除目录
@@ -25,6 +25,7 @@ export const createCategoryApi = '/category/createCategory';  //创建目录
 export const createDocumentApi = '/document/createDocument';  //创建文档
 export const updateDocumentApi = '/document/updateDocument';  //修改文档
 export const deleteDocumentApi = '/document/deleteDocument';  //删除文档
+export const findDocumentTreeApi = '/document/findDocumentTree';  //查询文档树
 
 export const findDocumentApi = '/document/findDocument';  //通过id查询文档
 export const findCommentTreePageApi = '/comment/findCommentTreePage';  //通过文档id分页查询评论树
@@ -55,8 +56,8 @@ class DocumentService {
         return response
     }
 
-    async findCategoryListTree(data){
-        const response = await Axios.post(findCategoryListTreeApi,data)
+    async findDocumentTree(data){
+        const response = await Axios.post(findDocumentTreeApi,data)
         return response
     }
     async findChildrenCategory(data){

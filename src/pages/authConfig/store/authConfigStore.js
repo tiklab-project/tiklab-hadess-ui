@@ -24,7 +24,6 @@ export class AuthConfigStore{
         this.authentication = data
         localStorage.setItem('authConfig', JSON.stringify(this.authentication))
     }
-
 }
 // 系统用户的store 常量
 export const AUTH_CONFIG_STORE = 'authConfigStore';

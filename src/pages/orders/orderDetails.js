@@ -6,57 +6,75 @@
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Descriptions, Table} from "antd";
+import {Breadcrumb, Descriptions, Space, Table} from "antd";
 import orderService from "../../service/order.service"
 import {withRouter} from "react-router";
 
 const OrderDetails = props => {
     const orders=props.history.location.params
-    const [orderData,setOrderData]=useState('')
+    const [orderData,setOrderData]=useState('')  //订单详情
     const [tableData,setTableData]=useState()
 
-    const columns = [
+    const   columns = [
         {
             title: '产品名称',
-            dataIndex:['product','name'],
+            dataIndex: ['product','name'],
+            key: 'name',
         },
         {
-            title: '价格',
+            title: '产品编码',
+            dataIndex: ['product','code'],
+            key: 'type',
+        },
+        {
+            title: '单价',
             dataIndex: 'orderProductPrice',
+            key: 'orderProductPrice',
+            render: (text,record) => (
+                <Space size="middle">
+                    <div>￥{record.product.price} /人/月</div>
+                </Space>
+            )
         },
         {
-            title: '购买数量',
-            dataIndex: 'math',
-            render: (text, record)  => {
-                return record.subscribeType===3?" N/A":(record.duration) / 12 === 1 ? '1年' : `${text}月`
-            }
+            title: '订阅时长',
+            dataIndex: 'subMath',
+            key: 'subMah',
+            render: (text) => (
+                <Space size="middle">
+                    <div>{text}月</div>
+                </Space>
+            )
         },
         {
-            title: '租户',
-            dataIndex:['tenant','name'],
-        },
-
+            title: '订阅账号数量',
+            dataIndex: 'subNum',
+            key: 'subNum',
+            render: (text) => (
+                <Space size="middle">
+                    <div>{text}人</div>
+                </Space>
+            )
+        }
     ];
 
     useEffect(async ()=>{
         if (orders){
             sessionStorage.setItem("orders", JSON.stringify(orders));
         }
-        await findOrderProduct()
+        await findOrder()
     },[])
 
-    const findOrderProduct=async ()=>{
+    //查询订单
+    const findOrder=async ()=>{
         const orderData=JSON.parse(sessionStorage.getItem("orders"));
-        setOrderData(orderData)
-        const param={
-            orderId:orderData.id
-        }
-        const res=await  orderService.findOrderProductList(param)
+        const param=new FormData();
+        param.append('id',orderData.id)
+        const res=await orderService.findOrder(param)
         if (res.code===0){
-            setTableData(res.data)
+            setOrderData(res.data)
         }
     }
-
     return (
         <section className='w-full flex flex-row'>
             <div className='w-full p-6 max-w-full m-auto'>
@@ -82,21 +100,21 @@ const OrderDetails = props => {
                             <Descriptions.Item label="创建时间">
                                 {orderData.createTime}
                             </Descriptions.Item>
-                            <Descriptions.Item label="优惠券">
-                                {orderData.rollName}
-                            </Descriptions.Item>
                             {
                                 orderData.bGroup===1&&
                                 <Descriptions.Item label="企业">
                                     {orderData.tenant.name}
                                 </Descriptions.Item>
                             }
+                            <Descriptions.Item label="优惠券">
+                                {orderData.discountsName}
+                            </Descriptions.Item>
                         </Descriptions>
                         <div className='pt-12'>
                             <h4 className='text-lg'>订单产品:</h4>
                             <Table
                                 className='pt-4'
-                                dataSource={tableData}
+                                dataSource={orderData?.orderDetailsList}
                                 columns={columns}
                                 rowKey={record => record.id}
                                 pagination={false}

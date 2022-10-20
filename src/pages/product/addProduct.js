@@ -29,12 +29,12 @@ const AddProduct = props => {
         finAllProductType()
         if (editData) {
             form.setFieldsValue({
+                icon:editData.editData,
                 name: editData.name,
-                productUrl:editData.productUrl,
-                icon: editData.icon,
-                price:editData.price,
                 code:editData.code,
                 type:editData.type,
+                productUrl:editData.productUrl,
+                price:editData.price,
                 des:editData.des,
             })
             if (editData.icon){

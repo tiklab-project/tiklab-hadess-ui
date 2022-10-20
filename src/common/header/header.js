@@ -19,11 +19,11 @@ const HeaderConfig = [
          to:'/',
          title:'首页',
          key: '/'
-     },*/{
+     },*//*{
         to:`/setting`,
         title:'运营管理',
         key: '/setting'
-    },
+    },*/
    /* {
         to:`/system`,
         title:'系统管理',
