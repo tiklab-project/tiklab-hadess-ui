@@ -6,7 +6,7 @@
  * @update: 2021-04-02 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Radio, Input, Tag, Avatar, Cascader , Breadcrumb} from 'antd';
+import {Radio, Input, Tag, Avatar, Cascader, Breadcrumb, Tabs} from 'antd';
 import * as echarts from 'echarts/lib/echarts';
 import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
@@ -24,9 +24,9 @@ import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
 
 import statisticsService from "../../service/statistics.service"
+import './statistics.scss'
+const { TabPane } = Tabs;
 import {Card} from 'antd'
-
-
 const options = [
     {
         value: 'hangzhou',
@@ -64,7 +64,7 @@ const options = [
 const PayStatistics =props=>{
     const [day,setDay]=useState([])
     const [type,setType]=useState('')
-
+    const [state,setState]=useState('day');
 
     useEffect( async ()=>{
         await findStatisticsByDay()
@@ -96,12 +96,13 @@ const PayStatistics =props=>{
     }
 
     //切换视图类型
-    const cutType=async (e)=>{
-        const type=e.target.value
-        if (type==="day"){
+    const cutType=async (event)=>{
+        //const type=e.target.value
+        setState(event)
+        if (event==="day"){
             await findStatisticsByDay()
         }
-        if (type==="moth"){
+        if (event==="moth"){
             await findStatisticsByMonth()
         }
     }
@@ -142,23 +143,18 @@ const PayStatistics =props=>{
     }
 
     return (
-        <section className='container mx-auto flex flex-col my-6'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>数据统计</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 支付统计</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex justify-end py-8'>
-                    <Radio.Group defaultValue="a" buttonStyle="solid" onChange={cutType}>
-                        <Radio.Button value="day">日统计图</Radio.Button>
-                        <Radio.Button value="week">周统计图</Radio.Button>
-                        <Radio.Button value="moth">月统计图</Radio.Button>
-                    </Radio.Group>
-                </div>
-                <div className="main" id="main" style={{width: "100%",height: "500px"}}>
-                </div>
+        <div className='statistics'>
+            <div className='statistics-title'>支付统计</div>
+            <div className=' statistics-data'>
+                <Tabs  activeKey={state}  onTabClick={cutType}  id={"tabPane"} >
+                    <TabPane  tab="日统计图" key="day"/>
+                    <TabPane tab="周统计图" key="week"/>
+                    <TabPane tab="月统计图" key="moth"/>
+                </Tabs>
             </div>
-        </section>
+            <div className="main" id="main" style={{width: "100%",height: "500px"}}>
+            </div>
+        </div>
 
     )
 

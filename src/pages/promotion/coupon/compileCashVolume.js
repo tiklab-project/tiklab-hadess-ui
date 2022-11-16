@@ -25,7 +25,7 @@ const layout = {
     wrapperCol: { span: 20 },
 };
 const { Option } = Select;
-
+import './coupon.scss'
 const couponTypeList= [{code:'cash',name:'现金卷'},{code: 'discount',name:'折扣卷'}]
 const rollBGroupList= [{code:1,name:'线上saas优惠券'},{code: 2,name:'线下ee优惠券'}]
 const compileCashVolume = props => {
@@ -106,42 +106,43 @@ const compileCashVolume = props => {
     }
 
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href='#/setting/activity/coupon' className={'cursor-pointer'}>现金券列表</Breadcrumb.Item>
-                    <Breadcrumb.Item >创建优惠券</Breadcrumb.Item>
-                </Breadcrumb>
-                <Form
-                    {...layout}
-                    onFinish={onFinish}
-                    name="nest-messages"
-                    form={form}
-                    className='mt-6'>
-                    <Form.Item name={['couponName']} label="优惠券名称" rules={[{ required: true }]}>
-                        <Input
-                            type="text"
-                        />
-                    </Form.Item>
-                    <Form.Item name={['bGroup']} label="优惠券类型" rules={[{ required: true }]}>
-                        <Select  showArrow onChange={cuteType}>
-                            {rollBGroupList.map(item=>{
-                                return(
-                                    <Option key={item.code}  value={item.code} >
-                                        {item.name}
-                                    </Option>
-                                )
-                            })
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item
-                        name={['desc']}
-                        label='优惠卷有效期'
-                    >
-                        <Space direction="vertical" size={12}>
-                            {
-                                rollData&&rollData.startTime?
+        <div className='coupon' >
+            <Breadcrumb separator="/" className=' coupon-title'>
+                <Breadcrumb.Item href='#/index/coupon' className={'cursor-pointer'}>现金券列表</Breadcrumb.Item>
+                <Breadcrumb.Item >创建优惠券</Breadcrumb.Item>
+            </Breadcrumb>
+            <Form
+                {...layout}
+                onFinish={onFinish}
+                name="nest-messages"
+                form={form}
+                className='mt-6'
+                layout="vertical"
+            >
+                <Form.Item name={['couponName']} label="优惠券名称" rules={[{ required: true }]}>
+                    <Input
+                        type="text"
+                    />
+                </Form.Item>
+                <Form.Item name={['bGroup']} label="优惠券类型" rules={[{ required: true }]}>
+                    <Select  showArrow onChange={cuteType}>
+                        {rollBGroupList.map(item=>{
+                            return(
+                                <Option key={item.code}  value={item.code} >
+                                    {item.name}
+                                </Option>
+                            )
+                        })
+                        }
+                    </Select>
+                </Form.Item>
+                <Form.Item
+                    name={['desc']}
+                    label='优惠卷有效期'
+                >
+                    <Space direction="vertical" size={12}>
+                        {
+                            rollData&&rollData.startTime?
                                 <RangePicker
                                     showTime={{
                                         format: 'HH:mm',
@@ -150,63 +151,62 @@ const compileCashVolume = props => {
                                     onChange={onChange}
                                     value={[moment(rollData.startTime, "YYYY-MM-DD HH:mm"), moment(rollData.endTime, "YYYY-MM-DD HH:mm")]}
                                 />:
-                                    <RangePicker
-                                        showTime={{
-                                            format: 'HH:mm',
-                                        }}
-                                        format="YYYY-MM-DD HH:mm"
-                                        onChange={onChange}
-                                    />
-                            }
+                                <RangePicker
+                                    showTime={{
+                                        format: 'HH:mm',
+                                    }}
+                                    format="YYYY-MM-DD HH:mm"
+                                    onChange={onChange}
+                                />
+                        }
 
-                        </Space>
-                    </Form.Item>
-                    <Form.Item name={['activityKind']} label="优惠卷种类" rules={[{ required: true }]}>
-                        <Select  showArrow onChange={cuteKind} >
-                            {couponTypeList.map(item=>{
-                                    return(
-                                        <Option key={item.code}  value={item.code} >
-                                            {item.name}
-                                        </Option>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </Form.Item>
-                    {
-                        couponType&&
-                        <>
-                            <Form.Item
-                                name="couponLimit"
-                                label={couponType==='cash'&&'现金卷金额'||couponType==='coupon'&&'折扣数'}
-                            >
-                                <Input/>
-                            </Form.Item>
-                            <Form.Item
-                                name="couponNumber"
-                                label={couponType==='cash'&&'现金卷数量'||couponType==='coupon'&&'折扣卷数量'}
-                            >
-                                <Input/>
-                            </Form.Item>
-                            <Form.Item
-                                name="couponRule"
-                                label={couponType==='cash'&&'现金卷规则'||couponType==='coupon'&&'折扣卷规则'}
-                            >
-                                <Input addonBefore="满" addonAfter="可用" style={{ width: '30%' }}   />
-                            </Form.Item>
-                        </>
-                    }
+                    </Space>
+                </Form.Item>
+                <Form.Item name={['activityKind']} label="优惠卷种类" rules={[{ required: true }]}>
+                    <Select  showArrow onChange={cuteKind} >
+                        {couponTypeList.map(item=>{
+                            return(
+                                <Option key={item.code}  value={item.code} >
+                                    {item.name}
+                                </Option>
+                            )
+                        })
+                        }
+                    </Select>
+                </Form.Item>
+                {
+                    couponType&&
+                    <>
+                        <Form.Item
+                            name="couponLimit"
+                            label={couponType==='cash'&&'现金卷金额'||couponType==='coupon'&&'折扣数'}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            name="couponNumber"
+                            label={couponType==='cash'&&'现金卷数量'||couponType==='coupon'&&'折扣卷数量'}
+                        >
+                            <Input/>
+                        </Form.Item>
+                        <Form.Item
+                            name="couponRule"
+                            label={couponType==='cash'&&'现金卷规则'||couponType==='coupon'&&'折扣卷规则'}
+                        >
+                            <Input addonBefore="满" addonAfter="可用" style={{ width: '30%' }}   />
+                        </Form.Item>
+                    </>
+                }
 
-                    <Row>
-                        <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
-                            <Button type="primary" htmlType="submit">
-                                提交
-                            </Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-        </section>
+                <Row>
+                    <Col span={24} style={{ textAlign: 'left' }}>
+                        <Button type="primary" htmlType="submit">
+                            提交
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+        </div>
     )
 }
 

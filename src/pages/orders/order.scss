@@ -1,0 +1,19 @@
+.order{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .order-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .order-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .order-data{
+        padding: var(--page-data-padding);
+    }
+
+}

@@ -6,27 +6,48 @@
  * @update: 2021-08-09 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal, Select, Tag, Tooltip} from "antd";
-import { ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+    Breadcrumb,
+    Row,
+    Col,
+    Input,
+    Button,
+    Table,
+    Space,
+    Modal,
+    Select,
+    Tag,
+    Tooltip,
+    Pagination
+} from "antd";
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
 import UpdateOrder from "./updateOrder";
 import orderService from "../../service/order.service"
 const { Option } = Select;
 const { confirm } = Modal;
+import './order.scss'
+import OrderDetails from "./orderDetails";
+import Paging from "../../common/components/paging";
 const Orders = props => {
     const [name, setName] = useState(null);
     const [editData, setEditData] = useState(null);
-    const [tableData, setTableData] = useState([]);
-    const [page, setPage] = useState(1);
+    const [orderList, setOrderList] = useState([]);  //订单数据list
+    const [order, setOrder] = useState(null);    //订单数据
+
+    const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+
     const [visible, setVisible] = useState(false);
     const [orderType,setOrderType]=useState('')
+    
+    const [detailsVisible,setDetailsVisible]=useState(false)  //详情抽屉打开状态
     const columns = [
         {
             title: '订单编号',
             dataIndex: 'orderCode',
             render: (text, record) => {
-                return <a className='text-blue-500' onClick={() => findDetails(record)}>{record.orderCode}</a>
+                return <a className='text-blue-500' onClick={() => openOrderDetails(record)}>{record.orderCode}</a>
             }
         },
         {
@@ -90,9 +111,10 @@ const Orders = props => {
             title: '操作',
             key: 'action',
             render: (text, record) => (
-                <Space size="middle">
-                    {/*<a onClick={() => editProduct(record)}>编辑</a>*/}
-                    <a onClick={() => deletePop(record.id)}>删除</a>
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' />
+                    </Tooltip>
                 </Space>
             ),
         },
@@ -126,19 +148,22 @@ const Orders = props => {
         addProduct()
     }
 
-    const findDetails=async (record)=>{
-        props.history.push({
-            pathname:"/setting/order/details",
-            params:record
-        });
+    //打开详情抽屉
+    const openOrderDetails = (value) => {
+        setOrder(value)
+        setDetailsVisible(true)
+    }
+    //关闭详情抽屉
+    const closeOrderDetails = () => {
+        setDetailsVisible(false)
     }
 
+    //删除弹窗
     const deletePop=async (data)=>{
         confirm({
             title: '是否删除该订单',
             icon: <ExclamationCircleOutlined />,
             content: '',
-            style: {top: 300},
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
@@ -155,7 +180,7 @@ const Orders = props => {
         formData.append('id', id);
         const response = await orderService.deleteOrder(formData)
         if (response.code === 0) {
-            await getOrderData(page)
+            await getOrderData(currentPage)
         }
     }
 
@@ -171,10 +196,10 @@ const Orders = props => {
             subscribeType:2,
             orderParams:sorter&&sorter?.field?[{name:sorter.field,orderType:sorter.order==='ascend'?'asc':'desc'}]:[{name:'paymentStatus',orderType:'asc'}]
         }
-        const data = await orderService.findOrderPage(params)
-        if (data.code === 0) {
-            setTotalRecord(data.data.totalRecord)
-            setTableData(data.data.dataList)
+        const res = await orderService.findOrderPage(params)
+        if (res.code === 0) {
+            setTotalPage(res.data.totalPage)
+            setOrderList(res.data.dataList)
         }
     }
     const onInputName = (e) => {
@@ -200,11 +225,9 @@ const Orders = props => {
         await getOrderData(1)
     }
     //分页 排序查询
-    const handleTableChange = async (pagination, filters, sorter) => {
-        const a=sorter.field
-        debugger
-        setPage(pagination.current)
-        await getOrderData(pagination.current,null,sorter)
+    const handleTableChange = async (pagination) => {
+        setCurrentPage(pagination)
+        await getOrderData(pagination)
     }
 
     //通过订单类型查询
@@ -213,46 +236,37 @@ const Orders = props => {
         await getOrderData(1,e)
     }
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>订单管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 订单列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <Row gutter={[16, 16]} className='py-6'>
-                    <Col span={6}>
-                        <Input placeholder={'搜索订单ID'} style={{ width: 240 }} value={name} onChange={onInputName} onPressEnter={onSearch}/>
-                    </Col>
-                    <div className='space-x-6 '>
-                        <label>订单类型</label>
-                        <Select defaultValue='' style={{ width: 240 }}  onChange={findOrderType} >
-                            <Option value='' >全部</Option>
-                            <Option value='1'>sass</Option>
-                            <Option value='2'>企业</Option>
-                        </Select>
-                    </div>
-                    <Col span={10}  className='flex justify-end ' style={{display:'flex'}}>
-                        <Button type="primary" >+导出</Button>
-                    </Col>
-                </Row>
-                <Row gutter={[16, 16]} >
-                    <Col span={24}>
-                        <Table
-                            dataSource={tableData}
-                            columns={columns}
-                            rowKey={record => record.id}
-                            pagination={{
-                                current:page,
-                                pageSize: pageSize,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
-                        />
-                    </Col>
-                </Row>
+        <div className='order'>
+            <div className='order-head-style'>
+                <div className='order-title'>订单列表</div>
+                <Button type="primary" >导出</Button>
             </div>
+            <Row gutter={[16, 16]} className='order-data space-x-4'>
+                <Select defaultValue='null' style={{ width: 200 }}  onChange={findOrderType} >
+                    <Option value='null' >全部类型</Option>
+                    <Option value='1'>sass</Option>
+                    <Option value='2'>企业</Option>
+                </Select>
+                <Col span={6}>
+                    <Input placeholder={'搜索订单ID'} style={{ width: 240 }} value={name} onChange={onInputName} onPressEnter={onSearch}/>
+                </Col>
+            </Row>
+            <Row gutter={[16, 16]} >
+                <Col span={24}>
+                    <Table
+                        dataSource={orderList}
+                        columns={columns}
+                        rowKey={record => record.id}
+                        pagination={false}
+                        //onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
+                    />
+                </Col>
+            </Row>
+            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
             <UpdateOrder visible={visible} onCancel={onCancel} editData={editData}/>
-        </section>
+            <OrderDetails onClose={closeOrderDetails} visible={detailsVisible} orderData={order}/>
+        </div>
+
     )
 }
 

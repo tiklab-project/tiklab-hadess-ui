@@ -6,17 +6,21 @@
  * @update: 2022-05-21 10:48
  */
 import React, {useState, useEffect,useCallback} from "react";
-import {Breadcrumb, Modal, Radio, Space, Table, Tag} from "antd";
+import {Breadcrumb, Modal, Radio, Space, Table, Tabs} from "antd";
 import orderService, {verifyPublicTraApi} from "../../service/order.service";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
+const { TabPane } = Tabs;
+import './public.scss'
+import Paging from "../../common/components/paging";
 const typeList= [{code:1,name:'未处理'},{code: 2,name:'已处理'}]
 const PublicTransferList = props => {
 
     const [orderData, setOrderData] = useState([]);   //对公转账订单数据
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+    const [type,setType]=useState('1')
 
     const columns = [
         {
@@ -74,7 +78,7 @@ const PublicTransferList = props => {
     const findOrderPay=async (payState)=>{
         const param={
             pageParam:{
-                currentPage:page,
+                currentPage:currentPage,
                 pageSize:pageSize
             },
             payState:payState,
@@ -83,7 +87,7 @@ const PublicTransferList = props => {
       const res=await orderService.findPaymentPage(param)
         if (res.code===0){
             setOrderData(res.data.dataList)
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
     }
 
@@ -116,47 +120,39 @@ const PublicTransferList = props => {
            await findOrderPay(1)
         }
     }
-    //切换卷类型
-    const cutType =async (e) => {
-        await findOrderPay(e.target.value)
+
+
+    const handleTableChange = async (value) => {
+        setCurrentPage(value)
+        await findOrderPay(value)
     }
 
-    const handleTableChange = async (pagination, filters, sorter) => {
-        setPage(pagination.current)
-        await findOrderPay(pagination.current)
+    //切换已处理和未处理
+    const haveOpened=async (event)=>{
+        setType(event)
+       await findOrderPay(event)
     }
+
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>对公转账 </Breadcrumb.Item>
-                    <Breadcrumb.Item href="">对公转账订单</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='pt-6'>
-                    <Radio.Group  defaultValue={1} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
-                        {typeList.map(item=>{
-                            return(
-                                <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
-                            )
-                        })}
-                    </Radio.Group>
-                    <div className={'pt-6'}>
-                        <Table
-                            dataSource={orderData}
-                            columns={columns}
-                            rowKey={record => record.id}
-                            pagination={{
-                                current:page,
-                                pageSize: pageSize,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
-                        />
-                    </div>
-                </div>
-
+        <div className='public-tran'>
+            <Breadcrumb separator="/" className=' public-tran-title'>
+                <Breadcrumb.Item href="">对公转账订单</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className='public-tran-data'>
+                <Tabs  activeKey={type}  onTabClick={haveOpened}>
+                    <TabPane  tab="未处理" key='1'/>
+                    <TabPane tab="已处理" key='2'/>
+                </Tabs>
+                <Table
+                    dataSource={orderData}
+                    columns={columns}
+                    rowKey={record => record.id}
+                    pagination={false}
+                    onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
+                />
             </div>
-        </section>
+            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+        </div>
     )
 }
 

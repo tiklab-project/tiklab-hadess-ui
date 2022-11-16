@@ -7,21 +7,28 @@
  */
 
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Space, Table, Modal, Button,Tag} from "antd";
+import {message, Space, Table, Modal, Button,Tag,Tooltip} from "antd";
 const { confirm } = Modal;
 import tenantService from "../../../service/tenant.service";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import './manageDb.scss'
 import DbAddOrUpdate from "./dbAddOrUpdate";
+import DbSourceDetails from "./dbSourceDetails";
 const DbSourceList = props => {
-    const [DbDataList,setDbDataList]=useState([])  //db数据
+    const [DbDataList,setDbDataList]=useState([])  //db数据list
     const [visible, setVisible] = useState(false);  //修改删除弹窗
     const [updateDbDate, setUpdateDbDate] = useState();  //修改回显数据
+
+    const [detailsVisible,setDetailsVisible]=useState(false)  //打开详情抽屉状态
+    const [dbData,setDbData]=useState()  //bd数据
+    const [tenantDbList,setTenantDbList]=useState([])  //租户db
+
     const columns = [
         {
             title: '地址',
             dataIndex: 'url',
             render: (text, record) => {
-                return <a className='text-blue-400 cursor-pointer' onClick={() => goTenantDb(record)}>{record.url}</a>
+                return <a className='text-blue-400 cursor-pointer' onClick={() => openTenantDb(record)}>{record.url}</a>
             },
         },
         {
@@ -40,6 +47,10 @@ const DbSourceList = props => {
             )
         },
         {
+            title: '类型',
+            dataIndex: 'type',
+        },
+        {
             title: '序号 (使用db顺序)',
             dataIndex: 'serialNumber',
 
@@ -52,13 +63,13 @@ const DbSourceList = props => {
             title: '操作',
             key: 'details',
             render: (text, record) => (
-                <Space size="useState" className='flex  gap-x-2'>
-                    <div className='border border-gray-200 bg-blue-400 px-2 text-white cursor-pointer'onClick={()=>updateDb(record)} >
-                        编辑
-                    </div>
-                    <div  className='border border-gray-200 px-2 cursor-pointer' onClick={()=>openDeletePop(record)} >
-                        删除
-                    </div>
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="编辑">
+                        <EditOutlined className='cursor-pointer' onClick={()=>updateDb(record)}/>
+                    </Tooltip>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' onClick={()=>openDeletePop(record)}/>
+                    </Tooltip>
                 </Space>
             ),
         },
@@ -80,13 +91,12 @@ const DbSourceList = props => {
     //打开删除数据源弹窗
     const openDeletePop =async (record) => {
         confirm({
-            title: '此操作关系甚大，请看清再操作',
+            title: '注意！ 请确定后在删除',
             icon: <ExclamationCircleOutlined/>,
             content: '',
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
-            style: {top: 300},
             onOk() {
                 deleteDb(record.id)
             },
@@ -101,6 +111,8 @@ const DbSourceList = props => {
         const res= await tenantService.deleteTenantDbGroup(param)
         if (res.code===0){
             setDbDataList(DbDataList.filter(item=>item.id!==id))
+        }else {
+            message.error(res.msg)
         }
     }
 
@@ -121,31 +133,49 @@ const DbSourceList = props => {
 
     const goTenantDb=async (record)=>{
         props.history.push({
-            pathname:"/setting/sourceManage/manageDb/tenantManageDb",
+            pathname:"/index/sourceManage/tenantManageDb",
             params:record
         });
     }
+    //打开租户数据源详情
+    const openTenantDb =async (value) => {
+        await findTenantDatabase(value)
+        setDbData(value)
+        setDetailsVisible(true)
+    }
+    const closeTenantDb = () => {
+      setDetailsVisible(false)
+    }
+
+    //查询改数据源下面的租户
+    const findTenantDatabase = async (value,name) => {
+        const param={
+            dbGroupId:value.id,
+            tenantName:name
+        }
+        const res=await tenantService.findTenantDatabaseByDb(param)
+        if (res.code===0){
+            setTenantDbList(res.data)
+        }
+    }
+
     return(
-        <section className='flex-row p-6'>
-            <div className='w-full  max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>数据源管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">db列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex justify-end py-6' >
-                    <Button type="primary" onClick={openVisible}>+添加</Button>
-                </div>
-                <div className='' >
-                    <Table
-                        columns={columns}
-                        dataSource={DbDataList}
-                        rowKey = {record => record.id}
-                        pagination={false}
-                    />
-                </div>
+        <div className='manage-db'>
+            <div className='manage-head-style'>
+                <div className='manage-title'>db数据源列表</div>
+                <Button type="primary" onClick={openVisible}>添加</Button>
+            </div>
+            <div className='manage-data' >
+                <Table
+                    columns={columns}
+                    dataSource={DbDataList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
             </div>
             <DbAddOrUpdate visible={visible} onCancel={closeVisible} editData={updateDbDate} />
-        </section>
+            <DbSourceDetails onClose={closeTenantDb} visible={detailsVisible} dbData={dbData} tenantDbList={tenantDbList} findTenantDatabase={findTenantDatabase} />
+        </div>
     )
 }
 export default DbSourceList

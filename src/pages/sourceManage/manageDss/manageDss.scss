@@ -1,0 +1,22 @@
+.manage-dss{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .manage-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .manage-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .manage-data{
+        display: grid;
+        row-gap: 1rem;
+        padding: var(--page-data-padding);
+    }
+
+
+}

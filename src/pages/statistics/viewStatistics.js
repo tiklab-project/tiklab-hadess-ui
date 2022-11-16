@@ -6,7 +6,7 @@
  * @update: 2021-04-02 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Radio, Input, Tag, Avatar, Cascader , Breadcrumb} from 'antd';
+import {Radio, Input, Tag, Avatar, Cascader, Breadcrumb, Tabs} from 'antd';
 import * as echarts from 'echarts/lib/echarts';
 import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
@@ -22,8 +22,9 @@ import 'echarts/lib/chart/line'
 //引入提示框和标题组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-
+import './statistics.scss'
 import statisticsService from "../../service/statistics.service"
+const { TabPane } = Tabs;
 import {Card} from 'antd'
 
 
@@ -64,7 +65,7 @@ const options = [
 const ViewStatistics =props=>{
     const [day,setDay]=useState([])
     const [type,setType]=useState('')
-
+    const [state,setState]=useState('day');
 
     useEffect( ()=>{
 
@@ -97,12 +98,13 @@ const ViewStatistics =props=>{
     }
 
     //切换视图类型
-    const cutType=async (e)=>{
-        const type=e.target.value
-        if (type==="day"){
+    const cutType=async (event)=>{
+       // const type=e.target.value
+        setState(event)
+        if (event==="day"){
             await findStatistics()
         }
-        if (type==="moth"){
+        if (event==="moth"){
             await findStatisticsByMonth()
         }
     }
@@ -147,29 +149,21 @@ const ViewStatistics =props=>{
     }
 
     return (
-        <section className='container mx-auto flex flex-col my-6'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>数据统计</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 浏览量统计</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex py-8'>
-                    <div className='flex w-1/2'>
-                        <Cascader options={options} onChange={onChange} placeholder="Please select"  />
-                    </div>
-                    <div className='flex w-1/2 justify-end' onChange={cutType} >
-                        <Radio.Group defaultValue="a" buttonStyle="solid">
-                            <Radio.Button value="day">日统计图</Radio.Button>
-                            <Radio.Button value="week">周统计图</Radio.Button>
-                            <Radio.Button value="moth">月统计图</Radio.Button>
-                        </Radio.Group>
-                    </div>
-                </div>
-                <div className="main" id="main" style={{width: "100%",height: "500px"}}>
+        <div className='statistics' >
+            <div className='statistics-title'>浏览量统计</div>
+            <div className='statistics-data'>
+                <Tabs  activeKey={state}  onTabClick={cutType}  id={"tabPane"} >
+                    <TabPane  tab="日统计图" key="day"/>
+                    <TabPane tab="周统计图" key="week"/>
+                    <TabPane tab="月统计图" key="moth"/>
+                </Tabs>
+                <div className='mt-1'>
+                    <Cascader options={options} onChange={onChange} placeholder="Please select"  />
                 </div>
             </div>
-        </section>
-
+            <div className="main" id="main" style={{width: "100%",height: "500px"}}>
+            </div>
+        </div>
     )
 
 }

@@ -9,14 +9,14 @@ import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Input,Select,Upload, Button} from 'antd';
 import {withRouter} from "react-router";
 import productService from "../../service/product.service";
-import {getUser} from "../../utils";
 import { UploadOutlined } from '@ant-design/icons';
 const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 25},
 };
-import {DFS_URL} from "../../const";
+import {DFS_URL, FTP_DOWNLOAD_URL, FTP_URl} from "../../const";
+import {getUser} from "tiklab-core-ui";
 const typeList=[{key:'saas',value:'线上saas版'},{key:'ce',value:'线下社区版'},{key:'ee',value:'线下企业版'}]
 const AddProduct = props => {
     const [form] = Form.useForm();
@@ -24,12 +24,13 @@ const AddProduct = props => {
     const {visible, onCancel, editData,compileType} = props;
     const [surfacePlot,setSurfacePlot]=useState('') //封面图
     const [type,setType]=useState(null)   //产品类型
+    const [fileUrl, setFileUrl] = useState(); //文件地址
+
 
     useEffect(()=>{
         finAllProductType()
         if (editData) {
             form.setFieldsValue({
-                icon:editData.editData,
                 name: editData.name,
                 code:editData.code,
                 type:editData.type,
@@ -38,7 +39,7 @@ const AddProduct = props => {
                 des:editData.des,
             })
             if (editData.icon){
-                setSurfacePlot(editData.icon)
+                setFileUrl(editData.icon)
             }
             setType(editData.type)
         }
@@ -53,13 +54,12 @@ const AddProduct = props => {
     const handleOk =   () => {
         form.validateFields().then(async values => {
             if (editData) {
-                const res = await productService.updateProductService({...values, member:{id:getUser().member},
-                    id: editData.id,productType:{id:values.productType}})
+                const res = await productService.updateProductService({...values, member:{id:getUser().userId},icon:fileUrl, id: editData.id,productType:{id:values.productType}})
                 if (!res.code) {
                     onCancel()
                 }
             } else {
-                const res = await productService.createProductService({...values,icon:surfacePlot,member:{id:getUser().member},productType:{id:values.productType}})
+                const res = await productService.createProductService({...values,icon:fileUrl,member:{id:getUser().userId},productType:{id:values.productType}})
                 if (!res.code) {
                     const person={
                         id:res.data,
@@ -80,38 +80,42 @@ const AddProduct = props => {
         })
     };
 
-    //图片上传
-    const prop = {
-        multiple:true,
-        //  showUploadList:false,
-        name: "uploadFile",
-        action:  `${DFS_URL}/dfs/upload`,
-        headers: {
-            ticket: getUser().ticket,
+    const uploadPros = {
+        name: 'uploadFile',
+        data:{type:"project"},
+        action: FTP_URl + '/uploadFile/ftpUpload',
+        headers:{
+            ticket:getUser().ticket
         },
-        onChange(info) {
-            console.log(info.file,'info');
-            console.log(info.file.status,'status');
-            if (info.file.status !== 'uploading') {
-                console.log(info.file, info.fileList);
-                setSurfacePlot(null)
-            }
-            if (info.file.status === 'done') {
-                setSurfacePlot(info.file.response.data.fileName)
-            } else if (info.file.status === 'error') {
-                message.error(`${info.file.name} file upload failed.`);
-            }
+        progress:{
+            strokeWidth: 2,
+            showInfo: false
+        }
+    }
 
+    //图片上传
+    const fileUpload={
+        ...uploadPros,
+        onChange(info) {
+            let fileList = [...info.fileList];
+            fileList = fileList.slice(-1);
+            fileList = fileList.map(file => {
+                if (file.response) {
+                    setSurfacePlot(file.response.data.fileName)
+                    setFileUrl(file.response.data.url)
+                }
+                return file;
+            });
         },
-    };
+    }
 
     const fileList=[
         {
             uid: '-1',
             name: surfacePlot,
             status: 'done',
-            url:`${DFS_URL}/image/${surfacePlot}`,
-            thumbUrl:`${DFS_URL}/image/${surfacePlot}`
+            url:`${FTP_DOWNLOAD_URL}/${fileUrl}`,
+            thumbUrl:`${FTP_DOWNLOAD_URL}/${fileUrl}`
         }
     ]
 
@@ -125,8 +129,9 @@ const AddProduct = props => {
             onCancel={onCancel}
             okText='保存'
             cancelText='取消'
-            width={600}
+            width={500}
             destroyOnClose={true}
+            closable={false}
             onOk={handleOk}
         >
             <Row>
@@ -135,6 +140,7 @@ const AddProduct = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
                         <Form.Item
                             name="name"
@@ -148,7 +154,7 @@ const AddProduct = props => {
                                 ]
                             }
                         >
-                            <Input />
+                            <Input placeholder='请输入产品名称'/>
                         </Form.Item>
                         <Form.Item
                             name="code"
@@ -162,7 +168,7 @@ const AddProduct = props => {
                                 ]
                             }
                         >
-                            <Select  showArrow>
+                            <Select  showArrow placeholder='请选择产品类型'>
                                 {
                                     productType.map(item=>{
                                         return (
@@ -186,7 +192,7 @@ const AddProduct = props => {
                                 ]
                             }
                         >
-                            <Select showArrow onChange={selectType}>
+                            <Select showArrow onChange={selectType} placeholder='请选择产品版本'>
                                 {
                                     typeList.map(item=>{
                                         return(
@@ -230,11 +236,11 @@ const AddProduct = props => {
 
                         >
                             {
-                                surfacePlot
-                                    ? <Upload {...prop} listType="picture" defaultFileList={[...fileList]}
+                                fileUrl
+                                    ? <Upload {...fileUpload} listType="picture" defaultFileList={[...fileList]}
                                               className="upload-list-inline" maxCount='1'>
                                     </Upload>
-                                    :  <Upload {...prop} listType="picture"
+                                    :  <Upload {...fileUpload} listType="picture"
                                                className="upload-list-inline" maxCount='1'>
                                         <Button icon={<UploadOutlined />}>Upload</Button>
                                     </Upload>
@@ -245,7 +251,7 @@ const AddProduct = props => {
                             label='描述'
 
                         >
-                            <Input />
+                            <Input placeholder='描述'/>
                         </Form.Item>
                     </Form>
                 </Col>

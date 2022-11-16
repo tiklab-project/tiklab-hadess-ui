@@ -7,11 +7,7 @@ import {inject, observer} from "mobx-react";
 const LoginOMS  = props => {
     return (
         <div>
-            <Login
-                {...props}
-                loginGoRouter={'/setting'}
-                title = {'OMS管理'}
-            />
+            <Login loginGoRouter={'/index/home'} {...props}/>
         </div>
     )
 }

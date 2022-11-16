@@ -1,0 +1,16 @@
+.public-tran{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .public-tran-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .public-tran-data{
+        padding: var(--page-data-padding);
+    }
+
+}
+

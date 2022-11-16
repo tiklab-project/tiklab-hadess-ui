@@ -1,0 +1,22 @@
+.blog{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .blog-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .blog-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .blog-data{
+        display: grid;
+        row-gap: 1rem;
+        padding: var(--page-data-padding);
+    }
+
+}
+

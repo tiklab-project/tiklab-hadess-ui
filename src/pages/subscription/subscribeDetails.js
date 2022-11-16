@@ -5,22 +5,11 @@
  * @description：订阅详情
  * @update: 2021-08-09 16:48
  */
-import React, {useState, useEffect} from "react";
-import {Breadcrumb, Form, Space, Switch, Table, Tag} from "antd";
 
-import {withRouter} from "react-router";
-import tenantService from "../../service/tenant.service";
-import subscribeService from "../../service/subscribe.service";
-const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 15 },
-};
-
-const SubscribeDetails = props => {
-    const subId=props.history.location.params
-
-    const [subscriberData,setSubscriberData]=useState(null)  //订阅数据
-    const [subRecordList,setSubRecordList]=useState(null)   //订阅记录List
+import React from "react";
+import {Drawer, Table} from 'antd'
+const SubscribeDetails = (props) => {
+    const {visible, onClose,subscribeData,subRecordList} = props;
 
     const columns = [
         {
@@ -51,59 +40,33 @@ const SubscribeDetails = props => {
             )
         }
     ];
-
-    useEffect(async ()=>{
-        if(subId){
-            sessionStorage.setItem("subId", JSON.stringify(subId));
-        }
-        await findSubData(subId)
-    },[])
-
-    //查询订阅数据
-    const findSubData =async () => {
-        const subId = JSON.parse(sessionStorage.getItem("subId"))
-        const param =new FormData();
-        param.append("id",subId)
-       const res = await subscribeService.findSubscribe(param)
-        if (res.code===0){
-            setSubscriberData(res.data)
-
-            await findSubRecord(subId)
-        }
-    }
-    //查询订阅记录
-    const findSubRecord =async (subId) => {
-       const param={
-           subscribeId:subId
-       }
-      const res = await subscribeService.findSubscribeRecordList(param)
-        if (res.code===0){
-            setSubRecordList(res.data)
-        }
-    }
-
-    return (
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-screen-xl m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/subscribe'>服务订阅</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">订阅记录</Breadcrumb.Item>
-                </Breadcrumb>
-                <div  className='grid gap-y-6 pt-6 pl-4 pb-8'>
-                    <div >订阅产品:{subscriberData?.product.name}</div>
-                    <div>{subscriberData?.bGroup===1?`租户名称: ${subscriberData?.tenant?.name}`:`会员名称:${subscriberData?.member?.name}`}</div>
-                    <div>订阅类型:{subscriberData?.bGroup===1?'saas订阅':'企业订阅'}</div>
+    return(
+        <Drawer
+            title="订阅详情"
+            placement='right'
+            closable={false}
+            onClose={onClose}
+            visible={visible}
+            width  ={'700'}
+            className='locker-top'
+        >
+            {subscribeData&&
+                <div className='space-y-2'>
+                    <div >订阅产品: {subscribeData?.product.name}</div>
+                    <div>{subscribeData?.bGroup===1?`企业名称: ${subscribeData?.tenant?.name}`:`会员名称: ${subscribeData?.member?.nickName}`}</div>
+                    <div>订阅类型: {subscribeData?.bGroup===1?'公有云':'企业订阅'}</div>
+                    <div className='pt-6'>
+                        <Table
+                            dataSource={subRecordList}
+                            columns={columns}
+                            rowKey={record => record.id}
+                            pagination={false}
+                        />
+                    </div>
                 </div>
-                <Table
-                    dataSource={subRecordList}
-                    columns={columns}
-                    rowKey={record => record.id}
-                    pagination={false}
-                />
-
-            </div>
-        </section>
+            }
+        </Drawer>
     )
-};
 
-export default withRouter(SubscribeDetails)
+}
+export default SubscribeDetails

@@ -1,11 +1,12 @@
 const api =  'http://192.168.10.19:8082/';
 const base_url = JSON.stringify(api);
-
+const ftp_url ="http://192.168.10.19:8080";
 
 const webpackGlobal = {
     // 判断是否是用户环境， 如果是用户环境收到切换为true， 如果是内部公司手动切换为false
     userProduction: false,
     base_url: base_url,
+    ftp_url:ftp_url,
     //plugin_base_url : JSON.stringify( 'http://localhost:8080/plugins'),
     // 这个不是固定的
     plugin_url: JSON.stringify( api + 'pluginConfig/getPluginConfig'),

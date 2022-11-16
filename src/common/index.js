@@ -1,15 +1,9 @@
 import MenuList from './menu/menu';
-import BreadCrumb from './breadCrumb/breadCrumb';
-import CommonFeatureTree from './featureTree/featureTree';
-import AddTree from './featureTreeAdd/featureTreeAdd';
 import RoleAdd from './roleAdd/roleAdd';
-import DarthTree from './darthTree'
+import zhCN from 'antd/es/locale/zh_CN';
 
 export {
     MenuList,
-    BreadCrumb,
-    CommonFeatureTree,
-    AddTree,
     RoleAdd,
-    DarthTree
+    zhCN,
 }

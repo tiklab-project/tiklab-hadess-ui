@@ -1,0 +1,20 @@
+.coupon{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .coupon-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .coupon-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .coupon-data{
+        padding: var(--page-data-padding);
+    }
+
+}
+

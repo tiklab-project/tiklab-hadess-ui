@@ -7,28 +7,38 @@
  */
 import {withRouter} from "react-router";
 import React, {useState, useEffect,useCallback} from "react";
-import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal} from "antd";
+import {Breadcrumb, Row, Col, Input, Button, Table, Space, Modal, Tooltip} from "antd";
 import productService from "../../service/product.service";
 import { DndProvider  } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
-import {ExclamationCircleOutlined,UpCircleOutlined,DownCircleOutlined} from "@ant-design/icons";
+import {
+    ExclamationCircleOutlined,
+    UpCircleOutlined,
+    DownCircleOutlined,
+    SearchOutlined, EditOutlined, DeleteOutlined
+} from "@ant-design/icons";
 const { confirm } = Modal;
 import update from 'immutability-helper';
 import DraggableBodyRow from "../../common/sort/DraggableBodyRow"
 import AddProduct from "../product/addProduct";
+import Paging from "../../common/components/paging";
+import "./product.scss"
 const Product = (props) => {
     const [name, setName] = useState(null);
     const [editData, setEditData] = useState(null);
-    const [tableData, setTableData] = useState(null);
-    const [page, setPage] = useState(1);
+    const [productList, setProductList] = useState([]);  //产品数据list
+
+    const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState();
-    const [visible, setVisible] = useState(false);
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+
+    const [visible, setVisible] = useState(false);  //添加弹窗状态
+
 
     const [compileType,setCompileType]=useState(null)
 
     useEffect(async () => {
-        await getProductionData(name,page)
+        await getProductionData(name,currentPage)
     }, []);
 
     const columns = [
@@ -36,7 +46,7 @@ const Product = (props) => {
             title: '产品名称',
             dataIndex: 'name',
             render: (text, record) => {
-                return <a className='text-blue-400' onClick={() => findDetails(record)}>{record.name}</a>
+                return <a className='text-blue-400' onClick={() => openProductDetails(record)}>{record.name}</a>
             },
             width:'20%'
         },
@@ -49,7 +59,7 @@ const Product = (props) => {
             title: '产品类型',
             dataIndex: 'type',
             width:'20%',
-            render:text => text==='saas'&&'线上saas版'||text==='ce'&&'线下社区(ce)版'||text==='ee'&&'线下企业(ee)版'
+            render:text => text==='saas'&&'公有云版'||text==='ce'&&'线下社区版'||text==='ee'&&'线下企业版'
         },
         {
             title: '产品价格',
@@ -64,59 +74,68 @@ const Product = (props) => {
             width:'10%'
         },
         {
-            title: '产品地址',
-            dataIndex: 'productUrl',
-            width:'15%'
-
-        },
-        {
             title: '操作',
             key: 'action',
-            width:'20%',
+            width:'15%',
             render: (text, record) => (
-                <Space size="middle">
-                    <a   onClick={() => editProduct(record)}>编辑</a>
-                    <a onClick={() => deletePop(record.id)}>删除</a>
-                    {
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="编辑">
+                        <EditOutlined className='cursor-pointer' onClick={()=>editProduct(record)}/>
+                    </Tooltip>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' onClick={()=>deletePop(record.id)}/>
+                    </Tooltip>
+
+                   {/* {
                         record.type==='saas'?
                             <a disabled >添加版本</a>:
                             <a  onClick={() => addVersion(record)}>添加版本</a>
-                    }
+                    }*/}
 
                 </Space>
             ),
         },
     ];
     //分页条件查询产品
-    const getProductionData = async(name,page)  => {
+    const getProductionData = async(name,currentPage)  => {
         const param = {
             name:name,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: page,
+                currentPage: currentPage,
             }
         }
-        const data = await productService.findProductPageService(param)
-        if (data.code === 0) {
-            setTotalRecord(data.data.totalRecord)
-            setTableData(data.data.dataList)
+        const res = await productService.findProductPageService(param)
+        if (res.code === 0) {
+            setTotalPage(res.data.totalPage)
+            setProductList(res.data.dataList)
         }
     }
+
     const onInputName = (e) => {
         const value = e.target.value
         setName(value)
     }
     const onSearch = async () => {
-        await getProductionData(name,page)
+        await getProductionData(name,currentPage)
     }
+
+    //打开产品详情
+    const openProductDetails =async (value) => {
+        props.history.push(`/index/product/detail/${value.id}/${value.type}`)
+    }
+
+
+    //打开产品添加弹窗
     const addProduct = () => {
         setCompileType("add")
         setVisible(true)
     }
+    //关闭产品添加弹窗
     const onCancel = async () => {
         setVisible(false)
         setEditData(null)
-        await getProductionData(name,page)
+        await getProductionData(name,currentPage)
     }
     const editProduct = (item) => {
         setEditData(item)
@@ -132,7 +151,7 @@ const Product = (props) => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
-            style:{top: 200},
+
             onOk() {
                 deleteProduct(data)
             },
@@ -146,33 +165,16 @@ const Product = (props) => {
         formData.append('id', id);
         const response = await productService.deleteProductService(formData)
         if (response.code === 0) {
-            setPage(1)
-            await getProductionData(name,page)
+            setCurrentPage(1)
+            await getProductionData(name,currentPage)
         }
     }
-    //添加产品版本
-    const addVersion=async (record)=>{
-        const person={
-            id:record.id,
-            name:record.name,
-            code:record.code,
-            type:record.type
-        }
-        props.history.push({
-            pathname:"/setting/product/compileVersion",
-            params:person
-        });
-    }
-    const findDetails=async (record)=>{
-        props.history.push({
-            pathname:"/setting/product/detail",
-            params:record
-        });
-    }
+
     //分页
-    const handleTableChange = async (pagination, filters, sorter) => {
-        setPage(pagination.current)
-        await getProductionData(name,pagination.current)
+    const handleTableChange = async (value) => {
+        setCurrentPage(value)
+        await getProductionData(name,value)
+
     }
     const components = {
         body: {
@@ -186,16 +188,16 @@ const Product = (props) => {
             hoverIndex:hoverIndex,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: page,
+                currentPage: currentPage,
             }
         }
         await productService.updateSortService(param)
     }
     const moveRow = useCallback(
         (dragIndex, hoverIndex) => {
-            const dragRow = tableData[dragIndex];
-            setTableData(
-                update(tableData, {
+            const dragRow = productList[dragIndex];
+            setProductList(
+                update(productList, {
                     $splice: [
                         [dragIndex, 1],
                         [hoverIndex, 0, dragRow],
@@ -204,49 +206,40 @@ const Product = (props) => {
             );
             updateProductSort(dragIndex,hoverIndex)
         },
-        [tableData],
+        [productList],
     );
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>产品管理 </Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 产品列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <Row gutter={[16, 16]} className='py-6'>
-                    <Col span={6}>
-                        <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch}/>
-                    </Col>
-                    <Col span={10} offset={8} className='flex justify-end'>
-                        <Button type="primary" onClick={addProduct}>添加产品</Button>
-                    </Col>
-                </Row>
-                <Row gutter={[16, 16]} >
-                    <Col span={24}>
-                        <DndProvider backend={HTML5Backend}>
-                            <Table
-                                size='60'
-                                dataSource={tableData}
-                                columns={columns}
-                                rowKey={record => record.id}
-                                pagination={{
-                                    current:page,
-                                    pageSize: pageSize,
-                                    total: totalRecord,
-                                }}
-                                 components={components}
-                                 onRow={(record, index) => ({
-                                     index,
-                                     moveRow,
-                                 })}
-                                 onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                            />
-                        </DndProvider>
-                    </Col>
-                </Row>
-            </div>
+        <div className=' product'>
+           <div className='product-head-style'>
+               <div  className='product-title'> 产品列表</div>
+               <Button type="primary" onClick={addProduct}>添加产品</Button>
+           </div>
+            <Row gutter={[16, 16]} className='product-data'>
+                <Col span={6}>
+                    <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
+                </Col>
+            </Row>
+            <Row gutter={[16, 16]} >
+                <Col span={24}>
+                    <DndProvider backend={HTML5Backend}>
+                        <Table
+                            size='60'
+                            dataSource={productList}
+                            columns={columns}
+                            rowKey={record => record.id}
+                            pagination={false}
+                             components={components}
+                             onRow={(record, index) => ({
+                                 index,
+                                 moveRow,
+                             })}
+                        />
+                    </DndProvider>
+                </Col>
+            </Row>
+            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
             <AddProduct visible={visible} onCancel={onCancel} editData={editData} compileType={compileType}/>
-        </section>
+        </div>
     )
 }
 

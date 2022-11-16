@@ -1,0 +1,22 @@
+.subscribe{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .subscribe-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .subscribe-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .subscribe-data{
+        display: grid;
+        row-gap: 1rem;
+        padding: var(--page-data-padding);
+    }
+
+}
+

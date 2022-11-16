@@ -5,16 +5,10 @@
  * @description：订单详情
  * @update: 2021-08-09 16:48
  */
-import React, {useState, useEffect} from "react";
-import {Breadcrumb, Descriptions, Space, Table} from "antd";
-import orderService from "../../service/order.service"
-import {withRouter} from "react-router";
-
-const OrderDetails = props => {
-    const orders=props.history.location.params
-    const [orderData,setOrderData]=useState('')  //订单详情
-    const [tableData,setTableData]=useState()
-
+import React from "react";
+import {Descriptions, Drawer, Space, Table} from 'antd'
+const OrderDetails = (props) => {
+    const {visible, onClose,orderData} = props;
     const   columns = [
         {
             title: '产品名称',
@@ -57,76 +51,56 @@ const OrderDetails = props => {
             )
         }
     ];
-
-    useEffect(async ()=>{
-        if (orders){
-            sessionStorage.setItem("orders", JSON.stringify(orders));
-        }
-        await findOrder()
-    },[])
-
-    //查询订单
-    const findOrder=async ()=>{
-        const orderData=JSON.parse(sessionStorage.getItem("orders"));
-        const param=new FormData();
-        param.append('id',orderData.id)
-        const res=await orderService.findOrder(param)
-        if (res.code===0){
-            setOrderData(res.data)
-        }
-    }
-    return (
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/order'>订单管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">订单详情</Breadcrumb.Item>
-                </Breadcrumb>
-                {JSON.parse(sessionStorage.getItem("orders"))
-                    &&  <div >
-
-                        <Descriptions title="订单信息" className='pt-4'>
-                            <Descriptions.Item label="订单编号">{orderData?.orderCode}</Descriptions.Item>
-                            <Descriptions.Item label="订单类型">{orderData.bGroup===1?'saas':'企业'}</Descriptions.Item>
-                            <Descriptions.Item  label="状态">
-                                {
-                                    orderData.paymentStatus==1&&<p className='text-red-500'>待支付</p>||
-                                    orderData.paymentStatus==2&&<p className='text-green-500'>已完成</p>||
-                                    orderData.paymentStatus==3&&<p className='text-gray-400'>取消</p>
-                                }
-                            </Descriptions.Item>
-                            <Descriptions.Item label="订单原价">￥{orderData.originalPrice}</Descriptions.Item>
-                            <Descriptions.Item label="订单优惠价">￥{orderData.orderPrice}</Descriptions.Item>
-                            <Descriptions.Item label="创建时间">
-                                {orderData.createTime}
-                            </Descriptions.Item>
+    return(
+        <Drawer
+            title="订单详情"
+            placement='right'
+            closable={false}
+            onClose={onClose}
+            visible={visible}
+            width  ={'700'}
+            className='locker-top'
+        >
+            {orderData&&
+                <div className='space-y-2'>
+                    <Descriptions  className='order-data'>
+                        <Descriptions.Item label="订单编号">{orderData?.orderCode}</Descriptions.Item>
+                        <Descriptions.Item label="订单类型">{orderData.bGroup===1?'saas':'企业'}</Descriptions.Item>
+                        <Descriptions.Item  label="状态">
                             {
-                                orderData.bGroup===1&&
-                                <Descriptions.Item label="企业">
-                                    {orderData.tenant.name}
-                                </Descriptions.Item>
+                                orderData.paymentStatus==1&&<p className='text-red-500'>待支付</p>||
+                                orderData.paymentStatus==2&&<p className='text-green-500'>已完成</p>||
+                                orderData.paymentStatus==3&&<p className='text-gray-400'>取消</p>
                             }
-                            <Descriptions.Item label="优惠券">
-                                {orderData.discountsName}
+                        </Descriptions.Item>
+                        <Descriptions.Item label="订单原价">￥{orderData.originalPrice}</Descriptions.Item>
+                        <Descriptions.Item label="订单优惠价">￥{orderData.orderPrice}</Descriptions.Item>
+                        <Descriptions.Item label="创建时间">
+                            {orderData.createTime}
+                        </Descriptions.Item>
+                        {
+                            orderData.bGroup===1&&
+                            <Descriptions.Item label="企业">
+                                {orderData.tenant.name}
                             </Descriptions.Item>
-                        </Descriptions>
-                        <div className='pt-12'>
-                            <h4 className='text-lg'>订单产品:</h4>
-                            <Table
-                                className='pt-4'
-                                dataSource={orderData?.orderDetailsList}
-                                columns={columns}
-                                rowKey={record => record.id}
-                                pagination={false}
-                            />
-                        </div>
+                        }
+                        <Descriptions.Item label="优惠券">
+                            {orderData.discountsName}
+                        </Descriptions.Item>
+                    </Descriptions>
+                    <div  className='pt-4'>
+                      {/*  <h4 className='text-sm font-medium'>订单产品:</h4>*/}
+                        <Table
+                            dataSource={orderData?.orderDetailsList}
+                            columns={columns}
+                            rowKey={record => record.id}
+                            pagination={false}
+                        />
                     </div>
-                }
+                </div>
 
-            </div>
-
-        </section>
+            }
+        </Drawer>
     )
-};
-
-export default withRouter(OrderDetails)
+}
+export default OrderDetails

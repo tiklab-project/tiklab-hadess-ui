@@ -7,6 +7,7 @@ const webpackGlobal = {
     userProduction: false,
     base_url: base_url,
     plugin_base_url : base_url,
+
     plugin_url: JSON.stringify( 'http://114.215.180.181:8080/plugin/getPluginConfig'),
     method:JSON.stringify('get'),
 

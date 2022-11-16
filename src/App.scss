@@ -8,8 +8,9 @@
  * 2. Prevent adjustments of font size after orientation changes in iOS.
  */
 
-@import "./assets/font-icon/iconfont.css";
+//@import "./assets/font-icon/iconfont.css";
 @import "antd/dist/antd.css";
+@import "./common";
 html {
     line-height: 1.15; /* 1 */
     -webkit-text-size-adjust: 100%; /* 2 */
@@ -281,7 +282,7 @@ textarea {
 
 [type="number"]::-webkit-inner-spin-button,
 [type="number"]::-webkit-outer-spin-button {
-    height: auto;
+ /*   height: auto;*/
 }
 
 /**

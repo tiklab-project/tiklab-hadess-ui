@@ -10,7 +10,7 @@ import {Col, Form, Input, Modal, Row, Select} from "antd";
 const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 24},
 };
 import tenantService from "../../../service/tenant.service"
 const dbType=[{code:"eas",value:"eas"},{code:"homes",value:"homes"},{code:"more",value:"other"}]
@@ -53,10 +53,11 @@ const DbAddOrUpdate = props => {
             okText='保存'
             cancelText='取消'
             width={500}
-            style={{ top: 200 }}
+
             destroyOnClose={true}
             onOk={addOrUpdate}
             onCancel={onCancel}
+
         >
             <Row>
                 <Col span={24}>
@@ -64,6 +65,7 @@ const DbAddOrUpdate = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
                         <Form.Item
                             name="url"

@@ -6,88 +6,113 @@
  * @update: 2021-08-09 16:48
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Button, Table, Space, Modal, Radio} from "antd";
+import {Breadcrumb, Row, Col, Button, Table, Space, Modal, Radio, Tooltip} from "antd";
 const { confirm } = Modal;
 import productService from "../../service/product.service";
 import {getUser} from "../../utils";
 import {withRouter} from "react-router";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    ExclamationCircleOutlined, FileTextOutlined,
+    VerticalAlignBottomOutlined
+} from "@ant-design/icons";
 import UploadProduct from "./uploadProduct";
-const layout = {
-    labelCol: { span: 2 },
-    wrapperCol: { span: 20 },
-};
-
+import './product.scss'
+import VersionDetails from "./versionDetails";
 const ProductDetails = props => {
-    const products=props.history.location.params
+    const {match:{params}} = props;
     const [productData,setProductData]=useState('')
+    const [type,setType]=useState('saas')
     const [productVersionList,setProductVersionList]=useState()
     const [systemType,setSystemType]=useState('windows')
 
     const [visible, setVisible] = useState(false);  //上传弹窗状态
     const [productVersion,setProductVersion]=useState(null);
+
+    const [versionVisible,setVersionVisible]=useState(false)   //版本详情的抽屉状态
+    const [versionData,setVersionData]=useState()  //版本详情
     const columns = [
         {
             title: '版本号',
             dataIndex:'version',
+            width:'15%'
         },
         {
             title: '系统类型',
             dataIndex:'systemType',
+            width:'20%'
         },
         {
             title: '下载地址',
             dataIndex: 'productUrl',
+            width:'35%'
         },
         {
             title: '大小',
             dataIndex: 'size',
-            render:text => text? text+'mb':''
-        },
-        {
-            title: '描述',
-            dataIndex: 'versionData',
+            render:text => text? text+'mb':'',
+            width:'10%',
         },
         {
             title: '操作',
             key: 'details',
+            width:'15%',
             render: (text, record) => (
-                <Space size="useState" className='flex  gap-x-2'>
+                <Space size="useState" className='flex  gap-x-4 '>
                     {
                         !record.productVersionId&&
-                        <div  className='border border-gray-200 px-2 cursor-pointer' onClick={()=>uploadProduct(record)} >
-                            上传项目
+                        <div className='flex gap-x-4'>
+                            <Tooltip title='上传项目'>
+                                <VerticalAlignBottomOutlined  className='cursor-pointer' onClick={()=>uploadProduct(record)}/>
+                            </Tooltip>
+                            <Tooltip title='详情'>
+                                <FileTextOutlined  className='cursor-pointer' onClick={()=>openVersionDetails(record)}/>
+                            </Tooltip>
                         </div>
                     }
-
-                    <div  className='border border-gray-200 px-2 cursor-pointer' onClick={()=>openDeletePop(record)} >
-                        删除
-                    </div>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' onClick={()=>openDeletePop(record)}/>
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
     useEffect(async ()=>{
-        if(products){
-            sessionStorage.setItem("products", JSON.stringify(products));
-        }
-        await findProductVersion()
+        setType(params.type)
+      await  findProductById(params)
     },[])
-    //查询产品版本
-    const findProductVersion=async ()=>{
-        const productData=JSON.parse(sessionStorage.getItem("products"));
-        setProductData(productData)
-        const param={
-            productId:productData.id,
 
+    //通过id查询产品
+    const findProductById =async (params) => {
+        const param = new FormData()
+        param.append('id',params.productId)
+        const res = await productService.findProduct(param)
+        if (res.code===0){
+            setProductData(res.data)
+            await findProductVersion(params.productId)
+        }
+    }
+
+
+    //查询产品版本
+    const findProductVersion=async (productId)=>{
+        const param={
+            productId:productId,
         }
         const res=await productService.findProductVersionList(param)
         if (res.code===0){
             setProductVersionList(res.data)
         }
     }
-
-
+    //打开产品版本详情的抽屉
+    const openVersionDetails =async (value) => {
+        setVersionData(value)
+      setVersionVisible(true)
+    }
+    //打开产品版本详情的抽屉
+    const closeVersionDetails =async () => {
+        setVersionVisible(false)
+    }
 
     //添加产品版本
     const addVersion=async ()=>{
@@ -98,7 +123,7 @@ const ProductDetails = props => {
             type:productData.type
         }
         props.history.push({
-            pathname:"/setting/product/compileVersion",
+            pathname:"/index/product/compileVersion",
             params:person
         });
     }
@@ -113,7 +138,7 @@ const ProductDetails = props => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
-            style: {top: 300},
+            //style: {top: 300},
             onOk() {
                 deleteDb(record)
             },
@@ -126,13 +151,12 @@ const ProductDetails = props => {
         param.append('id', record.id)
         let res
         if (record.productVersionId){
-          res = await productService.deleteProductUrl(param)
+            res = await productService.deleteProductUrl(param)
         }else {
-             res= await productService.deleteProductVersion(param)
+            res= await productService.deleteProductVersion(param)
         }
-        debugger
         if (res.code===0){
-            await findProductVersion()
+            await findProductVersion(productData.id)
         }
     }
 
@@ -140,55 +164,57 @@ const ProductDetails = props => {
     //打开上传弹窗
     const uploadProduct = (value) => {
         setProductVersion(value)
-      setVisible(true)
+        setVisible(true)
     }
     //取消上传弹窗
     const onCancel = async () => {
         setVisible(false)
         setProductVersion(null)
-        await findProductVersion()
+        await findProductVersion(productData.id)
     }
     return (
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/productList'>产品管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">{productData.name}</Breadcrumb.Item>
-                </Breadcrumb>
+        <div className='product'>
+            <Breadcrumb separator="/" className=' product-title '>
+                <Breadcrumb.Item  href='#/index/productList'>产品管理</Breadcrumb.Item>
+                <Breadcrumb.Item href="">{productData.name}</Breadcrumb.Item>
+            </Breadcrumb>
 
-                    <div  className='grid gap-y-6 pt-6 pl-4 pb-8'>
-                        <div >产品名称:{productData.name}</div>
-                        <div>产品编码: {productData.code}</div>
-                        <div>产品价格:¥{productData.price}/人/月</div>
-                        <div>产品地址: {productData.productUrl}</div>
-                    </div>
-                <div >
-                    {
-                        productData?.type!=='saas'&&
-                            <div className='border border-gray-200  '>
-                                <div className='flex justify-end py-4 pl-4 px-2' >
-                                   {/* <div className='flex space-x-6 '>
-                                        <Radio.Group defaultValue={systemType} buttonStyle="solid" onChange={cutType}>
-                                            <Radio.Button value="windows">windows</Radio.Button>
-                                            <Radio.Button value="macOs">macOs</Radio.Button>
-                                            <Radio.Button value="linux">linux</Radio.Button>
-                                        </Radio.Group>
-                                    </div>*/}
-                                    <Button type="primary" onClick={() => addVersion()}>添加版本</Button>
-                                </div>
-                                <Table
-                                    dataSource={productVersionList}
-                                    columns={columns}
-                                    rowKey={record => record.id}
-                                    pagination={false}
-                                />
-                            </div>
-                    }
-                </div>
+            <div  className='product-data'>
+                <div >产品名称: {productData.name}</div>
+                <div>产品编码: {productData.code}</div>
+                <div>产品价格: ¥{productData.price} /人/月</div>
+                {
+                    type==='saas'&&
+                    <div>产品地址: {productData.productUrl}</div>
+                }
 
             </div>
+            <div >
+                {
+                    type!=='saas'&&
+                    <>
+                        <div className='flex mt-6 justify-between'>
+                            <div className='text-base  font-medium'>产品版本</div>
+                            <Button type="primary" onClick={() => addVersion()}>添加版本</Button>
+                        </div>
+
+                        <div className=' mt-2 '>
+
+                            <Table
+                                dataSource={productVersionList}
+                                columns={columns}
+                                rowKey={record => record.id}
+                                pagination={false}
+                            />
+                        </div>
+                    </>
+
+                }
+            </div>
+            <VersionDetails visible={versionVisible} onCancel={closeVersionDetails} versionData={versionData}/>
             <UploadProduct visible={visible} onCancel={onCancel} editData={productVersion}/>
-        </section>
+        </div>
+
     )
 };
 

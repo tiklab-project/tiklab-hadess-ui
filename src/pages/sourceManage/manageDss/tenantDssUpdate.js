@@ -11,7 +11,7 @@ import {Col, Form, Input, Modal, Row, Select} from "antd";
 import tenantService from "../../../service/tenant.service";
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 24},
 };
 const { Option } = Select;
 const TenantDssUpdate = props => {
@@ -48,13 +48,12 @@ const TenantDssUpdate = props => {
     return(
         <Modal
             visible={visible}
-            title='切换租户db数据源'
+            title='切换租户数据源'
             okText='切换'
             cancelText='取消'
-            width={500}
+            width={400}
             destroyOnClose={true}
             onOk={updateTenantDb}
-            style={{ top: 250 }}
             onCancel={onCancel}
         >
             <Row>
@@ -63,19 +62,20 @@ const TenantDssUpdate = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
                         <Form.Item
                             name="oldDss"
                             label='原dss数据源'
                         >
-                            <Input disabled="disabled"/>
+                            <Input disabled="disabled" placeholder={oldDssData?.url}/>
                         </Form.Item>
                         <Form.Item
                             name="url"
                             label='dss数据源'
                             rules={[{required: true}]}
                         >
-                            <Select  showArrow>
+                            <Select  showArrow  placeholder="请选择新数据源">
                                 {
                                     allDssData.map(item=>{
                                         return (

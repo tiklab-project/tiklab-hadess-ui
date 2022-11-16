@@ -6,30 +6,26 @@
  * @update: 2021-04-02 14:30
  */
 import React, {useState, useEffect} from "react";
-import {Radio, Input, Tag, Avatar, Button, Breadcrumb} from 'antd';
+import {Tabs, Input, Tag, Avatar, Button, Breadcrumb} from 'antd';
 import * as echarts from 'echarts/lib/echarts';
 import { GridComponent } from 'echarts/components';
 import { LineChart } from 'echarts/charts';
 import { UniversalTransition } from 'echarts/features';
 import { CanvasRenderer } from 'echarts/renderers';
-
-
 echarts.use([GridComponent, LineChart, CanvasRenderer, UniversalTransition]);
-
 //引入折线图
 import 'echarts/lib/chart/line'
-
 //引入提示框和标题组件
 import 'echarts/lib/component/tooltip'
 import 'echarts/lib/component/title'
-
+import './statistics.scss'
 import statisticsService from "../../service/statistics.service"
 import {Card} from 'antd'
-
+const { TabPane } = Tabs;
 const MemberStatistics =props=>{
     const [day,setDay]=useState([])
     const [type,setType]=useState('')
-
+    const [state,setState]=useState('day');
 
     useEffect( ()=>{
 
@@ -99,36 +95,34 @@ const MemberStatistics =props=>{
     }
 
     //切换视图类型
-    const cutType=async (e)=>{
-       const type=e.target.value
-
-        if (type==="day"){
+    const cutType=async (event)=>{
+      // const type=e.target.value
+        setState(event)
+        if (event==="day"){
            await findStatisticsByDay()
         }
-        if (type==="moth"){
+        if (event==="moth"){
            await findStatisticsByMonth()
         }
     }
 
     return (
-        <section className='container mx-auto flex flex-col my-6'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>数据统计</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 会员统计</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex justify-end py-8'>
-                    <Radio.Group defaultValue="a" buttonStyle="solid" onChange={cutType} >
-                        <Radio.Button value="day">日统计图</Radio.Button>
-                        <Radio.Button value="week">周统计图</Radio.Button>
-                        <Radio.Button value="moth">月统计图</Radio.Button>
-                    </Radio.Group>
-                </div>
-                <div className="main" id="main" style={{width: "100%",height: "500px"}}>
-                </div>
+        <div className='statistics'>
+            <div className='statistics-title'>会员统计</div>
+            <div className=' statistics-data'>
+                <Tabs  activeKey={state}  onTabClick={cutType}   >
+                    <TabPane  tab="日统计图" key="day"/>
+                    <TabPane tab="周统计图" key="week"/>
+                    <TabPane tab="月统计图" key="moth"/>
+                </Tabs>
+               {/* <Radio.Group defaultValue="day" buttonStyle="solid" onChange={cutType} >
+                    <Radio.Button value="day">日统计图</Radio.Button>
+                    <Radio.Button value="week">周统计图</Radio.Button>
+                    <Radio.Button value="moth">月统计图</Radio.Button>
+                </Radio.Group>*/}
             </div>
-        </section>
-
+            <div className="main" id="main" style={{width: "100%",height: "500px"}}/>
+        </div>
     )
 
 }

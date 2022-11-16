@@ -8,7 +8,7 @@
 import React, {useEffect, useState} from "react";
 import {Col, Row, Form, Modal, Button   , Select, Upload, message} from 'antd';
 import {UploadOutlined} from "@ant-design/icons";
-import {DFS_URL} from "../../const";
+import {DFS_URL, FTP_URl} from "../../const";
 import {getUser} from "../../utils";
 import invoiceService from "../../service/invoice.service";
 const { Option } = Select;
@@ -37,6 +37,7 @@ const  UploadInvoicePopup=props=>{
         }
         const res=await invoiceService.updateInvoice(param)
         if (res.code===0){
+            message.success('上传成功')
             onClose()
         }
     }
@@ -44,7 +45,8 @@ const  UploadInvoicePopup=props=>{
     //上传发票
     const uploadInvoice = {
         name: 'uploadFile',
-        action: DFS_URL+ '/dfs/upload',
+        data:{type:"invoice"},
+        action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket
         },
@@ -73,7 +75,6 @@ const  UploadInvoicePopup=props=>{
             footer={false}
             onCancel={onClose}
             width={400}
-            style={{ top: 200 }}
             destroyOnClose={true}
         >
             <Row>

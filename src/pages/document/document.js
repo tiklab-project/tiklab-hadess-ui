@@ -20,7 +20,6 @@ import {
 } from "@ant-design/icons";
 import "./scss/drop-down.scss"
 import documentService from "../../service/document.service"
-import CreateOrUpdateCategory from "./popup/createOrUpdateCategory";
 //import PreviewEditor from "../../common/editSlate/previewEditor";
 import {PreviewEditor} from 'tiklab-slate-ui'
 const { TextArea } = Input;
@@ -89,13 +88,16 @@ const Document = props => {
         const res=await documentService.findDocumentTree(param)
         if (res.code===0){
             setDocumentTree(res.data)
-
             //setDocumentDataList(res.data.document)
             //setCategoryDataList(res.data.category)
             //第一次默认打开第一个文档
-            if (res.data.document){
-                await findDocument(res.data.document[0])
-                await findCommentByDocumentId(res.data.document[0].id)
+            if (res.data){
+
+                setDocumentDetails(res.data[0])
+                setHighlightId(res.data[0].id)
+                debugger
+                //await findDocument(res.data[0])
+                await findCommentByDocumentId(res.data[0].id)
             }
         }
     }
@@ -120,8 +122,6 @@ const Document = props => {
     //添加查询内容
     const onInputName=async (e)=>{
         const value = e.target.value;
-
-
         setName(value)
     }
     //模糊查询查询
@@ -163,14 +163,14 @@ const Document = props => {
     //跳转添加页面
     const skipAddDocument=(data)=>{
         props.history.push({
-            pathname:"/setting/document/compileDocument",
+            pathname:"/index/document/compileDocument",
             params:data
         });
     }
     //跳转修改u文档页面
     const skipCompileDocument=(documentDetails)=>{
         props.history.push({
-            pathname:"/setting/document/compileDocument",
+            pathname:"/index/document/compileDocument",
             params:documentDetails.repository
         });
     }
@@ -202,7 +202,7 @@ const Document = props => {
         setType(document.type)
         setDocumentDetails(document)
        if (document.type==="document"){
-
+            setHighlightId(document.id)
        }else {
            setChildDocumentList(document.childDocument)
            if (isExpandedTree(document.id)) {
@@ -237,44 +237,6 @@ const Document = props => {
 
     }
 
-    //目录文档展示
-    const document=(value,type)=>{
-        return <div  className='space-y-2'>
-            {
-                value&&value.map(documentItem=>{
-                    return(
-                        <div  key={documentItem.id} className='pt-1'  >
-                            {
-                                !type? <div className={`flex  justify-between  ${highlightId===documentItem.id?"aside-select":null}`}  onClick={()=>findDocument(documentItem)} onMouseOver={()=>mouseOverId(documentItem.id)}>
-                                    <div className='flex items-center '>
-                                        <FileOutlined/>
-                                        <div className='hover:text-blue-400' >{documentItem.name}</div>
-                                    </div>
-                                    <div>
-                                        {
-                                            mouseOverMenuId===documentItem.id&&
-                                            <div>
-                                                <div onClick={()=>deletePop(documentItem,3)}>
-                                                    删除
-                                                </div>
-                                            </div>
-                                        }
-                                    </div>
-                                </div>
-                                    :
-                                    <div  onClick={()=>findDocument(documentItem)}>
-                                        <div className='flex items-center '>
-                                            <FileOutlined/>
-                                            <div className='hover:text-blue-400' >{documentItem.name}</div>
-                                        </div>
-                                    </div>
-                            }
-                        </div>
-                    )
-                })
-            }
-        </div>
-    }
     //第一级文档树
     const catalogTree=(documentTree)=>{
         return(
@@ -349,50 +311,12 @@ const Document = props => {
                 }
         </div>
     }
-    //目录详情
-    const categoryDetail=()=>{
-        return(
-            <div className='w-full p-6  max-w-screen-xl '>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex items-center   border-solid pb-4 pt-4 text-center ' >
-                   <h2 className='w-1/2 text-2xl text-right' >{catalogDetails.name}</h2>
-                    <div className='cursor-pointer w-1/2 text-blue-500' onClick={()=>skipAddDocument(catalogDetails)} >
-                        添加内容
-                    </div>
-                </div>
-                {/*<div className=' pt-3 w-1/2'>
-                    {details(catalogDetails)}
-                </div>*/}
-            </div>
-        )
-    }
-    //目录下面的目录（只展示 不能打开）
-    const details=(item)=>{
-        return <div className='pl-4  pt-1'>
-            <div>
-                {
-                    item.children&&item.children.map(twoItem=>{
-                        return(
-                            <div  key={twoItem.id}>
-                                <div className='flex  pt-1 justify-end' >
-                                    <div >{twoItem.name}</div>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            {document(item.documents,1)}
-        </div>
-    }
+
     //文档详情
     const documentDetail=()=>{
         return(
             <div className='w-full p-6  max-w-screen-xl '>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
+                <Breadcrumb separator="/" className='border-b border-solid pb-4'>
                     <Breadcrumb.Item  href='#/setting/documentList'>{`${type==="document"?"文档管理":'目录管理'}`}</Breadcrumb.Item>
                     <Breadcrumb.Item href="">文档详情</Breadcrumb.Item>
                 </Breadcrumb>
@@ -438,7 +362,7 @@ const Document = props => {
                                            <p className='text-base'>{item.member.name}</p>
                                            <p className='pl-2 text-base text-gray-400'>{item.createTime}</p>
                                        </div>
-                                       <p className='text-base  placeholder-gray-400' onClick={()=>deletePop(item,1)}>删除</p>
+                                       <p className='  placeholder-gray-300' onClick={()=>deletePop(item,1)}>删除</p>
                                    </div>
                                    <div className='pl-3'>
                                        {item.details}
@@ -466,7 +390,7 @@ const Document = props => {
                                     <p>回复 {secondItem.aimAtUser}</p>
                                     <p className='text-gray-400'>{secondItem.createTime}</p>
                                 </div>
-                                <p className='text-base  placeholder-gray-400' onClick={()=>deletePop(secondItem,1)}>删除</p>
+                                <p className='  placeholder-gray-300' onClick={()=>deletePop(secondItem,1)}>删除</p>
                             </div>
                             <div className='pl-3' >
                                 {secondItem.details}
@@ -535,10 +459,10 @@ const Document = props => {
 
 
     return(
-        <section className='w-full flex flex-row'>
-            <div className={' flex flex-col  pl-6'}>
+        <section className='w-full flex flex-row  '>
+            <div className={' flex flex-col bg-gray-100 '}>
                 <div className='flex items-center justify-between max-w-full  border-b-2 py-2 cursor-pointer relative pr-3'>
-                    <div className='w-96 text-xl py-2 pr-3'>
+                    <div className='w-72 text-xl py-2 pr-3 '>
                         {repositoryDetails.name}
                     </div>
                         <span className='text-blue-600 cursor-pointer' onClick={()=>skipAddDocument(repositoryDetails)}>
@@ -548,8 +472,8 @@ const Document = props => {
                         <MenuOutlined className='text-lg '/>
                     </Dropdown>
                 </div>
-                <div onMouseOut={leaveMouseNav} className={' bg-gray-100'}>
-                    <div className='m-auto  mx-6 pt-6 border-b'>
+                <div onMouseOut={leaveMouseNav} className={'  h-full'}>
+                    <div className='m-auto  mx-6 pt-6 border-b  '>
                         <Input placeholder="搜索内容 "  size="middle" className='rounded-full' value={name} onChange={onInputName} onPressEnter={onSearch} bordered={false}/>
                     </div>
                     <div className='w-full pt-4'>
@@ -559,11 +483,11 @@ const Document = props => {
             </div>
             <div className={'w-full p-6  max-w-screen-xl right-hight'}>
                 {
-                    documentTree?
-                    type&& documentDetail():
+                    documentDetails?
+                    documentDetail():
 
                     <div className='w-full p-6  max-w-screen-xl '>
-                        <Breadcrumb separator=">" className='border-b border-solid pb-4'>
+                        <Breadcrumb separator="/" className='border-b border-solid pb-4'>
                             <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
 
                         </Breadcrumb>
@@ -582,7 +506,7 @@ const Document = props => {
                     ?categoryDetail()
                     :documentDetails
                     :<div className='w-full p-6  max-w-screen-xl '>
-                        <Breadcrumb separator=">" className='border-b border-solid pb-4'>
+                        <Breadcrumb separator="/" className='border-b border-solid pb-4'>
                             <Breadcrumb.Item  href='#/setting/documentList'>文档管理</Breadcrumb.Item>
                             <Breadcrumb.Item href="">目录详情</Breadcrumb.Item>
                         </Breadcrumb>
@@ -593,8 +517,6 @@ const Document = props => {
                     </div>
                 }*/}
             </div>
-            <CreateOrUpdateCategory visible={visible} onCancel={onCancel} onOk={onOK} editData={editData}
-                                    repository={repositoryDetails} categoryData={categoryData} parentCategoryId={parentCategoryId}/>
         </section>
 )
 }

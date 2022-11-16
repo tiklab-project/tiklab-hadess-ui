@@ -7,23 +7,29 @@
  */
 
 import React, {useState, useEffect,Fragment} from "react";
-import {Breadcrumb, Button, Space, Table, Modal, Tag} from "antd";
+import {Breadcrumb, Button, Space, Table, Modal, Tag, Tooltip} from "antd";
 const { confirm } = Modal;
+import './manageDss.scss'
 import tenantService from "../../../service/tenant.service";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import DssAddOrUpdate from "./dssAddOrUpdate";
+import DssSourceDetails from "./dssSourceDetails";
 const DssSourceList = props => {
 
     const [dssDataList,setDssDataList]=useState([])  //dss数据
     const [visible, setVisible] = useState(false);  //修改删除弹窗
     const [updateDssDate, setUpdateDssDate] = useState();  //修改回显数据
 
+    const [detailsVisible,setDetailsVisible]=useState(false)  //打开详情抽屉状态
+    const [dssData,setDssData]=useState()  //bss数据
+    const [tenantDssList,setTenantDssList]=useState([])  //
+    const [allDssData, setAllDssData] = useState([]);   //所有的dss数据源
     const columns = [
         {
             title: '地址',
             dataIndex: 'url',
             render: (text, record) => {
-                return <a className='text-blue-400' onClick={() => goTenantDss(record)}>{record.url}</a>
+                return <a className='text-blue-400' onClick={() => openTenantDss(record)}>{record.url}</a>
             },
         },
         {
@@ -51,13 +57,15 @@ const DssSourceList = props => {
             title: '操作',
             key: 'details',
             render: (text, record) => (
-                <Space size="useState" className='flex  gap-x-2'>
-                    <div className='border border-gray-200 bg-blue-400 px-2 text-white cursor-pointer'onClick={()=>updateDb(record)} >
-                        编辑
-                    </div>
-                    <div  className='border border-gray-200 px-2 cursor-pointer' onClick={()=>openDeletePop(record)} >
-                        删除
-                    </div>
+                <Space size="useState" className='flex  gap-x-2 '>
+                    <Space size="useState" className='flex  gap-x-4 '>
+                        <Tooltip title="编辑">
+                            <EditOutlined className='cursor-pointer' onClick={()=>updateDb(record)}/>
+                        </Tooltip>
+                        <Tooltip title="删除">
+                            <DeleteOutlined className='cursor-pointer' onClick={()=>openDeletePop(record)}/>
+                        </Tooltip>
+                    </Space>
                 </Space>
             ),
         },
@@ -117,31 +125,71 @@ const DssSourceList = props => {
 
     const goTenantDss=async (record)=>{
         props.history.push({
-            pathname:"/setting/sourceManage/manageDss/tenantManageDss",
+            pathname:"/index/sourceManage/tenantManageDss",
             params:record
         });
     }
+
+    //打开租户dss数据源详情
+    const openTenantDss =async (value) => {
+        await findTenantDss(value)
+        setDssData(value)
+        setDetailsVisible(true)
+    }
+    //关闭租户dss数据源详情
+    const closeTenantDss = () => {
+        setDetailsVisible(false)
+    }
+
+    const findTenantDss =async (dss,name) => {
+        const param={
+            dssGroupId:dss.id,
+            tenantName:name
+        }
+        let res;
+        if (dss.dsType==="dss"){
+            res= await tenantService.findTenantDssByCon(param)
+        }
+        if (dss.dsType==="dfs"){
+            res= await tenantService.findTenantDfsByCon(param)
+        }
+        if (dss.dsType==="dcs"){
+            res= await tenantService.findTenantDcsByCon(param)
+        }
+
+        if (res.code===0){
+            setTenantDssList(res.data)
+        }
+        //await findAllDss(dss)
+    }
+    //查询所有dss数据源
+    const findAllDss = async (value) => {
+        const param={
+            dsType:value.dsType
+        }
+        const res=await tenantService.findTenantDsGroupList(param)
+        if (res.code===0){
+            setAllDssData(res.data)
+        }
+    }
+
     return(
-        <section className='flex-row p-6'>
-            <div className='w-full  max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item >数据源管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">dss列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='flex justify-end py-6' >
-                    <Button type="primary" onClick={openVisible}>+添加</Button>
-                </div>
-                <div className='' >
-                    <Table
-                        columns={columns}
-                        dataSource={dssDataList}
-                        rowKey = {record => record.id}
-                        pagination={false}
-                    />
-                </div>
+        <div className='manage-dss'>
+            <div className='manage-head-style'>
+                <div className='manage-title'>dss数据源列表</div>
+                <Button type="primary" onClick={openVisible}>添加</Button>
+            </div>
+            <div className='manage-data' >
+                <Table
+                    columns={columns}
+                    dataSource={dssDataList}
+                    rowKey = {record => record.id}
+                    pagination={false}
+                />
             </div>
             <DssAddOrUpdate visible={visible} onCancel={closeVisible} editData={updateDssDate}/>
-        </section>
+            <DssSourceDetails onClose={closeTenantDss} visible={detailsVisible} dssData={dssData} tenantDssList={tenantDssList} findTenantDss={findTenantDss}/>
+        </div>
     )
 }
 export default DssSourceList

@@ -11,6 +11,7 @@ import {Breadcrumb, Row, Col, Input, Button, Table, Form, Upload, Modal, Select}
 import { UploadOutlined } from '@ant-design/icons';
 import productService from "../../service/product.service";
 import {getUser} from "../../utils";
+import './product.scss'
 const layout = {
     labelCol: { span: 2 },
     wrapperCol: { span: 20 },
@@ -60,7 +61,7 @@ const CompileVersion = props=> {
             code:productData.code,
             type:productData.type,
             des:value.desc,
-            newFeature:value.newFeature&&JSON.stringify(value.newFeature),
+            details:value.details&&JSON.stringify(value.details),
         }
         const response=  await productService.createProductVersion(params)
         if (response.code===0){
@@ -74,15 +75,14 @@ const CompileVersion = props=> {
             }
 
            await productService.createProductUrl(productUrlParam)
-
-            props.history.push("/setting/productList");
+            await skip()
         }
     }
 
     //文件上传
     const uploadPros = {
         name: "uploadFile",
-        data:{type:"projectPage"},
+        data:{type:"project"},
         action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket
@@ -138,101 +138,81 @@ const CompileVersion = props=> {
     ]
 
     const skip =async () => {
-        props.history.push({
-            pathname:"/setting/product",
-        });
+        props.history.push(`/index/product/detail/${productData?.id}/${productData?.type}`);
     }
     return (
-        <section className='w-full flex flex-row ' >
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b  border-solid pb-4'>
-                    <Breadcrumb.Item  href='#/setting/productList'>产品列表 </Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 版本添加</Breadcrumb.Item>
-                </Breadcrumb>
-                <Form
-                    {...layout}
-                    onFinish={onFinish}
-                    name="nest-messages"
-                    form={form}
-                    className='mt-6'>
-                    <Form.Item name={['productName']} label="关联项目" rules={[{ required: true }]}>
-                        <Input
-                            type="text"
-                            disabled
-                        />
-                    </Form.Item>
-                    <Form.Item name={['systemType']} label="系统类型" rules={[{ required: true }]}>
-                        <Select showArrow >
-                            {
-                                systemTypeList.map(item=>{
-                                    return(
-                                        <Option key={item.key} value={item.key}>
-                                            {item.value}
-                                        </Option>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </Form.Item>
-                    <Form.Item name={['version']} label="版本" rules={[{ required: true }]}>
-                        <Input/>
-                    </Form.Item>
-                    <Form.Item name={['plugIn']} label="添加项目" rules={[{ required: true }]}>
+        <div className=' product ' >
+            <Breadcrumb separator="/" className='product-title '>
+                <Breadcrumb.Item  href= {`#/index/product/detail/${productData?.id}/${productData?.type}`}>产品详情</Breadcrumb.Item>
+                <Breadcrumb.Item href=""> 版本添加</Breadcrumb.Item>
+            </Breadcrumb>
+            <Form
+                {...layout}
+                onFinish={onFinish}
+                name="nest-messages"
+                form={form}
+                className='mt-6'
+                layout="vertical"
+            >
+
+                <Form.Item name={['productName']} label="关联产品" rules={[{ required: true }]}>
+                    <Input
+                        type="text"
+                        disabled
+                    />
+                </Form.Item>
+                <Form.Item name={['systemType']} label="系统类型" rules={[{ required: true }]}>
+                    <Select showArrow placeholder='请选择系统类型' >
                         {
-                            fileName
-                                ?<Upload {...fileUpload} fileList={fileList}>
-                                </Upload>
-                                : <Upload {...fileUpload} >
-                                    <Button zicon={<UploadOutlined />}>Upload</Button>
-                                </Upload>
+                            systemTypeList.map(item=>{
+                                return(
+                                    <Option key={item.key} value={item.key}>
+                                        {item.value}
+                                    </Option>
+                                )
+                            })
                         }
+                    </Select>
+                </Form.Item>
+                <Form.Item name={['version']} label="版本" rules={[{ required: true }]}>
+                    <Input placeholder='请添加版本'/>
+                </Form.Item>
+                <Form.Item name={['plugIn']} label="添加项目" rules={[{ required: true }]}>
+                    {
+                        fileName
+                            ?<Upload {...fileUpload} fileList={fileList}>
+                            </Upload>
+                            : <Upload {...fileUpload} >
+                                <Button zicon={<UploadOutlined />}>Upload</Button>
+                            </Upload>
+                    }
 
-                    </Form.Item>
-                    {/*<Form.Item name={['captureUrl']} label="项目封面">
-                        {
-                            surfacePlot
-                                ? <Upload {...pictureUpload} listType="picture" defaultFileList={[...pictureList]}
-                                          className="upload-list-inline" maxCount='1'>
-                                </Upload>
-                                :  <Upload {...pictureUpload} listType="picture"
-                                           className="upload-list-inline" maxCount='1'>
-                                    <Button icon={<UploadOutlined />}>Upload</Button>
-                                </Upload>
-                        }
-                    </Form.Item>*/}
-                  {/*  <Form.Item name={['newFeature']} label="功能简介"  initialValue={value}>
+                </Form.Item>
+                <Form.Item name={['details']} label="版本详情" initialValue={value} >
+                    <CustomEditor/>
+                </Form.Item>
+                {/* <Form.Item name={['updateFeature']} label="修改功能" initialValue={value}>
                         <CustomEditor/>
                     </Form.Item>*/}
-                    <Form.Item name={['desc']} label="版本描述" rules={[{ required: true }]}>
-                        <Input/>
-                    </Form.Item>
-                    <Form.Item name={['newFeature']} label="版本详情" initialValue={value} >
-                        <CustomEditor/>
-                    </Form.Item>
-                   {/* <Form.Item name={['updateFeature']} label="修改功能" initialValue={value}>
-                        <CustomEditor/>
-                    </Form.Item>*/}
-                    <Row>
-                        <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
-                            <Button type="primary" htmlType="submit">
-                                提交
-                            </Button>
-                            <Button
-                                style={{ margin: '0 8px' }}
-                                /*onClick={() => {
-                                    form.resetFields();
-                                }}*/
-                                onClick={skip}
-                            >
-                               取消
-                            </Button>
-                        </Col>
-                    </Row>
-                </Form>
+                <Row>
+                    <Col span={24} style={{ textAlign: 'left' }} className={'pr-24'}>
+                        <Button type="primary" htmlType="submit">
+                            提交
+                        </Button>
+                        <Button
+                            style={{ margin: '0 8px' }}
+                            /*onClick={() => {
+                                form.resetFields();
+                            }}*/
+                            onClick={skip}
+                        >
+                            取消
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
 
-            </div>
-
-        </section>
+        </div>
     )
 }
 

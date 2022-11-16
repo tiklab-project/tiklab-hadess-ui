@@ -6,6 +6,8 @@ import { renderRoutes } from 'react-router-config';
 import enableAxiosCE from 'tiklab-enable-axios-ce'
 import { privilegeStores } from 'tiklab-privilege-ui/es/store';
 import {PluginProvider} from "tiklab-plugin-ui"
+import { createContainer } from 'tiklab-plugin-ui/es/_utils';
+import { ConfigProvider } from 'antd';
 import {initFetch} from "tiklab-plugin-ui/es/_utils"
 import { Provider } from 'mobx-react';
 import routes from './routers'
@@ -16,7 +18,7 @@ import "./assets/font-icon/iconfont";
 import './App.scss';
 import './tailwind.css';
 import {useTranslation} from "react-i18next";
-
+import zhCN from 'antd/es/locale/zh_CN';
 enableAxiosCE()
 const App = () => {
     // 注册所有插件
@@ -50,15 +52,18 @@ const App = () => {
     // if (viable) {
     //     return <div>加载中</div>
     // }
-
+    const CounterContainer = createContainer();
     return (
-        <Provider {...allStore}>
-            <PluginProvider store={pluginData}>
-                <HashRouter>
-                    {renderRoutes(routes)}
-                </HashRouter>
-            </PluginProvider>
-        </Provider>
+        <CounterContainer.Provider initialState={pluginData}>
+            <Provider {...allStore}>
+                <ConfigProvider locale={zhCN}>
+                    <HashRouter>
+                        {renderRoutes(routes)}
+                    </HashRouter>
+                </ConfigProvider>
+            </Provider>
+        </CounterContainer.Provider>
+
     );
 };
 ReactDOM.render(<App />, document.getElementById('root'));

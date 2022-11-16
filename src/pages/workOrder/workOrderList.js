@@ -1,29 +1,44 @@
 /**
- * @name: index
+ * @name: WorkOrderList
  * @author: limingliang
  * @date: 2022-03-15 14:30
- * @description：在线工单
+ * @description：服务与支持
  * @update: 2022-03-15 14:30
  */
 import React ,{useState,useEffect}from "react";
-import {Breadcrumb, Radio,Tooltip,Space,Tag,Table} from "antd";
+import {Breadcrumb, Radio, Tooltip, Space, Tag, Table, Pagination, Tabs, Select} from "antd";
 import workOrderServer from "../../service/workOrder.server";
+import './workOrder.scss'
+import WorkOrderDetails from "./workOrderDetails";
+const { TabPane } = Tabs;
 import PreviewEditor from "../../common/editSlate/previewEditor";
+import productService from "../../service/product.service";
+import Paging from "../../common/components/paging";
+const { Option } = Select;
 const WorkOrderList=props=>{
-    const type=props.history.location.params
 
-    const [tableData, setTableData] = useState([]);  //数据
+    const [workOrderList, setWorkOrderList] = useState([]);  //工单数据list
+    const [workOrder,setWorkOrder]=useState()   //工单数据
     const [state,setState]=useState("await")  //工单状态
 
+    const [productList,setProductList]=useState([{id:"null",name:'全部产品'}])  //去重后的产品list
+    const [product,setProduct]=useState({id:"null",name:'全部产品'})   //选择的产品
     const [currentPage,setCurrentPage]=useState(1)
     const [pageSize,setPageSize]=useState(10)
-    const [totalRecord, setTotalRecord] = useState(props.total);
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+    
+    const [detailsVisible,setDetailsVisible]=useState(false)  //详情抽屉打开状态
 
     const   column = [
         {
             title: '所属产品',
             dataIndex:['product','name'],
             key: 'product',
+            render: (text, record) => (
+                <Space size="middle " className='text-blue-500'>
+                    <a onClick={()=>openWorkOrderDetails(record)}>{record.product.name}</a>
+                </Space>
+            )
         },
         {
             title: '工单类型',
@@ -70,80 +85,114 @@ const WorkOrderList=props=>{
             title: '操作',
             key: 'action',
             render: (text, record) => (
-                <Space size="middle">
-                    <a onClick={()=>goDetails(record.id)}>{record.state==='await'?'处理':'查看'}</a>
+                <Space size="middle " className='text-blue-500'>
+                    <a onClick={()=>openWorkOrderDetails(record)}>{record.state==='await'?'处理':'查看'}</a>
                 </Space>
             ),
         },
     ]
     useEffect(async ()=>{
-        if (type){
-            setState(type)
-            await findWorkOrder(currentPage,type)
-        }else {
-            await findWorkOrder(currentPage,'await')
-        }
-
-    },[type])
+        await findWorkOrder(currentPage,state)
+        await findProduct()
+    },[])
 
     //查询工单列表
-    const findWorkOrder=async (currentPage,state)=>{
+    const findWorkOrder=async (currentPage,state,productId)=>{
+        debugger
         const param={
             pageParam:{
                 currentPage:currentPage,
                 pageSize:pageSize
             },
-            state:state
+            state:state,
+            productId:productId
         }
         const res=await workOrderServer.findWorkOrderPage(param);
         if (res.code===0){
-            setTableData(res.data.dataList)
-            setTotalRecord(res.data.totalRecord)
+            setWorkOrderList(res.data.dataList)
+            setTotalPage(res.data.totalPage)
         }
     }
     //切换状态
-    const cutType=async (e)=>{
+    const cutType=async (event)=>{
         setCurrentPage(1)
-        setState(e.target.value)
-        await findWorkOrder(1,e.target.value)
+        setState(event)
+        await findWorkOrder(1,event,product.id)
 
     }
     //分页
     const handleTableChange=async (pagination)=>{
-        setCurrentPage(pagination.current)
-        await findWorkOrder(pagination.current,state)
+        setCurrentPage(pagination)
+        await findWorkOrder(pagination,state,product.id)
     }
 
-    //跳转处理界面
-    const goDetails=(id)=>{
-        props.history.push({
-            pathname:'/setting/workOrder/details',
-            params:id
-        })
+
+    //查询产品
+    const findProduct=async ()=>{
+        const res= await productService.findAllProductListSig()
+        if (res.code===0){
+            setProductList(productList.concat(res.data))
+        }
+    }
+
+    const cuteProduct =async (e) => {
+        setProduct(e)
+        if (e==='null'){
+            await findWorkOrder(1,state)
+        }else {
+            await findWorkOrder(1,state,e)
+        }
+
+    }
+
+
+    //打开抽屉
+    const openWorkOrderDetails = (value) => {
+        setWorkOrder(value)
+        setDetailsVisible(true)
+
+    }
+    //关闭抽屉
+    const closeWorkOrderDetails =async () => {
+        setDetailsVisible(false)
+        if (product.id==='null'){
+            await findWorkOrder(currentPage,state)
+        }else {
+            await findWorkOrder(currentPage,state,product.id)
+        }
+
     }
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>在线工单</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 工单列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <Radio.Group size='large' buttonStyle="solid" value={state} className='py-6' onChange={cutType} >
-                    <Radio.Button value={'await'}>待处理 </Radio.Button>
-                    <Radio.Button value={'finish'} >已处理</Radio.Button>
-                </Radio.Group>
-
-                <Table dataSource={tableData} columns={column}
-                       pagination={{
-                           current:currentPage,
-                           pageSize: pageSize,
-                           total: totalRecord,
-                       }}
-                       rowKey={record => record.id}
-                       onChange={(pagination)=>handleTableChange(pagination)}
-                />
+        <div className=' work-order'>
+            <Breadcrumb separator="/" className='work-order-title '>
+                <Breadcrumb.Item> 工单列表</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className='flex space-x-8'>
+                <Tabs  activeKey={state}  onTabClick={cutType}  >
+                    <TabPane  tab="待处理" key="await"/>
+                    <TabPane tab="已处理" key="finish"/>
+                </Tabs>
+                <div className='pt-2'>
+                    <Select   defaultValue={product.id} style={{width: 150}}  onChange={cuteProduct} >
+                        {
+                            productList.map((item,key)=>{
+                                return(
+                                    <Option  key={key} value={item.id} >{item.name}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                </div>
             </div>
-        </section>
+
+
+            <Table dataSource={workOrderList}
+                   columns={column}
+                   pagination={false}
+            />
+            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+            <WorkOrderDetails onClose={closeWorkOrderDetails} visible={detailsVisible} workOrderData={workOrder}/>
+        </div>
     )
 }
 export default WorkOrderList

@@ -10,7 +10,7 @@ import {Col, Form, Input, Modal, Row, Select} from "antd";
 import tenantService from "../../../service/tenant.service";
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 24},
 };
 const { Option } = Select;
 const TenantDbUpdate = props => {
@@ -23,7 +23,8 @@ const TenantDbUpdate = props => {
             })
         }
     },[oldDatabase])
-    //修改单个db路径
+
+    //修改db路径
     const updateTenantDb = () => {
         form.validateFields().then(async values => {
             if (tenantIds.length){
@@ -40,7 +41,6 @@ const TenantDbUpdate = props => {
                     onCancel()
                 }
             }
-
         })
     }
     return(
@@ -49,10 +49,9 @@ const TenantDbUpdate = props => {
             title='切换租户db数据源'
             okText='切换'
             cancelText='取消'
-            width={500}
+            width={400}
             destroyOnClose={true}
             onOk={updateTenantDb}
-            style={{ top: 250 }}
             onCancel={onCancel}
         >
             <Row>
@@ -61,12 +60,13 @@ const TenantDbUpdate = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
                         <Form.Item
-                            name="oldDb"
+                           // name={oldDatabase?.url}
                             label='原db数据源'
                         >
-                            <Input disabled="disabled"/>
+                            <Input disabled="disabled" placeholder={oldDatabase?.url}/>
                         </Form.Item>
                         <Form.Item
                             name="url"

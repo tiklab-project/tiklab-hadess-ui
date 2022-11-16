@@ -176,43 +176,40 @@ const ActivityList = props => {
     }
 
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>活动管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">活动列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <div className='pt-6 space-y-6'>
-                    <div className='flex'>
-                            <Radio.Group  value={activityType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
-                            {ActivityTypeList.map(item=>{
-                                return(
-                                    <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
-                                )
-                            })}
-                            </Radio.Group>
-                        <div className='flex justify-end  w-1/3 pr-4'>
-                            <Button type="primary" onClick={addActivity} >添加活动</Button>
-                        </div>
-                    </div>
-
-                    <div>
-                        <Table
-                            dataSource={activityList}
-                            columns={columns}
-                            rowKey={record => record.id}
-                            pagination={{
-                                current:page,
-                                pageSize: 10,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                        />
+        <div className='w-full mt-4 max-w-full m-auto max-w-screen-xl'>
+            <Breadcrumb separator="/" className=' border-solid'>
+                <Breadcrumb.Item>活动管理</Breadcrumb.Item>
+                <Breadcrumb.Item href="">活动列表</Breadcrumb.Item>
+            </Breadcrumb>
+            <div className='pt-6 space-y-6'>
+                <div className='flex'>
+                    <Radio.Group  value={activityType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
+                        {ActivityTypeList.map(item=>{
+                            return(
+                                <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
+                            )
+                        })}
+                    </Radio.Group>
+                    <div className='flex justify-end  w-1/3 pr-4'>
+                        <Button type="primary" onClick={addActivity} >添加活动</Button>
                     </div>
                 </div>
+
+                <div>
+                    <Table
+                        dataSource={activityList}
+                        columns={columns}
+                        rowKey={record => record.id}
+                        pagination={{
+                            current:page,
+                            pageSize: 10,
+                            total: totalRecord,
+                        }}
+                        onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
+                    />
+                </div>
             </div>
-          {/*  <CompileActivity visible={visible} onCancel={onCancel} editData={editData} compileType={compileType} activityType={activityTypeList}/>*/}
-        </section>
+        </div>
     )
 
 }

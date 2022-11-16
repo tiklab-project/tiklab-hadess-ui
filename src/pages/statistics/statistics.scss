@@ -1,0 +1,20 @@
+.statistics{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .statistics-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .statistics-data{
+        padding: 20px 0;
+    }
+
+}
+#tabPane{
+    .ant-tabs-nav:before{
+        border-bottom: 0 !important;
+    }
+}

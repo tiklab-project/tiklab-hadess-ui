@@ -56,7 +56,6 @@ const DssAddOrUpdate = props => {
             okText='保存'
             cancelText='取消'
             width={500}
-            style={{ top: 200 }}
             destroyOnClose={true}
             onOk={addOrUpdate}
             onCancel={onCancel}

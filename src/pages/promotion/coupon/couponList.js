@@ -7,26 +7,45 @@
  */
 
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Button, Modal, Radio, Space, Switch, Table} from "antd";
+import {
+    Breadcrumb,
+    Button,
+    Modal,
+    Pagination,
+    Radio,
+    Space,
+    Switch,
+    Table,
+    Tabs,
+    Tooltip
+} from "antd";
 import activityService from "../../../service/avtivity.service";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
+const { TabPane } = Tabs;
 import {getUser} from "tiklab-core-ui"
+import './coupon.scss'
+import CouponDetails from "./couponDetails";
+import Paging from "../../../common/components/paging";
 const rollTypeList= [{code:'cash',name:'现金卷'},{code: 'coupon',name:'折扣卷'}]
 const CouponList = props => {
     const type=props.history.location.params
 
-    const [cashVolumeList,setCashVolumeList]=useState([])   //现金卷数据
-    const [couponType,setCouponType]=useState(null)   //卷类型
-    const [page, setPage] = useState(1);  //当前页
-    const [totalRecord, setTotalRecord] = useState();  //总条数
+    const [cashVolumeList,setCashVolumeList]=useState([])   //优惠券数据list
+    const [coupon,setCoupon]=useState()   //优惠券数据
+    const [couponList,setCouponList]=useState()  //通过id 查询的优惠券数据list
+    const [couponType,setCouponType]=useState('cash')   //卷类型
+    const [currentPage, setCurrentPage] = useState(1);  //当前页
+    const [pageSize]=useState(10)
+    const [totalPage,setTotalPage]=useState(0);  //总页数
 
+    const [detailsVisible,setDetailsVisible]=useState(false)  //打开优惠券详情抽屉状态
     const columns = [
         {
             title: '名称',
             dataIndex: 'couponName',
             render: (text, record) => {
-                return <a className='text-blue-400 cursor-pointer' onClick={() => goDetails(record)}>{record.couponName}</a>
+                return <a className='text-blue-400 cursor-pointer' onClick={() => openCouponDetails(record)}>{record.couponName}</a>
             },
         },
         {
@@ -74,11 +93,11 @@ const CouponList = props => {
             title: '操作',
             key: 'activity',
             render: (text, record) => (
-                <Space size="middle">
-                    {record.activityInvoke==='true'?
-                        <div className='text-gray-200'>删除</div>:
-                        <a onClick={() => deleteCashVolumePop(record.id)}>删除</a>
-                    }
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="删除">
+                        {record.activityInvoke==='true'?<DeleteOutlined className='text-gray-200'/>:
+                        <DeleteOutlined className='cursor-pointer' onClick={() => deleteCashVolumePop(record.id)} />}
+                    </Tooltip>
                 </Space>
             ),
         },
@@ -87,28 +106,28 @@ const CouponList = props => {
     useEffect(async ()=>{
         if (type){
             setCouponType(type)
-            await findRollPage(type,page)
+            await findRollPage(type,currentPage)
         }else {
             setCouponType('cash')
-            await findRollPage(couponType,page)
+            await findRollPage(couponType,currentPage)
         }
 
     },[])
 
-    //分页查询现金卷数据
-    const findRollPage = async (value,page) => {
+    //分页查询优惠券数据
+    const findRollPage = async (value,currentPage) => {
         const param={
             couponType:value,
             pageParam: {
                 pageSize: 10,
-                currentPage: page,
+                currentPage: currentPage,
             },
             memberId:getUser().userId
         }
         const res=await activityService.findCouponPage(param)
         if (res.code===0){
             setCashVolumeList(res.data.dataList)
-            setTotalRecord(res.data.totalRecord)
+            setTotalPage(res.data.totalPage)
         }
     }
 
@@ -125,14 +144,14 @@ const CouponList = props => {
 
       const res= await activityService.updateCoupon(value);
         if (res.code===0){
-            await findRollPage(couponType,page)
+            await findRollPage(couponType,currentPage)
         }
     }
 
     //删除弹窗
     const deleteCashVolumePop =async (couponId) => {
         confirm({
-            title: '注意，回删除相对应的所有优惠券，请谨慎操作',
+            title: '注意，会删除相对应的所有优惠券，请谨慎操作',
             icon: <ExclamationCircleOutlined />,
             content: '',
             okText: '确认',
@@ -153,7 +172,7 @@ const CouponList = props => {
         formData.append('id', couponId);
        const res=await activityService.deleteCoupon(formData)
         if (res.code===0){
-           await findRollPage(couponType,page)
+           await findRollPage(couponType,currentPage)
         }
     }
 
@@ -170,68 +189,86 @@ const CouponList = props => {
 
     //创建现金卷
     const addCashVolume =async () => {
-        props.history.push("/setting/activity/compileCashVolume")
+        props.history.push("/index/coupon/compileCoupon")
     }
 
     const goDetails = async (record) => {
         props.history.push({
-            pathname:"/setting/coupon/details",
+            pathname:"/index/coupon/details",
             params:record
         });
     }
 
+    //打开优惠券详情弹窗
+    const openCouponDetails =async (value) => {
+        setCoupon(value)
+      await  findCouponPage(value)
+      setDetailsVisible(true)
+
+    }
+    //关闭优惠券详情弹窗
+    const closeCouponDetails = (value) => {
+        setDetailsVisible(false)
+
+    }
     //分页
-    const handleTableChange = async (pagination, filters, sorter) => {
-        setPage(pagination.current)
-        await findRollPage(couponType,pagination.current)
+    const handleTableChange = async (pagination) => {
+        setCurrentPage(pagination)
+        await findRollPage(couponType,pagination)
     }
 
     //切换卷类型
-    const cutType =async (e) => {
-        const value=e.target.value
-        setCouponType(value)
-
-        await findRollPage(value,page)
+    const cutType =async (event) => {
+        setCouponType(event)
+        await findRollPage(event,currentPage)
     }
 
+
+    //查询所有券列表
+    const findCouponPage = async (cashDetail) => {
+        let res;
+        const param={
+            pageParam: {
+                pageSize: pageSize,
+                currentPage: 1,
+            },
+            couponId:cashDetail.id
+        }
+        //现金券
+        if (cashDetail.couponType==='cash'){
+            res=await activityService.findCouponCashAccessPage(param)
+        }
+        //折扣券
+        if (cashDetail.couponType==='discount'){
+            res=await activityService.findCouponDisAccessPage(param)
+        }
+        if (res?.code===0){
+            setCouponList(res?.data)
+        }
+    }
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>活动管理</Breadcrumb.Item>
-                    <Breadcrumb.Item >优惠券</Breadcrumb.Item>
-                </Breadcrumb>
-
-                <div className='pt-6 space-y-6'>
-                    <div className='flex'>
-                        <Radio.Group  value={couponType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
-                            {rollTypeList.map(item=>{
-                                return(
-                                    <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
-                                )
-                            })}
-                        </Radio.Group>
-                        <div className='flex justify-end  w-1/3 pr-4'>
-                            <Button type="primary"  onClick={addCashVolume}>创建优惠卷</Button>
-                        </div>
-                    </div>
-                    <div>
-                        <Table
-                            dataSource={cashVolumeList}
-                            columns={columns}
-                            rowKey={record => record.id}
-                            pagination={{
-                                current:page,
-                                pageSize: 10,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                        />
-                    </div>
-                </div>
+        <div className='coupon'>
+            <div className='coupon-head-style'>
+                <div className='coupon-title'>优惠券</div>
+                <Button type="primary"  onClick={addCashVolume}>创建优惠卷</Button>
             </div>
-
-        </section>
+            <div className='coupon-data'>
+                <Tabs  activeKey={couponType}  onTabClick={cutType}>
+                    <TabPane  tab="现金卷" key='cash'/>
+                    <TabPane tab="折扣卷" key='coupon'/>
+                </Tabs>
+                <div>
+                    <Table
+                        dataSource={cashVolumeList}
+                        columns={columns}
+                        rowKey={record => record.id}
+                        pagination={false}
+                    />
+                </div>
+                <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+            </div>
+            <CouponDetails onClose={closeCouponDetails} visible={detailsVisible} couponData={coupon} couponList={couponList}/>
+        </div>
     )
 
 }

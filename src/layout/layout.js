@@ -16,15 +16,14 @@ import Header from "../common/header/header";
 
 const SaasLayout = props => {
     return (
-        <Fragment>
+        <div>
           <Header {...props} />
-            <div stye={{display: 'flex',height: '100%'}} className={'pt-14'} >
+            <div stye={{display: 'flex',height: '100%'}} className={'pt-12'} >
                 <div style={{width:'100%'}}>
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
-
-        </Fragment>
+        </div>
 
     )
 };

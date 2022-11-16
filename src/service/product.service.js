@@ -13,12 +13,13 @@ export const findChargeProductListApi = '/product/findChargeProductList';  //查
 
 export const createProductApi = '/product/createProduct';
 export const deleteProductApi = '/product/deleteProduct';
-export const findAllProductApi = '/product/findAllProduct';
+export const findAllProductApi = '/product/findAllProduct'; //查询所有产品
+export const findProductApi = '/product/findProduct';  //通过id查询产品
 export const updateProductApi = '/product/updateProduct';
 export const updateSortApi = '/product/updateSort';
 
 export const findAllProductTypeApi = '/productType/findAllProductType';
-
+export const findAllProductListSigApi = '/product/findAllProductListSig';  //查询去重后的所有产品
 //添加项目版本
 export const createProductVersionApi = '/productVersion/createProductVersion';
 //通过条件查询
@@ -48,9 +49,17 @@ class ProductService {
         const response = await Axios.post(findProductPageApi, data)
         return response
     }
-    // 查询所有产品
     async findAllProductApiService(){
         const response = await Axios.post(findAllProductApi)
+        return response
+    }
+    async findProduct(data){
+        const response = await Axios.post(findProductApi,data)
+        return response
+    }
+
+    async findAllProductListSig(){
+        const response = await Axios.post(findAllProductListSigApi)
         return response
     }
     // 添加产品

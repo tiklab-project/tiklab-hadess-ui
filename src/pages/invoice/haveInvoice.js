@@ -87,13 +87,13 @@ const HaveInvoice=props=>{
                                                 <div key={item} className=' '>
                                                     <div className='flex pt-3 border-b py-3'>
                                                         <div className='w-3/4 pl-3' >
-                                                            {item.order.orderProductList[0].product.name}
+                                                            {item.order.orderDetailsList[0].product.name}
                                                         </div>
                                                         <div className='w-2/4'>
-                                                            金额：{item.order.orderProductList[0].orderProductPrice}
+                                                            金额：{item.order.orderPrice}
                                                         </div>
                                                         <div className='w-2/4'>
-                                                            数量：{item.order.orderProductList[0].math}月
+                                                            数量：{item.order.orderDetailsList[0].subMath}月
                                                         </div>
                                                     </div>
                                                 </div>

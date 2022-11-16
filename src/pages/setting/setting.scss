@@ -1,10 +1,19 @@
+.system {
+    display: flex;
+    width: 100%;
+    height: calc(100vh - 50px);
+}
+
 .setting-height{
-    height: calc(100vh - 60px);
-    width: calc(100vh - 400px);
+    height: 100%;
+    width: 200px;
+    min-width: 200px;
     overflow: auto;
     display: flex;
 }
 .setting_right_height{
     height: calc(100vh - 60px);
+    width: 88%;
+
     overflow: auto;
 }

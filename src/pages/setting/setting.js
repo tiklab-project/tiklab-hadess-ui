@@ -14,44 +14,100 @@ const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
-        {
-            id:'1',
-            key:'1',
-            title: '租户管理',
-            icon:<CopyOutlined />
-        },
-        {
-            id:'3',
-            key:'3',
-            title: '会员管理',
-            icon:<MessageOutlined /> ,
-        },
-        {
-            id:'9',
-            key:'9',
-            title: '产品管理',
-            icon:<CopyOutlined />
-        },
+
         {
             id:'2',
             key:'2',
-            title: '订阅中心',
-            icon:<MessageOutlined />,
+            title: '会员管理',
+            icon:<MessageOutlined /> ,
             children:[
                 {
                     id:'2-1',
                     key:'2-1',
-                    title: '服务订阅',
+                    title: '会员列表',
                 },
                 {
                     id:'2-2',
                     key:'2-2',
+                    title: '会员统计',
+                },
+            ]
+        },
+        {
+            id:'3',
+            key:'3',
+            title: '企业管理',
+            icon:<MessageOutlined /> ,
+            children:[
+                {
+                    id:'3-1',
+                    key:'3-1',
+                    title: '企业列表',
+                },
+                {
+                    id:'3-2',
+                    key:'3-2',
+                    title: '企业统计',
+                },
+                {
+                    id:'3-3',
+                    key:'3-3',
+                    title: 'db数据源管理',
+                },
+                {
+                    id:'3-4',
+                    key:'3-4',
+                    title: 'dss数据源管理',
+
+                }
+            ]
+        },
+        {
+            id:'4',
+            key:'4',
+            title: '产品管理',
+            icon:<MessageOutlined /> ,
+        },
+        {
+            id:'5',
+            key:'5',
+            title: '订阅管理',
+            icon:<MessageOutlined />,
+            children:[
+                {
+                    id:'5-1',
+                    key:'5-1',
+                    title: '订阅列表',
+                },
+                {
+                    id:'5-2',
+                    key:'5-2',
                     title: '订单管理',
                 },
                 {
-                    id:'2-3',
-                    key:'2-3',
+                    id:'5-3',
+                    key:'5-3',
                     title: '发票管理',
+                },
+                {
+                    id:'5-4',
+                    key:'5-4',
+                    title: '对公转账支付',
+                },
+                {
+                    id:'5-5',
+                    key:'5-5',
+                    title: '优惠卷管理',
+                },
+                {
+                    id:'5-6',
+                    key:'5-6',
+                    title: '订单统计',
+                },
+                {
+                    id:'5-7',
+                    key:'5-7',
+                    title: '支付统计',
                 },
             ]
         },
@@ -59,97 +115,37 @@ const Setting = props => {
         {
             id:'6',
             key:'6',
-            title: '促销管理',
+            title: '内容管理',
             icon:<MessageOutlined />,
             children:[
                 {
                     id:'6-1',
                     key:'6-1',
-                    title: '活动管理',
+                    title: '文档管理',
+
                 },
                 {
                     id:'6-2',
                     key:'6-2',
-                    title: '优惠卷管理',
+                    title: '插件管理',
                 },
+                {
+                    id:'6-3',
+                    key:'6-3',
+                    title: '博客管理',
+
+                },
+                {
+                    id:'6-4',
+                    key:'6-4',
+                    title: '浏览量统计',
+                }
 
             ]},
-
         {
             id:'7',
             key:'7',
-            title: '文档管理',
-            icon:<MessageOutlined />
-        },
-        {
-            id:'13',
-            key:'13',
-            title: '插件管理',
-            icon:<MessageOutlined />
-        },
-        {
-           id:'8',
-           key:'8',
-           title: '统计管理',
-            icon:<MessageOutlined />,
-           children:[
-               {
-                   id:'8-1',
-                   key:'8-1',
-                   title: '会员统计',
-               },
-               {
-                   id:'8-2',
-                   key:'8-2',
-                   title: '租户统计',
-               },
-               {
-                   id:'8-3',
-                   key:'8-3',
-                   title: '订单统计',
-               },
-               {
-                   id:'8-4',
-                   key:'8-4',
-                   title: '支付统计',
-               },
-               {
-                   id:'8-5',
-                   key:'8-5',
-                   title: '浏览量统计',
-               }
-
-           ]
-       },
-
-        {
-            id:'10',
-            key:'10',
-            title: '在线工单',
-            icon:<MessageOutlined />,
-        },
-        {
-            id:'11',
-            key:'11',
-            title: '数据源管理',
-            icon:<MessageOutlined />,
-            children:[
-                {
-                    id:'11-1',
-                    key:'11-1',
-                    title: 'db数据源管理',
-                },
-                {
-                    id:'11-2',
-                    key:'11-2',
-                    title: 'dss数据源管理',
-
-                }]
-        },
-        {
-            id:'12',
-            key:'12',
-            title: '对公转账支付',
+            title: '服务与支持',
             icon:<MessageOutlined />,
         },
     ]
@@ -159,85 +155,87 @@ const Setting = props => {
         const key = e.key;
 
         let links = [
-            {
-                key:'1',
-                router:`/`,
-            },
-            {
-                key:'9',
-                router:`/setting/productList`,
-            },
+
             {
                 key:'2-1',
-                router:`/setting/subscribe`,
+                router:`/index/member`,
             },
             {
                 key:'2-2',
-                router:`/setting/order`,
+                router:`/index/memberStatistics`,
             },
             {
-                key:'2-3',
-                router:`/setting/invoiceManage`,
+                key:'3-1',
+                router:`/index/tenant`,
             },
             {
-                key:'3',
-                router:`/setting/member`,
+                key:'3-2',
+                router:`/index/tenantStatistics`,
             },
-
-
+            {
+                key:'3-3',
+                router:'/index/sourceManage/manageDb',
+            },
+            {
+                key:'3-4',
+                router:`/index/sourceManage/manageDss`,
+            },
+            {
+                key:'4',
+                router:`/index/productList`,
+            },
+            {
+                key:'5-1',
+                router:`/index/subscribe`,
+            },
+            {
+                key:'5-2',
+                router:`/index/order`,
+            },
+            {
+                key:'5-3',
+                router:`/index/invoiceManage`,
+            },
+            {
+                key:'5-4',
+                router:`/index/publicTransfer`,
+            },
+            {
+                key:'5-5',
+                router:`/index/coupon`,
+            },
+            {
+                key:'5-6',
+                router:`/index/orderStatistics`,
+            },
+            {
+                key:'5-7',
+                router:`/index/payStatistics`,
+            },
             {
                 key:'6-1',
-                router:`/setting/activity`,
-            },
-            {
-                key:'6-2',
-                router:`/setting/coupon`,
-            },
-            {
-                key:'7',
-                router:`/setting/documentList`,
-            },
-            {
-                key:'8-1',
-                router:`/setting/memberStatistics`,
-            },
-            {
-                key:'8-2',
-                router:`/setting/tenantStatistics`,
-            },
-              {
-               key:'8-3',
-               router:`/setting/orderStatistics`,
-           },
-            {
-                key:'8-4',
-                router:`/setting/payStatistics`,
-            },
-            {
-                key:'8-5',
-                router:`/setting/viewStatistics`,
+                router:`/index/documentList`,
             },
 
             {
-                key:'10',
-                router:`/setting/workOrder`,
+                key:'6-2',
+                router:`/index/plugList`,
             },
             {
-                key:'11-1',
-                router:'/setting/sourceManage/manageDb',
+                key:'6-3',
+                router:`/index/blogList`,
             },
             {
-                key:'11-2',
-                router:`/setting/sourceManage/manageDss`,
+                key:'6-4',
+                router:`/index/viewStatistics`,
             },
+
             {
-                key:'12',
-                router:`/setting/publicTransfer`,
+                key:'7',
+                router:`/index/workOrder`,
             },
-            {
-                key:'13',
-                router:`/setting/plugList`,
-            },
+
+
 
         ];
         onSelectMenuSetting(props.history, key, links)
@@ -250,7 +248,7 @@ const Setting = props => {
     }
 
     return (
-        <div className='flex'>
+        <div className='system'>
             <div className={'setting-height'}>
                 <MenuList
                     data={menuData}
@@ -259,7 +257,7 @@ const Setting = props => {
                 />
             </div>
 
-            <div style={{width:'170%'}} className={'setting_right_height'}>
+            <div  className={'setting_right_height'}>
                 {renderRoutes(props.route.routes)}
             </div>
         </div>

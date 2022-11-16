@@ -1,0 +1,20 @@
+.plug{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .plug-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .plug-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .plug-data{
+        padding: var(--page-data-padding);
+    }
+
+}
+

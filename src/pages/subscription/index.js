@@ -6,22 +6,30 @@
  * @update: 2021-08-09 14:07
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input,Table, Space, Switch, Tooltip, Tag} from "antd";
+import {Breadcrumb, Row, Col, Input, Table, Space, Switch, Tooltip, Tag, Pagination} from "antd";
 import subscribeService from "../../service/subscribe.service";
-
+import SubscribeDetails from './subscribeDetails'
+import './subscribe.scss'
+import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons";
+import Paging from "../../common/components/paging";
 const Subscription = props => {
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState();
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+
     const [name, setName] = useState('');
-    const [tableData, setTableData] = useState([]);
+    const [subRecordList,setSubRecordList]=useState([])   //订阅记录List
+    const [subscribeLIst, setSubscribeList] = useState([]);   //订阅数据list
+    const [subscribe,setSubscribe]=useState()  //订阅数据
+    const [visible, setVisible] = useState(false);  //会员详情 弹窗状态
+
     const columns = [
 
         {
             title: '产品名称',
             dataIndex: ['product','name'],
             render: (text, record) => {
-                return <a className='text-blue-500' onClick={() => findDetails(record)}>{record.product.name}</a>
+                return <a className='text-blue-500' onClick={() => openMemberDetails(record)}>{record.product.name}</a>
             }
         },
         {
@@ -43,13 +51,7 @@ const Subscription = props => {
                 </>
             )
         },
-        {
-            title: '支付类型',
-            dataIndex: 'subType',
-            render: text => {
-                return text === 1 && '免费'||text === 2&& "购买"||text === 3&& "免费"
-            }
-        },
+
         {
             title: '订阅类型',
             dataIndex: 'bGroup',
@@ -63,8 +65,8 @@ const Subscription = props => {
             render:(text)=>(
                 <Space size="middle">
                     {
-                        text===1&&<Tag color={'green'} key={text}>使用中</Tag>||
-                        text===2&&<Tag color={'volcano'} key={text}>已过期</Tag>||
+                        text===1&&<Tag color={'green'} key={text}>订阅</Tag>||
+                        text===2&&<Tag color={'volcano'} key={text}>过期</Tag>||
                         text===3&&<Tag color={'default'} key={text}>试用</Tag>
                     }
                 </Space>
@@ -92,38 +94,28 @@ const Subscription = props => {
                     <div>max</div>
             )
         },
-        {
-            title: '启用状态',
-            key: 'useState',
-            render: (text, record) => (
-                <Space size="useState">
-                    {
-                        record.useState===1
-                            ?<Switch checkedChildren="释放" unCheckedChildren="停用" checked={true} onChange={()=>stopUse(record)} />
-                            :<Switch checkedChildren="释放" unCheckedChildren="停用" checked={false} onChange={()=>openUse(record)} />
-                    }
-                </Space>
-            ),
-        },
+
         {
             title: '操作',
             key: 'activity',
+            width:'5%',
             render: (text, record) => (
-                <Space size="useState">
-                    <a >编辑</a>
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="编辑">
+                        <EditOutlined className='cursor-pointer' />
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
 
     useEffect(async () => {
-
-        await getSubscribeData(page)
+        await getSubscribeData(currentPage)
     }, []);
 
     const filedState = (value) => {
         return(
-            value&&value.length>20?
+            value&&value.length>5?
                 <Tooltip placement="right" title={value}>
                     <div style={{
                         width: 100,
@@ -138,13 +130,29 @@ const Subscription = props => {
                 <div>{value}</div>
         )
     }
-    const findDetails=async (record)=>{
-        props.history.push({
-            pathname:"/setting/subscribe/details",
-            params:record.id
-        });
-    }
 
+    //打开订阅详情抽屉
+    const openMemberDetails =async (value) => {
+        setSubscribe(value)
+        await findSubRecord(value.id)
+        setVisible(true)
+    }
+    //关闭订阅详情抽屉
+    const closeMemberDetails = () => {
+        setVisible(false);
+    };
+
+
+    //查询订阅记录
+    const findSubRecord =async (subId) => {
+        const param={
+            subscribeId:subId
+        }
+        const res = await subscribeService.findSubscribeRecordList(param)
+        if (res.code===0){
+            setSubRecordList(res.data)
+        }
+    }
     //停用
     const stopUse=async (record)=>{
         const param={
@@ -165,23 +173,23 @@ const Subscription = props => {
     const updateSubscribe=async params=>{
        const pre=await subscribeService.updateSubscribeService(params)
         if (pre.code===0){
-           await getSubscribeData(page)
+           await getSubscribeData(currentPage)
         }
     }
 
     //分页条件查询订阅
-    const getSubscribeData = async(page) => {
+    const getSubscribeData = async(currentPage) => {
         const param={
             name: name,
             pageParam: {
                 pageSize: pageSize,
-                currentPage: page,
+                currentPage: currentPage,
             }
         }
-        const data = await subscribeService.findSubscribePageService(param)
-        if (data.code === 0) {
-            setTotalRecord(data.data.totalRecord)
-            setTableData(data.data.dataList)
+        const res = await subscribeService.findSubscribePageService(param)
+        if (res.code === 0) {
+            setTotalPage(res.data.totalPage)
+            setSubscribeList(res.data.dataList)
         }
     }
 
@@ -191,46 +199,37 @@ const Subscription = props => {
     }
 
     const onSearch = async () => {
-
         await getSubscribeData(1)
     }
 
 
-    const handleTableChange = async (pagination) => {
-        setPage(pagination.current)
+    const handleTableChange = async (value) => {
+        setCurrentPage(value)
+        await getSubscribeData(value)
 
-        await getSubscribeData(pagination.current)
     }
 
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>产品订阅管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">订阅列表</Breadcrumb.Item>
-                </Breadcrumb>
-                <Row gutter={[16, 16]} className='py-6'>
-                    <Col span={6}>
-                        <Input placeholder={'搜索名称'} value={name}  onChange={onInputName} onPressEnter={onSearch} />
-                    </Col>
-                </Row>
-                <Row gutter={[16, 16]} >
-                    <Col span={24}>
-                        <Table
-                            dataSource={tableData}
-                            columns={columns}
-                            rowKey={record => record.id}
-                            pagination={{
-                                pageSize: pageSize,
-                                current:page,
-                                total: totalRecord,
-                            }}
-                            onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
-                        />
-                    </Col>
-                </Row>
-            </div>
-        </section>
+        <div className='subscribe'>
+            <div className='subscribe-title'>订阅列表</div>
+            <Row gutter={[16, 16]} className='subscribe-data'>
+                <Col span={6}>
+                    <Input placeholder={'搜索名称'} value={name}  onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
+                </Col>
+            </Row>
+            <Row gutter={[16, 16]} >
+                <Col span={24}>
+                    <Table
+                        dataSource={subscribeLIst}
+                        columns={columns}
+                        rowKey={record => record.id}
+                        pagination={false}
+                    />
+                </Col>
+            </Row>
+            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+            <SubscribeDetails onClose={closeMemberDetails} visible={visible} subscribeData={subscribe} subRecordList={subRecordList}/>
+        </div>
     )
 }
 

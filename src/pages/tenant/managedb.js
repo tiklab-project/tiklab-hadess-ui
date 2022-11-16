@@ -162,7 +162,6 @@ const ManageDb = props=> {
             width={500}
             destroyOnClose={true}
             onOk={updateTenantDb}
-            style={{ top: 250 }}
             onCancel={tenantOnCancel}
         >
             <Row>
@@ -261,8 +260,8 @@ const ManageDb = props=> {
     return(
         <section className='flex-row p-6'>
             <div className='w-full  max-w-screen-xl m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href="#/">租户列表</Breadcrumb.Item>
+                <Breadcrumb separator="/" className='border-b border-solid pb-4'>
+                    <Breadcrumb.Item href="#/index/cont/tenant">租户列表</Breadcrumb.Item>
                     <Breadcrumb.Item href=""> 数据源管理</Breadcrumb.Item>
                 </Breadcrumb>
                 <div className='pt-6'>

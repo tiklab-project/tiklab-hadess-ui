@@ -4,6 +4,10 @@ import { Redirect } from 'react-router';
 import {Logout} from 'tiklab-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './layout/layout';
+
+//home 首页
+const Home = SyncComponent(() => import('./pages/home/home'));
+
 // 设置运营管理模块
 const Setting = SyncComponent(() => import('./pages/setting/setting'));
 
@@ -13,20 +17,6 @@ const System = SyncComponent(() => import('./pages/setting/system'));
 /*// 权限模块  (角色管理)
 const ProjectFeature = SyncComponent(() => import('./pages/system/projectFeature/projectFeature'));
 const ProjectSystemRole = SyncComponent(() => import('./pages/system/projectSystemRole/projectSystemRole'));*/
-
-// 权限模块  (角色管理)
-const RoleManage = SyncComponent(() => import('./pages/system/authorityCenter/roleManage'));
-//功能管理
-const functionManage = SyncComponent(() => import('./pages/system/authorityCenter/functionManage'));
-
-//组织中心（组织管理）
-const orgaManage = SyncComponent(() => import('./pages/system/organization/orgaManage'));
-//用户管理
-const userManage = SyncComponent(() => import('./pages/system/organization/userManage'));
-
-// 组织模块
-const OrgaManagement = SyncComponent(() => import('./pages/orga/orgaManagement/org'));
-const UserManagement = SyncComponent(() => import('./pages/orga/userManagement/userManagement'));
 
 // 认证配置
 const AuthConfig = SyncComponent(() => import('./pages/authConfig/authConfig'));
@@ -51,7 +41,7 @@ const compileVersion = SyncComponent(() => import('./pages/product/compileVersio
 // 会员管理
 const Member = SyncComponent(() => import('./pages/member'))
 //会员详情
-const MemberDetails = SyncComponent(() => import('./pages/member/memberDetails'))
+const MemberDetails = SyncComponent(() => import('./pages/member/old/details'))
 //添加会员
 const addMember = SyncComponent(() => import('./pages/member/addMember'))
 
@@ -72,8 +62,6 @@ const compileCashVolume = SyncComponent(() => import('./pages/promotion/coupon/c
 const couponDetails = SyncComponent(() => import('./pages/promotion/coupon/couponDetails'))
 
 
-//统计管理
-const Statistics = SyncComponent(() => import('./pages/statistics'))
 //订单统计管理
 const OrderStatistics = SyncComponent(() => import('./pages/statistics/orderStatistics'))
 //浏览量统计管理
@@ -91,13 +79,13 @@ const Repository = SyncComponent(() => import('./pages/document/documentList'))
 const Document = SyncComponent(() => import('./pages/document/document'))
 //编辑文档  （修改或删除）
 const compileDocument = SyncComponent(() => import('./pages/document/compileDocument'))
-//创建文档
-const AddDocument = SyncComponent(() => import('./pages/document/create/createDocument'))
-//修改文档
-const UpdateDocument = SyncComponent(() => import('./pages/document/update/updateDocument'))
 
 //插件列表
 const plugList = SyncComponent(() => import('./pages/plug/plugList'))
+//编辑插件  添加、更新
+const compilePlugVersion = SyncComponent(() => import('./pages/plug/compilePlugVersion'))
+//插件详情
+const plugDetails = SyncComponent(() => import('./pages/plug/plugDetails'))
 
 const Login = SyncComponent(() => import('./pages/Login'));
 
@@ -112,22 +100,40 @@ const workOrderDetails = SyncComponent(() => import('./pages/workOrder/workOrder
 //数据源管理- db list
 const dbSourceList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceList'))
 //数据源管理- tenantDb list
-const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/tenantDbList'))
+const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/old/tenantDbList'))
 //数据源管理- dss list
 const dssSourceList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceList'))
 //数据源管理- tenantDss list
-const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/tenantDssList'))
+const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/old/tenantDssList'))
 
 //对公转账订单管理
 const publicTransferList =SyncComponent(()=>import('./pages/publicTransfer/publicTransferList'))
 
+//博客列表
+const blogList =SyncComponent(()=>import('./pages/blog/blogList'))
+//博客列表
+const compileBlog =SyncComponent(()=>import('./pages/blog/compileBlog'))
+
+//设置-消息配置发送方式
+const messageType =SyncComponent(()=>import('./pages/sysmgr/message/messageType'))
+//设置-消息模版
+const messageTemplate =SyncComponent(()=>import('./pages/sysmgr/message/messageTemplate'))
+
+//设置-组织管理
+const orga =SyncComponent(()=>import('./pages/sysmgr/organ/orga'))
+//设置-组织管理
+const user =SyncComponent(()=>import('./pages/sysmgr/organ/user'))
+//设置-用户目录
+const userDirectory =SyncComponent(()=>import('./pages/sysmgr/organ/userDirectory'))
+//设置-权限
+const systemRole =SyncComponent(()=>import('./pages/sysmgr/role/systemRole'))
 const routers = [
-  /*  {
+    {
         path: "/login",
         exact: true,
         component: Login,
         key:'login'
-    },*/
+    },
     {
         path: "/logout",
         exact: true,
@@ -136,242 +142,254 @@ const routers = [
     },
     {
         component: LayoutHoc,
-        key: 'setting',
+        key: 'index',
         routes: [
             {
+                path: '/index/home',
+                component: Home,
+                exact: true,
+            },
+            {
                 component: Setting,
-                path:'/',
+                path:'/index',
                 routes:[
                     {
-                        path: '/setting/subscribe',
-                        component: Subscribe,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/subscribe/details',
-                        component: SubscribeDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/order',
-                        component: Orders,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/order/details',
-                        component: OrdersDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/productList',
-                        component: Product,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/product/detail',
-                        component: ProductDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/product/compileVersion',
-                        component: compileVersion,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/user',
-                        component: UserManagement,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/orga',
-                        component: OrgaManagement,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/member',
+                        path: '/index/member',
                         component: Member,
                         exact: true,
                     },
                     {
-                        path: '/setting/member/details',
+                        path: '/index/member/details',
                         component: MemberDetails,
                         exact: true,
                     },
                     {
-                        path: '/setting/member/addmember',
+                        path: '/index/member/addmember',
                         component: addMember,
                         exact: true,
                     },
                     {
-                        path: '/',
+                        path: '/index/tenant',
                         component:Tenant ,
                         exact: true,
                     },
                     {
-                        path: '/setting/tenant/tenantDetails',
+                        path: '/index/tenant/details',
                         component:TenantDetails ,
                         exact: true,
                     },
                     {
-                        path: '/setting/activity',
-                        component:activityList ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/activity/compileActivity',
-                        component:compileActivity ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/coupon',
-                        component:CouponList ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/coupon/details',
-                        component:couponDetails ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/activity/compileCashVolume',
-                        component:compileCashVolume ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/statistics',
-                        component:Statistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/orderStatistics',
-                        component:OrderStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/viewStatistics',
-                        component:ViewStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/memberStatistics',
-                        component:MemberStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/payStatistics',
-                        component:PayStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/tenantStatistics',
-                        component:TenantStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/documentList',
-                        component:Repository ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/document/details',
-                        component:Document ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/document/addDocument',
-                        component:AddDocument ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/document/compileDocument',
-                        component:compileDocument ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/document/updateDocument',
-                        component:UpdateDocument ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/plugList',
-                        component:plugList ,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/invoiceManage',
-                        component: InvoiceManage,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/workOrder',
-                        component: workOrderList,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/workOrder/details',
-                        component: workOrderDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/setting/sourceManage/manageDb',
+                        path: '/index/sourceManage/manageDb',
                         component: dbSourceList,
                         exact: true,
                     },
                     {
-                        path: '/setting/sourceManage/manageDb/tenantManageDb',
+                        path: '/index/sourceManage/tenantManageDb',
                         component: tenantDbList,
                         exact: true,
                     },
                     {
-                        path: '/setting/sourceManage/manageDss',
+                        path: '/index/sourceManage/manageDss',
                         component: dssSourceList,
                         exact: true,
                     },
                     {
-                        path: '/setting/sourceManage/manageDss/tenantManageDss',
+                        path: '/index/sourceManage/tenantManageDss',
                         component:tenantDssList,
                         exact: true,
                     },
                     {
-                        path: '/setting/publicTransfer',
+                        path: '/index/productList',
+                        component: Product,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/product/detail/:productId/:type',
+                        component: ProductDetails,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/product/compileVersion',
+                        component: compileVersion,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/subscribe',
+                        component: Subscribe,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/subscribe/details',
+                        component: SubscribeDetails,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/order',
+                        component: Orders,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/order/details',
+                        component: OrdersDetails,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/invoiceManage',
+                        component: InvoiceManage,
+                        exact: true,
+                    },
+
+                    {
+                        path: '/index/publicTransfer',
                         component:publicTransferList,
                         exact: true,
                     },
                     {
+                        path: '/index/coupon',
+                        component:CouponList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/coupon/details',
+                        component:couponDetails ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/coupon/compileCoupon',
+                        component:compileCashVolume ,
+                        exact: true,
+                    },
+                   /* {
+                        path: '/index/activity',
+                        component:activityList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/activity/compileActivity',
+                        component:compileActivity ,
+                        exact: true,
+                    },*/
+                    {
+                        path: '/index/orderStatistics',
+                        component:OrderStatistics ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/viewStatistics',
+                        component:ViewStatistics ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/memberStatistics',
+                        component:MemberStatistics ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/payStatistics',
+                        component:PayStatistics ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/tenantStatistics',
+                        component:TenantStatistics ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/documentList',
+                        component:Repository ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/document/details',
+                        component:Document ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/document/compileDocument',
+                        component:compileDocument ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/plugList',
+                        component:plugList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/plug/compileVersion/:plugId',
+                        component:compilePlugVersion ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/plug/details/:plugId',
+                        component:plugDetails ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/blogList',
+                        component:blogList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/blog/compileBlog/:id',
+                        component:compileBlog ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/workOrder',
+                        component: workOrderList,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/workOrder/details',
+                        component: workOrderDetails,
+                        exact: true,
+                    },
+
+                    {
                         path: '/',
                         exact: true,
-                        render: ()=><Redirect to="/setting"/>
+                        render: ()=><Redirect to="/index/home"/>
                     },
                 ]
             },
             {
                 component: System,
-                path:'/system',
+                path:'/sysmgr',
                 routes: [
                     {
-                        path: '/system/authority/roleManage',
-                        component: RoleManage,
+                        path: '/sysmgr/messageSendType',
+                        component:messageType,
                         exact: true,
                     },
                     {
-                        path: '/system/authority/functionManage',
-                        component: functionManage,
+                        path: '/sysmgr/messageTemplate',
+                        component:messageTemplate,
                         exact: true,
                     },
                     {
-                        path: '/system/organization/orgaManage',
-                        component:orgaManage,
-                        exact: true
-                    },
-                    {
-                        path: '/system/organization/userManage',
-                        component: userManage,
+                        path: '/sysmgr/orga',
+                        component:orga,
                         exact: true,
                     },
                     {
-                        path: '/system',
+                        path: '/sysmgr/user',
+                        component:user,
                         exact: true,
-                        render: ()=><Redirect to="/system/authority/roleManage"/>
+                    },
+                    {
+                        path: '/sysmgr/user/directory',
+                        component:userDirectory,
+                        exact: true,
+                    },
+                    {
+                        path: '/sysmgr/systemRole',
+                        component:systemRole,
+                        exact: true,
+                    },
+                    {
+                        path: '/',
+                        exact: true,
+                        render: ()=><Redirect to="/sysmgr/orga"/>
                     },
                 ]
             }

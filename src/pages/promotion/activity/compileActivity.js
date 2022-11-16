@@ -197,28 +197,73 @@ const CompileActivity = props => {
         setActivityKind(value)
     }
     return (
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item href='#/setting/activity'>活动列表</Breadcrumb.Item>
-                    <Breadcrumb.Item href="">创建活动</Breadcrumb.Item>
-                </Breadcrumb>
-                <Form
-                    {...layout}
-                    onFinish={onFinish}
-                    name="nest-messages"
-                    form={form}
-                    className='mt-6'>
-                    <Form.Item name={['activityName']} label="活动名称" rules={[{ required: true }]}>
-                        <Input
-                            type="text"
-                        />
-                    </Form.Item>
+        <div className='w-full mt-4 max-w-full m-auto max-w-screen-xl'>
+            <Breadcrumb separator="/" className=' border-solid'>
+                <Breadcrumb.Item href='#/setting/activity'>活动列表</Breadcrumb.Item>
+                <Breadcrumb.Item href="">创建活动</Breadcrumb.Item>
+            </Breadcrumb>
+            <Form
+                {...layout}
+                onFinish={onFinish}
+                name="nest-messages"
+                form={form}
+                className='mt-6'>
+                <Form.Item name={['activityName']} label="活动名称" rules={[{ required: true }]}>
+                    <Input
+                        type="text"
+                    />
+                </Form.Item>
 
-                    <Form.Item name={['activityType']} label="活动类型" >
-                        <Select defaultValue={activityType} value={activityType}  onChange={cuteType} >
+                <Form.Item name={['activityType']} label="活动类型" >
+                    <Select defaultValue={activityType} value={activityType}  onChange={cuteType} >
+                        {
+                            activityTypeList.map(item=>{
+                                return(
+                                    <Option key={item.code}  value={item.code} >
+                                        {item.name}
+                                    </Option>
+                                )
+                            })
+                        }
+                    </Select>
+                </Form.Item>
+                <Form.Item name={['activityKind']} label="活动种类" >
+                    <Select defaultValue={activityKind} value={activityKind}  onChange={cuteKind} >
+                        {
+                            activityKindList.map(item=>{
+                                return(
+                                    <Option key={item.id}  value={item.code} >
+                                        {item.name}
+                                    </Option>
+                                )
+                            })
+                        }fold
+                    </Select>
+                </Form.Item>
+
+                {activityKind!=='sub'&&
+                    <Form.Item
+                        name="desc"
+                        label='活动时间'
+                    >
+                        <Space direction="vertical" size={12}>
+                            <RangePicker
+                                showTime={{
+                                    format: 'HH:mm',
+                                }}
+                                format="YYYY-MM-DD HH:mm"
+                                onChange={onChange}
+                            />
+                        </Space>
+                        <span className='pl-4 text-gray-400'>(不添加时间则永久有效)</span>
+                    </Form.Item>
+                }
+
+                {activityKind==='sub'&&
+                    <Form.Item name={['ruleList']} label="活动规则" >
+                        <Select defaultValue={rule} value={rule} showArrow onChange={cuteRule}   style={{ width: 420 }}>
                             {
-                                activityTypeList.map(item=>{
+                                ruleList.map(item=>{
                                     return(
                                         <Option key={item.code}  value={item.code} >
                                             {item.name}
@@ -228,63 +273,17 @@ const CompileActivity = props => {
                             }
                         </Select>
                     </Form.Item>
-                    <Form.Item name={['activityKind']} label="活动种类" >
-                        <Select defaultValue={activityKind} value={activityKind}  onChange={cuteKind} >
+                }
+                {
+                    activityKind==='full'&&
+                    <Form.Item
+                        name="reducePrice"
+                        label='满减规则'
+                        required="required"
+                    >
+                        <div className=' flex  grid grid-cols-2 gap-4' >
                             {
-                                activityKindList.map(item=>{
-                                    return(
-                                        <Option key={item.id}  value={item.code} >
-                                            {item.name}
-                                        </Option>
-                                    )
-                                })
-                            }fold
-                        </Select>
-                    </Form.Item>
-
-                    {activityKind!=='sub'&&
-                        <Form.Item
-                            name="desc"
-                            label='活动时间'
-                        >
-                            <Space direction="vertical" size={12}>
-                                <RangePicker
-                                    showTime={{
-                                        format: 'HH:mm',
-                                    }}
-                                    format="YYYY-MM-DD HH:mm"
-                                    onChange={onChange}
-                                />
-                            </Space>
-                            <span className='pl-4 text-gray-400'>(不添加时间则永久有效)</span>
-                        </Form.Item>
-                    }
-
-                    {activityKind==='sub'&&
-                        <Form.Item name={['ruleList']} label="活动规则" >
-                            <Select defaultValue={rule} value={rule} showArrow onChange={cuteRule}   style={{ width: 420 }}>
-                                {
-                                    ruleList.map(item=>{
-                                        return(
-                                            <Option key={item.code}  value={item.code} >
-                                                {item.name}
-                                            </Option>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        </Form.Item>
-                    }
-                    {
-                       activityKind==='full'&&
-                        <Form.Item
-                            name="reducePrice"
-                            label='满减规则'
-                            required="required"
-                        >
-                            <div className=' flex  grid grid-cols-2 gap-4' >
-                                {
-                                    number.map((item,index)=>{
+                                number.map((item,index)=>{
                                         return(
                                             <div className='flex  space-x-2 w-2/3' key={index}  >
                                                 <Input.Group compact  >
@@ -303,75 +302,74 @@ const CompileActivity = props => {
                                             </div>
                                         )
                                     }
+                                )
+                            }
+
+                        </div>
+                    </Form.Item>
+                }
+                {
+                    activityKind==='dis'&&
+                    <Form.Item
+                        name="discount"
+                        label='折扣数'
+                        required="required"
+                    >
+                        <InputNumber />
+                    </Form.Item>
+                }
+
+                {
+                    (activityKind==='dis'||activityKind==='fold')&&<Form.Item
+                        name="product"
+                        label='折扣产品'
+                        required="required"
+                    >
+                        <Select  showArrow onChange={optionProduct} >
+                            {
+                                productList&&productList.map(item=>{
+                                    return(
+                                        <Option key={item.id}  value={item.id} >
+                                            {
+                                                item.type==='saas'&&<div>{item.name+'(saas版本)'}</div>||
+                                                item.type==='ee'&&<div className='text-gray-500'>{item.name+'(企业版本)'}</div>||
+                                                item.type==='no'&&<div>{'所有产品'}</div>
+                                            }
+                                        </Option>
                                     )
-                                }
+                                })
+                            }
+                        </Select>
+                    </Form.Item>
+                }
+                {
+                    activityKind==='sub'&&rule==='userNum'&&
+                    <Form.Item name={['userNum']} label="人数"  rules={[{ required: true }]}>
+                        <InputNumber placeholder="输入大于0" style={{width: 150}}/>
+                    </Form.Item>
+                }
+                {
+                    activityKind==='sub'&&rule==='math'&&
+                    <Form.Item name={['math']} label="月数" rules={[{ required: true }]}>
+                        <InputNumber placeholder="输入大于0" style={{width: 150}}/>
+                    </Form.Item>
+                }
+                {
+                    activityKind==='sub'&&
+                    <Form.Item name={['discount']} label="折扣" rules={[{ required: true }]}>
+                        <InputNumber placeholder="0～1之间"  style={{width: 150}}/>
+                    </Form.Item>
+                }
 
-                            </div>
-                        </Form.Item>
-                    }
-                    {
-                        activityKind==='dis'&&
-                        <Form.Item
-                            name="discount"
-                            label='折扣数'
-                            required="required"
-                        >
-                            <InputNumber />
-                        </Form.Item>
-                    }
-
-                    {
-                        (activityKind==='dis'||activityKind==='fold')&&<Form.Item
-                            name="product"
-                            label='折扣产品'
-                            required="required"
-                        >
-                            <Select  showArrow onChange={optionProduct} >
-                                {
-                                    productList&&productList.map(item=>{
-                                        return(
-                                            <Option key={item.id}  value={item.id} >
-                                                {
-                                                    item.type==='saas'&&<div>{item.name+'(saas版本)'}</div>||
-                                                    item.type==='ee'&&<div className='text-gray-500'>{item.name+'(企业版本)'}</div>||
-                                                    item.type==='no'&&<div>{'所有产品'}</div>
-                                                }
-                                            </Option>
-                                        )
-                                    })
-                                }
-                            </Select>
-                        </Form.Item>
-                    }
-                    {
-                        activityKind==='sub'&&rule==='userNum'&&
-                        <Form.Item name={['userNum']} label="人数"  rules={[{ required: true }]}>
-                            <InputNumber placeholder="输入大于0" style={{width: 150}}/>
-                        </Form.Item>
-                    }
-                    {
-                        activityKind==='sub'&&rule==='math'&&
-                        <Form.Item name={['math']} label="月数" rules={[{ required: true }]}>
-                            <InputNumber placeholder="输入大于0" style={{width: 150}}/>
-                        </Form.Item>
-                    }
-                    {
-                        activityKind==='sub'&&
-                        <Form.Item name={['discount']} label="折扣" rules={[{ required: true }]}>
-                            <InputNumber placeholder="0～1之间"  style={{width: 150}}/>
-                        </Form.Item>
-                    }
-
-                    <Row>
-                        <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
-                            <Button type="primary" htmlType="submit">
-                                提交
-                            </Button>
-                        </Col>
-                    </Row>
-                </Form>
-            </div>
-        </section>
+                <Row>
+                    <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
+                        <Button type="primary" htmlType="submit">
+                            提交
+                        </Button>
+                    </Col>
+                </Row>
+            </Form>
+        </div>
     )
 }
 export default CompileActivity

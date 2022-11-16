@@ -14,7 +14,7 @@ import productService from "../../service/product.service";
 const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 24},
 };
 const systemTypeList=[{key:'windows',value:'windows'},{key:'macOs',value:'macOs'},{key:'linux',value:'linux'}]
 const UploadProduct = props => {
@@ -104,21 +104,24 @@ const UploadProduct = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
-                        <Form.Item name={['productName']} label="项目名称" rules={[{ required: true }]}>
+                        <Form.Item name={['productName']} label="项目名称"   >
                             <Input
                                 type="text"
                                 disabled
+                                placeholder={editData?.product.name}
                             />
                         </Form.Item>
-                        <Form.Item name={['version']} label="项目版本" rules={[{ required: true }]}>
+                        <Form.Item name={['version']} label="项目版本"  >
                             <Input
                                 type="text"
                                 disabled
+                                placeholder={editData?.version}
                             />
                         </Form.Item>
-                        <Form.Item name={['systemType']} label="包类型" rules={[{ required: true }]}>
-                            <Select showArrow >
+                        <Form.Item name={['systemType']} label="包类型"  rules={[{ required: true }]}>
+                            <Select showArrow  placeholder={'请选择上传类型'}>
                                 {
                                     systemTypeList.map(item=>{
                                         return(

@@ -1,0 +1,27 @@
+.invoice{
+    margin: auto;
+    padding: var(--page-padding);
+    max-width: var(--page-max-width);
+    min-width: var(--page-min-width);
+    .invoice-head-style{
+        display: flex;
+        justify-content: space-between;
+    }
+    .invoice-title {
+        font-weight:var(--title-weight);
+        font-size: var(--title-size);
+        display: flex;
+    }
+    .invoice-data{
+        padding: var(--page-data-padding);
+    }
+
+}
+
+
+
+#tabPane{
+    .ant-tabs-nav:before{
+        border-bottom: 0 !important;
+    }
+}

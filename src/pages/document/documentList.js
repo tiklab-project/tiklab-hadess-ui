@@ -7,16 +7,32 @@
  */
 import {withRouter} from "react-router";
 import React,  {useState, useEffect} from "react";
-import {Breadcrumb, Button, Col, Input, Row, Select, Space, Table,Modal,Tooltip,Empty } from "antd";
+import {
+    Breadcrumb,
+    Button,
+    Col,
+    Input,
+    Row,
+    Select,
+    Space,
+    Table,
+    Modal,
+    Tooltip,
+    Empty,
+    Pagination
+} from "antd";
 import documentService from "../../service/document.service"
-import CreateOrUpdateRepository from "./popup/createOrUpdateRepository";
+import CompileRepository from "./compileRepository";
+import './document.scss'
 import {comment} from "postcss";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import Paging from "../../common/components/paging";
 const { confirm } = Modal;
 const DocumentList = props => {
-    const [page, setPage] = useState(1);
+    const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
-    const [totalRecord, setTotalRecord] = useState('');
+    const [totalPage,setTotalPage]=useState(0);  //总页数
+
     const [repositoryData,setRepositoryData]=useState([]) //空间
     const [visible, setVisible] = useState(false); //创建弹窗状态
     const [editData, setEditData] = useState(null);  //编辑空间传到弹窗的数据
@@ -50,38 +66,43 @@ const DocumentList = props => {
         {
             title: '操作',
             key: 'action',
+            width:'10%',
             render: (text, record) => (
-                <Space size="middle">
-                    <a onClick={() => editRepository(record)}>编辑</a>
-                    <a onClick={() => deletePop(record.id)}>删除</a>
+                <Space size="useState" className='flex  gap-x-4 '>
+                    <Tooltip title="编辑">
+                        <EditOutlined className='cursor-pointer' onClick={()=>editRepository(record)}/>
+                    </Tooltip>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' onClick={()=>deletePop(record.id)}/>
+                    </Tooltip>
                 </Space>
             ),
         },
     ];
     useEffect(async ()=>{
-        await findRepository(page)
+        await findRepository(currentPage)
     },[])
 
     const skipDocument=async (record)=>{
         props.history.push({
-            pathname:"/setting/document/details",
+            pathname:"/index/document/details",
             params:record
         });
     }
     //查询所有文档空间
-    const findRepository=async (page)=>{
+    const findRepository=async (currentPage)=>{
         const param={
             name:name,
              pageParam: {
                 pageSize: pageSize,
-                currentPage: page,
+                currentPage: currentPage,
              }
         }
 
      const res=  await documentService.findRepositoryPage(param)
         if (res.code===0){
             setRepositoryData(res.data.dataList)
-            setTotalRecord(res.data.total)
+            setTotalPage(res.data.totalPage)
         }
     }
     //编辑文档空间
@@ -130,66 +151,56 @@ const DocumentList = props => {
     //确认添加
     const onOk=async ()=>{
         setVisible(false)
-        await findRepository(page)
+        await findRepository(currentPage)
     }
     //分页
     const handleTableChange = async (pagination) => {
-        setPage(pagination.current)
-        await findRepository(pagination.current)
+        setCurrentPage(pagination)
+        await findRepository(pagination)
     }
     const onInputName = (e) => {
         const value = e.target.value
         setName(value)
     }
     const onSearch = async () => {
-        await findRepository(page)
+        await findRepository(currentPage)
     }
     return(
-        <section className='w-full flex flex-row'>
-            <div className='w-full p-6 max-w-full m-auto'>
-                <Breadcrumb separator=">" className='border-b border-solid pb-4'>
-                    <Breadcrumb.Item>文档管理</Breadcrumb.Item>
-                    <Breadcrumb.Item href=""> 文档列表</Breadcrumb.Item>
-                </Breadcrumb>
-
-                {
-                    repositoryData.length>0?
-                        <div>
-                            <Row gutter={[16, 16]} className='py-6'>
-                                <Col span={6}>
-                                    <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch}/>
-                                </Col>
-                                <Col span={10} offset={8} className='flex justify-end'>
-                                    <Button type="primary" onClick={openCreatePopup}>添加文档空间</Button>
-                                </Col>
-                            </Row>
-                            <Row gutter={[16, 16]} >
-                                <Col span={24}>
-                                    <Table
-                                        dataSource={repositoryData}
-                                        columns={columns}
-                                        rowKey={record => record.id}
-                                        pagination={{
-                                            current:page,
-                                            pageSize: pageSize,
-                                            total: totalRecord,
-                                        }}
-                                        onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                                    />
-                                </Col>
-                            </Row>
-                        </div>
+        <div className=' document'>
+            <div className='document-head-style'>
+                <div className='document-title'>文档列表</div>
+                <Button type="primary" onClick={openCreatePopup}>添加文档空间</Button>
+            </div>
+            {
+                repositoryData.length>0?
+                    <div>
+                        <Row gutter={[16, 16]} className='document-data'>
+                            <Col span={6}>
+                                <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch}/>
+                            </Col>
+                        </Row>
+                        <Row gutter={[16, 16]} >
+                            <Col span={24}>
+                                <Table
+                                    dataSource={repositoryData}
+                                    columns={columns}
+                                    rowKey={record => record.id}
+                                    pagination={false}
+                                />
+                            </Col>
+                        </Row>
+                        <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+                    </div>
 
                     : <div>
-                            <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}  >
-                                <Button type="primary" onClick={openCreatePopup}>现在创建</Button>
+                        <Empty image={Empty.PRESENTED_IMAGE_SIMPLE}  >
+                            <Button type="primary" onClick={openCreatePopup}>现在创建</Button>
                         </Empty>
                     </div>
 
-                }
-            </div>
-            <CreateOrUpdateRepository visible={visible} onCancel={onCancel} onok={onOk} editData={editData} compileType={compileType}/>
-        </section>
+            }
+            <CompileRepository visible={visible} onCancel={onCancel} onok={onOk} editData={editData} compileType={compileType}/>
+        </div>
     )
 }
 

@@ -1,0 +1,52 @@
+.frame-header-drawer {
+    margin-top: 48px;
+    .ant-drawer-body {
+        padding: 0;
+        overflow: hidden;
+
+        .ant-tabs-nav {
+            padding: 0 24px;
+        }
+    }
+    .message-box {
+        height: calc(100vh - 170px);
+        overflow: auto;
+        padding: 0 24px;
+        .message-list {
+            // display: flex;
+            // align-items: center;
+            // justify-content: space-between;
+            padding-bottom: 10px;
+        }
+        .message-item-text {
+            flex: 1;
+            margin-left: 10px;
+            .message-item-title {
+                height: 40px;
+                line-height: 40px;
+                font-weight: var(--tiklab-font-weight-bold);
+                font-size: 16px;
+                .message-item-time{
+                    padding: 0 10px;
+                    font-size: 12px;
+                    color: #999;
+                }
+            }
+            .message-item-desc {
+                height: 30px;
+                line-height: 30px;
+            }
+        }
+        .message-item-id {
+            font-size: 12px;
+            color: #999;
+        }
+        .message-list-bottom {
+            text-align: center;
+            font-size: 12px;
+            height: 30px;
+            line-height: 30px;
+        }
+
+    }
+}
