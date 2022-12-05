@@ -75,11 +75,13 @@ const Details=props=>{
             workOrder:{
                 id:data.id
             },
-            tenantId:data.tenantId,
+            tenantId:data.tenant.id,
+            memberId:data.member.id,
             userId:getUser().userId,
             replyContent:value.description,
 
         }
+        debugger
         const res=await workOrderServer.createWorkOrderReply(param)
         if (res.code===0){
             await updateWorkOrder()

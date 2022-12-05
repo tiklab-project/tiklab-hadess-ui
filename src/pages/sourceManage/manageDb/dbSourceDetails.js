@@ -8,12 +8,13 @@
 import React, {useState, useEffect} from "react";
 import {Breadcrumb, Space, Table, message, Button, Select, Input} from "antd";
 import {withRouter} from "react-router";
-import tenantService from "../../../../service/tenant.service";
-import '../../manageDb/manageDb.scss'
+import tenantService from "../../../service/tenant.service";
+import './manageDb.scss'
 const { Option } = Select;
-import TenantDbUpdate from "../tenantDbUpdate";
-const TenantDbList = props => {
-    const dbDatabase=props.history.location.params
+import TenantDbUpdate from "./tenantDbUpdate";
+const DbSourceDetails = props => {
+    const {match:{params}} = props;
+
     const [tenantDbList,setTenantDbList]=useState([])
     const [database,setDatabase]=useState()
     const [tenantDbVisible,setTenantDbVisible]=useState(false)  //修改租户的数据源弹窗
@@ -55,12 +56,24 @@ const TenantDbList = props => {
     ];
 
     useEffect(async ()=>{
-        if (dbDatabase){
-            sessionStorage.setItem("database", JSON.stringify(dbDatabase));
-        }
-        await findTenantDatabase(1)
-        await findAllDatabase()
+       await findDbSource(params.id)
+
     },[])
+
+    //查询数据源详情
+    const findDbSource =async (id) => {
+      const param = new FormData();
+      param.append('id',id)
+      const res = await tenantService.findTenantDbGroup(param)
+        if (res.code===0){
+            setDatabase(res.data)
+
+            await findTenantDatabase(1,id)
+            await findAllDatabase()
+        }
+
+    }
+
 
     const findAllDatabase = async () => {
         const res=await tenantService.findAllTenantDbGroup()
@@ -69,12 +82,10 @@ const TenantDbList = props => {
         }
     }
 
-    //查询改数据源下面的租户
-    const findTenantDatabase = async (type,name) => {
-        const database=JSON.parse(sessionStorage.getItem("database"));
-        setDatabase(database)
+    //查询数据源下面的租户
+    const findTenantDatabase = async (type,id,name) => {
         const param={
-            dbGroupId:database.id,
+            dbGroupId:id,
             tenantName:name
         }
         const res=await tenantService.findTenantDatabaseByDb(param)
@@ -101,7 +112,7 @@ const TenantDbList = props => {
     const closeUpdateVisible =async () => {
         setName('')
         setTenantDbVisible(false)
-        await findTenantDatabase(2)
+        await findTenantDatabase(2,database.id)
     }
 
     const rowSelection = {
@@ -119,7 +130,7 @@ const TenantDbList = props => {
         if (tenantDbIds.length){
             return message.warn('请取消多选在搜索');
         }
-        await findTenantDatabase(2,name)
+        await findTenantDatabase(2,database.id,name)
     }
     return(
         <div className=' manage-db '>
@@ -137,28 +148,36 @@ const TenantDbList = props => {
             }
             {
                 dataState?
-                    <div className='border border-gray-200 '>
-                        <div className='flex justify-between py-4 pl-4 px-2' >
-                            <div className='flex space-x-6 '>
-                                <div >
-                                    <Input placeholder={'搜索租户'} style={{ width: 240 }} value={name} onChange={onInputName}  onPressEnter={onSearch}/>
-                                </div>
-                            </div>
+                    <div>
+                        <div className='flex mt-6 justify-between'>
+                            <div className='text-base  font-medium'>企业数据源列表</div>
                             <Button type="primary" onClick={openUpdateVisibleS}>批量切换</Button>
                         </div>
-                        <Table
-                            rowSelection={{
-                                type: 'checkbox',
-                                ...rowSelection,
-                            }}
-                            columns={columns}
-                            dataSource={tenantDbList}
-                            rowKey = {record => record.id}
-                            pagination={false}
-                            scroll={{ y: 400 }}
-                        />
 
-                    </div>:
+                        <div className='mt-4 '>
+                           {/* <div className='flex justify-between py-4 pl-4 px-2' >
+                                <div className='flex space-x-6 '>
+                                    <div >
+                                        <Input placeholder={'搜索租户'} style={{ width: 240 }} value={name} onChange={onInputName}  onPressEnter={onSearch}/>
+                                    </div>
+                                </div>
+
+                            </div>*/}
+                            <Table
+                                rowSelection={{
+                                    type: 'checkbox',
+                                    ...rowSelection,
+                                }}
+                                columns={columns}
+                                dataSource={tenantDbList}
+                                rowKey = {record => record.id}
+                                pagination={false}
+                               // scroll={{ y: 400 }}
+                            />
+
+                        </div>
+                    </div>
+                   :
                     <div className='border border-gray-200 h-12 text-center py-3 bg-gray-50'>
                         该数据源下面没有租户
                     </div>
@@ -168,4 +187,4 @@ const TenantDbList = props => {
 
 )
 }
-export default  withRouter(TenantDbList)
+export default  withRouter(DbSourceDetails)

@@ -216,7 +216,7 @@ const Product = (props) => {
            </div>
             <Row gutter={[16, 16]} className='product-data'>
                 <Col span={6}>
-                    <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
+                    <Input placeholder={'产品名称'} value={name} onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
                 </Col>
             </Row>
             <Row gutter={[16, 16]} >

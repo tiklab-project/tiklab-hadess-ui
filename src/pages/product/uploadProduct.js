@@ -51,7 +51,7 @@ const UploadProduct = props => {
     //文件上传
     const uploadPros = {
         name: 'uploadFile',
-        data:{type:"projectPage"},
+        data:{type:"projectBag"},
         action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket

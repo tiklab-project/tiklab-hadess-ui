@@ -157,7 +157,6 @@ const CouponList = props => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
-            style:{top: 200} ,
             onOk() {
                 deleteCoupon(couponId)
             },

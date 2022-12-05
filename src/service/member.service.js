@@ -8,6 +8,7 @@
 import {Axios} from 'tiklab-core-ui';
 
 export const findMemberPageApi = '/member/findMemberPage';
+export const findMemberListApi = '/member/findMemberList';
 
 export const updateMemberApi = '/member/updateMember';
 export const createMemberApi = '/member/createMember';
@@ -19,6 +20,10 @@ class MemberService {
     // 通过条件分页查询会员
     async findMemberPage(data){
         const response = await Axios.post(findMemberPageApi, data)
+        return response
+    }
+    async findMemberList(data){
+        const response = await Axios.post(findMemberListApi, data)
         return response
     }
 

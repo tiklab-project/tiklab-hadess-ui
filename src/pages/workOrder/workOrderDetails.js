@@ -11,7 +11,7 @@ import {getUser} from "tiklab-core-ui";
 import workOrderServer from "../../service/workOrder.server";
 const { TextArea } = Input;
 const WorkOrderDetails = (props) => {
-    const {visible, onClose,workOrderData} = props;
+    const {visible, onClose,workOrderData,answer} = props;
     const [form] = Form.useForm();
 
     //提交回复内容
@@ -20,10 +20,10 @@ const WorkOrderDetails = (props) => {
             workOrder:{
                 id:workOrderData.id
             },
-            tenantId:workOrderData.tenantId,
+            tenantId:workOrderData.tenant?.id,
+            memberId:workOrderData.member?.id,
             userId:getUser().userId,
             replyContent:value.description,
-
         }
         const res=await workOrderServer.createWorkOrderReply(param)
         if (res.code===0){
@@ -52,8 +52,8 @@ const WorkOrderDetails = (props) => {
                 <div className='space-y-3'>
                     <p >工单类型 : {workOrderData.type==='flow'&&'流程'||workOrderData.type==='per'&&'性能'||workOrderData.type==='common'&&'常规'} </p>
                     <p>所属产品 : {workOrderData.product.name}</p>
-                    <p>提交会员 : {workOrderData.userName}</p>
-                    <p>提交企业 : {workOrderData.userName}</p>
+                    <p>提交会员 : {workOrderData.member.nickName}</p>
+                    <p>提交企业 : {workOrderData.tenant?.name}</p>
                     <div>问题描述 :
                         <p className='pt-2 pl-6 leading-loose '>
                             {workOrderData.description}
@@ -76,7 +76,7 @@ const WorkOrderDetails = (props) => {
                                     </Button>
                                 </Form> :
                                 <div className='py-2 pl-3 bg-gray-100 leading-loose '>
-                                    {workOrderData.description}
+                                    {answer?.replyContent}
                                 </div>
                         }
                     </div>

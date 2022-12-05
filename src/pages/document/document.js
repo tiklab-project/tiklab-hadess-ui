@@ -481,7 +481,7 @@ const Document = props => {
                     </div>
                 </div>
             </div>
-            <div className={'w-full p-6  max-w-screen-xl right-hight'}>
+            <div className={'w-full p-6  max-w-screen-xl '}>
                 {
                     documentDetails?
                     documentDetail():

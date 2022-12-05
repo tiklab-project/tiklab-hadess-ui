@@ -5,15 +5,13 @@
 }
 
 .setting-height{
-    height: 100%;
+    height: auto;
     width: 200px;
     min-width: 200px;
     overflow: auto;
     display: flex;
 }
 .setting_right_height{
-    height: calc(100vh - 60px);
-    width: 88%;
-
+    width: 100%;
     overflow: auto;
 }

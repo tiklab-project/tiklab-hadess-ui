@@ -122,10 +122,11 @@ const compileCashVolume = props => {
                 <Form.Item name={['couponName']} label="优惠券名称" rules={[{ required: true }]}>
                     <Input
                         type="text"
+                        placeholder='请填写优惠券名称'
                     />
                 </Form.Item>
                 <Form.Item name={['bGroup']} label="优惠券类型" rules={[{ required: true }]}>
-                    <Select  showArrow onChange={cuteType}>
+                    <Select  showArrow onChange={cuteType} placeholder='请选择优惠券类型'>
                         {rollBGroupList.map(item=>{
                             return(
                                 <Option key={item.code}  value={item.code} >
@@ -163,7 +164,7 @@ const compileCashVolume = props => {
                     </Space>
                 </Form.Item>
                 <Form.Item name={['activityKind']} label="优惠卷种类" rules={[{ required: true }]}>
-                    <Select  showArrow onChange={cuteKind} >
+                    <Select  showArrow onChange={cuteKind} placeholder='请选择优惠券种类' >
                         {couponTypeList.map(item=>{
                             return(
                                 <Option key={item.code}  value={item.code} >

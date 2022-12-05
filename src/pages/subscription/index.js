@@ -6,22 +6,40 @@
  * @update: 2021-08-09 14:07
  */
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Row, Col, Input, Table, Space, Switch, Tooltip, Tag, Pagination} from "antd";
+import {
+    Breadcrumb,
+    Row,
+    Col,
+    Input,
+    Table,
+    Space,
+    Switch,
+    Tooltip,
+    Tag,
+    Pagination,
+    Select
+} from "antd";
 import subscribeService from "../../service/subscribe.service";
 import SubscribeDetails from './subscribeDetails'
 import './subscribe.scss'
 import {DeleteOutlined, EditOutlined, SearchOutlined} from "@ant-design/icons";
 import Paging from "../../common/components/paging";
+import productService from "../../service/product.service";
+const { Option } = Select;
 const Subscription = props => {
     const [currentPage, setCurrentPage] = useState(1);
     const [pageSize] = useState(10);
     const [totalPage,setTotalPage]=useState(0);  //总页数
 
-    const [name, setName] = useState('');
+    const [tenantName, setTenantName] = useState('');
     const [subRecordList,setSubRecordList]=useState([])   //订阅记录List
     const [subscribeLIst, setSubscribeList] = useState([]);   //订阅数据list
     const [subscribe,setSubscribe]=useState()  //订阅数据
     const [visible, setVisible] = useState(false);  //会员详情 弹窗状态
+
+    const [productList,setProductList]=useState([])  //去重后的产品
+    const [productCode,setProductCode]=useState(null)  //选择的产品编码
+    const [type,setType]=useState(null)   //选择的产品类型
 
     const columns = [
 
@@ -47,7 +65,7 @@ const Subscription = props => {
             dataIndex: ['member','nickName'],
             render: (text, record) => (
                 <>
-                    {filedState(record.member.nickName)}
+                    {filedState(record.member?.nickName)}
                 </>
             )
         },
@@ -56,7 +74,7 @@ const Subscription = props => {
             title: '订阅类型',
             dataIndex: 'bGroup',
             render: text => {
-                return text === 1 ? 'sass' : "企业"
+                return text === 1 ? 'saas订阅' : "企业订阅"
             }
         },
         {
@@ -113,6 +131,7 @@ const Subscription = props => {
         await getSubscribeData(currentPage)
     }, []);
 
+
     const filedState = (value) => {
         return(
             value&&value.length>5?
@@ -153,70 +172,95 @@ const Subscription = props => {
             setSubRecordList(res.data)
         }
     }
-    //停用
-    const stopUse=async (record)=>{
-        const param={
-            ...record,
-            useState:2,
-        }
-       await updateSubscribe(param)
-    }
-    //释放
-    const openUse=async (record)=>{
-        const param={
-            ...record,
-            useState:1,
-        }
-        await updateSubscribe(param)
-    }
-    //修改订阅
-    const updateSubscribe=async params=>{
-       const pre=await subscribeService.updateSubscribeService(params)
-        if (pre.code===0){
-           await getSubscribeData(currentPage)
-        }
-    }
+
 
     //分页条件查询订阅
-    const getSubscribeData = async(currentPage) => {
+    const getSubscribeData = async(currentPage,productCode,type) => {
         const param={
-            name: name,
+            productCode:productCode,
+            bGroup:type,
             pageParam: {
                 pageSize: pageSize,
                 currentPage: currentPage,
-            }
+            },
+            tenantName:tenantName
         }
         const res = await subscribeService.findSubscribePageService(param)
         if (res.code === 0) {
             setTotalPage(res.data.totalPage)
             setSubscribeList(res.data.dataList)
+
+           await findAllProductListSig()
         }
+    }
+
+    //查询产品
+    const findAllProductListSig =async () => {
+       const res = await productService.findAllProductListSig()
+        if (res.code===0){
+            setProductList([{code:null,name:"全部产品"},...res.data])
+        }
+    }
+
+    //切换产品
+    const cuteProduct =async (value) => {
+        setCurrentPage(1)
+        setProductCode(value)
+        await  getSubscribeData(1,value,type)
+    }
+    //切换类型
+    const cuteType = async (value) => {
+        setCurrentPage(1)
+        setType(value)
+        await  getSubscribeData(1,productCode,value)
     }
 
     const onInputName = (e) => {
         const value = e.target.value
-        setName(value)
+        setTenantName(value)
     }
 
     const onSearch = async () => {
+        setCurrentPage(1)
         await getSubscribeData(1)
     }
 
 
     const handleTableChange = async (value) => {
         setCurrentPage(value)
-        await getSubscribeData(value)
+        await getSubscribeData(value,productCode,type)
 
     }
 
     return(
         <div className='subscribe'>
             <div className='subscribe-title'>订阅列表</div>
-            <Row gutter={[16, 16]} className='subscribe-data'>
-                <Col span={6}>
-                    <Input placeholder={'搜索名称'} value={name}  onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
-                </Col>
-            </Row>
+
+                <div className='subscribe-data space-x-4'>
+                    <Select  style={{ width: 170 }}   placeholder='订阅类型' onChange={cuteType}>
+                        <Option>全部类型</Option>
+                        <Option value='1'>saas订阅</Option>
+                        <Option value='2'>企业订阅</Option>
+                    </Select>
+                    <Select  style={{ width: 170 }}   placeholder='产品' onChange={cuteProduct}>
+                        {
+                            productList?.map(item=>{
+                                return(
+                                    <Option key={item.code} value={item.code} >{item.name}</Option>
+                                )
+                            })
+                        }
+                    </Select>
+                    <Select  style={{ width: 170 }}   placeholder='订阅状态'>
+                        <Option  >全部状态</Option>
+                        <Option value='sub'>订阅中</Option>
+                        <Option value='try'>试用</Option>
+                        <Option value='out'>过期</Option>
+                    </Select>
+                    <Col span={4}>
+                        <Input placeholder={'租户名称'} value={tenantName}  onChange={onInputName} onPressEnter={onSearch} prefix={<SearchOutlined/>} className='text-gray-400' />
+                    </Col>
+                </div>
             <Row gutter={[16, 16]} >
                 <Col span={24}>
                     <Table

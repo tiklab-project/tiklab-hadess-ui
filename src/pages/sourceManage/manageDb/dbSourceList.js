@@ -12,16 +12,12 @@ const { confirm } = Modal;
 import tenantService from "../../../service/tenant.service";
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import './manageDb.scss'
-import DbAddOrUpdate from "./dbAddOrUpdate";
+import DbSourceCompile from "./dbSourceCompile";
 import DbSourceDetails from "./dbSourceDetails";
 const DbSourceList = props => {
     const [DbDataList,setDbDataList]=useState([])  //db数据list
     const [visible, setVisible] = useState(false);  //修改删除弹窗
     const [updateDbDate, setUpdateDbDate] = useState();  //修改回显数据
-
-    const [detailsVisible,setDetailsVisible]=useState(false)  //打开详情抽屉状态
-    const [dbData,setDbData]=useState()  //bd数据
-    const [tenantDbList,setTenantDbList]=useState([])  //租户db
 
     const columns = [
         {
@@ -131,32 +127,9 @@ const DbSourceList = props => {
         setUpdateDbDate(value)
     }
 
-    const goTenantDb=async (record)=>{
-        props.history.push({
-            pathname:"/index/sourceManage/tenantManageDb",
-            params:record
-        });
-    }
     //打开租户数据源详情
     const openTenantDb =async (value) => {
-        await findTenantDatabase(value)
-        setDbData(value)
-        setDetailsVisible(true)
-    }
-    const closeTenantDb = () => {
-      setDetailsVisible(false)
-    }
-
-    //查询改数据源下面的租户
-    const findTenantDatabase = async (value,name) => {
-        const param={
-            dbGroupId:value.id,
-            tenantName:name
-        }
-        const res=await tenantService.findTenantDatabaseByDb(param)
-        if (res.code===0){
-            setTenantDbList(res.data)
-        }
+        props.history.push(`/index/sourceManage/manageDb/details/${value.id}`)
     }
 
     return(
@@ -173,8 +146,7 @@ const DbSourceList = props => {
                     pagination={false}
                 />
             </div>
-            <DbAddOrUpdate visible={visible} onCancel={closeVisible} editData={updateDbDate} />
-            <DbSourceDetails onClose={closeTenantDb} visible={detailsVisible} dbData={dbData} tenantDbList={tenantDbList} findTenantDatabase={findTenantDatabase} />
+            <DbSourceCompile visible={visible} onCancel={closeVisible} editData={updateDbDate} />
         </div>
     )
 }

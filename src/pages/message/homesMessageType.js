@@ -8,9 +8,9 @@
 import React from "react";
 import {MessageType} from 'tiklab-message-ui';
 
-const OmsMessageType = (props) => {
+const HomesMessageType = (props) => {
     return (
-        <MessageType bgroup = "oms"/>
+        <MessageType bgroup = "ocs" prefixApi={'ocs'}/>
     )
 }
-export default OmsMessageType;
+export default HomesMessageType;

@@ -89,8 +89,7 @@ const AlignEditor = (props) => {
                                     onMouseDown = {(event)=>selectAlign(item.value)}
                                 >
                                     <span className="tool-item">
-                                        <i className={`iconfont ${item.icon}`} 
-                                        
+                                        <i className={`iconfont ${item.icon}`}
                                         data-value={item.value}></i>
                                     </span>
                                 </div>

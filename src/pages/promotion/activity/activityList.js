@@ -7,12 +7,13 @@
  */
 
 import React, {useState, useEffect} from "react";
-import {Breadcrumb, Button, Radio, Space, Switch, Table,Modal} from "antd";
+import {Breadcrumb, Button, Radio, Space, Switch, Table, Modal, Tabs, Tooltip} from "antd";
+const { TabPane } = Tabs;
 import activityService from "../../../service/avtivity.service";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
-
-const ActivityTypeList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'},{code: 'sub',name:'订阅活动'}]
+import './activity.scss'
+const ActivityTypeList= [/*{code:'dis',name:'折扣'},*/{code: 'sub',name:'订阅活动'},{code: 'full',name:'满减活动'}]
 const ActivityList = props => {
 
     const [activityList,setActivityList]=useState([])   //活动列表数据
@@ -25,7 +26,7 @@ const ActivityList = props => {
     const [visible, setVisible] = useState(false);   //弹窗状态
     const [editData, setEditData] = useState(null);  //弹窗数据
     const [compileType,setCompileType]=useState(null)   //弹出的类型
-    const [activityType,setActivityType]=useState('dis')  //活动类型
+    const [activityType,setActivityType]=useState('sub')  //活动类型
 
 
     const columns = [
@@ -69,8 +70,9 @@ const ActivityList = props => {
             key: 'activity',
             render: (text, record) => (
                 <Space size="middle">
-                    <a onClick={() => editActivity(record)}>编辑</a>
-                    <a onClick={() => deleteActivityPop(record.id)}>删除</a>
+                    <Tooltip title="删除">
+                        <DeleteOutlined className='cursor-pointer' onClick={() => deleteActivityPop(record.id)} />
+                    </Tooltip>
                 </Space>
             ),
         },
@@ -108,7 +110,7 @@ const ActivityList = props => {
 
     //创建活动
     const addActivity = async () => {
-        props.history.push("/setting/activity/compileActivity")
+        props.history.push("/index/activity/compileActivity")
 
       setCompileType("add")
      setVisible(true)
@@ -121,13 +123,9 @@ const ActivityList = props => {
     }
 
     //切换活动类型
-    const cutType =async (e) => {
-        setActivityType(e.target.value)
-      await findActivity(e.target.value,page)
-    }
-
-    const handleTableChange = async (pagination, filters, sorter) => {
-
+    const cutType =async (event) => {
+        setActivityType(event)
+      await findActivity(event,page)
     }
 
     //启用停用
@@ -176,39 +174,27 @@ const ActivityList = props => {
     }
 
     return(
-        <div className='w-full mt-4 max-w-full m-auto max-w-screen-xl'>
-            <Breadcrumb separator="/" className=' border-solid'>
-                <Breadcrumb.Item>活动管理</Breadcrumb.Item>
-                <Breadcrumb.Item href="">活动列表</Breadcrumb.Item>
-            </Breadcrumb>
-            <div className='pt-6 space-y-6'>
-                <div className='flex'>
-                    <Radio.Group  value={activityType} buttonStyle="solid"  className='w-2/3' onChange={cutType}>
-                        {ActivityTypeList.map(item=>{
-                            return(
-                                <Radio.Button key={item.code} value={item.code}>{item.name}</Radio.Button>
-                            )
-                        })}
-                    </Radio.Group>
-                    <div className='flex justify-end  w-1/3 pr-4'>
-                        <Button type="primary" onClick={addActivity} >添加活动</Button>
-                    </div>
+        <div className='activity'>
+            <div className='activity-head-style'>
+                <div className='activity-title'>
+                    活动列表
                 </div>
-
-                <div>
-                    <Table
-                        dataSource={activityList}
-                        columns={columns}
-                        rowKey={record => record.id}
-                        pagination={{
-                            current:page,
-                            pageSize: 10,
-                            total: totalRecord,
-                        }}
-                        onChange={(pagination, filters, sorter) => handleTableChange(pagination, filters, sorter)}
-                    />
-                </div>
+                <Button type="primary" onClick={addActivity} >添加活动</Button>
             </div>
+            <Tabs  activeKey={activityType}  onTabClick={cutType}>
+                {ActivityTypeList.map(item=>{
+                    return(
+                        <TabPane key={item.code}  tab={item.name} key={item.code} />
+                    )
+                })}
+            </Tabs>
+            <Table
+                dataSource={activityList}
+                columns={columns}
+                rowKey={record => record.id}
+                pagination={false}
+            />
+
         </div>
     )
 

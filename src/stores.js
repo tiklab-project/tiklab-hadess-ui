@@ -10,7 +10,6 @@ import {orgStores} from "tiklab-user-ui/es/store";
 import {AUTH_CONFIG_STORE, AuthConfigStore} from "./pages/authConfig/store/authConfigStore";
 function createStores() {
     return {
-
         ...messageModuleStores,
         ...orgStores,
         [PRIVILEGE_DOMAIN_ROLE_STORE]: new DomainRoleStore(),

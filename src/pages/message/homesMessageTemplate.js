@@ -1,5 +1,5 @@
 /**
- * @name: OmsMessageTemplate
+ * @name: HomesMessageTemplate
  * @author: limingliang
  * @date: 2022-08-09 14:30
  * @description：设置消息模版
@@ -8,9 +8,9 @@
 
 import React from "react";
 import {MessageTemplate} from 'tiklab-message-ui';
-const OmsMessageTemplate = () => {
+const HomesMessageTemplate = () => {
     return (
-        <MessageTemplate  bgroup = "oms"/>
+        <MessageTemplate  bgroup = "ocs"  prefixApi={'ocs'}/>
     )
 }
-export default OmsMessageTemplate
+export default HomesMessageTemplate

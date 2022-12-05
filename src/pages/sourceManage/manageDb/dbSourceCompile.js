@@ -1,54 +1,51 @@
 /**
- * @name: DssAddOrUpdate
+ * @name: DbSourceList
  * @author: limingliang
  * @date: 2022-05-16 14:30
  * @description：添加或者修改
  * @update: 2022-05-16 14:30
  */
-
-import React, {useEffect, useState} from "react";
-import {Col, Form, Input, Modal, Row,Select} from "antd";
-import tenantService from "../../../service/tenant.service";
+import React, {useEffect} from "react";
+import {Col, Form, Input, Modal, Row, Select} from "antd";
+const { Option } = Select;
 const layout = {
     labelCol: { span: 6},
-    wrapperCol: { span: 18},
+    wrapperCol: { span: 24},
 };
-const { Option } = Select;
-const typeList=[{key:'dfs',value:'dfs'},{key:'dcs',value:'dcs'},{key:'dss',value:'dss'}]
-const DssAddOrUpdate = props => {
+import tenantService from "../../../service/tenant.service"
+const dbType=[{code:"eas",value:"eas"},{code:"homes",value:"homes"},{code:"more",value:"other"}]
+const DbSourceCompile = props => {
     const [form] = Form.useForm();
     const {visible, onCancel, editData} = props;
 
-    const [type,setType]=useState(null)   //产品类型
     useEffect(()=>{
         if (editData) {
             form.setFieldsValue({
                 url: editData.url,
+                userName:editData.userName,
+                password: editData.password,
+                serialNumber:editData.serialNumber,
                 details:editData.details,
-                dsType:editData.dsType
             })
         }
     }, [editData])
 
-
     const addOrUpdate = async () => {
         form.validateFields().then(async values => {
             if (editData){
-                const res=await tenantService.updateTenantDssGroup({...values,id:editData.id})
+               const res=await tenantService.updateTenantDbGroup({...values,id:editData.id})
                 if (res.code===0){
                     onCancel()
                 }
             }else {
-                const res=await tenantService.createTenantDssGroup({...values})
+                const res=await tenantService.createTenantDbGroup({...values})
                 if (res.code===0){
                     onCancel()
                 }
             }
         })
     }
-    const selectType = (e) => {
-        setType(e)
-    }
+
     return(
         <Modal
             visible={visible}
@@ -56,9 +53,11 @@ const DssAddOrUpdate = props => {
             okText='保存'
             cancelText='取消'
             width={500}
+
             destroyOnClose={true}
             onOk={addOrUpdate}
             onCancel={onCancel}
+
         >
             <Row>
                 <Col span={24}>
@@ -66,6 +65,7 @@ const DssAddOrUpdate = props => {
                         {...layout}
                         form={form}
                         preserve={false}
+                        layout="vertical"
                     >
                         <Form.Item
                             name="url"
@@ -75,15 +75,29 @@ const DssAddOrUpdate = props => {
                             <Input   placeholder="例如：192.10.1.10:3306"/>
                         </Form.Item>
                         <Form.Item
-                            name="dsType"
+                            name="userName"
+                            label='用户名'
+                            rules={[{required: true}]}
+                        >
+                            <Input placeholder='请输入用户名'/>
+                        </Form.Item>
+                        <Form.Item
+                            name="password"
+                            label='密码'
+                            rules={[{required: true}]}
+                        >
+                            <Input placeholder='请输入密码'/>
+                        </Form.Item>
+                        <Form.Item
+                            name="type"
                             label='类型'
                             rules={[{required: true}]}
                         >
-                            <Select showArrow onChange={selectType}>
+                            <Select showArrow  placeholder='请选择类型'>
                                 {
-                                    typeList.map(item=>{
+                                    dbType.map(item=>{
                                         return(
-                                            <Option key={item.key} value={item.key}>
+                                            <Option key={item.code} value={item.code}>
                                                 {item.value}
                                             </Option>
                                         )
@@ -95,7 +109,7 @@ const DssAddOrUpdate = props => {
                             name="details"
                             label='简介'
                         >
-                            <Input/>
+                            <Input placeholder='请输入简介'/>
                         </Form.Item>
                     </Form>
                 </Col>
@@ -104,4 +118,4 @@ const DssAddOrUpdate = props => {
         </Modal>
     )
 }
-export default DssAddOrUpdate
+export default DbSourceCompile

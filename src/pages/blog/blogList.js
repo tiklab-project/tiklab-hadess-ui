@@ -22,6 +22,7 @@ import './blog.scss'
 import blogService from "../../service/blog.service";
 import BlogDetails from "./blogDetails";
 import Paging from "../../common/components/paging";
+
 const BlogList = (props) => {
 
     const [currentPage,setCurrentPage]=useState(1)    //当前页
@@ -194,7 +195,6 @@ const BlogList = (props) => {
                                     onPressEnter={onSearch}
                                     prefix={<SearchOutlined/>}
                                 />
-
                             </div>
                         </div>
                     </div>

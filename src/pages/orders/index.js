@@ -20,7 +20,12 @@ import {
     Tooltip,
     Pagination
 } from "antd";
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from '@ant-design/icons';
+import {
+    DeleteOutlined,
+    EditOutlined,
+    ExclamationCircleOutlined,
+    FileSyncOutlined, RedoOutlined, ReloadOutlined, SearchOutlined
+} from '@ant-design/icons';
 import UpdateOrder from "./updateOrder";
 import orderService from "../../service/order.service"
 const { Option } = Select;
@@ -97,7 +102,8 @@ const Orders = props => {
                     {
                         text===1&& <Tag color={'volcano'} key={text}>待支付</Tag>||
                         text===2&&<Tag color={'green'} key={text}>已完成</Tag>||
-                        text===3&&<Tag color={'gray'} key={text}>已取消</Tag>
+                        text===3&&<Tag color={'gray'} key={text}>已取消</Tag>||
+                        text===5&&<Tag color={'volcano'} key={text}>待处理</Tag>
                     }
                 </Space>
             )
@@ -115,6 +121,12 @@ const Orders = props => {
                     <Tooltip title="删除">
                         <DeleteOutlined className='cursor-pointer' />
                     </Tooltip>
+                    {/*{
+                        record.paymentStatus===5&&
+                        <Tooltip title="处理">
+                            <RedoOutlined className='cursor-pointer'/>
+                        </Tooltip>
+                    }*/}
                 </Space>
             ),
         },
@@ -241,16 +253,18 @@ const Orders = props => {
                 <div className='order-title'>订单列表</div>
                 <Button type="primary" >导出</Button>
             </div>
-            <Row gutter={[16, 16]} className='order-data space-x-4'>
-                <Select defaultValue='null' style={{ width: 200 }}  onChange={findOrderType} >
+            <div className='flex order-data space-x-4'>
+                <Select  style={{ width: 200 }}  onChange={findOrderType}  placeholder='订单类型'>
                     <Option value='null' >全部类型</Option>
                     <Option value='1'>sass</Option>
                     <Option value='2'>企业</Option>
                 </Select>
                 <Col span={6}>
-                    <Input placeholder={'搜索订单ID'} style={{ width: 240 }} value={name} onChange={onInputName} onPressEnter={onSearch}/>
+                    <Input placeholder={'搜索订单ID'} style={{ width: 240 }} value={name} onChange={onInputName}
+                           prefix={<SearchOutlined/>} onPressEnter={onSearch} className='text-gray-400'/>
                 </Col>
-            </Row>
+            </div>
+
             <Row gutter={[16, 16]} >
                 <Col span={24}>
                     <Table
@@ -258,6 +272,7 @@ const Orders = props => {
                         columns={columns}
                         rowKey={record => record.id}
                         pagination={false}
+
                         //onChange={(pagination, filters,sorter) => handleTableChange(pagination, filters,sorter)}
                     />
                 </Col>

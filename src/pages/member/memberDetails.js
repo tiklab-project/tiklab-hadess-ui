@@ -19,12 +19,23 @@ const MemberDetails = props => {
             className='locker-top'
         >
             {memberData&&
-                <div className='space-y-2'>
-                    <p>会员名称:  {memberData?.nickName}</p>
-                    <p>会员邮箱: {memberData?.email}</p>
-                    <p>手机号： {memberData?.phone}</p>
-                    <p>认证方式:   {memberData?.memberType===1 ?'内部':'第三方'}</p>
-
+                <div className=' member-details space-y-3'>
+                    <div className='flex'>
+                        <div className='left-nav'>会员名称:</div>
+                        <span>{memberData?.nickName}</span>
+                    </div>
+                    <div className='flex'>
+                        <div className='left-nav'>手机号:</div>
+                        <span>{memberData?.phone}</span>
+                    </div>
+                    <div className='flex'>
+                        <div className='left-nav'>会员邮箱:</div>
+                        <span>{memberData?.email}</span>
+                    </div>
+                    <div className='flex'>
+                        <div className='left-nav'>认证方式:</div>
+                        <span>{memberData?.memberType===1 ?'内部':'第三方'}</span>
+                    </div>
                 </div>
             }
 

@@ -57,7 +57,7 @@ const UpdateOrder = props => {
             onCancel={onCancel}
             okText='保存'
             cancelText='取消'
-            width={600}
+
             destroyOnClose={true}
             onOk={handleOk}
         >

@@ -89,14 +89,14 @@ const CompileRepository = props => {
                             label='空间名称'
                             required="required"
                         >
-                            <Input />
+                            <Input placeholder='请填写空间名称'/>
                         </Form.Item>
                         <Form.Item
                             name="type"
                             label='空间类型'
                             required="required"
                         >
-                            <Select  showArrow>
+                            <Select  showArrow placeholder='请选择空间类型'>
                                 {
                                     repositoryType.map(item=>{
                                         return (

@@ -100,11 +100,11 @@ const workOrderDetails = SyncComponent(() => import('./pages/workOrder/workOrder
 //数据源管理- db list
 const dbSourceList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceList'))
 //数据源管理- tenantDb list
-const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/old/tenantDbList'))
+const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceDetails'))
 //数据源管理- dss list
 const dssSourceList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceList'))
 //数据源管理- tenantDss list
-const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/old/tenantDssList'))
+const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceDetails'))
 
 //对公转账订单管理
 const publicTransferList =SyncComponent(()=>import('./pages/publicTransfer/publicTransferList'))
@@ -114,10 +114,23 @@ const blogList =SyncComponent(()=>import('./pages/blog/blogList'))
 //博客列表
 const compileBlog =SyncComponent(()=>import('./pages/blog/compileBlog'))
 
+//homes-消息配置发送方式
+const homesMessageSendType =SyncComponent(()=>import('./pages/message/homesMessagesendtype'))
+//homes-消息类型
+const homesMessageType =SyncComponent(()=>import('./pages/message/homesMessageType'))
+//homes-消息模版
+const homesMessageTemplate =SyncComponent(()=>import('./pages/message/homesMessageTemplate'))
+
+
 //设置-消息配置发送方式
+const messageSendType =SyncComponent(()=>import('./pages/sysmgr/message/messagesendtype'))
+//设置-消息类型
 const messageType =SyncComponent(()=>import('./pages/sysmgr/message/messageType'))
 //设置-消息模版
 const messageTemplate =SyncComponent(()=>import('./pages/sysmgr/message/messageTemplate'))
+//设置-消息管理 （发送）
+const messageManagement =SyncComponent(()=>import('./pages/sysmgr/message/messageManagement'))
+
 
 //设置-组织管理
 const orga =SyncComponent(()=>import('./pages/sysmgr/organ/orga'))
@@ -184,7 +197,7 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/index/sourceManage/tenantManageDb',
+                        path: '/index/sourceManage/manageDb/details/:id',
                         component: tenantDbList,
                         exact: true,
                     },
@@ -194,7 +207,7 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/index/sourceManage/tenantManageDss',
+                        path: '/index/sourceManage/manageDss/details/:id/:type',
                         component:tenantDssList,
                         exact: true,
                     },
@@ -247,6 +260,16 @@ const routers = [
                     {
                         path: '/index/coupon',
                         component:CouponList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/activity',
+                        component:activityList ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/activity/compileActivity',
+                        component:compileActivity ,
                         exact: true,
                     },
                     {
@@ -346,6 +369,21 @@ const routers = [
                     },
 
                     {
+                        path: '/index/messageSendType',
+                        component:homesMessageSendType ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/messageType',
+                        component:homesMessageType ,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/messageTemplate',
+                        component:homesMessageTemplate ,
+                        exact: true,
+                    },
+                    {
                         path: '/',
                         exact: true,
                         render: ()=><Redirect to="/index/home"/>
@@ -358,12 +396,22 @@ const routers = [
                 routes: [
                     {
                         path: '/sysmgr/messageSendType',
+                        component:messageSendType,
+                        exact: true,
+                    },
+                    {
+                        path: '/sysmgr/messageType',
                         component:messageType,
                         exact: true,
                     },
                     {
                         path: '/sysmgr/messageTemplate',
                         component:messageTemplate,
+                        exact: true,
+                    },
+                    {
+                        path: '/sysmgr/messageManagement',
+                        component:messageManagement,
                         exact: true,
                     },
                     {

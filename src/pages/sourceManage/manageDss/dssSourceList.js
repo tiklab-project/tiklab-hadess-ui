@@ -12,8 +12,7 @@ const { confirm } = Modal;
 import './manageDss.scss'
 import tenantService from "../../../service/tenant.service";
 import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
-import DssAddOrUpdate from "./dssAddOrUpdate";
-import DssSourceDetails from "./dssSourceDetails";
+import DssSourceCompile from "./dssSourceCompile";
 const DssSourceList = props => {
 
     const [dssDataList,setDssDataList]=useState([])  //dss数据
@@ -122,56 +121,11 @@ const DssSourceList = props => {
         setVisible(false)
         await findDss()
     }
-
-    const goTenantDss=async (record)=>{
-        props.history.push({
-            pathname:"/index/sourceManage/tenantManageDss",
-            params:record
-        });
-    }
-
     //打开租户dss数据源详情
     const openTenantDss =async (value) => {
-        await findTenantDss(value)
-        setDssData(value)
-        setDetailsVisible(true)
-    }
-    //关闭租户dss数据源详情
-    const closeTenantDss = () => {
-        setDetailsVisible(false)
+        props.history.push(`/index/sourceManage/manageDss/details/${value.id}/${value.dsType}`)
     }
 
-    const findTenantDss =async (dss,name) => {
-        const param={
-            dssGroupId:dss.id,
-            tenantName:name
-        }
-        let res;
-        if (dss.dsType==="dss"){
-            res= await tenantService.findTenantDssByCon(param)
-        }
-        if (dss.dsType==="dfs"){
-            res= await tenantService.findTenantDfsByCon(param)
-        }
-        if (dss.dsType==="dcs"){
-            res= await tenantService.findTenantDcsByCon(param)
-        }
-
-        if (res.code===0){
-            setTenantDssList(res.data)
-        }
-        //await findAllDss(dss)
-    }
-    //查询所有dss数据源
-    const findAllDss = async (value) => {
-        const param={
-            dsType:value.dsType
-        }
-        const res=await tenantService.findTenantDsGroupList(param)
-        if (res.code===0){
-            setAllDssData(res.data)
-        }
-    }
 
     return(
         <div className='manage-dss'>
@@ -187,8 +141,7 @@ const DssSourceList = props => {
                     pagination={false}
                 />
             </div>
-            <DssAddOrUpdate visible={visible} onCancel={closeVisible} editData={updateDssDate}/>
-            <DssSourceDetails onClose={closeTenantDss} visible={detailsVisible} dssData={dssData} tenantDssList={tenantDssList} findTenantDss={findTenantDss}/>
+            <DssSourceCompile visible={visible} onCancel={closeVisible} editData={updateDssDate}/>
         </div>
     )
 }

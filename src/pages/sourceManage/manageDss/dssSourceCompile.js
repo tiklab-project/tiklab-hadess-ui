@@ -1,51 +1,54 @@
 /**
- * @name: DbSourceList
+ * @name: DssSourceCompile
  * @author: limingliang
  * @date: 2022-05-16 14:30
  * @description：添加或者修改
  * @update: 2022-05-16 14:30
  */
-import React, {useEffect} from "react";
-import {Col, Form, Input, Modal, Row, Select} from "antd";
-const { Option } = Select;
+
+import React, {useEffect, useState} from "react";
+import {Col, Form, Input, Modal, Row,Select} from "antd";
+import tenantService from "../../../service/tenant.service";
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 24},
 };
-import tenantService from "../../../service/tenant.service"
-const dbType=[{code:"eas",value:"eas"},{code:"homes",value:"homes"},{code:"more",value:"other"}]
-const DbAddOrUpdate = props => {
+const { Option } = Select;
+const typeList=[{key:'dfs',value:'dfs'},{key:'dcs',value:'dcs'},{key:'dss',value:'dss'}]
+const DssSourceCompile = props => {
     const [form] = Form.useForm();
     const {visible, onCancel, editData} = props;
 
+    const [type,setType]=useState(null)   //产品类型
     useEffect(()=>{
         if (editData) {
             form.setFieldsValue({
                 url: editData.url,
-                userName:editData.userName,
-                password: editData.password,
-                serialNumber:editData.serialNumber,
                 details:editData.details,
+                dsType:editData.dsType
             })
         }
     }, [editData])
 
+
     const addOrUpdate = async () => {
         form.validateFields().then(async values => {
             if (editData){
-               const res=await tenantService.updateTenantDbGroup({...values,id:editData.id})
+                const res=await tenantService.updateTenantDssGroup({...values,id:editData.id})
                 if (res.code===0){
                     onCancel()
                 }
             }else {
-                const res=await tenantService.createTenantDbGroup({...values})
+                const res=await tenantService.createTenantDssGroup({...values})
                 if (res.code===0){
                     onCancel()
                 }
             }
         })
     }
-
+    const selectType = (e) => {
+        setType(e)
+    }
     return(
         <Modal
             visible={visible}
@@ -53,11 +56,9 @@ const DbAddOrUpdate = props => {
             okText='保存'
             cancelText='取消'
             width={500}
-
             destroyOnClose={true}
             onOk={addOrUpdate}
             onCancel={onCancel}
-
         >
             <Row>
                 <Col span={24}>
@@ -75,29 +76,15 @@ const DbAddOrUpdate = props => {
                             <Input   placeholder="例如：192.10.1.10:3306"/>
                         </Form.Item>
                         <Form.Item
-                            name="userName"
-                            label='用户名'
-                            rules={[{required: true}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            name="password"
-                            label='密码'
-                            rules={[{required: true}]}
-                        >
-                            <Input/>
-                        </Form.Item>
-                        <Form.Item
-                            name="type"
+                            name="dsType"
                             label='类型'
                             rules={[{required: true}]}
                         >
-                            <Select showArrow  >
+                            <Select showArrow onChange={selectType} placeholder='请选择类型'>
                                 {
-                                    dbType.map(item=>{
+                                    typeList.map(item=>{
                                         return(
-                                            <Option key={item.code} value={item.code}>
+                                            <Option key={item.key} value={item.key}>
                                                 {item.value}
                                             </Option>
                                         )
@@ -109,7 +96,7 @@ const DbAddOrUpdate = props => {
                             name="details"
                             label='简介'
                         >
-                            <Input/>
+                            <Input placeholder='请输入简介'/>
                         </Form.Item>
                     </Form>
                 </Col>
@@ -118,4 +105,4 @@ const DbAddOrUpdate = props => {
         </Modal>
     )
 }
-export default DbAddOrUpdate
+export default DssSourceCompile

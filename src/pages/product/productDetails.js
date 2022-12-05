@@ -199,7 +199,6 @@ const ProductDetails = props => {
                         </div>
 
                         <div className=' mt-2 '>
-
                             <Table
                                 dataSource={productVersionList}
                                 columns={columns}

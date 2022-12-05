@@ -84,7 +84,7 @@ const InvoiceManage =props=>{
     //待开发票列表
     const notOpenedInvoice=()=>{
         return(
-            <div >
+            <div>
                 <div className='flex bg-gray-100 py-2 text-center'>
                     <div className='w-3/4'>
                         开票订单详情

@@ -15,6 +15,14 @@
     .member-data{
         display: grid;
         row-gap: 1rem;
-        padding: var(--page-data-padding);
+        padding: var(--page-details-padding);
     }
+
+}
+
+.member-details{
+    .left-nav{
+        width: 65px;
+    }
+
 }

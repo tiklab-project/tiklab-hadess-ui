@@ -70,7 +70,7 @@ const CompileDocument = (props) => {
                 layout="vertical"
             >
                 <Form.Item name={'name'} label="名称" rules={[{ required: true }]}>
-                    <Input  type="text"/>
+                    <Input  type="text" placeholder='请填写文档名称'/>
                 </Form.Item>
                 <Form.Item name="code" label='类型'>
                     <Select  defaultValue="document" value={type} onChange={cuteType}>

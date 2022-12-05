@@ -50,19 +50,29 @@ const Setting = props => {
             icon:<CopyOutlined />,
             children:[
                 {
+                    id:'3-4',
+                    key:'3-4',
+                    title: '消息管理',
+                },
+                {
                     id:'3-1',
                     key:'3-1',
-                    title: '消息发送配置',
+                    title: '消息类型管理',
                 },
                 {
                     id:'3-2',
                     key:'3-2',
+                    title: '消息发送方式',
+                },
+                {
+                    id:'3-3',
+                    key:'3-3',
                     title: '消息模版配置',
                 }
             ]
         },
-    ]
 
+    ]
 
     const onSelectMenu = e => {
         const key = e.key;
@@ -86,11 +96,19 @@ const Setting = props => {
             },
             {
                 key:'3-1',
-                router:`/sysmgr/messageSendType`,
+                router:`/sysmgr/messageType`,
             },
             {
                 key:'3-2',
+                router:`/sysmgr/messageSendType`,
+            },
+            {
+                key:'3-3',
                 router:`/sysmgr/messageTemplate`,
+            },
+            {
+                key:'3-4',
+                router:`/sysmgr/messageManagement`,
             },
         ];
         onSelectMenuSetting(props.history, key, links)

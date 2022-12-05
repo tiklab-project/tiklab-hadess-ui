@@ -19,6 +19,7 @@ export const updateTenantDatabaseApi = '/tenantDatabase/updateTenantDatabase';  
 export const updateTenantDatabaseByIdsApi = '/tenantDatabase/updateTenantDatabaseByIds';  //批量修改租户的db数据源
 
 export const findAllTenantDbGroupApi = '/tenantDbGroup/findAllTenantDbGroup';  // 查询所有的db数据源
+export const findTenantDbGroupApi = '/tenantDbGroup/findTenantDbGroup';  // 通过id 查询数据源
 export const findTenantDbGroupListApi = '/tenantDbGroup/findTenantDbGroupList';  // 条件查询db数据源
 export const createTenantDbGroupApi = '/tenantDbGroup/createTenantDbGroup';  // 创建db数据源
 export const updateTenantDbGroupApi = '/tenantDbGroup/updateTenantDbGroup';  // 修改db数据源
@@ -26,6 +27,7 @@ export const deleteTenantDbGroupApi = '/tenantDbGroup/deleteTenantDbGroup';  //�
 
 
 export const findAllTenantDsGroupApi = '/tenantDsGroup/findAllTenantDsGroup';  //查询所有dss数据源
+export const findTenantDsGroupApi = '/tenantDsGroup/findTenantDsGroup';  //通过id查询dss数据源详情
 export const findTenantDsGroupListApi = '/tenantDsGroup/findTenantDsGroupList';  //条件查询dss数据源
 export const deleteTenantDsGroupApi = '/tenantDsGroup/deleteTenantDsGroup';  //删除dss数据源
 export const updateTenantDsGroupApi = '/tenantDsGroup/updateTenantDsGroup';  //修改dss数据源
@@ -68,6 +70,10 @@ class TenantService {
         const res = await Axios.post(findAllTenantDbGroupApi)
         return res
     }
+    async findTenantDbGroup(params){
+        const res = await Axios.post(findTenantDbGroupApi,params)
+        return res
+    }
     async findTenantDbGroupList(params){
         const res = await Axios.post(findTenantDbGroupListApi,params)
         return res
@@ -103,6 +109,12 @@ class TenantService {
         const res = await Axios.post(findAllTenantDsGroupApi,params)
         return res
     }
+
+    async findTenantDsGroup(params){
+        const res = await Axios.post(findTenantDsGroupApi,params)
+        return res
+    }
+
     async findTenantDsGroupList(params){
         const res = await Axios.post(findTenantDsGroupListApi,params)
         return res

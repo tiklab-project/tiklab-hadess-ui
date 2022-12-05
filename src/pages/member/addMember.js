@@ -14,7 +14,7 @@ const layout = {
     labelCol: { span: 1 },
     wrapperCol: { span: 10 },
 };
-const memberType=[{code:3,type:"演示账号"}]
+const memberType=[{code:3,type:"演示账号"},{code:4,type:'管理员账号'}]
 const AddMember = (props) => {
     const [form] = Form.useForm();
     const [type,setType]=useState(3);
@@ -71,9 +71,6 @@ const AddMember = (props) => {
                 </Form.Item>
                 <Form.Item name={['nickName']} label="呢称" rules={[{ required: true }]} >
                     <Input type="nickName" placeholder='请输入呢称'/>
-                </Form.Item>
-                <Form.Item name={['account']} label="账号" rules={[{ required: true }]}>
-                    <Input type="account" placeholder='请输入账号'/>
                 </Form.Item>
                 <Form.Item name={['passWord']} label="密码" rules={[{ required: true }]}>
                     <Input type="passWord" placeholder='请输入密码'/>

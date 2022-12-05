@@ -12,8 +12,9 @@ import {UploadOutlined} from "@ant-design/icons";
 import CustomEditor from "../../common/editSlate/editor";
 import {getUser} from "tiklab-core-ui";
 import blogService from "../../service/blog.service";
-import {DFS_URL} from "../../const";
+import {DFS_URL, FTP_DOWNLOAD_URL, FTP_URl} from "../../const";
 import './blog.scss'
+import memberService from "../../service/member.service";
 const { Option } = Select;
 const layout = {
     labelCol: { span: 2 },
@@ -24,8 +25,9 @@ const CompileBlog = props => {
     const {match:{params}} = props;
 
     const [blogData,setBlogData]=useState('');   //当为修改时候  会把要修改的博客id传过来
-    const [surfacePlot, setSurfacePlot]=useState(); //封面图片地址
-
+    const [fileUrl, setFileUrl]=useState(); //封面图片地址
+    const [surfacePlot,setSurfacePlot]=useState('') //封面图
+    const [memberList,setMemberList]=useState([])  //管理会员列表
 
     const [value] = useState([
         {
@@ -34,7 +36,10 @@ const CompileBlog = props => {
         },
     ]);
     useEffect( async ()=>{
-       await findBlogById(params.id)
+        if (params.id){
+            await findBlogById(params.id)
+        }
+        await findAdmin()
     },[])
 
     //通过id查询博客 (适用于修改)
@@ -51,10 +56,21 @@ const CompileBlog = props => {
                 digest: res.data.digest,
                 details: JSON.parse(res.data.details),
             })
-            setSurfacePlot(res.data.surfacePlot)
+            setFileUrl(res.data.surfacePlot)
         }
     }
 
+
+    //查询管理员
+    const findAdmin =async () => {
+      const param={
+          memberType:4
+      }
+     const res = await memberService.findMemberList(param)
+     if (res.code===0){
+         setMemberList(res.data)
+      }
+    }
     //创建(修改)博客
     const onFinish =async (value) => {
         const details = JSON.stringify(value.details)
@@ -63,9 +79,9 @@ const CompileBlog = props => {
             type: value.type.toString(),
             digest:value.digest,
             member:{
-                id:getUser().userId
+                id:value.createUser
             },
-            surfacePlot:surfacePlot,
+            fileUrl:fileUrl,
             details: details
 
         }
@@ -92,6 +108,7 @@ const CompileBlog = props => {
         const params ={
             ...param,
             status:'drafts',  //创建默认放入草稿
+
         }
         const res=await blogService.createBlogs(params)
         if (res.code===0){
@@ -102,7 +119,8 @@ const CompileBlog = props => {
 
     const uploadPros = {
         name: 'uploadFile',
-        action: DFS_URL + '/dfs/upload',
+        data:{type:"blog"},
+        action: FTP_URl +'/uploadFile/ftpUpload',
         headers:{
             ticket:getUser().ticket
         },
@@ -115,26 +133,34 @@ const CompileBlog = props => {
     const pictureUpload={
         ...uploadPros,
         onChange(info) {
-            setSurfacePlot(null)
+            setFileUrl(null)
             let fileList = [...info.fileList];
             fileList = fileList.slice(-1);
             fileList = fileList.map(file => {
                 if (file.response) {
                     file.url = file.response.url;
                     setSurfacePlot(file.response.data.fileName)
+                    setFileUrl(file.response.data.url)
                 }
                 return file;
             });
         },
     }
-    const pictureList=[
+    const fileList=[
+        {
+            uid: '-1',
+            name: surfacePlot,
+            status: 'done',
+            url:`${FTP_DOWNLOAD_URL}/${fileUrl}`,
+            thumbUrl:`${FTP_DOWNLOAD_URL}/${fileUrl}`
+        }
     ]
 
     const goBlogList = async () => {
         props.history.push('/index/blogList')
     }
     return(
-        <div className='blog'>
+        <div className='blog '>
             <Breadcrumb separator="/"  className='blog-title'>
                 <Breadcrumb.Item  onClick={goBlogList} className={'cursor-pointer'}>博客列表</Breadcrumb.Item>
                 {blogData && blogData.name ?
@@ -151,13 +177,14 @@ const CompileBlog = props => {
                 name="nest-messages"
                 onFinish={onFinish}
                 form={form}
-                className='mt-6'
+                className='mt-6 blog-bottom'
                 layout="vertical"
             >
                 <Form.Item name={['title']} label="博客标题" rules={[{ required: true }]}>
                     <Input
                         name='name'
                         type="text"
+                        placeholder='请填写博客标题'
                     />
                 </Form.Item>
                 <Form.Item name={['type']} label="博客分类" rules={[{ required: true }]}>
@@ -165,6 +192,7 @@ const CompileBlog = props => {
                         mode="multiple"
                         showArrow
                         ticketSeparators={[',']}
+                        placeholder='请选择博客分类'
                     >
                         <Option key='import'>新闻急速</Option>
                         <Option key='proUpdate'>产品动态</Option>
@@ -177,13 +205,27 @@ const CompileBlog = props => {
                     <Input
                         name='name'
                         type="text"
+                        placeholder='请填写摘要信息'
                     />
+                </Form.Item>
+                <Form.Item name={['createUser']} label="创建人" rules={[{ required: true }]}>
+                    <Select  showArrow placeholder='请选择创建人'>
+                        {
+                            memberList.map(item=>{
+                                return (
+                                    <Option  key={item.id} value={item.id}>
+                                        {item.nickName}
+                                    </Option>
+                                )
+                            })
+                        }
+                    </Select>
                 </Form.Item>
                 <Form.Item name={'captureUrl'} label="博客图片">
                     {
-                        surfacePlot
-                            ? <Upload {...pictureUpload} listType="picture" defaultFileList={[...pictureList]}
-                                      className="upload-list-inline" maxCount='1'>
+                        fileUrl
+                            ?  <Upload {...pictureUpload} listType="picture" defaultFileList={[...fileList]}
+                                       className="upload-list-inline" maxCount='1'>
                             </Upload>
                             :  <Upload {...pictureUpload} listType="picture"
                                        className="upload-list-inline" maxCount='1'>

@@ -33,13 +33,14 @@
         "slate-history": "^0.65.3",
         "slate-react": "^0.65.3",
         "tailwindcss": "^2.2.7",
-        "tiklab-core-ui": "^1.0.0",
-        "tiklab-eam-ui": "^1.0.0",
-        "tiklab-enable-axios-ce": "^1.0.0",
-        "tiklab-plugin-ui": "^1.0.0",
-        "tiklab-privilege-ui": "^1.0.0",
+        "tiklab-core-ui": "^1.0.1",
+        "tiklab-eam-ui": "^1.0.1",
+        "tiklab-enable-axios-ce": "^1.0.1",
+        "tiklab-message-ui": "^1.0.1",
+        "tiklab-plugin-ui": "^1.0.1",
+        "tiklab-privilege-ui": "^1.0.1",
         "tiklab-slate-ui": "^1.0.0",
-        "tiklab-user-ui": "^1.0.0"
+        "tiklab-user-ui": "^1.0.1"
     },
     "browserslist": [
         "defaults",

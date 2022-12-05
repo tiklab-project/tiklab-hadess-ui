@@ -14,7 +14,6 @@ const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
-
         {
             id:'2',
             key:'2',
@@ -100,6 +99,11 @@ const Setting = props => {
                     title: '优惠卷管理',
                 },
                 {
+                    id:'5-8',
+                    key:'5-8',
+                    title: '活动管理',
+                },
+                {
                     id:'5-6',
                     key:'5-6',
                     title: '订单统计',
@@ -148,6 +152,30 @@ const Setting = props => {
             title: '服务与支持',
             icon:<MessageOutlined />,
         },
+        {
+            id:'8',
+            key:'8',
+            title: '消息中心',
+            icon:<MessageOutlined />,
+            children:[
+                {
+                    id:'8-1',
+                    key:'8-1',
+                    title: '消息类型管理',
+
+                },
+                {
+                    id:'8-2',
+                    key:'8-2',
+                    title: '消息发送方式',
+                },
+                {
+                    id:'8-3',
+                    key:'8-3',
+                    title: '消息模版配置',
+
+                }
+            ]},
     ]
 
 
@@ -213,6 +241,10 @@ const Setting = props => {
                 router:`/index/payStatistics`,
             },
             {
+                key:'5-8',
+                router:`/index/activity`,
+            },
+            {
                 key:'6-1',
                 router:`/index/documentList`,
             },
@@ -234,7 +266,18 @@ const Setting = props => {
                 key:'7',
                 router:`/index/workOrder`,
             },
-
+            {
+                key:'8-1',
+                router:`/index/messageType`,
+            },
+            {
+                key:'8-2',
+                router:`/index/messageSendType`,
+            },
+            {
+                key:'8-3',
+                router:`/index/messageTemplate`,
+            },
 
 
         ];
@@ -249,7 +292,7 @@ const Setting = props => {
 
     return (
         <div className='system'>
-            <div className={'setting-height'}>
+            <div className={'setting-height '}>
                 <MenuList
                     data={menuData}
                     onSelectMenu={onSelectMenu}

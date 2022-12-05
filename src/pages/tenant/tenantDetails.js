@@ -134,7 +134,7 @@ const TenantDetails = (props) => {
                 tenantData&&
                 <div className='space-y-2'>
                     <div>租户名称 : {tenantData.name}</div>
-                    <div >地址 : {tenantData.id}</div>
+                    <div >租户地址 : {tenantData.id}</div>
                     <div>创建用户 : {tenantData.master.nickName}</div>
                     <Tabs defaultActiveKey="1"  activeKey={activeKey} onChange={cuteType} className='pt-6' >
                         <TabPane tab="成员" key="1">

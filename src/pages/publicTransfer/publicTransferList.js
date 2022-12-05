@@ -6,7 +6,7 @@
  * @update: 2022-05-21 10:48
  */
 import React, {useState, useEffect,useCallback} from "react";
-import {Breadcrumb, Modal, Radio, Space, Table, Tabs} from "antd";
+import {Breadcrumb, message, Modal, Radio, Space, Table, Tabs} from "antd";
 import orderService, {verifyPublicTraApi} from "../../service/order.service";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
@@ -36,7 +36,7 @@ const PublicTransferList = props => {
             title: '订单类型',
             dataIndex: 'bGroup',
             render: (text, record) => {
-                return record.bGroup===1?'saas版':'线下企业版'
+                return record.order.bGroup===1?'saas版':'线下企业版'
             }
         },
         {
@@ -44,15 +44,11 @@ const PublicTransferList = props => {
             dataIndex: ['order','orderPrice'],
         },
         {
-            title: '支付流水',
+            title: '支付流水号',
             dataIndex: 'serialNumber',
         },
 
-        {
-            title: '支付状态',
-            dataIndex: 'payState',
-            render:(text)=>text===1&&'待支付'||text===2&&'已支付'
-        },
+
         {
             title: '提交时间',
             dataIndex: 'createTime',
@@ -63,7 +59,7 @@ const PublicTransferList = props => {
             key: 'action',
             render: (text, record) => (
                 record.payState===1?  <Space size="middle">
-                    <a onClick={() => verify(record)}>确认收到货款</a>
+                    <a onClick={() => verify(record)} className='text-blue-500'>确认收到货款</a>
                 </Space>:null
 
             ),
@@ -118,6 +114,7 @@ const PublicTransferList = props => {
      const res=await orderService.verifyPublicTra(param)
         if (res.code===0){
            await findOrderPay(1)
+            return message.success("对公转账处理成功")
         }
     }
 

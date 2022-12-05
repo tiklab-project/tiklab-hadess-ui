@@ -73,7 +73,7 @@ const TenantDbUpdate = props => {
                             label='bd数据源'
                             rules={[{required: true}]}
                         >
-                            <Select  showArrow>
+                            <Select  showArrow placeholder='请选择新数据源'>
                                 {
                                     allDatabase.map(item=>{
                                         return (

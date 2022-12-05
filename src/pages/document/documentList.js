@@ -25,7 +25,12 @@ import documentService from "../../service/document.service"
 import CompileRepository from "./compileRepository";
 import './document.scss'
 import {comment} from "postcss";
-import {DeleteOutlined, EditOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    ExclamationCircleOutlined,
+    SearchOutlined
+} from "@ant-design/icons";
 import Paging from "../../common/components/paging";
 const { confirm } = Modal;
 const DocumentList = props => {
@@ -176,7 +181,8 @@ const DocumentList = props => {
                     <div>
                         <Row gutter={[16, 16]} className='document-data'>
                             <Col span={6}>
-                                <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch}/>
+                                <Input placeholder={'搜索名称'} value={name} onChange={onInputName} onPressEnter={onSearch}
+                                       prefix={<SearchOutlined/>} className='text-gray-400'/>
                             </Col>
                         </Row>
                         <Row gutter={[16, 16]} >

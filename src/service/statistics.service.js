@@ -8,13 +8,19 @@
 import {Axios} from 'tiklab-core-ui';
 
 export const statisticsByDateApi = '/statistics/statisticsByDate';
+export const statisticsByWeekApi = '/statistics/statisticsByWeek';   //月统计
 export const statisticsByMonthApi = '/statistics/statisticsByMonth';   //月统计
 class StatisticsService {
     constructor() {
     }
-    //会员统计
+    //日统计
     async memberStatisticsService(data){
         const response = await Axios.post(statisticsByDateApi, data)
+        return response
+    }
+    //周统计
+    async statisticsByWeek(data){
+        const response = await Axios.post(statisticsByWeekApi, data)
         return response
     }
     //月统计

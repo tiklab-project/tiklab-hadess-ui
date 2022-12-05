@@ -13,7 +13,7 @@ const SubscribeDetails = (props) => {
 
     const columns = [
         {
-            title: '订阅类型',
+            title: '订阅状态',
             dataIndex: 'buyType',
             render: (text)  => <div>{text=='try'&&'试用'||text=='sub'&&'订阅'||text=='renMath'&&'按时间续订'||text=='renNum'&&'按人数续订'}</div>
         },

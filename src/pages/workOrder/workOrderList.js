@@ -21,13 +21,14 @@ const WorkOrderList=props=>{
     const [workOrder,setWorkOrder]=useState()   //工单数据
     const [state,setState]=useState("await")  //工单状态
 
-    const [productList,setProductList]=useState([{id:"null",name:'全部产品'}])  //去重后的产品list
-    const [product,setProduct]=useState({id:"null",name:'全部产品'})   //选择的产品
+    const [productList,setProductList]=useState([{id:"all",name:'全部产品'}])  //去重后的产品list
+    const [productId,setProductId]=useState(null)   //选择的产品Id
     const [currentPage,setCurrentPage]=useState(1)
     const [pageSize,setPageSize]=useState(10)
     const [totalPage,setTotalPage]=useState(0);  //总页数
     
     const [detailsVisible,setDetailsVisible]=useState(false)  //详情抽屉打开状态
+    const [answer,setAnswer]=useState()   //回答详情
 
     const   column = [
         {
@@ -98,7 +99,6 @@ const WorkOrderList=props=>{
 
     //查询工单列表
     const findWorkOrder=async (currentPage,state,productId)=>{
-        debugger
         const param={
             pageParam:{
                 currentPage:currentPage,
@@ -117,13 +117,13 @@ const WorkOrderList=props=>{
     const cutType=async (event)=>{
         setCurrentPage(1)
         setState(event)
-        await findWorkOrder(1,event,product.id)
+        await findWorkOrder(1,event,productId)
 
     }
     //分页
     const handleTableChange=async (pagination)=>{
         setCurrentPage(pagination)
-        await findWorkOrder(pagination,state,product.id)
+        await findWorkOrder(pagination,state,productId)
     }
 
 
@@ -136,10 +136,11 @@ const WorkOrderList=props=>{
     }
 
     const cuteProduct =async (e) => {
-        setProduct(e)
-        if (e==='null'){
+        if (e==='all'){
+            setProductId(null)
             await findWorkOrder(1,state)
         }else {
+            setProductId(e)
             await findWorkOrder(1,state,e)
         }
 
@@ -147,20 +148,29 @@ const WorkOrderList=props=>{
 
 
     //打开抽屉
-    const openWorkOrderDetails = (value) => {
+    const openWorkOrderDetails =async (value) => {
+        if (value.state==='finish'){
+          await findAnswer(value.id)
+        }
         setWorkOrder(value)
         setDetailsVisible(true)
-
+        
     }
     //关闭抽屉
     const closeWorkOrderDetails =async () => {
         setDetailsVisible(false)
-        if (product.id==='null'){
-            await findWorkOrder(currentPage,state)
-        }else {
-            await findWorkOrder(currentPage,state,product.id)
+        await findWorkOrder(currentPage,state,productId)
+    }
+    
+    //查询回答
+    const findAnswer = async (workOrderId) => {
+        const param={
+            workOrderId:workOrderId
         }
-
+        const res = await workOrderServer.findWorkOrderReplyList(param)
+        if (res.code===0){
+            setAnswer(res.data[0])
+        }
     }
     return(
         <div className=' work-order'>
@@ -173,7 +183,7 @@ const WorkOrderList=props=>{
                     <TabPane tab="已处理" key="finish"/>
                 </Tabs>
                 <div className='pt-2'>
-                    <Select   defaultValue={product.id} style={{width: 150}}  onChange={cuteProduct} >
+                    <Select   style={{width: 150}}  onChange={cuteProduct} placeholder='产品选择'>
                         {
                             productList.map((item,key)=>{
                                 return(
@@ -191,7 +201,7 @@ const WorkOrderList=props=>{
                    pagination={false}
             />
             <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
-            <WorkOrderDetails onClose={closeWorkOrderDetails} visible={detailsVisible} workOrderData={workOrder}/>
+            <WorkOrderDetails onClose={closeWorkOrderDetails} visible={detailsVisible} workOrderData={workOrder} answer={answer}/>
         </div>
     )
 }

@@ -27,7 +27,7 @@ const layout = {
     wrapperCol: { span: 20 },
 };
 
-const activityKindList= [{code:'dis',name:'折扣'},{code: 'full',name:'满减'},{code: 'sub',name:'订阅活动'}]
+const activityKindList= [/*{code:'dis',name:'折扣'},*/{code: 'full',name:'满减'},{code: 'sub',name:'订阅活动'}]
 
 const ruleList= [{code:'userNum',name:'人数'},{code: 'math',name:'时间'}]
 
@@ -46,9 +46,9 @@ const CompileActivity = props => {
 
 
     const [number,setNumber]=useState([1]);    //数量
-    const [rule,setRule]=useState('userNum');   //活动规则
-    const [activityType,setActivityType]=useState('all')  //活动类型  saas  ee
-    const [activityKind,setActivityKind]=useState('dis')  //活动种类
+    const [rule,setRule]=useState();   //活动规则
+    const [activityType,setActivityType]=useState()  //活动类型  saas  ee
+    const [activityKind,setActivityKind]=useState()  //活动种类
 
     const [fullMath,setFullMath]=useState()   //满月数
     const [fullUserNum,setFullUserNum]=useState()  //满用户数
@@ -139,7 +139,7 @@ const CompileActivity = props => {
       }
       const res=await activityService.createFullReduction(param)
         if (res.code===0){
-            props.history.push("/setting/activity")
+            props.history.push("/index/activity")
         }
     }
     
@@ -155,7 +155,7 @@ const CompileActivity = props => {
       }
     const res = await activityService.createSubActivity(param);
       if (res.code===0){
-          props.history.push("/setting/activity")
+          props.history.push("/index/activity")
       }
     }
     
@@ -172,7 +172,7 @@ const CompileActivity = props => {
       }
       const res=await activityService.createDiscount(param)
         if (res.code===0){
-            props.history.push("/setting/activity")
+            props.history.push("/index/activity")
         }
     }
     
@@ -199,7 +199,7 @@ const CompileActivity = props => {
     return (
         <div className='w-full mt-4 max-w-full m-auto max-w-screen-xl'>
             <Breadcrumb separator="/" className=' border-solid'>
-                <Breadcrumb.Item href='#/setting/activity'>活动列表</Breadcrumb.Item>
+                <Breadcrumb.Item href='#/index/activity'>活动列表</Breadcrumb.Item>
                 <Breadcrumb.Item href="">创建活动</Breadcrumb.Item>
             </Breadcrumb>
             <Form
@@ -207,15 +207,19 @@ const CompileActivity = props => {
                 onFinish={onFinish}
                 name="nest-messages"
                 form={form}
-                className='mt-6'>
+                className='mt-6'
+                layout="vertical"
+            >
+
                 <Form.Item name={['activityName']} label="活动名称" rules={[{ required: true }]}>
                     <Input
                         type="text"
+                        placeholder='请输入活动名称'
                     />
                 </Form.Item>
 
                 <Form.Item name={['activityType']} label="活动类型" >
-                    <Select defaultValue={activityType} value={activityType}  onChange={cuteType} >
+                    <Select  value={activityType}  onChange={cuteType} placeholder='请选择活动类型' >
                         {
                             activityTypeList.map(item=>{
                                 return(
@@ -228,7 +232,7 @@ const CompileActivity = props => {
                     </Select>
                 </Form.Item>
                 <Form.Item name={['activityKind']} label="活动种类" >
-                    <Select defaultValue={activityKind} value={activityKind}  onChange={cuteKind} >
+                    <Select  value={activityKind}  onChange={cuteKind} placeholder='请选择活动种类'>
                         {
                             activityKindList.map(item=>{
                                 return(
@@ -261,7 +265,7 @@ const CompileActivity = props => {
 
                 {activityKind==='sub'&&
                     <Form.Item name={['ruleList']} label="活动规则" >
-                        <Select defaultValue={rule} value={rule} showArrow onChange={cuteRule}   style={{ width: 420 }}>
+                        <Select  value={rule} showArrow onChange={cuteRule}   style={{ width: 420 }} placeholder='请选择活动规则'>
                             {
                                 ruleList.map(item=>{
                                     return(
@@ -362,7 +366,7 @@ const CompileActivity = props => {
                 }
 
                 <Row>
-                    <Col span={24} style={{ textAlign: 'right' }} className={'pr-24'}>
+                    <Col span={24} style={{ textAlign: 'left' }} className={'mt-6'}>
                         <Button type="primary" htmlType="submit">
                             提交
                         </Button>

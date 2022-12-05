@@ -9,6 +9,7 @@ import React from "react";
 import {Avatar, Drawer, Modal, Space, Table} from 'antd'
 import {LikeFilled, LikeOutlined, UserOutlined} from "@ant-design/icons";
 import PreviewEditor from "../../common/editSlate/previewEditor";
+//import {PreviewEditor} from "tiklab-slate-ui"
 const BlogDetails = (props) => {
     const {visible, onClose,blogData} = props;
     return(
