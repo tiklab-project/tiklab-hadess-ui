@@ -1,13 +1,20 @@
 {
-    "name": "tiklab-tmc-ui",
-    "version": "1.0.0",
+    "name": "tiklab-xpack-ui",
+    "version": "1.0.1",
     "description": "",
     "main": "index.js",
+    "files": [
+        "src"
+    ],
     "scripts": {
+        "publish": "npm publish",
         "start": "cross-env NODE_ENV=development CUSTOM_ENV=dev webpack-dev-server --progress --config webpack.dev.js ",
         "build:dev": "cross-env NODE_ENV=production CUSTOM_ENV=dev webpack --config webpack.dev.js ",
         "build:test": "cross-env NODE_ENV=production CUSTOM_ENV=test webpack --config webpack.test.js ",
         "build:prod": "cross-env NODE_ENV=production  CUSTOM_ENV=prod webpack --config webpack.prod.js "
+    },
+    "publishConfig": {
+        "registry": "http://172.12.1.11:8081/repository/npm-hosted"
     },
     "dependencies": {
         "@ant-design/icons": "^4.3.0",
@@ -35,11 +42,11 @@
         "tailwindcss": "^2.2.7",
         "tiklab-core-ui": "^1.0.1",
         "tiklab-eam-ui": "^1.0.1",
+        "tiklab-eas-saas-ui": "^1.0.0",
         "tiklab-enable-axios-ce": "^1.0.1",
         "tiklab-message-ui": "^1.0.1",
         "tiklab-plugin-ui": "^1.0.1",
         "tiklab-privilege-ui": "^1.0.1",
-        "tiklab-slate-ui": "^1.0.0",
         "tiklab-user-ui": "^1.0.1"
     },
     "browserslist": [

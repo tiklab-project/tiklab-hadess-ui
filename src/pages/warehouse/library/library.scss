@@ -1,0 +1,12 @@
+.repositoryLibrary{
+    padding: var(--tiklab-padding-item);
+    .repository-library-width{
+        max-width:var(--page-max-width);
+        margin: 0 auto;
+    }
+    .repository-library-title{
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+}

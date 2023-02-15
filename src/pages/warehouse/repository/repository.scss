@@ -1,0 +1,22 @@
+.repository{
+    padding: var(--tiklab-padding-item);
+    overflow: auto;
+    height: calc(100vh - 50px);
+    min-width: 1080px;
+
+    .title{
+        font-weight: bold;
+        font-size: 16px;
+    }
+    .choose_type{
+        color: #0063FF;
+        border-bottom:2px solid #0063FF;
+    }
+    .repository_tab{
+        font-size: var(--tiklab-font-13);;
+        cursor: pointer;
+        height: 50px;
+        line-height: 50px;
+
+    }
+}

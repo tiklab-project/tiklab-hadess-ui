@@ -6,12 +6,17 @@
 
 .setting-height{
     height: auto;
-    width: 200px;
-    min-width: 200px;
+    width: 100px;
+    min-width: 100px;
     overflow: auto;
-    display: flex;
+    background-color: rgb(249, 250, 251);
 }
 .setting_right_height{
     width: 100%;
     overflow: auto;
+}
+
+.choice-table{
+    background-color: rgb(229, 231, 235);
+    border-left:2px solid #0063FF;
 }

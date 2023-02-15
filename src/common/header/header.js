@@ -19,21 +19,26 @@ import {Profile, WorkAppConfig} from "tiklab-eam-ui";
 import Message from "../components/message";
 import './header.scss'
 const HeaderConfig = [
-     {
-         to:'/',
+     /*{
+         to:'/homes',
          title:'首页',
-         key: '/'
-     },
+         key: 'homes'
+     },*/
     {
-        to:`/system`,
-        title:'系统管理',
-        key: '/system'
+        to:`/index/library`,
+        title:'制品',
+        key: 'library'
     },
     {
-        to:`/setting/tenant`,
-        title:'运营管理',
-        key: '/setting'
+        to:`/index/repository`,
+        title:'制品库',
+        key: 'repository'
     },
+    /*{
+        to:`/scan`,
+        title:'扫描',
+        key: 'scan'
+    },*/
 ];
 const Header = props => {
     const [openValue,setOpenValue]=useState('');
@@ -48,62 +53,16 @@ const Header = props => {
             props.history.push(item.to)
         }
     }
-    
-    const goSystem = value => {
-        props.history.push(value)
-    }
-    const renderRouter = () => {
-        return(
-            <div className='flex space-x-6 '>
-              <div>首页</div>
-              <div>内容管理</div>
-            </div>
-        )
 
-
-       /* if (HeaderConfig) {
-            return (
-                <div defaultValue='/setting' className={'flex h-14  '}>
-                    {
-                        HeaderConfig.map(item => {
-                            return <div key={item.key} className='pt-5  cursor-pointer' onClick={ () => changeCurrentLink(item)} > {item.title}</div>
-                        })
-                    }
-                </div>
-            )
-        }*/
-    }
-
-    const openPortal = (value) => {
-        setOpenValue(value)
-    }
-    const closePortal = () => {
-        debugger
-        setOpenValue('')
-    }
     //切换head类型
-    const cutHeadType =async (type) => {
-        setType(type)
-     /*   if (type==='details'){
-            props.history.push('/index/cont/tenant')
-        }
-        if (type==='sub'){
-            props.history.push('/index/sub/subscribelist')
-        }
-        if (type==='server'){
-            props.history.push('/index/server/workOrder')
-        }*/
+    const cutHeadType =async (item) => {
+        setType(item.key)
+        props.history.push(item.to)
+    }
 
-        if (type==='setting'){
-            props.history.push('/sysmgr/orga')
-        }
-        if (type==='manage'){
-            props.history.push('/index/member')
-        }
-        if (type==='home'){
-            props.history.push('/index/home')
-        }
-
+    const goSetting =async (path) => {
+        setType("")
+        props.history.push('path')
     }
 
     const onclickHead = async (value) => {
@@ -112,7 +71,6 @@ const Header = props => {
         }else {
             setHeadState(value)
         }
-
     }
 
     const helpMenu = (
@@ -138,15 +96,16 @@ const Header = props => {
             <header className='  justify-between frame-header-right ' >
                 <div className='flex'>
                     <WorkAppConfig/>
-                    <div className='text-2xl mt-3 pl-4 font-medium'>OMS</div>
-                    {/*<div className='frame-header-link'>
-                        <div className={`frame-header-link-item ${type==='details'&&" frame-header-link-active"}`} onClick={()=>cutHeadType("details")}>内容管理</div>
-                        <div className={`frame-header-link-item ${type==='sub'&&" frame-header-link-active"}`} onClick={()=>cutHeadType("sub")}>订阅管理</div>
-                        <div className={`frame-header-link-item ${type==='server'&&" frame-header-link-active"}`} onClick={()=>cutHeadType("server")}>服务与支持</div>
-                    </div>*/}
+                    <div className='text-2xl mt-3 pl-4 font-medium'>XPack</div>
+
                     <div className='frame-header-link'>
-                        <div className={`frame-header-link-item ${type==='home'&&" frame-header-link-active"}`} onClick={()=>cutHeadType("home")}>首页</div>
-                        <div className={`frame-header-link-item ${type==='manage'&&" frame-header-link-active"}`} onClick={()=>cutHeadType("manage")}>运营管理</div>
+                        {HeaderConfig.map(item=>{
+                           return(
+                               <div key={item.key} className={`frame-header-link-item ${type===item.key&&" frame-header-link-active"}`} onClick={()=>cutHeadType(item)}>
+                                   {item.title}
+                               </div>
+                           )
+                        })}
                     </div>
                 </div>
                 <div className=' w-1/5   '>
@@ -154,7 +113,7 @@ const Header = props => {
                         <div  className='dk-head-nav-item'>
 
                             <Tooltip title="系统设置">
-                                <SettingOutlined className={'dk-head-nav-item-link pr-6 text-white  text-xl'}  onClick={()=>cutHeadType('setting')} />
+                                <SettingOutlined className={'dk-head-nav-item-link pr-6 text-white  text-xl'}  onClick={()=>goSetting('setting')} />
                             </Tooltip>
                         </div>
                         <a className='dk-head-nav-item pr-6' onClick={() => setOpen(true)}>

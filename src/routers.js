@@ -14,113 +14,45 @@ const Setting = SyncComponent(() => import('./pages/setting/setting'));
 // 系统管理模块
 const System = SyncComponent(() => import('./pages/setting/system'));
 
-/*// 权限模块  (角色管理)
-const ProjectFeature = SyncComponent(() => import('./pages/system/projectFeature/projectFeature'));
-const ProjectSystemRole = SyncComponent(() => import('./pages/system/projectSystemRole/projectSystemRole'));*/
-
-// 认证配置
-const AuthConfig = SyncComponent(() => import('./pages/authConfig/authConfig'));
-
-// 订阅服务
-const Subscribe = SyncComponent(() => import('./pages/subscription'))
-// 订阅服务详情
-const SubscribeDetails = SyncComponent(() => import('./pages/subscription/subscribeDetails'))
-
-// 订单管理
-const Orders = SyncComponent(() => import('./pages/orders'))
-// 订单详情
-const OrdersDetails = SyncComponent(() => import('./pages/orders/orderDetails'))
-
-// 产品
-const Product = SyncComponent(() => import('./pages/product'))
-// 产品详情
-const ProductDetails = SyncComponent(() => import('./pages/product/productDetails'))
-// 产品版本
-const compileVersion = SyncComponent(() => import('./pages/product/compileVersion'))
-
-// 会员管理
-const Member = SyncComponent(() => import('./pages/member'))
-//会员详情
-const MemberDetails = SyncComponent(() => import('./pages/member/old/details'))
-//添加会员
-const addMember = SyncComponent(() => import('./pages/member/addMember'))
-
-// 租户管理
-const Tenant = SyncComponent(() => import('./pages/tenant'))
-//租户详情
-const TenantDetails = SyncComponent(() => import('./pages/tenant/tenantDetails'))
-
-// 活动管理列表
-const activityList = SyncComponent(() => import('./pages/promotion/activity/activityList'))
-// 活动编辑
-const compileActivity = SyncComponent(() => import('./pages/promotion/activity/compileActivity'))
-//优惠券列表
-const CouponList = SyncComponent(() => import('./pages/promotion/coupon/CouponList'))
-//编辑现金卷  （创建和修改）
-const compileCashVolume = SyncComponent(() => import('./pages/promotion/coupon/compileCashVolume'))
-//优惠券详情
-const couponDetails = SyncComponent(() => import('./pages/promotion/coupon/couponDetails'))
-
-
-//订单统计管理
-const OrderStatistics = SyncComponent(() => import('./pages/statistics/orderStatistics'))
-//浏览量统计管理
-const ViewStatistics = SyncComponent(() => import('./pages/statistics/viewStatistics'))
-//会员统计管理
-const MemberStatistics = SyncComponent(() => import('./pages/statistics/memberStatistics'))
-//支付统计管理
-const PayStatistics = SyncComponent(() => import('./pages/statistics/payStatistics'))
-//租户统计管理
-const TenantStatistics = SyncComponent(() => import('./pages/statistics/tenantStatistics'))
-
-//文档列表
-const Repository = SyncComponent(() => import('./pages/document/documentList'))
-//文档
-const Document = SyncComponent(() => import('./pages/document/document'))
-//编辑文档  （修改或删除）
-const compileDocument = SyncComponent(() => import('./pages/document/compileDocument'))
-
-//插件列表
-const plugList = SyncComponent(() => import('./pages/plug/plugList'))
-//编辑插件  添加、更新
-const compilePlugVersion = SyncComponent(() => import('./pages/plug/compilePlugVersion'))
-//插件详情
-const plugDetails = SyncComponent(() => import('./pages/plug/plugDetails'))
-
 const Login = SyncComponent(() => import('./pages/Login'));
+// 制品库列表
+const librarys = SyncComponent(() => import('./pages/library/libraryList'))
+// 制品详情-概览
+const librarySurvey = SyncComponent(() => import('./pages/library/librarySurvey'))
+// 制品详情-文件列表
+const fileList = SyncComponent(() => import('./pages/library/libraryFileList'))
+// 制品详情-历史版本
+const libraryHistory = SyncComponent(() => import('./pages/library/libraryHistory'))
 
-//发票管理
-const InvoiceManage = SyncComponent(() => import('./pages/invoice/invoiceManage'))
 
-//工单管理
-const workOrderList = SyncComponent(() => import('./pages/workOrder/workOrderList'))
-//工单详情
-const workOrderDetails = SyncComponent(() => import('./pages/workOrder/workOrderDetails'))
+// 制品库列表
+const RepositoryList = SyncComponent(() => import('./pages/warehouse/repository/repositoryList'))
+//制品列表
+const LibraryList = SyncComponent(() => import('./pages/warehouse/library/libraryList'))
+//制品库-制品列表-概览
+const reLibrarySurvey = SyncComponent(() => import('./pages/warehouse/library/librarySurvey'))
+//制品库-制品列表-文件列表
+const reLibraryFileList = SyncComponent(() => import('./pages/warehouse/library/libraryFileList'))
+//制品库-制品列表-历史版本
+const reLibraryHistory = SyncComponent(() => import('./pages/warehouse/library/libraryHistory'))
 
-//数据源管理- db list
-const dbSourceList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceList'))
-//数据源管理- tenantDb list
-const tenantDbList = SyncComponent(() => import('./pages/sourceManage/manageDb/dbSourceDetails'))
-//数据源管理- dss list
-const dssSourceList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceList'))
-//数据源管理- tenantDss list
-const tenantDssList = SyncComponent(() => import('./pages/sourceManage/manageDss/dssSourceDetails'))
+// 制品地址
+const warehouse = SyncComponent(() => import('./pages/warehouse'))
 
-//对公转账订单管理
-const publicTransferList =SyncComponent(()=>import('./pages/publicTransfer/publicTransferList'))
+// 制品库-概览
+const repositorySurvey = SyncComponent(() => import('./pages/warehouse/survey/survey'))
 
-//博客列表
-const blogList =SyncComponent(()=>import('./pages/blog/blogList'))
-//博客列表
-const compileBlog =SyncComponent(()=>import('./pages/blog/compileBlog'))
+//配置-详情
+const repositoryCompile = SyncComponent(() => import('./pages/warehouse/deploy/repositoryCompile'))
+//配置-代理信息
+const agency = SyncComponent(() => import('./pages/warehouse/deploy/agency'))
+//配置-复制信息
+const copy = SyncComponent(() => import('./pages/warehouse/deploy/copy'))
 
-//homes-消息配置发送方式
-const homesMessageSendType =SyncComponent(()=>import('./pages/message/homesMessagesendtype'))
-//homes-消息类型
-const homesMessageType =SyncComponent(()=>import('./pages/message/homesMessageType'))
-//homes-消息模版
-const homesMessageTemplate =SyncComponent(()=>import('./pages/message/homesMessageTemplate'))
-
+//制品库-成员
+const programUser = SyncComponent(() => import('./pages/program/user/programUser'))
+//制品库-权限
+const programDomainRole = SyncComponent(() => import('./pages/program/user/programDomainRole'))
 
 //设置-消息配置发送方式
 const messageSendType =SyncComponent(()=>import('./pages/sysmgr/message/messagesendtype'))
@@ -163,224 +95,88 @@ const routers = [
                 exact: true,
             },
             {
+                path: '/index/library',
+                component: librarys,
+                exact: true,
+            },
+            {
+                path: '/index/library/librarySurvey/:versionId',
+                component: librarySurvey,
+                exact: true,
+            },
+            {
+                path: '/index/library/fileList/:versionId',
+                component: fileList,
+                exact: true,
+            },
+            {
+                path: '/index/library/history/:versionId',
+                component: libraryHistory,
+                exact: true,
+            },
+            {
+                path: '/index/repository',
+                component: RepositoryList,
+                exact: true,
+            },
+            {
+                path: '/index/warehouse/:repository',
+                component: warehouse,
+                exact: true,
+            },
+            {
                 component: Setting,
-                path:'/index',
+                path:'/index/repository/:id',
                 routes:[
                     {
-                        path: '/index/member',
-                        component: Member,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/member/details',
-                        component: MemberDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/member/addmember',
-                        component: addMember,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/tenant',
-                        component:Tenant ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/tenant/details',
-                        component:TenantDetails ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/sourceManage/manageDb',
-                        component: dbSourceList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/sourceManage/manageDb/details/:id',
-                        component: tenantDbList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/sourceManage/manageDss',
-                        component: dssSourceList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/sourceManage/manageDss/details/:id/:type',
-                        component:tenantDssList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/productList',
-                        component: Product,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/product/detail/:productId/:type',
-                        component: ProductDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/product/compileVersion',
-                        component: compileVersion,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/subscribe',
-                        component: Subscribe,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/subscribe/details',
-                        component: SubscribeDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/order',
-                        component: Orders,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/order/details',
-                        component: OrdersDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/invoiceManage',
-                        component: InvoiceManage,
-                        exact: true,
-                    },
 
-                    {
-                        path: '/index/publicTransfer',
-                        component:publicTransferList,
+                        path: '/index/repository/:id/survey',
+                        component: repositorySurvey,
                         exact: true,
                     },
                     {
-                        path: '/index/coupon',
-                        component:CouponList ,
+                        path: '/index/repository/:id/libraryList',
+                        component: LibraryList,
                         exact: true,
                     },
                     {
-                        path: '/index/activity',
-                        component:activityList ,
+                        path: '/index/repository/:id/libraryList/survey/:versionId',
+                        component: reLibrarySurvey,
                         exact: true,
                     },
                     {
-                        path: '/index/activity/compileActivity',
-                        component:compileActivity ,
+                        path: '/index/repository/:id/libraryList/file/:versionId',
+                        component: reLibraryFileList,
                         exact: true,
                     },
                     {
-                        path: '/index/coupon/details',
-                        component:couponDetails ,
+                        path: '/index/repository/:id/libraryList/history/:versionId',
+                        component: reLibraryHistory,
                         exact: true,
                     },
                     {
-                        path: '/index/coupon/compileCoupon',
-                        component:compileCashVolume ,
-                        exact: true,
-                    },
-                   /* {
-                        path: '/index/activity',
-                        component:activityList ,
+                        path: '/index/repository/:id/compile',
+                        component: repositoryCompile,
                         exact: true,
                     },
                     {
-                        path: '/index/activity/compileActivity',
-                        component:compileActivity ,
-                        exact: true,
-                    },*/
-                    {
-                        path: '/index/orderStatistics',
-                        component:OrderStatistics ,
+                        path: '/index/repository/:id/agency',
+                        component: agency,
                         exact: true,
                     },
                     {
-                        path: '/index/viewStatistics',
-                        component:ViewStatistics ,
+                        path: '/index/repository/:id/copy',
+                        component: copy,
                         exact: true,
                     },
                     {
-                        path: '/index/memberStatistics',
-                        component:MemberStatistics ,
+                        path: '/index/repository/:id/programUser',
+                        component: programUser,
                         exact: true,
                     },
                     {
-                        path: '/index/payStatistics',
-                        component:PayStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/tenantStatistics',
-                        component:TenantStatistics ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/documentList',
-                        component:Repository ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/document/details',
-                        component:Document ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/document/compileDocument',
-                        component:compileDocument ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/plugList',
-                        component:plugList ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/plug/compileVersion/:plugId',
-                        component:compilePlugVersion ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/plug/details/:plugId',
-                        component:plugDetails ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/blogList',
-                        component:blogList ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/blog/compileBlog/:id',
-                        component:compileBlog ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/workOrder',
-                        component: workOrderList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/workOrder/details',
-                        component: workOrderDetails,
-                        exact: true,
-                    },
-
-                    {
-                        path: '/index/messageSendType',
-                        component:homesMessageSendType ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/messageType',
-                        component:homesMessageType ,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/messageTemplate',
-                        component:homesMessageTemplate ,
+                        path: '/index/repository/:id/programDomainRole',
+                        component: programDomainRole,
                         exact: true,
                     },
                     {

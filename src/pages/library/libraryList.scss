@@ -1,0 +1,14 @@
+.library {
+    padding: var(--tiklab-padding-item);
+    overflow: auto;
+    height: calc(100vh - 50px);
+    min-width: 1080px;
+    .library-width{
+        max-width: 1250px;;
+        margin: 0 auto;
+    }
+    .library-title{
+        font-weight: bold;
+        font-size: 16px;
+    }
+}

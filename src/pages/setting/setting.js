@@ -5,7 +5,7 @@
  * @description：setting
  * @update: 2021-05-21 16:51
  */
-import React,{useState} from 'react';
+import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
 import MenuList from "../../common/menu/menu";
 import './setting.scss'
@@ -13,171 +13,80 @@ import {CopyOutlined, MessageOutlined} from "@ant-design/icons";
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
+    const repositoryId = props.match.params.id;      // 当前选中路由
+    const [type,setType]=useState('')   //左侧导航览类型
+
+    useEffect(async () => {
+        compileType()
+    }, []);
+
+    const compileType = () => {
+        if (props.location.pathname.includes("/compile")) {
+            setType("3")
+        }
+        if (props.location.pathname.includes("/survey")){
+            setType("1")
+        }
+    }
     const menuData = [
+        {
+            id:'1',
+            key:'1',
+            title: '概览',
+            icon:<MessageOutlined /> ,
+        },
         {
             id:'2',
             key:'2',
-            title: '会员管理',
+            title: '制品列表',
             icon:<MessageOutlined /> ,
-            children:[
-                {
-                    id:'2-1',
-                    key:'2-1',
-                    title: '会员列表',
-                },
-                {
-                    id:'2-2',
-                    key:'2-2',
-                    title: '会员统计',
-                },
-            ]
         },
         {
             id:'3',
             key:'3',
-            title: '企业管理',
+            title: '配置',
             icon:<MessageOutlined /> ,
-            children:[
-                {
-                    id:'3-1',
-                    key:'3-1',
-                    title: '企业列表',
-                },
-                {
-                    id:'3-2',
-                    key:'3-2',
-                    title: '企业统计',
-                },
-                {
-                    id:'3-3',
-                    key:'3-3',
-                    title: 'db数据源管理',
-                },
-                {
-                    id:'3-4',
-                    key:'3-4',
-                    title: 'dss数据源管理',
-
-                }
-            ]
         },
         {
             id:'4',
             key:'4',
-            title: '产品管理',
-            icon:<MessageOutlined /> ,
+            title: '成员',
+            icon:<MessageOutlined />,
         },
         {
             id:'5',
             key:'5',
-            title: '订阅管理',
+            title: '权限',
             icon:<MessageOutlined />,
-            children:[
-                {
-                    id:'5-1',
-                    key:'5-1',
-                    title: '订阅列表',
-                },
-                {
-                    id:'5-2',
-                    key:'5-2',
-                    title: '订单管理',
-                },
-                {
-                    id:'5-3',
-                    key:'5-3',
-                    title: '发票管理',
-                },
-                {
-                    id:'5-4',
-                    key:'5-4',
-                    title: '对公转账支付',
-                },
-                {
-                    id:'5-5',
-                    key:'5-5',
-                    title: '优惠卷管理',
-                },
-                {
-                    id:'5-8',
-                    key:'5-8',
-                    title: '活动管理',
-                },
-                {
-                    id:'5-6',
-                    key:'5-6',
-                    title: '订单统计',
-                },
-                {
-                    id:'5-7',
-                    key:'5-7',
-                    title: '支付统计',
-                },
-            ]
-        },
-
-        {
-            id:'6',
-            key:'6',
-            title: '内容管理',
-            icon:<MessageOutlined />,
-            children:[
-                {
-                    id:'6-1',
-                    key:'6-1',
-                    title: '文档管理',
-
-                },
-                {
-                    id:'6-2',
-                    key:'6-2',
-                    title: '插件管理',
-                },
-                {
-                    id:'6-3',
-                    key:'6-3',
-                    title: '博客管理',
-
-                },
-                {
-                    id:'6-4',
-                    key:'6-4',
-                    title: '浏览量统计',
-                }
-
-            ]},
-        {
-            id:'7',
-            key:'7',
-            title: '服务与支持',
-            icon:<MessageOutlined />,
-        },
-        {
-            id:'8',
-            key:'8',
-            title: '消息中心',
-            icon:<MessageOutlined />,
-            children:[
-                {
-                    id:'8-1',
-                    key:'8-1',
-                    title: '消息类型管理',
-
-                },
-                {
-                    id:'8-2',
-                    key:'8-2',
-                    title: '消息发送方式',
-                },
-                {
-                    id:'8-3',
-                    key:'8-3',
-                    title: '消息模版配置',
-
-                }
-            ]},
+        }
     ]
 
+    let scrumRouter = [
+        {
+            key:'1',
+            title: '概览',
+            router:`/index/repository/${repositoryId}/survey`,
+        },
+        {
+            key:'2',
+            title: '制品列表',
+            router:`/index/repository/${repositoryId}/libraryList`,
+        },
+        {
+            key:'3',
+            title: '配置',
+            router:`/index/repository/${repositoryId}/compile`,
+        },
+        {
+            key:'4',
+            title: '成员',
+            router:`/index/repository/${repositoryId}/programUser`,
+        },
+        {
+            key:'5',
+            title: '权限',
+            router:`/index/repository/${repositoryId}/programDomainRole`,
+        }];
 
     const onSelectMenu = e => {
         const key = e.key;
@@ -185,102 +94,30 @@ const Setting = props => {
         let links = [
 
             {
-                key:'2-1',
+                key:'1',
+                title: '概览',
                 router:`/index/member`,
             },
             {
-                key:'2-2',
-                router:`/index/memberStatistics`,
+                key:'2',
+                title: '制品列表',
+                router:`/index/repository/:id/libraryList`,
             },
             {
-                key:'3-1',
+                key:'3',
+                title: '配置',
                 router:`/index/tenant`,
             },
             {
-                key:'3-2',
+                key:'4',
+                title: '成员',
                 router:`/index/tenantStatistics`,
             },
             {
-                key:'3-3',
+                key:'5',
+                title: '权限',
                 router:'/index/sourceManage/manageDb',
-            },
-            {
-                key:'3-4',
-                router:`/index/sourceManage/manageDss`,
-            },
-            {
-                key:'4',
-                router:`/index/productList`,
-            },
-            {
-                key:'5-1',
-                router:`/index/subscribe`,
-            },
-            {
-                key:'5-2',
-                router:`/index/order`,
-            },
-            {
-                key:'5-3',
-                router:`/index/invoiceManage`,
-            },
-            {
-                key:'5-4',
-                router:`/index/publicTransfer`,
-            },
-            {
-                key:'5-5',
-                router:`/index/coupon`,
-            },
-            {
-                key:'5-6',
-                router:`/index/orderStatistics`,
-            },
-            {
-                key:'5-7',
-                router:`/index/payStatistics`,
-            },
-            {
-                key:'5-8',
-                router:`/index/activity`,
-            },
-            {
-                key:'6-1',
-                router:`/index/documentList`,
-            },
-
-            {
-                key:'6-2',
-                router:`/index/plugList`,
-            },
-            {
-                key:'6-3',
-                router:`/index/blogList`,
-            },
-            {
-                key:'6-4',
-                router:`/index/viewStatistics`,
-            },
-
-            {
-                key:'7',
-                router:`/index/workOrder`,
-            },
-            {
-                key:'8-1',
-                router:`/index/messageType`,
-            },
-            {
-                key:'8-2',
-                router:`/index/messageSendType`,
-            },
-            {
-                key:'8-3',
-                router:`/index/messageTemplate`,
-            },
-
-
-        ];
+            }];
         onSelectMenuSetting(props.history, key, links)
         setKey(key)
     }
@@ -290,16 +127,31 @@ const Setting = props => {
         history.push(links[index].router)
     }
 
+    //切换类型
+    const cuteType =async (value) => {
+        setType(value.key)
+        props.history.push(value.router)
+    }
+
     return (
         <div className='system'>
             <div className={'setting-height '}>
-                <MenuList
+               {/* <MenuList
                     data={menuData}
                     onSelectMenu={onSelectMenu}
                     defaultSelectedKeys={[key]}
-                />
+                />*/}
+                {scrumRouter?.map(item=>{
+                    return(
+                        <div key={item.key} className={`${type===item.key&&' choice-table'} my-2 py-2 cursor-pointer hover:bg-gray-200 `} onClick={()=>cuteType(item)} >
+                            <div className='text-center'>
+                                {item.title}
+                            </div>
+                        </div>
+                    )
+                })
+                }
             </div>
-
             <div  className={'setting_right_height'}>
                 {renderRoutes(props.route.routes)}
             </div>

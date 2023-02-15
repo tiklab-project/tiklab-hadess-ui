@@ -7,7 +7,7 @@ import {inject, observer} from "mobx-react";
 const LoginOMS  = props => {
     return (
         <div>
-            <Login loginGoRouter={'/index/home'} {...props}/>
+            <Login loginGoRouter={'index/library'} {...props}/>
         </div>
     )
 }

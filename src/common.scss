@@ -1,5 +1,14 @@
 /*定义样式的变量*/
 :root {
+
+    // 边距
+    --tiklab-padding: 20px; //页面边距
+    --tiklab-padding-resove: -20px; //页面边距
+    --tiklab-padding-item: 15px; //元素间隔边距
+    --tiklab-padding-resove-item:-15px; //元素间隔边距
+
+
+
     --title-weight: 600;        //title字体粗细
     --title-size: 16px;         //title字体大小
     --title-margin: 1.5rem 0;   //title上下外边距
@@ -7,7 +16,7 @@
 
     //页面
     --page-padding:20px 20px 0 20px;  //页面内边距
-    --page-max-width: 1280px;  //页面最大宽度
+    --page-max-width: 1200px;  //页面最大宽度
     --page-min-width: 1040px;  //页面最小宽度
     --page-data-padding:15px 0;  //页面数据和head的边距
     --page-locker-top:48px;     //页面抽屉内边距
@@ -25,11 +34,6 @@
     --tiklab-gray-600: #f7f7f7;
     --tiklab-gray: #f7f8fa; // 主色调灰 左侧导航
 
-    // 边距
-    --tiklab-padding: 20px; //页面边距
-    --tiklab-padding-resove: -20px; //页面边距
-    --tiklab-padding-item: 15px; //元素间隔边距
-    --tiklab-padding-resove-item:-15px; //元素间隔边距
 
     // 标题
     --tiklab-font-12: 12px; // 图文排需要的文字
@@ -49,39 +53,9 @@
 
 }
 
-
-/*取消页面选择 的下划线 */
-.ant-tabs-nav:before{
-    border-bottom: 0 !important;
-}
-
-/*table列表统一处理的样式*/
-.ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
-    content: none !important;
-}
 .ant-table-thead>tr>th {
-     background: none !important;
+    background: none !important;
 }
-.ant-table-thead>tr>th {
-    background:none !important;
-}
-.ant-table-tbody>tr>td {
-    border-bottom:none !important;
-}
-/*table 分页居中*/
-.ant-table-pagination-right {
-    justify-content: center !important;
-}
-
-
-/*取消 编辑弹窗 head下划线和footer下划线*/
-.ant-modal-header {
-    border-bottom: 0;
-}
-.ant-modal-footer {
-    border-top: 0;
-}
-
 /*弹窗 必填红星位置*/
 .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
     content: none;
@@ -95,14 +69,29 @@
     line-height: 1;
     content: "*";
 }
-/*弹窗行间距*/
-.ant-form-item {
-    margin: 0 0 10px;
+.ant-modal-body {
+    padding: 10px 24PX;
+
 }
+.ant-modal-footer {
+    text-align: left;
+    border-top: none;
+}
+
 img {
     height: fit-content !important;
 }
 
 .locker-top{
     margin-top: var(--page-locker-top);
+}
+
+/*table  take out underline*/
+.ant-table-tbody>tr>td {
+     border-bottom: none;
+}
+
+/*drawer  take out underline*/
+.ant-drawer-header {
+     border-bottom: none;
 }

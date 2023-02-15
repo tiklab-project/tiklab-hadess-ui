@@ -1,0 +1,11 @@
+.copy{
+    .copy-width{
+        max-width:var(--page-max-width);
+        margin: 0 auto;
+    }
+    .copy-title{
+        font-weight: bold;
+        font-size: 16px;
+        margin-top: 20px;
+    }
+}
