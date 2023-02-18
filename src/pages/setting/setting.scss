@@ -1,15 +1,27 @@
-.system {
+.setting{
     display: flex;
     width: 100%;
     height: calc(100vh - 50px);
+    .setting-nav{
+        text-align: center;
+        cursor: pointer;
+    }
 }
 
-.setting-height{
+.left-nav{
+    display: flex;
     height: auto;
-    width: 100px;
-    min-width: 100px;
+    width: 80px;
+    min-width: 80px;
     overflow: auto;
-    background-color: rgb(249, 250, 251);
+    background-color: var(--tiklab-gray-color);
+    flex-direction: column;
+    justify-content: space-between;
+    .icon-nav{
+        width: 40px;
+        font-size: 17px;
+
+    }
 }
 .setting_right_height{
     width: 100%;
@@ -17,6 +29,34 @@
 }
 
 .choice-table{
-    background-color: rgb(229, 231, 235);
+    background-color: var(--tiklab-gray-400);
     border-left:2px solid #0063FF;
+    padding: 5px 0;
+}
+
+
+
+.layerSetup{
+    .layer-title{
+        height: 40px;
+        display: flex;
+        line-height: 40px;
+        width: 100%;
+        align-items: center;
+        font-weight: 600;
+        border-bottom: 1px solid #E8E8E8;
+    }
+    .layer-nav{
+        height: auto;
+        width: 180px;
+        min-width: 100px;
+        overflow: auto;
+        background-color: var(--tiklab-gray-600);
+    }
+    .layer-nav-char{
+        padding-left: 25px;
+    }
+    .layer-choice-table{
+        background-color: var(--tiklab-gray-400);
+    }
 }

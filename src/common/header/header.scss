@@ -19,20 +19,26 @@
         align-items: center;
 
     }
+    .frame-header-left {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        height: 100%;
+        padding-left: 22px;
+    }
     .frame-header-link {
         display: flex;
         flex-direction: row;
-        margin-left: 70px;
+        margin-left: 30px;
     }
     .frame-header-link-item {
         cursor: pointer;
-        margin:10px 0 0 10px;
-        height: 30px;
-        line-height: 30px;
+        margin-right: 10px;
         padding: 0 10px;
         overflow: hidden;
-        border-radius: 4px;
         color: #fff;
+        height: 48px;
+        line-height: 48px;
     }
     .frame-header-link-active {
        // color: #444!important;
@@ -216,3 +222,4 @@
     height: 100vh;
     overflow: hidden;
 }
+

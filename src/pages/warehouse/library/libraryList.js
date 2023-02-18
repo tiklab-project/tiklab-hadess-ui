@@ -64,7 +64,7 @@ const LibraryList = (props) => {
 
     useEffect(async () => {
         await findLibraryList()
-    }, []);
+    }, [params.id]);
 
 
     //通过条件查询制品

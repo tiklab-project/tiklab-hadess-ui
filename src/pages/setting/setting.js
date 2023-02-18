@@ -1,20 +1,22 @@
 /**
- * @name: setting
- * @author: mahai
- * @date: 2021-05-21 16:51
+ * @name: xpack 制品库左侧导航栏
+ * @author: limingliang
+ * @date: 2022-05-21 16:51
  * @description：setting
- * @update: 2021-05-21 16:51
+ * @update: 2022-05-21 16:51
  */
 import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
-import MenuList from "../../common/menu/menu";
 import './setting.scss'
-import {CopyOutlined, MessageOutlined} from "@ant-design/icons";
+import {CaretDownOutlined, CodeOutlined, SettingOutlined} from "@ant-design/icons";
+import {Profile} from "tiklab-eam-ui";
+import ChangeRepository from "./changeRepository";
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const repositoryId = props.match.params.id;      // 当前选中路由
-    const [type,setType]=useState('')   //左侧导航览类型
+    const [type,setType]=useState('2')   //左侧导航览类型
+    const [openState,setOpenState]=useState(false)
 
     useEffect(async () => {
         compileType()
@@ -28,99 +30,28 @@ const Setting = props => {
             setType("1")
         }
     }
-    const menuData = [
-        {
-            id:'1',
-            key:'1',
-            title: '概览',
-            icon:<MessageOutlined /> ,
-        },
-        {
-            id:'2',
-            key:'2',
-            title: '制品列表',
-            icon:<MessageOutlined /> ,
-        },
-        {
-            id:'3',
-            key:'3',
-            title: '配置',
-            icon:<MessageOutlined /> ,
-        },
-        {
-            id:'4',
-            key:'4',
-            title: '成员',
-            icon:<MessageOutlined />,
-        },
-        {
-            id:'5',
-            key:'5',
-            title: '权限',
-            icon:<MessageOutlined />,
-        }
-    ]
 
     let scrumRouter = [
-        {
+        /*{
             key:'1',
             title: '概览',
             router:`/index/repository/${repositoryId}/survey`,
-        },
+            icon:   <SettingOutlined className='icon-nav'/>
+
+        },*/
         {
             key:'2',
-            title: '制品列表',
+            title: '制品',
             router:`/index/repository/${repositoryId}/libraryList`,
+            icon:   <CodeOutlined className='icon-nav'/>
         },
         {
             key:'3',
-            title: '配置',
-            router:`/index/repository/${repositoryId}/compile`,
-        },
-        {
-            key:'4',
             title: '成员',
             router:`/index/repository/${repositoryId}/programUser`,
-        },
-        {
-            key:'5',
-            title: '权限',
-            router:`/index/repository/${repositoryId}/programDomainRole`,
+            icon:   <SettingOutlined className='icon-nav'/>
         }];
 
-    const onSelectMenu = e => {
-        const key = e.key;
-
-        let links = [
-
-            {
-                key:'1',
-                title: '概览',
-                router:`/index/member`,
-            },
-            {
-                key:'2',
-                title: '制品列表',
-                router:`/index/repository/:id/libraryList`,
-            },
-            {
-                key:'3',
-                title: '配置',
-                router:`/index/tenant`,
-            },
-            {
-                key:'4',
-                title: '成员',
-                router:`/index/tenantStatistics`,
-            },
-            {
-                key:'5',
-                title: '权限',
-                router:'/index/sourceManage/manageDb',
-            }];
-        onSelectMenuSetting(props.history, key, links)
-        setKey(key)
-    }
 
     const onSelectMenuSetting = (history, key, links) => {
         const index = links.findIndex(item => item.key === key)
@@ -133,25 +64,42 @@ const Setting = props => {
         props.history.push(value.router)
     }
 
+    //跳转设置
+    const goSetting =async () => {
+        setType(null)
+        props.history.push(`/index/repository/${repositoryId}/setting/repositoryInfo`)
+    }
+
     return (
-        <div className='system'>
-            <div className={'setting-height '}>
-               {/* <MenuList
-                    data={menuData}
-                    onSelectMenu={onSelectMenu}
-                    defaultSelectedKeys={[key]}
-                />*/}
-                {scrumRouter?.map(item=>{
-                    return(
-                        <div key={item.key} className={`${type===item.key&&' choice-table'} my-2 py-2 cursor-pointer hover:bg-gray-200 `} onClick={()=>cuteType(item)} >
-                            <div className='text-center'>
-                                {item.title}
+        <div className='setting layerSetup'>
+            <div className={'left-nav'}>
+                <div>
+                    <div className='flex justify-center '>
+                        <ChangeRepository openState={openState}
+                                          setOpenState={setOpenState}
+                                          repositoryId={repositoryId}
+                                          setType={setType} {...props}/>
+                    </div>
+                    {scrumRouter?.map(item=>{
+                        return(
+                            <div key={item.key} className={`${type===item.key&&' choice-table'} my-2 py-1 cursor-pointer hover:bg-gray-200 `} onClick={()=>cuteType(item)} >
+                                <div className='setting-nav'>
+                                    <div>{item.icon}</div>
+                                    <div>{item.title}</div>
+                                </div>
                             </div>
-                        </div>
-                    )
-                })
-                }
+                        )
+                    })
+                    }
+                </div>
+                <div className='hover:bg-gray-200 border-t py-1' onClick={goSetting}>
+                    <div className='setting-nav '>
+                        <SettingOutlined className='icon-nav'/>
+                        <div>设置</div>
+                    </div>
+                </div>
             </div>
+
             <div  className={'setting_right_height'}>
                 {renderRoutes(props.route.routes)}
             </div>

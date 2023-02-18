@@ -10,20 +10,19 @@ import "./deployTable.scss"
 const DeployTable = (props) => {
     const {type,repositoryId}=props
     const cuteTable = (value) => {
-        if (value==='compile'){
+        /*if (value==='compile'){
             props.history.push(`/index/repository/${repositoryId}/compile`)
-        }
+        }*/
         if (value==="agency"){
-            props.history.push(`/index/repository/${repositoryId}/agency`)
+            props.history.push(`/index/repository/${repositoryId}/setting/agency`)
         }
         if (value==='copy'){
-            props.history.push(`/index/repository/${repositoryId}/copy`)
+            props.history.push(`/index/repository/${repositoryId}/setting/copy`)
         }
 
     }
     return(
         <div className='flex space-x-8 deploy'>
-            <div className={`${type==='compile'&& ' choose_deploy_type '}  deploy_tab`} onClick={()=>cuteTable("compile")}>详情</div>
             <div className={`${type==='agency'&& ' choose_deploy_type '}  deploy_tab`} onClick={()=>cuteTable("agency")}>代理信息</div>
             <div className={`${type==='copy'&& ' choose_deploy_type '}  deploy_tab`} onClick={()=>cuteTable("copy")}>复制信息</div>
         </div>

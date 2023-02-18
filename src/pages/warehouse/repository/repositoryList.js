@@ -7,11 +7,12 @@
  */
 import React, {useState, useEffect} from "react";
 import './repository.scss'
-import {Space, Table, Tag,Dropdown,Menu} from "antd";
+import {Space, Table, Tag, Dropdown, Menu, Image} from "antd";
 import RepositoryAdd from "./repositoryAdd";
 import repositoryService, {findRepositoryListApi} from "../../../service/repository.service";
 import GuideType from "../guide/guideType";
 import GuideDetails from "../guide/guideDetails";
+import Profile from "tiklab-eam-ui/es/profile";
 const RepositoryList = (props) => {
     const [repositoryType,setRepositoryType]=useState('local')
     const [repositoryList,setRepositoryList]=useState([])  //制品库list
@@ -29,7 +30,15 @@ const RepositoryList = (props) => {
             title: '制品库名称',
             dataIndex: 'name',
             width:'15%',
-            render:(text,record)=><div className='text-blue-500 cursor-pointer' onClick={()=>goRepositoryDetails(record)}> {text}</div>
+            render:(text,record)=>(
+                <div className='space-x-1 flex'>
+                    <Profile/>
+                    <div className='text-blue-500 cursor-pointer ' onClick={()=>goRepositoryDetails(record)}>
+                        {text}
+                    </div>
+                </div>
+                )
+
         },
         {
             title: '类型',
@@ -98,7 +107,7 @@ const RepositoryList = (props) => {
 
     //跳转制品库详情
     const goRepositoryDetails =async (value) => {
-        props.history.push(`/index/repository/${value.id}/survey`)
+        props.history.push(`/index/repository/${value.id}/libraryList`)
     }
 
     //切换类型
@@ -145,8 +154,9 @@ const RepositoryList = (props) => {
 
     //跳转配置
     const goDeploy =async (value) => {
-        props.history.push(`/index/repository/${value.id}/compile`)
+        props.history.push(`/index/repository/${value.id}/setting/repositoryInfo`)
     }
+
     const SystemTypes=() => (
         <Menu>
             <Menu.Item onClick={()=>openVisible('local')}>

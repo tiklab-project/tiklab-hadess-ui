@@ -1,0 +1,13 @@
+.change-repository{
+    display: flex;
+    .left-nave{
+        display: flex;
+
+    }
+    .right-page{
+        position: absolute;
+        margin-left: 68px;
+        background-color: rgb(243, 244, 246);
+        padding: 15px;
+    }
+}

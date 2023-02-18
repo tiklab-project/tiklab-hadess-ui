@@ -9,14 +9,21 @@ import React,{useEffect, useState}  from "react";
 import LibraryTable from "../components/libraryTable";
 import { Space, Table} from "antd";
 import libraryService from "../../service/library.service";
+import FileDetails from "./fileDetails";
 const FileList = (props) => {
     const {versionId,type}=props
     const [fileList,setFileList]=useState([])   //文件列表
+    const [fileDetail,setFileDetail]=useState(null)   //文件详情
+    const [libraryMavenData,setLibraryMavenData]=useState(null)  //maven
+    const [detailsVisible,setDetailsVisible]=useState(false)  //详情抽屉打开状态
     const columns = [
         {
             title: '名称',
             dataIndex: 'fileName',
             width:'10%',
+            render: (text, record) => {
+                return <a className='hover:text-blue-500' onClick={() => openDetails(record)}>{record.fileName}</a>
+            }
         },
         {
             title: '大小',
@@ -63,6 +70,31 @@ const FileList = (props) => {
         }
     }
 
+    //打开详情抽屉
+    const openDetails =async (value) => {
+        if (value.library.libraryType==='maven'){
+            await findMaven(value.library.id)
+        }
+        setFileDetail(value)
+        setDetailsVisible(true)
+
+    }
+    //关闭详情抽屉
+    const closeFileDetails =async () => {
+        setDetailsVisible(false)
+    }
+
+    const findMaven = async (libraryId) => {
+       const param={
+           libraryId:libraryId
+       }
+       const res = await libraryService.findLibraryMavenList(param)
+        if (res.code===0){
+            setLibraryMavenData(res.data[0])
+        }
+
+    }
+
     return(
         <div>
             <LibraryTable type={type} classify={"file"} versionId={versionId} {...props} />
@@ -71,6 +103,7 @@ const FileList = (props) => {
                 columns={columns}
                 pagination={false}
             />
+            <FileDetails onClose={closeFileDetails} visible={detailsVisible} fileDetail={fileDetail} mavenData={libraryMavenData}/>
         </div>
     )
 

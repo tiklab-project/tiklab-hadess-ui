@@ -21,6 +21,8 @@ export const findLibraryNewFileListApi = '/libraryFile/findLibraryNewFileList'; 
 export const findLibraryFileListApi = '/libraryFile/findLibraryFileList';   //条件查询制品文件
 export const downloadSingleFileApi = '/libraryFile/downloadSingleFile';   //单个下载制品文件
 
+export const findLibraryMavenListApi = '/libraryMaven/findLibraryMavenList';   //条件查询maven
+
 class LibraryService {
     constructor() {
     }
@@ -63,6 +65,10 @@ class LibraryService {
     }
     async downloadSingleFile(data){
         const response = await Axios.get(downloadSingleFileApi,data)
+        return response
+    }
+    async findLibraryMavenList(data){
+        const response = await Axios.post(findLibraryMavenListApi,data)
         return response
     }
 }

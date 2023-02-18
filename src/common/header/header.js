@@ -13,7 +13,7 @@ import {
     PoweroffOutlined,
     SettingOutlined,
 } from "@ant-design/icons";
-import {Avatar,Dropdown,Space,Tooltip, Badge} from "antd";
+import {Avatar, Dropdown, Space, Tooltip, Badge, Row, Col} from "antd";
 import {getUser} from "tiklab-core-ui";
 import {Profile, WorkAppConfig} from "tiklab-eam-ui";
 import Message from "../components/message";
@@ -42,7 +42,7 @@ const HeaderConfig = [
 ];
 const Header = props => {
     const [openValue,setOpenValue]=useState('');
-    const [type,setType]=useState("home");  //首页类型
+    const [type,setType]=useState("library");  //首页类型
     const [headState,setHeadState]=useState()
     const [open, setOpen] = useState(false);
 
@@ -62,7 +62,7 @@ const Header = props => {
 
     const goSetting =async (path) => {
         setType("")
-        props.history.push('path')
+        props.history.push('/sysmgr/orga')
     }
 
     const onclickHead = async (value) => {
@@ -94,10 +94,12 @@ const Header = props => {
     return(
         <div className='dk-head text-white' >
             <header className='  justify-between frame-header-right ' >
-                <div className='flex'>
-                    <WorkAppConfig/>
-                    <div className='text-2xl mt-3 pl-4 font-medium'>XPack</div>
+                <div className='frame-header-left'>
+                    <div className='mb-2'>
+                        <WorkAppConfig isSSO={false}/>
+                    </div>
 
+                    <div className='text-2xl  pl-4 font-medium'>XPack</div>
                     <div className='frame-header-link'>
                         {HeaderConfig.map(item=>{
                            return(

@@ -64,6 +64,7 @@ const LibraryList = (props) => {
             setRepositoryList(all.concat(res.data))
         }
     }
+    debugger
     //查询制品列表
     const findLibraryList = async (type,repositoryId) => {
         const param={

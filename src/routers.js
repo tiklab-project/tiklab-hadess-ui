@@ -8,8 +8,13 @@ import LayoutHoc from './layout/layout';
 //home 首页
 const Home = SyncComponent(() => import('./pages/home/home'));
 
-// 设置运营管理模块
+// 制品库设置模块
 const Setting = SyncComponent(() => import('./pages/setting/setting'));
+// 制品库设置-设置模块
+const LayerSetup = SyncComponent(() => import('./pages/setting/layerSetup'));
+
+
+
 
 // 系统管理模块
 const System = SyncComponent(() => import('./pages/setting/system'));
@@ -42,8 +47,10 @@ const warehouse = SyncComponent(() => import('./pages/warehouse'))
 // 制品库-概览
 const repositorySurvey = SyncComponent(() => import('./pages/warehouse/survey/survey'))
 
-//配置-详情
-const repositoryCompile = SyncComponent(() => import('./pages/warehouse/deploy/repositoryCompile'))
+//制品库信息
+const RepositoryInfo = SyncComponent(() => import('./pages/warehouse/deploy/repositoryInfo'))
+
+
 //配置-代理信息
 const agency = SyncComponent(() => import('./pages/warehouse/deploy/agency'))
 //配置-复制信息
@@ -84,6 +91,11 @@ const routers = [
         exact: true,
         component: Logout,
         key:'logout'
+    },
+    {
+        path: '/',
+        exact: true,
+        render: ()=><Redirect to="/index/library"/>
     },
     {
         component: LayoutHoc,
@@ -155,34 +167,48 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/compile',
-                        component: repositoryCompile,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/agency',
-                        component: agency,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/copy',
-                        component: copy,
-                        exact: true,
-                    },
-                    {
                         path: '/index/repository/:id/programUser',
                         component: programUser,
                         exact: true,
                     },
+
                     {
-                        path: '/index/repository/:id/programDomainRole',
-                        component: programDomainRole,
-                        exact: true,
+                        path: '/index/repository/:id/setting',
+                        component: LayerSetup,
+                        routes:[
+                            {
+                                path: '/index/repository/:id/setting/repositoryInfo',
+                                component: RepositoryInfo,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting/agency',
+                                component: agency,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting/copy',
+                                component: copy,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting/programDomainRole',
+                                component: programDomainRole,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting',
+                                exact: true,
+                                render: ()=><Redirect to='/index/repository/:id/setting/repositoryInfo'/>
+                            },
+
+                            ]
+
                     },
                     {
                         path: '/',
                         exact: true,
-                        render: ()=><Redirect to="/index/home"/>
+                        render: ()=><Redirect to="/index/library"/>
                     },
                 ]
             },
@@ -236,7 +262,7 @@ const routers = [
                         render: ()=><Redirect to="/sysmgr/orga"/>
                     },
                 ]
-            }
+            },
         ],
     },
 

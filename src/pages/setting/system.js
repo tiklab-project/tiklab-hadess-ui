@@ -121,8 +121,8 @@ const Setting = props => {
     }
 
     return (
-        <div className='system'>
-            <div className={'setting-height'}>
+        <div className='setting'>
+            <div className={'left-nav'}>
                 <MenuList
                     data={menuData}
                     onSelectMenu={onSelectMenu}

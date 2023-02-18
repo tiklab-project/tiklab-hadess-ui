@@ -99,6 +99,7 @@ const Agency = (props) => {
            await findAgencyList()
         }
     }
+    debugger
     return(
         <div className='agency'>
             <div className='agency-width'>
