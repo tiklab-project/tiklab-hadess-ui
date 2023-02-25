@@ -42,7 +42,7 @@ const ChangeRepository = (props) => {
         <div className='change-repository'>
             <div className='flex mt-3' onClick={onClickOpen}>
                 <Profile />
-                <CaretDownOutlined  className='text-xl pl-1' />
+                <CaretDownOutlined  className='text-sm pl-1 pt-1' />
             </div>
             {openState&&
                 <div className='right-page'>

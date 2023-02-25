@@ -9,7 +9,7 @@ import React,{useState} from 'react';
 import {renderRoutes} from 'react-router-config'
 import MenuList from "../../common/menu/menu";
 import './setting.scss'
-import {CopyOutlined, MessageOutlined} from "@ant-design/icons";
+import {CopyOutlined, MessageOutlined, TeamOutlined} from "@ant-design/icons";
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props
@@ -17,8 +17,8 @@ const Setting = props => {
         {
             id:'1',
             key:'1',
-            title: '成员与部门',
-            icon:<CopyOutlined />,
+            title: '用户与部门',
+            icon:<TeamOutlined />,
             children:[
                 {
                     id:'1-1',
@@ -33,6 +33,11 @@ const Setting = props => {
                 {
                     id:'1-3',
                     key:'1-3',
+                    title: '用户组',
+                },
+                {
+                    id:'1-4',
+                    key:'1-4',
                     title: '用户目录',
                 },
             ]
@@ -87,7 +92,7 @@ const Setting = props => {
                 router:`/sysmgr/user`,
             },
             {
-                key:'1-3',
+                key:'1-4',
                 router:`/sysmgr/user/directory`,
             },
             {
@@ -122,7 +127,7 @@ const Setting = props => {
 
     return (
         <div className='setting'>
-            <div className={'left-nav'}>
+            <div className={'left-nav left-nav-system-width'}>
                 <MenuList
                     data={menuData}
                     onSelectMenu={onSelectMenu}

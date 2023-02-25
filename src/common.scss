@@ -97,3 +97,10 @@ img {
 .ant-drawer-header {
      border-bottom: none;
 }
+.ant-menu-sub.ant-menu-inline {
+    padding: 0;
+    background: var(--tiklab-gray-color) !important;
+    border-radius: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+}

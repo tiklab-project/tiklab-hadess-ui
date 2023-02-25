@@ -20,11 +20,16 @@ const LayerSetup = (props) => {
         },
         {
             key:'2',
-            title: '配置',
+            title: '代理',
             router:`/index/repository/${repositoryId}/setting/agency`,
         },
         {
             key:'3',
+            title: '复制',
+            router:`/index/repository/${repositoryId}/setting/copy`,
+        },
+        {
+            key:'4',
             title: '权限',
             router:`/index/repository/${repositoryId}/setting/programDomainRole`,
         }];

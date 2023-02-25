@@ -11,8 +11,6 @@
 .left-nav{
     display: flex;
     height: auto;
-    width: 80px;
-    min-width: 80px;
     overflow: auto;
     background-color: var(--tiklab-gray-color);
     flex-direction: column;
@@ -22,6 +20,14 @@
         font-size: 17px;
 
     }
+}
+.left-nav-system-width{
+    width: 200px;
+    min-width: 200px;
+}
+.left-nav-setting-width{
+    width: 80px;
+    min-width: 80px;
 }
 .setting_right_height{
     width: 100%;

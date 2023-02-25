@@ -100,7 +100,7 @@ const RepositoryAdd = (props) => {
                     id:items.id
                 }
             }
-            repositoryService.createRepositoryGroupItems(param)
+            repositoryService.createRepositoryGroup(param)
         }
         )
 

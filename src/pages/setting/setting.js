@@ -72,9 +72,9 @@ const Setting = props => {
 
     return (
         <div className='setting layerSetup'>
-            <div className={'left-nav'}>
+            <div className={'left-nav left-nav-setting-width'}>
                 <div>
-                    <div className='flex justify-center '>
+                    <div className='flex pl-6 '>
                         <ChangeRepository openState={openState}
                                           setOpenState={setOpenState}
                                           repositoryId={repositoryId}

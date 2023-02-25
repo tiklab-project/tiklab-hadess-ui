@@ -112,7 +112,7 @@ const Copy = (props) => {
                     </div>
                 </div>
 
-                <Deploy type={"copy"} repositoryId={params.id} {...props} />
+               {/* <Deploy type={"copy"} repositoryId={params.id} {...props} />*/}
                 <div className='mt-6'>
                     <Table
                         dataSource={copyList}

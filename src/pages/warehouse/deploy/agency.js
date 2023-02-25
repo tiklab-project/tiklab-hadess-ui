@@ -99,7 +99,6 @@ const Agency = (props) => {
            await findAgencyList()
         }
     }
-    debugger
     return(
         <div className='agency'>
             <div className='agency-width'>
@@ -111,7 +110,7 @@ const Agency = (props) => {
                         </Button>
                     </div>
                 </div>
-                <Deploy type={"agency"}  repositoryId={params.id} {...props}/>
+                {/*<Deploy type={"agency"}  repositoryId={params.id} {...props}/>*/}
                 <div className='mt-6'>
                     <Table
                         dataSource={agencyList}

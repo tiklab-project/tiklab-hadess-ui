@@ -21,9 +21,9 @@ export const findLocalAndRemoteRepositoryApi = '/repository/findLocalAndRemoteRe
 export const findUnRelevanceRepositoryApi = '/repository/findUnRelevanceRepository';   //查询未关联组合库的本地和远程库list
 export const findRepositoryByGroupApi = '/repository/findRepositoryByGroup';   //根据组合库查询相关联的制品库
 
-export const createRepositoryGroupItemsApi = '/repositoryGroupItems/createRepositoryGroupItems';   //创建组合库的关联
-export const findRepositoryGroupItemsListApi = '/repositoryGroupItems/findRepositoryGroupItemsList';   //条件查询组合库
-export const compileRepositoryGroupItemsApi = '/repositoryGroupItems/compileRepositoryGroupItems';   //条件编辑组合库关联关系
+export const createRepositoryGroupApi = '/repositoryGroup/createRepositoryGroup';   //创建组合库的关联
+export const findRepositoryGroupListApi = '/repositoryGroup/findRepositoryGroupList';   //条件查询组合库
+export const compileRepositoryGroupApi = '/repositoryGroup/compileRepositoryGroup';   //条件编辑组合库关联关系
 
 class RepositoryService {
     constructor() {
@@ -75,16 +75,16 @@ class RepositoryService {
         return response
     }
 
-    async createRepositoryGroupItems(data){
-        const response = await Axios.post(createRepositoryGroupItemsApi,data)
+    async createRepositoryGroup(data){
+        const response = await Axios.post(createRepositoryGroupApi,data)
         return response
     }
-    async findRepositoryGroupItemsList(data){
-        const response = await Axios.post(findRepositoryGroupItemsListApi,data)
+    async findRepositoryGroupList(data){
+        const response = await Axios.post(findRepositoryGroupListApi,data)
         return response
     }
-    async compileRepositoryGroupItems(data){
-        const response = await Axios.post(compileRepositoryGroupItemsApi,data)
+    async compileRepositoryGroup(data){
+        const response = await Axios.post(compileRepositoryGroupApi,data)
         return response
     }
 }

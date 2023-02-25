@@ -58,7 +58,7 @@ const RepositoryInfo = (props) => {
             })
             setRepository(res.data)
             await findRepository(res.data.type,params.id)
-            await findRepositoryGroupItemsList(params.id)
+            await findRepositoryGroupList(params.id)
         }
     }
 
@@ -73,7 +73,7 @@ const RepositoryInfo = (props) => {
         }
     }
     //查询组合库关联的制品的库
-    const findRepositoryGroupItemsList =async (repositoryGroupId) => {
+    const findRepositoryGroupList =async (repositoryGroupId) => {
         const param = new FormData();
         param.append("repositoryGroupId",repositoryGroupId)
         const res=await repositoryService.findRepositoryByGroup(param)
@@ -88,12 +88,12 @@ const RepositoryInfo = (props) => {
                 repositoryType:repository.repositoryType,storage:{id:values.storage},type:repository?.type})
             if (res.code===0){
                 await findRepositoryById()
-                await compileRepositoryGroupItems(res.data)
+                await compileRepositoryGroup(res.data)
             }
         })
     }
 
-    const compileRepositoryGroupItems =async (repositoryGroupId) => {
+    const compileRepositoryGroup =async (repositoryGroupId) => {
         choiceRepositoryList.map(items=>{
             const param={
                 repositoryGroup:{
@@ -103,7 +103,7 @@ const RepositoryInfo = (props) => {
                     id:items.id
                 }
             }
-            repositoryService.compileRepositoryGroupItems(param)
+            repositoryService.compileRepositoryGroup(param)
         } )
     }
 
