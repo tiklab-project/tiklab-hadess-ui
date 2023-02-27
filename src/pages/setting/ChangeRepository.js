@@ -6,7 +6,7 @@
  * @update: 2022-05-21 16:51
  */
 import React, { useEffect, useRef, useState } from "react";
-import './changeRepository.scss'
+import './ChangeRepository.scss'
 import {Profile} from "tiklab-eam-ui";
 import {CaretDownOutlined} from "@ant-design/icons";
 import repositoryService from "../../service/repository.service";

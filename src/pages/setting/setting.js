@@ -10,7 +10,7 @@ import {renderRoutes} from 'react-router-config'
 import './setting.scss'
 import {CaretDownOutlined, CodeOutlined, SettingOutlined} from "@ant-design/icons";
 import {Profile} from "tiklab-eam-ui";
-import ChangeRepository from "./changeRepository";
+import ChangeRepository from "./ChangeRepository";
 const Setting = props => {
     const [key,setKey]=useState('')
     const {match} =props

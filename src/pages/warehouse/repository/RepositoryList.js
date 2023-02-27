@@ -6,12 +6,12 @@
  * @update: 2022-12-27 10:30
  */
 import React, {useState, useEffect} from "react";
-import './repository.scss'
+import './Repository.scss'
 import {Space, Table, Tag, Dropdown, Menu, Image} from "antd";
-import RepositoryAdd from "./repositoryAdd";
+import RepositoryAdd from "./RepositoryAdd";
 import repositoryService, {findRepositoryListApi} from "../../../service/repository.service";
-import GuideType from "../guide/guideType";
-import GuideDetails from "../guide/guideDetails";
+import GuideType from "../guide/GuideType";
+import GuideDetails from "../guide/GuideDetail";
 import Profile from "tiklab-eam-ui/es/profile";
 const RepositoryList = (props) => {
     const [repositoryType,setRepositoryType]=useState('local')

@@ -6,7 +6,7 @@
  * @update: 2022-12-27 10:30
  */
 import React, {useState, useEffect} from "react";
-import './library.scss'
+import './Library.scss'
 import {Input, Modal, Space, Table, Tag, Tooltip} from "antd";
 import {DeleteOutlined, ExclamationCircleOutlined, SearchOutlined} from "@ant-design/icons";
 import libraryService from "../../../service/library.service";

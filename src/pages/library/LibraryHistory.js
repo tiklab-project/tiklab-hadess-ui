@@ -6,18 +6,18 @@
  * @update: 2023-01-09 14:30
  */
 import React from "react";
-import './library.scss'
-import History from "../../../common/library/history";
+import './LibraryHistory.scss'
+import {Modal} from "antd";
+import History from "../../common/library/history";
 const LibraryHistory = (props) => {
-
     const {match:{params}} = props;
     return(
-        <div className='repositoryLibrary'>
-            <div className='repository-library-width'>
-                <History versionId={params.versionId} repositoryId={params?.id} type={"repository"} {...props}/>
+        <div className='history'>
+            <div className='history-width'>
+              <History versionId={params.versionId} type={'library'} {...props}/>
             </div>
-        </div>
+         </div>
     )
-
 }
+
 export default LibraryHistory

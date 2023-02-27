@@ -6,7 +6,7 @@
  * @update: 2023-02-17 10:30
  */
 import React, {useState, useEffect} from "react";
-import './repositoryInfo.scss'
+import './RepositoryInfo.scss'
 import {
     DeleteOutlined, EditOutlined,
     ExclamationCircleOutlined,

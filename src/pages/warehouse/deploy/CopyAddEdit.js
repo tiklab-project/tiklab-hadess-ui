@@ -13,7 +13,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 25},
 };
-const CopyCompile = (props) => {
+const CopyAddEdit = (props) => {
     const [form] = Form.useForm();
     const {compileType,visible,onCancel,repositoryId,copy}=props
 
@@ -47,7 +47,7 @@ const CopyCompile = (props) => {
         })
     }
     const connect = () => {
-      
+
     }
     return(
         <Modal
@@ -121,4 +121,4 @@ const CopyCompile = (props) => {
 
     )
 }
-export default CopyCompile
+export default CopyAddEdit

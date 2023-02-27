@@ -9,7 +9,7 @@
 import React, {useState, useEffect} from "react";
 import {Modal, Row, Col, Form,Input,Button,Select,Steps,message} from 'antd';
 const { Option } = Select;
-import './repositoryAdd.scss'
+import './RepositoryAdd.scss'
 import {CloseOutlined, LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons";
 import repositoryService from "../../../service/repository.service";
 import {getUser} from "tiklab-core-ui";

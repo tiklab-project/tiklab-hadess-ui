@@ -7,8 +7,8 @@
  */
 import React, {useState} from "react";
 import { Descriptions, Drawer,  Space, Table} from 'antd'
-import './libraryHistoryDetails.scss'
-const LibraryHistoryDetails = (props) => {
+import './LibraryHistoryDetail.scss'
+const LibraryHistoryDetail = (props) => {
     const {visible, onClose,fileList,versionDetails} = props;
     const [type,setType]=useState("survey")
     const columns = [
@@ -34,7 +34,7 @@ const LibraryHistoryDetails = (props) => {
             )
         },
     ];
-    
+
     const cuteTable = (type) => {
       setType(type)
     }
@@ -70,4 +70,4 @@ const LibraryHistoryDetails = (props) => {
         </Drawer>
     )
 }
-export default LibraryHistoryDetails
+export default LibraryHistoryDetail

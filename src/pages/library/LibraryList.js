@@ -6,7 +6,7 @@
  * @update: 2022-12-30 10:30
  */
 import React, {useState, useEffect} from "react";
-import './libraryList.scss'
+import './LibraryList.scss'
 import {Input, Select, Space, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import repositoryService from "../../service/repository.service";

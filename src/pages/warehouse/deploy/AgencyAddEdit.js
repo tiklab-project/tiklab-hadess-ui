@@ -1,5 +1,5 @@
 /**
- * @name: AgencyCompile
+ * @name: AgencyAddEdit
  * @author: limingliang
  * @date: 2022-12-29 10:30
  * @description：编辑代理信息
@@ -13,7 +13,7 @@ const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 25},
 };
-const AgencyCompile = (props) => {
+const AgencyAddEdit = (props) => {
     const [form] = Form.useForm();
     const {compileType,visible,onCancel,repositoryId,agency}=props
     useEffect(()=>{
@@ -91,4 +91,4 @@ const AgencyCompile = (props) => {
         </Modal>
     )
 }
-export default AgencyCompile
+export default AgencyAddEdit

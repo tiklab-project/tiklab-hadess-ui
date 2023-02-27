@@ -6,7 +6,7 @@
  * @update: 2023-01-09 14:30
  */
 import React, {useState, useEffect} from "react";
-import './libraryFileList.scss'
+import './LibraryFileList.scss'
 import LibraryTable from "../../common/components/libraryTable";
 import {Space, Table} from "antd";
 import libraryService from "../../service/library.service";

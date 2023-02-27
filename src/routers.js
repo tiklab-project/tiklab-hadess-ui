@@ -11,7 +11,7 @@ const Home = SyncComponent(() => import('./pages/home/home'));
 // 制品库设置模块
 const Setting = SyncComponent(() => import('./pages/setting/setting'));
 // 制品库设置-设置模块
-const LayerSetup = SyncComponent(() => import('./pages/setting/layerSetup'));
+const LayerSetup = SyncComponent(() => import('./pages/setting/LayerSetup'));
 
 
 
@@ -21,40 +21,40 @@ const System = SyncComponent(() => import('./pages/setting/system'));
 
 const Login = SyncComponent(() => import('./pages/Login'));
 // 制品库列表
-const librarys = SyncComponent(() => import('./pages/library/libraryList'))
+const librarys = SyncComponent(() => import('./pages/library/LibraryList'))
 // 制品详情-概览
-const librarySurvey = SyncComponent(() => import('./pages/library/librarySurvey'))
+const librarySurvey = SyncComponent(() => import('./pages/library/LibrarySurvey'))
 // 制品详情-文件列表
-const fileList = SyncComponent(() => import('./pages/library/libraryFileList'))
+const fileList = SyncComponent(() => import('./pages/library/LibraryFileList'))
 // 制品详情-历史版本
-const libraryHistory = SyncComponent(() => import('./pages/library/libraryHistory'))
+const libraryHistory = SyncComponent(() => import('./pages/library/LibraryHistory'))
 
 
 // 制品库列表
-const RepositoryList = SyncComponent(() => import('./pages/warehouse/repository/repositoryList'))
+const RepositoryList = SyncComponent(() => import('./pages/warehouse/repository/RepositoryList'))
 //制品列表
-const LibraryList = SyncComponent(() => import('./pages/warehouse/library/libraryList'))
+const LibraryList = SyncComponent(() => import('./pages/warehouse/library/LibraryList'))
 //制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./pages/warehouse/library/librarySurvey'))
+const reLibrarySurvey = SyncComponent(() => import('./pages/warehouse/library/LibrarySurvey'))
 //制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./pages/warehouse/library/libraryFileList'))
+const reLibraryFileList = SyncComponent(() => import('./pages/warehouse/library/LibraryFileList'))
 //制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./pages/warehouse/library/libraryHistory'))
+const reLibraryHistory = SyncComponent(() => import('./pages/warehouse/library/LibraryHistory'))
 
 // 制品地址
 const warehouse = SyncComponent(() => import('./pages/warehouse'))
 
 // 制品库-概览
-const repositorySurvey = SyncComponent(() => import('./pages/warehouse/survey/survey'))
+const repositorySurvey = SyncComponent(() => import('./pages/warehouse/survey/Survey'))
 
 //制品库信息
-const RepositoryInfo = SyncComponent(() => import('./pages/warehouse/deploy/repositoryInfo'))
+const RepositoryInfo = SyncComponent(() => import('./pages/warehouse/deploy/RepositoryInfo'))
 
 
 //配置-代理信息
-const agency = SyncComponent(() => import('./pages/warehouse/deploy/agency'))
+const agency = SyncComponent(() => import('./pages/warehouse/deploy/Agency'))
 //配置-复制信息
-const copy = SyncComponent(() => import('./pages/warehouse/deploy/copy'))
+const copy = SyncComponent(() => import('./pages/warehouse/deploy/Copy'))
 
 //制品库-成员
 const programUser = SyncComponent(() => import('./pages/program/user/programUser'))

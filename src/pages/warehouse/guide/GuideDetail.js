@@ -8,8 +8,8 @@
 import React, {useState, useEffect} from "react";
 import {Drawer,Select} from 'antd'
 const { Option } = Select;
-import './guide.scss'
-const GuideDetails = (props) => {
+import './Guide.scss'
+const GuideDetail = (props) => {
     const {visible, onClose,repository,repositoryList} = props;
     const [table,setTable]=useState('deploy')
     const handleChange =async () => {
@@ -80,4 +80,4 @@ const GuideDetails = (props) => {
         </Drawer>
     )
 }
-export default GuideDetails
+export default GuideDetail

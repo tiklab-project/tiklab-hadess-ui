@@ -6,7 +6,7 @@
  * @update: 2023-01-09 14:30
  */
 import React from "react";
-import './library.scss'
+import './Library.scss'
 import FileList from "../../../common/library/fileList";
 const LibraryFileList = (props) => {
     const {match:{params}} = props;
