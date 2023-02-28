@@ -1,12 +1,11 @@
-
 import React from 'react';
 import { Redirect } from 'react-router';
 import {Logout} from 'tiklab-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
-import LayoutHoc from './layout/layout';
+import LayoutHoc from './common/layout/layout';
 
 //home 首页
-const Home = SyncComponent(() => import('./pages/home/home'));
+const Home = SyncComponent(() => import('./pages/home/Home'));
 
 // 制品库设置模块
 const Setting = SyncComponent(() => import('./pages/setting/setting'));
@@ -14,61 +13,60 @@ const Setting = SyncComponent(() => import('./pages/setting/setting'));
 const LayerSetup = SyncComponent(() => import('./pages/setting/LayerSetup'));
 
 
-
-
 // 系统管理模块
 const System = SyncComponent(() => import('./pages/setting/system'));
+const Login = SyncComponent(() => import('./pages/Login/components/LoginXpack'));
 
-const Login = SyncComponent(() => import('./pages/Login'));
-// 制品库列表
-const librarys = SyncComponent(() => import('./pages/library/LibraryList'))
+
+// 制品列表
+const librarys = SyncComponent(() => import('./pages/library/components/LibraryList'))
 // 制品详情-概览
-const librarySurvey = SyncComponent(() => import('./pages/library/LibrarySurvey'))
+const librarySurvey = SyncComponent(() => import('./pages/library/components/LibrarySurvey'))
 // 制品详情-文件列表
-const fileList = SyncComponent(() => import('./pages/library/LibraryFileList'))
+const fileList = SyncComponent(() => import('./pages/library/components/LibraryFileList'))
 // 制品详情-历史版本
-const libraryHistory = SyncComponent(() => import('./pages/library/LibraryHistory'))
+const libraryHistory = SyncComponent(() => import('./pages/library/components/LibraryHistory'))
 
 
 // 制品库列表
-const RepositoryList = SyncComponent(() => import('./pages/warehouse/repository/RepositoryList'))
+const RepositoryList = SyncComponent(() => import('./pages/repository/repository/components/RepositoryList'))
 //制品列表
-const LibraryList = SyncComponent(() => import('./pages/warehouse/library/LibraryList'))
+const LibraryList = SyncComponent(() => import('./pages/repository/library/components/LibraryList'))
 //制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./pages/warehouse/library/LibrarySurvey'))
+const reLibrarySurvey = SyncComponent(() => import('./pages/repository/library/components/LibrarySurvey'))
 //制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./pages/warehouse/library/LibraryFileList'))
+const reLibraryFileList = SyncComponent(() => import('./pages/repository/library/components/LibraryFileList'))
 //制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./pages/warehouse/library/LibraryHistory'))
+const reLibraryHistory = SyncComponent(() => import('./pages/repository/library/components/LibraryHistory'))
 
 // 制品地址
-const warehouse = SyncComponent(() => import('./pages/warehouse'))
+const warehouse = SyncComponent(() => import('./pages/repository'))
 
 // 制品库-概览
-const repositorySurvey = SyncComponent(() => import('./pages/warehouse/survey/Survey'))
+const repositorySurvey = SyncComponent(() => import('./pages/repository/survey/components/Survey'))
 
 //制品库信息
-const RepositoryInfo = SyncComponent(() => import('./pages/warehouse/deploy/RepositoryInfo'))
+const RepositoryInfo = SyncComponent(() => import('./pages/repository/repository/components/RepositoryUpdate'))
 
 
 //配置-代理信息
-const agency = SyncComponent(() => import('./pages/warehouse/deploy/Agency'))
+const agency = SyncComponent(() => import('./pages/repository/deploy/components/Agency'))
 //配置-复制信息
-const copy = SyncComponent(() => import('./pages/warehouse/deploy/Copy'))
+const copy = SyncComponent(() => import('./pages/repository/deploy/components/Copy'))
 
 //制品库-成员
-const programUser = SyncComponent(() => import('./pages/program/user/programUser'))
+const programUser = SyncComponent(() => import('./pages/program/user/ProgramUser'))
 //制品库-权限
-const programDomainRole = SyncComponent(() => import('./pages/program/user/programDomainRole'))
+const programDomainRole = SyncComponent(() => import('./pages/program/user/ProgramDomainRole'))
 
 //设置-消息配置发送方式
-const messageSendType =SyncComponent(()=>import('./pages/sysmgr/message/messagesendtype'))
+const messageSendType =SyncComponent(()=>import('./pages/sysmgr/message/Messagesendtype'))
 //设置-消息类型
 const messageType =SyncComponent(()=>import('./pages/sysmgr/message/messageType'))
 //设置-消息模版
 const messageTemplate =SyncComponent(()=>import('./pages/sysmgr/message/messageTemplate'))
 //设置-消息管理 （发送）
-const messageManagement =SyncComponent(()=>import('./pages/sysmgr/message/messageManagement'))
+const messageManagement =SyncComponent(()=>import('./pages/sysmgr/message/MessageManagement'))
 
 
 //设置-组织管理

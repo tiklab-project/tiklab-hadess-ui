@@ -10,7 +10,7 @@ import {Table, Tooltip,Modal} from "antd";
 import Paging from "../components/paging";
 import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import LibraryTable from "../components/libraryTable";
-import libraryService from "../../service/library.service";
+import libraryService from "../../../src/pages/library/api/LibraryApi";
 const { confirm } = Modal;
 const History = (props) => {
     const {versionId,type,repositoryId}=props

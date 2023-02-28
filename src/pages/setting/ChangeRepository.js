@@ -9,7 +9,7 @@ import React, { useEffect, useRef, useState } from "react";
 import './ChangeRepository.scss'
 import {Profile} from "tiklab-eam-ui";
 import {CaretDownOutlined} from "@ant-design/icons";
-import repositoryService from "../../service/repository.service";
+import repositoryService from "../repository/repository/api/RepositoryApi";
 const ChangeRepository = (props) => {
     const { openState,setOpenState,repositoryId,setType} = props;
 

@@ -8,7 +8,7 @@
 import React,{useEffect, useState}  from "react";
 import LibraryTable from "../components/libraryTable";
 import { Space, Table} from "antd";
-import libraryService from "../../service/library.service";
+import libraryService from "../../../src/pages/library/api/LibraryApi";
 import FileDetails from "./fileDetails";
 const FileList = (props) => {
     const {versionId,type}=props
@@ -46,7 +46,6 @@ const FileList = (props) => {
 
     useEffect(async () => {
         await findFileList()
-
     }, []);
 
     //查询最新版本的制品文件
