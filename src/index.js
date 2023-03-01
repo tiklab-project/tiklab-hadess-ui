@@ -16,7 +16,7 @@ import './common/language/i18n';
 import "./assets/font-icon/iconfont";
 
 import './App.scss';
-//import './tailwind.css';
+import './common/styles/tailwind.css';
 import {useTranslation} from "react-i18next";
 import zhCN from 'antd/es/locale/zh_CN';
 enableAxiosCE()
