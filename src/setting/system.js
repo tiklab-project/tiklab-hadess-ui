@@ -7,7 +7,7 @@
  */
 import React,{useState} from 'react';
 import {renderRoutes} from 'react-router-config'
-import MenuList from "../../common/menu/menu";
+import MenuList from "../common/menu/menu";
 import './setting.scss'
 import {CopyOutlined, MessageOutlined, TeamOutlined} from "@ant-design/icons";
 const Setting = props => {

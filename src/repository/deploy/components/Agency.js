@@ -1,35 +1,34 @@
 /**
- * @name: RepositoryCompile
+ * @name: acgency
  * @author: limingliang
  * @date: 2022-12-29 10:30
- * @description：复制信息
+ * @description：代理信息
  * @update: 2022-12-29 10:30
  */
 import React, {useState, useEffect} from "react";
-import Deploy from "../../../../common/components/deployTable";
-import "./Copy.scss"
+import Deploy from "../../../common/components/deployTable";
+import "./Agency.scss"
 import {Button, Modal, Space, Table} from "antd";
-import copyService from "../api/CopyApi";
-import CopyAddEdit from "./CopyAddEdit";
+import AgencyCompile  from "./AgencyAddEdit";
+import proxyService from "../api/ProxyApi";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
-const Copy = (props) => {
+const Agency = (props) => {
     const {match:{params}} = props;
-    const [copyList,setCopyList]=useState([])
-    const [copy,setCopy]=useState(null)    //复制信息
+    const [agencyList,setAgencyList]=useState([])  //代理信息list
+    const [agency,setAgency]=useState(null)    //代理信息
     const [visible,setVisible]=useState(false)   //编辑弹窗状态
     const [compileType,setCompileType]=useState(null)
-
     const columns = [
         {
             title: '来源',
-            dataIndex: 'source',
+            dataIndex: 'agencyName',
             width:'20%',
             render:(text,record)=><div className=''> {text}</div>
         },
         {
             title: '地址',
-            dataIndex: 'url',
+            dataIndex: 'agencyUrl',
             width:'50%',
         },
         {
@@ -46,24 +45,38 @@ const Copy = (props) => {
     ];
 
     useEffect(async () => {
-        await findCopyList()
+        await findAgencyList()
     }, []);
 
-    //查询复制信息list
-    const findCopyList =async () => {
+    //条件查询代理信息
+    const findAgencyList = async () => {
       const param={
           repositoryId:params.id
       }
-      const res=await copyService.findRepositoryClusterCfgList(param)
-        if (res.code===0){
-            setCopyList(res.data)
-        }
+      const res =  await proxyService.findRepositoryRemoteProxyList(param)
+      if (res.code===0){
+          setAgencyList(res.data)
+      }
+    }
+    //关闭代理弹窗
+    const onCancel = async () => {
+        await findAgencyList()
+        setVisible(false)
+    }
+    const openAgencyCompile =async () => {
+        setCompileType('add')
+      setVisible(true)
+    }
+    const updateAgency =async (value) => {
+        setAgency(value)
+        setCompileType('update')
+        setVisible(true)
     }
 
     //删除制品库弹窗
     const openDeletePop =async (agency) => {
         confirm({
-            title: '是否确认删除该复制配置',
+            title: '是否确认删除该代理配置',
             icon: <ExclamationCircleOutlined />,
             content: '',
             okText: '确认',
@@ -71,58 +84,43 @@ const Copy = (props) => {
             cancelText: '取消',
 
             onOk() {
-                deleteCopy(agency.id)
+                deleteAgency(agency.id)
             },
             onCancel() {
             },
         });
     }
-
-    const deleteCopy =async (id) => {
-        const param=new FormData()
-        param.append('id',id)
-       const res = await copyService.deleteRepositoryClusterCfg(param)
+    //删除代理信息
+    const deleteAgency =async (id) => {
+      const param = new FormData();
+      param.append("id",id)
+      const res =  await proxyService.deleteRepositoryRemoteProxy(param)
         if (res.code===0){
-            await  findCopyList()
+           await findAgencyList()
         }
     }
-    //关闭复制弹窗
-    const onCancel = async () => {
-        await findCopyList()
-        setVisible(false)
-    }
-    const openCopyCompile =async () => {
-        setVisible(true)
-        setCompileType("add")
-    }
-    const updateAgency =async (value) => {
-        setCopy(value)
-        setCompileType('update')
-        setVisible(true)
-    }
     return(
-        <div className='copy'>
-            <div className='copy-width'>
+        <div className='agency'>
+            <div className='agency-width'>
                 <div className='flex justify-between'>
-                    <div className=' copy-title' >配置</div>
+                    <div className=' agency-title'>配置</div>
                     <div className='mt-3'>
-                        <Button type="primary" htmlType="submit" onClick={openCopyCompile}>
-                            + 配置复制
+                        <Button type="primary" htmlType="submit" onClick={openAgencyCompile}>
+                            + 代理来源
                         </Button>
                     </div>
                 </div>
-
-               {/* <Deploy type={"copy"} repositoryId={params.id} {...props} />*/}
+                {/*<Deploy type={"agency"}  repositoryId={params.id} {...props}/>*/}
                 <div className='mt-6'>
                     <Table
-                        dataSource={copyList}
+                        dataSource={agencyList}
                         columns={columns}
                         pagination={false}
                     />
                 </div>
-                <CopyAddEdit visible={visible} onCancel={onCancel} repositoryId={params.id} copy={copy} compileType={compileType}/>
+                <AgencyCompile visible={visible} onCancel={onCancel} repositoryId={params.id} agency={agency} compileType={compileType}/>
             </div>
         </div>
     )
 }
-export default Copy
+export default Agency

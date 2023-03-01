@@ -7,13 +7,11 @@ import {messageModuleStores} from 'tiklab-message-ui/es/store';
 import {orgStores} from "tiklab-user-ui/es/store";
 
 
-import {AUTH_CONFIG_STORE, AuthConfigStore} from "./pages/authConfig/store/authConfigStore";
 function createStores() {
     return {
         ...messageModuleStores,
         ...orgStores,
         [PRIVILEGE_DOMAIN_ROLE_STORE]: new DomainRoleStore(),
-        [AUTH_CONFIG_STORE]: new AuthConfigStore(),
         [EAM_STORE]: new EamStore(),
         [SLATE_STORE]: new SlateStore(),
     };

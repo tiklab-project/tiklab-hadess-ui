@@ -8,7 +8,7 @@
 import React,{useEffect, useState} from "react";
 import LibraryTable from "../components/libraryTable";
 import {Descriptions} from "antd";
-import libraryService from "../../../src/pages/library/api/LibraryApi";
+import libraryService from "../../library/api/LibraryApi";
 const Survey = (props) => {
     const {type,repositoryId,versionId}=props
     const [version,setVersion]=useState(null)   //最新的版本

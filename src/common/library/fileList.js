@@ -8,7 +8,7 @@
 import React,{useEffect, useState}  from "react";
 import LibraryTable from "../components/libraryTable";
 import { Space, Table} from "antd";
-import libraryService from "../../../src/pages/library/api/LibraryApi";
+import libraryService from "../../library/api/LibraryApi";
 import FileDetails from "./fileDetails";
 const FileList = (props) => {
     const {versionId,type}=props
