@@ -39,8 +39,6 @@ const reLibraryFileList = SyncComponent(() => import('./repository/library/compo
 //制品库-制品列表-历史版本
 const reLibraryHistory = SyncComponent(() => import('./repository/library/components/LibraryHistory'))
 
-// 制品地址
-const warehouse = SyncComponent(() => import('./repository'))
 
 // 制品库-概览
 const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
@@ -62,21 +60,21 @@ const programDomainRole = SyncComponent(() => import('./setting/user/ProgramDoma
 //设置-消息配置发送方式
 const messageSendType =SyncComponent(()=>import('./setting/message/Messagesendtype'))
 //设置-消息类型
-const messageType =SyncComponent(()=>import('./setting/message/messageType'))
+const messageType =SyncComponent(()=>import('./setting/message/MessageType'))
 //设置-消息模版
-const messageTemplate =SyncComponent(()=>import('./setting/message/messageTemplate'))
+const messageTemplate =SyncComponent(()=>import('./setting/message/MessageTemplate'))
 //设置-消息管理 （发送）
 const messageManagement =SyncComponent(()=>import('./setting/message/MessageManagement'))
 
 
 //设置-组织管理
-const orga =SyncComponent(()=>import('./setting/organ/orga'))
+const orga =SyncComponent(()=>import('./setting/organ/Orga'))
 //设置-组织管理
-const user =SyncComponent(()=>import('./setting/organ/user'))
+const user =SyncComponent(()=>import('./setting/organ/User'))
 //设置-用户目录
-const userDirectory =SyncComponent(()=>import('./setting/organ/userDirectory'))
+const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
-const systemRole =SyncComponent(()=>import('./setting/role/systemRole'))
+const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 const routers = [
     {
         path: "/login",
@@ -127,11 +125,6 @@ const routers = [
             {
                 path: '/index/repository',
                 component: RepositoryList,
-                exact: true,
-            },
-            {
-                path: '/index/warehouse/:repository',
-                component: warehouse,
                 exact: true,
             },
             {
