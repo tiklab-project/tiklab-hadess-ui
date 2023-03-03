@@ -7,7 +7,7 @@
  */
 import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
-const LayerSetup = (props) => {
+const RepositorySettingNav = (props) => {
     const repositoryId = props.match.params.id;      // 当前选中路由
     const [type,setType]=useState('1')   //左侧导航览类型
 
@@ -61,4 +61,4 @@ const LayerSetup = (props) => {
         </div>
     )
 }
-export default LayerSetup
+export default RepositorySettingNav

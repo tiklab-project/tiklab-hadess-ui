@@ -7,10 +7,10 @@
  */
 import React,{useState} from 'react';
 import {renderRoutes} from 'react-router-config'
-import MenuList from "../common/menu/menu";
-import './setting.scss'
+import MenuList from "../menu/menu";
+import './RepositoryNav.scss'
 import {CopyOutlined, MessageOutlined, TeamOutlined} from "@ant-design/icons";
-const Setting = props => {
+const SettingNav = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const menuData = [
@@ -141,4 +141,4 @@ const Setting = props => {
         </div>
     )
 };
-export default Setting
+export default SettingNav

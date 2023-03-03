@@ -73,4 +73,4 @@ class LibraryApi {
     }
 }
 const libraryApi=new LibraryApi();
-export default LibraryApi
+export default libraryApi

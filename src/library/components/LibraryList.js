@@ -7,9 +7,8 @@
  */
 import React, {useState, useEffect} from "react";
 import './LibraryList.scss'
-import {Input, Select, Space, Table} from "antd";
+import {Input, Select, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import repositoryService from "../api/LibraryApi";
 import libraryService from "../api/LibraryApi";
 const { Option } = Select;
 const options=[{value: 'all', label: '全部类型'}, {value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
@@ -57,14 +56,15 @@ const LibraryList = (props) => {
     }, []);
 
     //查询制品库
-    const findRepository =async () => {
-       const res=await repositoryService.findAllRepository()
+    const findRepository = async () => {
+        const res=await libraryService.findAllRepository()
         if (res.code===0){
             const  all=[{id:'all',name:"全部制品库"}]
             setRepositoryList(all.concat(res.data))
         }
     }
-    debugger
+
+
     //查询制品列表
     const findLibraryList = async (type,repositoryId) => {
         const param={

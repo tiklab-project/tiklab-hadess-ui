@@ -73,10 +73,11 @@ class LibraryApi {
         return response
     }
 
-    async findAllRepository(data){
-        const response = await Axios.post(findAllRepositoryApi,data)
+    async findAllRepository(){
+        debugger
+        const response = await Axios.post(findAllRepositoryApi)
         return response
     }
 }
 const libraryApi=new LibraryApi();
-export default LibraryApi
+export default libraryApi

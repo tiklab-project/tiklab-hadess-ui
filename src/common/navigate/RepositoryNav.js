@@ -7,11 +7,11 @@
  */
 import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
-import './setting.scss'
+import './RepositoryNav.scss'
 import {CaretDownOutlined, CodeOutlined, SettingOutlined} from "@ant-design/icons";
 import {Profile} from "tiklab-eam-ui";
 import ChangeRepository from "./ChangeRepository";
-const Setting = props => {
+const RepositoryNav = props => {
     const [key,setKey]=useState('')
     const {match} =props
     const repositoryId = props.match.params.id;      // 当前选中路由
@@ -106,4 +106,4 @@ const Setting = props => {
         </div>
     )
 };
-export default Setting
+export default RepositoryNav

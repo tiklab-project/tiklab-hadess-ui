@@ -8,13 +8,13 @@ import LayoutHoc from './common/layout/layout';
 const Home = SyncComponent(() => import('./home/Home'));
 
 // 制品库设置模块
-const Setting = SyncComponent(() => import('./setting/setting'));
+const Setting = SyncComponent(() => import('./common/navigate/RepositoryNav'));
 // 制品库设置-设置模块
-const LayerSetup = SyncComponent(() => import('./setting/LayerSetup'));
+const LayerSetup = SyncComponent(() => import('./common/navigate/RepositorySettingNav'));
 
 
 // 系统管理模块
-const System = SyncComponent(() => import('./setting/system'));
+const System = SyncComponent(() => import('./common/navigate/SettingNav'));
 const Login = SyncComponent(() => import('./Login/components/LoginXpack'));
 
 
@@ -55,28 +55,28 @@ const agency = SyncComponent(() => import('./repository/deploy/components/Agency
 const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
 
 //制品库-成员
-const programUser = SyncComponent(() => import('./program/user/ProgramUser'))
+const programUser = SyncComponent(() => import('./setting/user/ProgramUser'))
 //制品库-权限
-const programDomainRole = SyncComponent(() => import('./program/user/ProgramDomainRole'))
+const programDomainRole = SyncComponent(() => import('./setting/user/ProgramDomainRole'))
 
 //设置-消息配置发送方式
-const messageSendType =SyncComponent(()=>import('./program/sysmgr/message/Messagesendtype'))
+const messageSendType =SyncComponent(()=>import('./setting/message/Messagesendtype'))
 //设置-消息类型
-const messageType =SyncComponent(()=>import('./program/sysmgr/message/messageType'))
+const messageType =SyncComponent(()=>import('./setting/message/messageType'))
 //设置-消息模版
-const messageTemplate =SyncComponent(()=>import('./program/sysmgr/message/messageTemplate'))
+const messageTemplate =SyncComponent(()=>import('./setting/message/messageTemplate'))
 //设置-消息管理 （发送）
-const messageManagement =SyncComponent(()=>import('./program/sysmgr/message/MessageManagement'))
+const messageManagement =SyncComponent(()=>import('./setting/message/MessageManagement'))
 
 
 //设置-组织管理
-const orga =SyncComponent(()=>import('./program/sysmgr/organ/orga'))
+const orga =SyncComponent(()=>import('./setting/organ/orga'))
 //设置-组织管理
-const user =SyncComponent(()=>import('./program/sysmgr/organ/user'))
+const user =SyncComponent(()=>import('./setting/organ/user'))
 //设置-用户目录
-const userDirectory =SyncComponent(()=>import('./program/sysmgr/organ/userDirectory'))
+const userDirectory =SyncComponent(()=>import('./setting/organ/userDirectory'))
 //设置-权限
-const systemRole =SyncComponent(()=>import('./program/sysmgr/role/systemRole'))
+const systemRole =SyncComponent(()=>import('./setting/role/systemRole'))
 const routers = [
     {
         path: "/login",

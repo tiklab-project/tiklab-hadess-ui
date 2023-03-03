@@ -7,10 +7,10 @@
  */
 import React, {useState, useEffect} from "react";
 import {Table, Tooltip,Modal} from "antd";
-import Paging from "../components/paging";
+import Paging from "../../common/components/paging";
 import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
-import LibraryTable from "../components/libraryTable";
-import libraryService from "../../library/api/LibraryApi";
+import LibraryTable from "../../common/components/libraryTable";
+import libraryService from "../api/LibraryApi";
 const { confirm } = Modal;
 const History = (props) => {
     const {versionId,type,repositoryId}=props

@@ -6,9 +6,9 @@
  * @update: 2022-12-30 10:30
  */
 import React,{useEffect, useState}  from "react";
-import LibraryTable from "../components/libraryTable";
+import LibraryTable from "../../common/components/libraryTable";
 import { Space, Table} from "antd";
-import libraryService from "../../library/api/LibraryApi";
+import libraryService from "../api/LibraryApi";
 import FileDetails from "./fileDetails";
 const FileList = (props) => {
     const {versionId,type}=props
