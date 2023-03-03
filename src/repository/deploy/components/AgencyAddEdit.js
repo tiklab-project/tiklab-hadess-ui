@@ -6,7 +6,7 @@
  * @update: 2022-12-29 10:30
  */
 import React, {useEffect} from "react";
-import {Col, Row, Form, Modal, Input} from 'antd';
+import {Form, Modal, Input} from 'antd';
 import proxyService from "../api/ProxyApi";
 const layout = {
     labelCol: { span: 6},
@@ -15,6 +15,7 @@ const layout = {
 const AgencyAddEdit = (props) => {
     const [form] = Form.useForm();
     const {compileType,visible,onCancel,repositoryId,agency}=props
+
     useEffect(()=>{
         if (agency){
             form.setFieldsValue({
@@ -26,6 +27,9 @@ const AgencyAddEdit = (props) => {
         }
     },[agency])
 
+    /**
+     * 提交编辑后的代理信息
+     */
     const handleOk =async () => {
         form.validateFields().then(async values => {
             if (agency){

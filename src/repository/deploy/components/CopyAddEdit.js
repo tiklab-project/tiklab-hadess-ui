@@ -29,6 +29,9 @@ const CopyAddEdit = (props) => {
         }
     },[copy])
 
+    /**
+     * 提交编辑后的复制信息
+     */
     const handleOk =async () => {
         form.validateFields().then(async values => {
             if (copy){

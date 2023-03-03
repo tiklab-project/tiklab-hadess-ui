@@ -7,8 +7,7 @@
  */
 import React from "react";
 import './LibraryHistory.scss'
-import {Modal} from "antd";
-import History from "../common/history";
+import History from "../common/History";
 const LibraryHistory = (props) => {
     const {match:{params}} = props;
     return(

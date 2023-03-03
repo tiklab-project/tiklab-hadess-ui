@@ -1,5 +1,5 @@
 /**
- * @name: Librarys
+ * @name: LibraryList
  * @author: limingliang
  * @date: 2022-12-30 10:30
  * @description：制品列表
@@ -13,14 +13,17 @@ import libraryService from "../api/LibraryApi";
 const { Option } = Select;
 const options=[{value: 'all', label: '全部类型'}, {value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
 const LibraryList = (props) => {
-
+    //搜索的制品名字
     const [name,setName]=useState(null)
+    //搜索的制品版本
     const [version,setVersion]=useState(null)
-    const [repositoryList,setRepositoryList]=useState([])   //查询所有制品库list
+    //所有的制品库列表
+    const [repositoryList,setRepositoryList]=useState([])
+    //选择的制品库
     const [repository,setRepository]=useState(null)
-
-    const [libraryList,setLibraryList]=useState([])        //查询制品列表
-
+    //制品列表
+    const [libraryList,setLibraryList]=useState([])
+    //制品列表
     const [type,setType]=useState()
 
     const columns = [
@@ -55,7 +58,9 @@ const LibraryList = (props) => {
         await findLibraryList()
     }, []);
 
-    //查询制品库
+    /**
+     * 查询所有的制品库
+     */
     const findRepository = async () => {
         const res=await libraryService.findAllRepository()
         if (res.code===0){
@@ -64,8 +69,11 @@ const LibraryList = (props) => {
         }
     }
 
-
-    //查询制品列表
+    /**
+     * 查询制品列表
+     * @param  type 制品类型
+     * @param  repositoryId 制品库id
+     */
     const findLibraryList = async (type,repositoryId) => {
         const param={
             repositoryId:repositoryId,
@@ -78,7 +86,11 @@ const LibraryList = (props) => {
             setLibraryList(res.data)
         }
     }
-    //跳转制品详情
+
+    /**
+     * 跳转制品详情
+     * @param  value 选择的制品数据
+     */
     const goLibraryDetails =async (value) => {
         const param={
             libraryId: value.id
@@ -90,7 +102,10 @@ const LibraryList = (props) => {
         }
     }
 
-
+    /**
+     * 输入搜索制品名称
+     * @param  e 输入的制品名称
+     */
     const onInputName =async (e) => {
         const value = e.target.value
         if (value){
@@ -98,13 +113,18 @@ const LibraryList = (props) => {
         }else {
             setName(null)
         }
-
-
     }
+    /**
+     * 制品名称搜索
+     */
     const onSearch = async () => {
         await  findLibraryList(type,repository)
     }
 
+    /**
+     * 输入搜索制品版本
+     * @param  e 输入的制品版本
+     */
     const onInputVersion = (e) => {
         const value = e.target.value
         if (value){
@@ -112,13 +132,18 @@ const LibraryList = (props) => {
         }else {
             setVersion(null)
         }
-
     }
+    /**
+     * 制品版本搜索
+     */
     const onSearchVersion = async () => {
         await  findLibraryList(type,repository)
     }
 
-    //切换类型
+    /**
+     * 制品类型切换
+     * @param value 制品类型
+     */
     const cuteType =async (value) => {
         if (value==='all'){
             await findLibraryList(null,repository)
@@ -128,7 +153,10 @@ const LibraryList = (props) => {
             setType(value)
         }
     }
-    //切换制品库
+    /**
+     * 通过制品库类型查询
+     * @param value 制品类型
+     */
     const cuteRepository =async (value) => {
         if (value==='all'){
             setRepository(null)

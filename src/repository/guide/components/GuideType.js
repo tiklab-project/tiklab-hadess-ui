@@ -5,11 +5,15 @@
  * @description：指引选择
  * @update: 2022-12-27 10:30
  */
-import React, {useState, useEffect} from "react";
+import React from "react";
 import {Drawer} from 'antd'
 const GuideType = props => {
     const {visible, onClose,goDetails} = props;
 
+    /**
+     * 切换制品库
+     * @param type
+     */
     const cuteType =async (type) => {
         goDetails(type)
     }

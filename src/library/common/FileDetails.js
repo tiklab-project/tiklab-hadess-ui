@@ -6,8 +6,8 @@
  * @update: 2022-12-30 10:30
  */
 import React  from "react";
-import {Descriptions, Drawer, Space, Table} from 'antd'
-import './fileDetails.scss'
+import {Drawer} from 'antd'
+import './FileDetails.scss'
 import {VerticalAlignBottomOutlined} from "@ant-design/icons";
 const FileDetails = (props) => {
     const {visible, onClose,fileDetail,mavenData} = props;
@@ -115,7 +115,6 @@ const FileDetails = (props) => {
 
                 </div>
             }
-
         </Drawer>
     )
 }

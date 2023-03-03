@@ -6,7 +6,6 @@
  * @update: 2022-12-29 10:30
  */
 import React, {useState, useEffect} from "react";
-import Deploy from "../../../common/components/deployTable";
 import "./Agency.scss"
 import {Button, Modal, Space, Table} from "antd";
 import AgencyCompile  from "./AgencyAddEdit";
@@ -15,10 +14,15 @@ import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 const Agency = (props) => {
     const {match:{params}} = props;
-    const [agencyList,setAgencyList]=useState([])  //代理信息list
-    const [agency,setAgency]=useState(null)    //代理信息
-    const [visible,setVisible]=useState(false)   //编辑弹窗状态
+    //代理信息列表
+    const [agencyList,setAgencyList]=useState([])
+    //代理信息
+    const [agency,setAgency]=useState(null)
+    //编辑弹窗的状态
+    const [visible,setVisible]=useState(false)
+    //编辑的类型 add、update
     const [compileType,setCompileType]=useState(null)
+
     const columns = [
         {
             title: '来源',
@@ -48,7 +52,9 @@ const Agency = (props) => {
         await findAgencyList()
     }, []);
 
-    //条件查询代理信息
+    /**
+     * 查询代理信息列表
+     */
     const findAgencyList = async () => {
       const param={
           repositoryId:params.id
@@ -58,22 +64,35 @@ const Agency = (props) => {
           setAgencyList(res.data)
       }
     }
-    //关闭代理弹窗
+
+    /**
+     * 关闭编辑代理信息弹窗
+     */
     const onCancel = async () => {
         await findAgencyList()
         setVisible(false)
     }
+    /**
+     * 打开创建代理信息弹窗
+     */
     const openAgencyCompile =async () => {
         setCompileType('add')
-      setVisible(true)
+        setVisible(true)
     }
+    /**
+     * 打开编辑代理信息弹窗
+     * @param  value 代理信息
+     */
     const updateAgency =async (value) => {
         setAgency(value)
         setCompileType('update')
         setVisible(true)
     }
 
-    //删除制品库弹窗
+    /**
+     * 删除代理信息的弹窗
+     * @param  agency 代理信息
+     */
     const openDeletePop =async (agency) => {
         confirm({
             title: '是否确认删除该代理配置',
@@ -90,7 +109,10 @@ const Agency = (props) => {
             },
         });
     }
-    //删除代理信息
+    /**
+     * 删除代理信息
+     * @param  agency 代理信息id
+     */
     const deleteAgency =async (id) => {
       const param = new FormData();
       param.append("id",id)
@@ -99,6 +121,7 @@ const Agency = (props) => {
            await findAgencyList()
         }
     }
+
     return(
         <div className='agency'>
             <div className='agency-width'>

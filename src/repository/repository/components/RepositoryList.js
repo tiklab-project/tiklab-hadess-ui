@@ -7,24 +7,32 @@
  */
 import React, {useState, useEffect} from "react";
 import './Repository.scss'
-import {Space, Table, Tag, Dropdown, Menu, Image} from "antd";
+import {Space, Table, Dropdown, Menu} from "antd";
 import RepositoryAdd from "./RepositoryAdd";
 import repositoryService from "../api/RepositoryApi";
 import GuideType from "../../guide/components/GuideType";
 import GuideDetails from "../../guide/components/GuideDetail";
 import Profile from "tiklab-eam-ui/es/profile";
 const RepositoryList = (props) => {
+    //制品库类型
     const [repositoryType,setRepositoryType]=useState('local')
-    const [repositoryList,setRepositoryList]=useState([])  //制品库list
+    //制品库列表
+    const [repositoryList,setRepositoryList]=useState([])
+    //选择的制品库数据
     const [repository,setRepository]=useState(null)
-    const [typeRepositoryList,setTypeRepositoryList]=useState([])   //指引详情抽屉的制品库list
 
-    const [visible,setVisible]=useState(false)   //创建弹窗状态
-    const [createType,setCreateType]=useState()   //创建选择的类型
-    const [drawerVisible,setDrawerVisible]=useState(false)   //类型选择抽屉状态
-    const [detailsDrawerVisible,setDetailsDrawerVisible]=useState(false)   //指引详情抽屉状态
-    const [currentPage,setCurrentPage]=useState(1) //当前页
-    const [pageSize]=useState(10)
+    //创建制品库弹窗
+    const [visible,setVisible]=useState(false)
+    //创建制品库选择创建类型
+    const [createType,setCreateType]=useState()
+
+    //操作指引弹窗状态
+    const [drawerVisible,setDrawerVisible]=useState(false)
+    //单个制品库操作指引弹窗状态
+    const [detailsDrawerVisible,setDetailsDrawerVisible]=useState(false)
+    //操作指引抽屉-制品库列表
+    const [typeRepositoryList,setTypeRepositoryList]=useState([])
+
     const columns = [
         {
             title: '制品库名称',
@@ -79,7 +87,10 @@ const RepositoryList = (props) => {
         await findRepository(repositoryType)
     }, []);
 
-    //分页查询制品库
+    /**
+     * 通过制品库类型查询
+     * @param  repositoryType 制品库类型 （local、remote、group）
+     */
     const findRepository =async (repositoryType) => {
       const param={
           repositoryType:repositoryType
@@ -89,7 +100,11 @@ const RepositoryList = (props) => {
             setRepositoryList(res.data)
         }
     }
-    //条件查询制品库
+    /**
+     * 打开指引-条件查询制品库
+     * @param  type 制品库类型 maven、npm
+     * @param  value 当前制品库
+     */
     const findRepositoryList =async (type,value) => {
       const param={
           type:type
@@ -105,36 +120,57 @@ const RepositoryList = (props) => {
         }
     }
 
-    //跳转制品库详情
+    /**
+     * 跳转制品库详情
+     * @param  value 当前制品库
+     */
     const goRepositoryDetails =async (value) => {
         props.history.push(`/index/repository/${value.id}/libraryList`)
     }
 
-    //切换类型
+    /**
+     * 切换制品库类型
+     * @param  value （local、remote、group）
+     */
     const cuteType =async (value) => {
         setRepositoryType(value)
         await findRepository(value)
     }
 
-    const onCancel =async () => {
-      setVisible(false)
-       await findRepository(repositoryType)
-    }
+    /**
+     * 打开创建制品库弹窗
+     * @param  value （local、remote、group）
+     */
     const openVisible = (value) => {
         setCreateType(value)
       setVisible(true)
     }
+    /**
+     * 关闭创建制品库弹窗
+     * @param  value （local、remote、group）
+     */
+    const onCancel =async () => {
+        setVisible(false)
+        await findRepository(repositoryType)
+    }
 
 
-    //打开选择抽屉
+    /**
+     * 打开操作指引抽屉
+     */
     const openDrawer = () => {
       setDrawerVisible(true)
     }
-    //关闭选择抽屉
+    /**
+     * 关闭操作指引抽屉
+     */
     const onClose = () => {
         setDrawerVisible(false);
     };
-    //跳转指引详情
+    /**
+     * 工具类型跳转指引详情
+     * @param type  制品库类型
+     */
     const goDetails =async (type) => {
         await findRepositoryList(type)
         onClose()
@@ -142,21 +178,30 @@ const RepositoryList = (props) => {
     }
 
 
-    //打开指引详情抽屉
+    /**
+     * 打开单个制品库操作指引抽屉
+     * @param value  制品库
+     */
     const openDetailsDrawer = async (value) => {
        await findRepositoryList(value.type,value)
         setDetailsDrawerVisible(true)
     }
-    //关闭指引详情抽屉
+    /**
+     * 关闭单个制品库操作指引抽屉
+     */
     const closeDetailsDrawer = () => {
         setDetailsDrawerVisible(false);
     };
 
-    //跳转配置
+    /**
+     * 跳转配置界面
+     */
     const goDeploy =async (value) => {
         props.history.push(`/index/repository/${value.id}/setting/repositoryInfo`)
     }
-
+    /**
+     * 制品库
+     */
     const SystemTypes=() => (
         <Menu>
             <Menu.Item onClick={()=>openVisible('local')}>

@@ -1,5 +1,5 @@
 /**
- * @name: LibrarySurvey
+ * @name: Survey
  * @author: limingliang
  * @date: 2023-01-09 14:30
  * @description：制品详情-概览
@@ -11,12 +11,17 @@ import {Descriptions} from "antd";
 import libraryService from "../api/LibraryApi";
 const Survey = (props) => {
     const {type,repositoryId,versionId}=props
-    const [version,setVersion]=useState(null)   //最新的版本
+    //制品版本详情
+    const [version,setVersion]=useState(null)
+
     useEffect(async () => {
         await findLibraryDetailsById()
 
     }, []);
-    //查询制品版本详情
+
+    /**
+     * 查询制品版本详情
+     */
     const findLibraryDetailsById =async () => {
         const param = new FormData()
         param.append('id',versionId)

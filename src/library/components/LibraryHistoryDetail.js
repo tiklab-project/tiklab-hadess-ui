@@ -5,12 +5,11 @@
  * @description：制品详情-历史版本详情
  * @update: 2023-01-10 10:30
  */
-import React, {useState} from "react";
+import React from "react";
 import { Descriptions, Drawer,  Space, Table} from 'antd'
 import './LibraryHistoryDetail.scss'
 const LibraryHistoryDetail = (props) => {
     const {visible, onClose,fileList,versionDetails} = props;
-    const [type,setType]=useState("survey")
     const columns = [
         {
             title: '名称',
@@ -35,9 +34,6 @@ const LibraryHistoryDetail = (props) => {
         },
     ];
 
-    const cuteTable = (type) => {
-      setType(type)
-    }
     return(
         <Drawer
             title="版本详情"

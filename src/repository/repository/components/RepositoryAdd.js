@@ -36,31 +36,43 @@ const steps = [
 const RepositoryAdd = (props) => {
     const [form] = Form.useForm();
     const {visible,onCancel,createType}=props
+
+    //制品库类型
     const [type,setType]=useState('Maven')
-    const [storageList,setStorageList]=useState([])   //存储库信息
-    const [repositoryList,setRepositoryList]=useState([])   //本地库和远程库list
-    const [repository,setRepository]=useState(null)   //选中的制品库
+    //存储库列表
+    const [storageList,setStorageList]=useState([])
+    //本地库和远程库列表
+    const [repositoryList,setRepositoryList]=useState([])
+    //选中的制品库
+    const [repository,setRepository]=useState(null)
+    //输入的制品库名称
     const [repositoryName,setRepositoryName]=useState(null)
-    const [errorState,setErrorState]=useState(false)    //错误状态
+    //错误状态
+    const [errorState,setErrorState]=useState(false)
+    //选中的制品库
+    const [choiceRepository,setChoiceRepository]=useState(null)
+    //选择后的制品库列表
+    const [choiceRepositoryList,setChoiceRepositoryList]=useState([])
 
-    const [choiceRepository,setChoiceRepository]=useState(null)   //选中选择后的制品库
-    const [choiceRepositoryList,setChoiceRepositoryList]=useState([])    //选择后的制品库id
-
-    const [current, setCurrent] = useState(0);
 
     useEffect(async () => {
        await findStorage()
         await findRepository(type)
     }, []);
 
-    //查询存储库
+    /**
+     * 存储库列表
+     */
     const findStorage =async () => {
       const res=await repositoryService.findAllStorage()
         if (res.code===0){
             setStorageList(res.data)
         }
     }
-    //查询本地库和远程库
+    /**
+     * 本地库和远程库的列表
+     * @param type 类型
+     */
     const findRepository =async (type) => {
        const param = new FormData()
         param.append("type",type)
@@ -69,7 +81,9 @@ const RepositoryAdd = (props) => {
             setRepositoryList(res.data)
         }
     }
-
+    /**
+     * 创建制品库提交
+     */
     const onFinish =async () => {
         form.validateFields().then(async values => {
             const param={
@@ -89,7 +103,10 @@ const RepositoryAdd = (props) => {
             }
         })
     }
-    //创建组合关联
+    /**
+     * 创建组合库关联
+     * @param repositoryGroupId 组合库id
+     */
     const createGroupItems =async (repositoryGroupId) => {
         choiceRepositoryList.map(items=>{
             const param={
@@ -106,16 +123,24 @@ const RepositoryAdd = (props) => {
 
     }
 
-    //切换类型
+    /**
+     * 选择制品库类型
+     * @param value 制品库类型  maven、npm...
+     */
     const cuteType =async (value) => {
         setType(value)
        await findRepository(value)
     }
-    //切换制品库
+    /**
+     * 选中制品库
+     * @param item 确认制品库
+     */
     const cuteRepository =async (item) => {
         setRepository(item)
     }
-    //选择制品库
+    /**
+     * 确认制品库
+     */
     const chooseRepository =async () => {
         if (repository){
             setRepositoryList(repositoryList.filter(item=>repository?.id!==item.id))
@@ -124,12 +149,16 @@ const RepositoryAdd = (props) => {
         }
     }
 
-
-    //切换选择后的制品库
+    /**
+     * 选中已经确认后的制品库
+     * @param  item 选中的制品库
+     */
     const cuteChooseRepository =async (item) => {
         setChoiceRepository(item)
     }
-    //取消制品库
+    /**
+     * 取消已经确认后的制品库
+     */
     const cancelRepository =async () => {
         if (choiceRepository){
             setRepositoryList(repositoryList.concat(choiceRepository))
@@ -142,6 +171,10 @@ const RepositoryAdd = (props) => {
         title: item.title,
     }));
 
+    /**
+     * 输入制品库名称
+     * @param e 输入的制品库名称
+     */
     const inputRepositoryName =async (e) => {
         if (e.target.value){
             let reg = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]/g;
@@ -155,6 +188,9 @@ const RepositoryAdd = (props) => {
 
     }
 
+    /**
+     * 取消创建制品库
+     */
     const abolish =async () => {
         setRepositoryName(null)
         onCancel()

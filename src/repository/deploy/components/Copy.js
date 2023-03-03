@@ -1,12 +1,11 @@
 /**
- * @name: RepositoryCompile
+ * @name: Copy
  * @author: limingliang
  * @date: 2022-12-29 10:30
  * @description：复制信息
  * @update: 2022-12-29 10:30
  */
 import React, {useState, useEffect} from "react";
-import Deploy from "../../../common/components/deployTable";
 import "./Copy.scss"
 import {Button, Modal, Space, Table} from "antd";
 import copyService from "../api/CopyApi";
@@ -15,9 +14,13 @@ import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 const Copy = (props) => {
     const {match:{params}} = props;
+    //复制信息列表
     const [copyList,setCopyList]=useState([])
-    const [copy,setCopy]=useState(null)    //复制信息
-    const [visible,setVisible]=useState(false)   //编辑弹窗状态
+    //复制的信息
+    const [copy,setCopy]=useState(null)
+    //复制编辑弹窗状态
+    const [visible,setVisible]=useState(false)
+    //编辑类型 add、update
     const [compileType,setCompileType]=useState(null)
 
     const columns = [
@@ -25,7 +28,7 @@ const Copy = (props) => {
             title: '来源',
             dataIndex: 'source',
             width:'20%',
-            render:(text,record)=><div className=''> {text}</div>
+            render:(text)=><div className=''> {text}</div>
         },
         {
             title: '地址',
@@ -49,7 +52,9 @@ const Copy = (props) => {
         await findCopyList()
     }, []);
 
-    //查询复制信息list
+    /**
+     * 查询复制信息列表
+     */
     const findCopyList =async () => {
       const param={
           repositoryId:params.id
@@ -60,7 +65,9 @@ const Copy = (props) => {
         }
     }
 
-    //删除制品库弹窗
+    /**
+     * 删除制品库复制信息弹窗
+     */
     const openDeletePop =async (agency) => {
         confirm({
             title: '是否确认删除该复制配置',
@@ -78,6 +85,10 @@ const Copy = (props) => {
         });
     }
 
+    /**
+     * 删除复制信息
+     * @param id 复制id
+     */
     const deleteCopy =async (id) => {
         const param=new FormData()
         param.append('id',id)
@@ -86,15 +97,25 @@ const Copy = (props) => {
             await  findCopyList()
         }
     }
-    //关闭复制弹窗
+    /**
+     * 关闭复制编辑弹窗
+     * @param id 复制id
+     */
     const onCancel = async () => {
         await findCopyList()
         setVisible(false)
     }
+    /**
+     * 打开创建复制信息弹窗
+     */
     const openCopyCompile =async () => {
         setVisible(true)
         setCompileType("add")
     }
+    /**
+     * 编辑创建复制信息弹窗
+     * @param value 选中的复制信息
+     */
     const updateAgency =async (value) => {
         setCopy(value)
         setCompileType('update')

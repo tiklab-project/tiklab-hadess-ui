@@ -1,5 +1,5 @@
 /**
- * @name: LibraryHistory
+ * @name: History
  * @author: limingliang
  * @date: 2023-01-09 14:30
  * @description：制品详情-历史版本
@@ -14,10 +14,15 @@ import libraryService from "../api/LibraryApi";
 const { confirm } = Modal;
 const History = (props) => {
     const {versionId,type,repositoryId}=props
-    const [versionList,setVersionList]=useState([])  //版本列表
+    //制品版本列表
+    const [versionList,setVersionList]=useState([])
+    //当前页
     const [currentPage, setCurrentPage] = useState(1);
+    //每页条数
     const [pageSize] = useState(10);
-    const [totalPage,setTotalPage]=useState(0);  //总页数
+    //总页数
+    const [totalPage,setTotalPage]=useState(0);
+
     const columns = [
         {
             title: '版本',
@@ -57,9 +62,12 @@ const History = (props) => {
 
     useEffect(async () => {
         await findHistoryVersion(currentPage)
-
     }, []);
 
+    /**
+     * 查询制品版本列表
+     * @param  currentPage 当前页
+     */
     const findHistoryVersion = async (currentPage) => {
         const formParam=new FormData()
         formParam.append('id',versionId)
@@ -79,7 +87,20 @@ const History = (props) => {
             }
         }
     }
-    //删除弹窗
+    /**
+     * 分页查询制品版本
+     * @param  value 页面数据
+     */
+    const handleTableChange = async (value) => {
+        setCurrentPage(value)
+        await findHistoryVersion(value)
+
+    }
+
+    /**
+     * 删除制品版本弹窗
+     * @param  versionId 删除制品版本id
+     */
     const deletePop =async (versionId) => {
         let message;
         if (versionList.length===1){
@@ -102,12 +123,18 @@ const History = (props) => {
             },
         });
     }
-    //删除版本
+    /**
+     * 删除制品版本
+     * @param  versionId 删除制品版本id
+     */
     const deleteHistoryVersion =async (versionId) => {
 
     }
 
-
+    /**
+     * 打开制品版本详情弹窗
+     * @param  value 当前制品版本详情
+     */
     const openVersionDetail =async (value) => {
         if (type==='repository'){
             props.history.push(`/index/repository/${repositoryId}/libraryList/survey/${value.id}`)
@@ -115,12 +142,7 @@ const History = (props) => {
             props.history.push(`/index/library/librarySurvey/${value.id}`)
         }
     }
-    //分页
-    const handleTableChange = async (value) => {
-        setCurrentPage(value)
-        await findHistoryVersion(value)
 
-    }
     return(
         <div>
             <LibraryTable type={type}  classify={"history"}  versionId={versionId} {...props} />
