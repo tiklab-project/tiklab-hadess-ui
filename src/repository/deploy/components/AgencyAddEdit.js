@@ -88,7 +88,7 @@ const AgencyAddEdit = (props) => {
                     name="password"
                     label='密码'
                 >
-                    <Input placeholder='请输入密码' type={"password"}/>
+                    <Input  placeholder='请输入密码' type={"text"}/>
                 </Form.Item>
             </Form>
         </Modal>

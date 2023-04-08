@@ -125,8 +125,8 @@ const Copy = (props) => {
         <div className='copy'>
             <div className='copy-width'>
                 <div className='flex justify-between'>
-                    <div className=' copy-title' >配置</div>
-                    <div className='mt-3'>
+                    <div className='copy-title' >复制</div>
+                    <div className='copy-button'>
                         <Button type="primary" htmlType="submit" onClick={openCopyCompile}>
                             + 配置复制
                         </Button>
@@ -134,7 +134,7 @@ const Copy = (props) => {
                 </div>
 
                {/* <Deploy type={"copy"} repositoryId={params.id} {...props} />*/}
-                <div className='mt-6'>
+                <div className='copy-table'>
                     <Table
                         dataSource={copyList}
                         columns={columns}

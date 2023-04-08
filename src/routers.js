@@ -4,8 +4,6 @@ import {Logout} from 'tiklab-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './common/layout/layout';
 
-//home 首页
-const Home = SyncComponent(() => import('./home/Home'));
 
 // 制品库设置模块
 const Setting = SyncComponent(() => import('./common/navigate/RepositoryNav'));
@@ -30,6 +28,8 @@ const libraryHistory = SyncComponent(() => import('./library/components/LibraryH
 
 // 制品库列表
 const RepositoryList = SyncComponent(() => import('./repository/repository/components/RepositoryList'))
+// 制品库-创建
+const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 //制品列表
 const LibraryList = SyncComponent(() => import('./repository/library/components/LibraryList'))
 //制品库-制品列表-概览
@@ -53,28 +53,33 @@ const agency = SyncComponent(() => import('./repository/deploy/components/Agency
 const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
 
 //制品库-成员
-const programUser = SyncComponent(() => import('./setting/user/ProgramUser'))
+const programUser = SyncComponent(() => import('./setting/repository/ProgramUser'))
 //制品库-权限
-const programDomainRole = SyncComponent(() => import('./setting/user/ProgramDomainRole'))
+const programDomainRole = SyncComponent(() => import('./setting/repository/ProgramDomainRole'))
 
-//设置-消息配置发送方式
-const messageSendType =SyncComponent(()=>import('./setting/message/Messagesendtype'))
-//设置-消息类型
-const messageType =SyncComponent(()=>import('./setting/message/MessageType'))
-//设置-消息模版
-const messageTemplate =SyncComponent(()=>import('./setting/message/MessageTemplate'))
-//设置-消息管理 （发送）
-const messageManagement =SyncComponent(()=>import('./setting/message/MessageManagement'))
+//设置-消息通知方案
+const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
+//设置-消息发送方式
+const messagesendtype =SyncComponent(()=>import('./setting/message/Messagesendtype'))
 
 
-//设置-组织管理
+//设置-部门
 const orga =SyncComponent(()=>import('./setting/organ/Orga'))
-//设置-组织管理
+//设置-用户
 const user =SyncComponent(()=>import('./setting/organ/User'))
+//设置-用户组
+const group =SyncComponent(()=>import('./setting/organ/Group'))
 //设置-用户目录
 const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
 const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
+
+//设置-插件
+const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
+//设置-操作日志
+const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
+//设置-版本与许可证
+const Version =SyncComponent(()=>import('./setting/licence/Version'))
 const routers = [
     {
         path: "/login",
@@ -98,11 +103,6 @@ const routers = [
         key: 'index',
         routes: [
             {
-                path: '/index/home',
-                component: Home,
-                exact: true,
-            },
-            {
                 path: '/index/library',
                 component: librarys,
                 exact: true,
@@ -125,6 +125,11 @@ const routers = [
             {
                 path: '/index/repository',
                 component: RepositoryList,
+                exact: true,
+            },
+            {
+                path: '/index/repository/add/:type',
+                component: RepositoryAdd,
                 exact: true,
             },
             {
@@ -208,23 +213,13 @@ const routers = [
                 path:'/sysmgr',
                 routes: [
                     {
-                        path: '/sysmgr/messageSendType',
-                        component:messageSendType,
+                        path: '/sysmgr/notice',
+                        component:messageNotice,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/messageType',
-                        component:messageType,
-                        exact: true,
-                    },
-                    {
-                        path: '/sysmgr/messageTemplate',
-                        component:messageTemplate,
-                        exact: true,
-                    },
-                    {
-                        path: '/sysmgr/messageManagement',
-                        component:messageManagement,
+                        path: '/sysmgr/messageSend',
+                        component:messagesendtype,
                         exact: true,
                     },
                     {
@@ -238,6 +233,11 @@ const routers = [
                         exact: true,
                     },
                     {
+                        path: '/sysmgr/userGroup',
+                        component:group,
+                        exact: true,
+                    },
+                    {
                         path: '/sysmgr/user/directory',
                         component:userDirectory,
                         exact: true,
@@ -246,6 +246,18 @@ const routers = [
                         path: '/sysmgr/systemRole',
                         component:systemRole,
                         exact: true,
+                    },
+                    {
+                        path: '/sysmgr/plugin',
+                        component: plugin,
+                    },
+                    {
+                        path: '/sysmgr/logList',
+                        component: MyLog,
+                    },
+                    {
+                        path: '/sysmgr/version',
+                        component: Version,
                     },
                     {
                         path: '/',

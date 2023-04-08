@@ -126,15 +126,15 @@ const Agency = (props) => {
         <div className='agency'>
             <div className='agency-width'>
                 <div className='flex justify-between'>
-                    <div className=' agency-title'>配置</div>
-                    <div className='mt-3'>
+                    <div className=' agency-title'>代理</div>
+                    <div className='agency-button'>
                         <Button type="primary" htmlType="submit" onClick={openAgencyCompile}>
                             + 代理来源
                         </Button>
                     </div>
                 </div>
                 {/*<Deploy type={"agency"}  repositoryId={params.id} {...props}/>*/}
-                <div className='mt-6'>
+                <div className='agency-table'>
                     <Table
                         dataSource={agencyList}
                         columns={columns}

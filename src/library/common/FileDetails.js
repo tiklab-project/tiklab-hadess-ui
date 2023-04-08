@@ -23,7 +23,7 @@ const FileDetails = (props) => {
         >
             {
                 fileDetail&&
-                <div className='space-y-3 file-details'>
+                <div className=' file-details'>
                     <div className='nav-table'>
                         <div className='title-text'>制品库:</div>
                         <span>{fileDetail?.repository.name}</span>
@@ -34,7 +34,7 @@ const FileDetails = (props) => {
                     </div>
                     {
                         fileDetail?.repository.type==="Maven"&&
-                        <div className='space-y-3'>
+                        <div>
                             <div className='nav-table'>
                                 <div className='title-text'>groupId:</div>
                                 <span>{mavenData?.groupId}</span>
@@ -71,28 +71,26 @@ const FileDetails = (props) => {
                     </div>
                     <div className='nav-table'>
                         <div className='title-text'>下载:</div>
-
-                        <VerticalAlignBottomOutlined className='text-blue-500 text-xl cursor-pointer font-medium' />
-
+                        <VerticalAlignBottomOutlined className='download-icon' />
                     </div>
                     {
                         fileDetail?.repository.type==="Maven"&&
-                        <div className='pt-4'>
-                            <div className='text-base font-normal'>Usage</div>
-                            <div className='text-gray-400'>Insert this snippet into your pom.xml</div>
-                            <div className='mt-2 bg-gray-100 py-2 pl-2'>
+                        <div className='nav-use'>
+                            <div className='use-title'>Usage</div>
+                            <div className='use-des'>Insert this snippet into your pom.xml</div>
+                            <div className='use-table'>
                                 <div>{"<dependency>"}</div>
-                                <div className='flex pl-6'>
+                                <div className='per-line'>
                                     <div>{"<groupId>"}</div>
                                     <div>{mavenData?.groupId}</div>
                                     <div>{"</groupId>"}</div>
                                 </div>
-                                <div className='flex pl-6'>
+                                <div className='per-line'>
                                     <div>{"<artifactId>"}</div>
                                     <div>{mavenData?.artifactId}</div>
                                     <div>{"</artifactId>"}</div>
                                 </div>
-                                <div className='flex pl-6'>
+                                <div className='per-line'>
                                     <div>{"<version>"}</div>
                                     <div>{fileDetail.libraryVersion.version}</div>
                                     <div>{"</version>"}</div>
@@ -104,10 +102,10 @@ const FileDetails = (props) => {
                     }
                     {
                         fileDetail?.repository.type==="npm"&&
-                        <div className='pt-4'>
-                            <div className='text-base font-normal'>Usage</div>
-                            <div className='text-gray-400'>Install runtime dependency</div>
-                            <div className='mt-2 bg-gray-100 py-2 pl-2'>
+                        <div className='nav-use'>
+                            <div className='use-title'>Usage</div>
+                            <div className='use-des'>Install runtime dependency</div>
+                            <div className='use-table'>
                                 npm install {"tiklab-eam-ui@1.0.0"}
                             </div>
                         </div>

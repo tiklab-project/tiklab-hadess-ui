@@ -1,6 +1,6 @@
 /**
  * @name: setting
- * @author: mahai
+ * @author: limingliang
  * @date: 2021-05-21 16:51
  * @description：setting
  * @update: 2021-05-21 16:51
@@ -55,27 +55,42 @@ const SettingNav = props => {
             icon:<CopyOutlined />,
             children:[
                 {
-                    id:'3-4',
-                    key:'3-4',
-                    title: '消息管理',
-                },
-                {
                     id:'3-1',
                     key:'3-1',
-                    title: '消息类型管理',
+                    title: '消息通知方案',
                 },
                 {
                     id:'3-2',
                     key:'3-2',
                     title: '消息发送方式',
-                },
-                {
-                    id:'3-3',
-                    key:'3-3',
-                    title: '消息模版配置',
                 }
             ]
         },
+        {
+            id:'4',
+            key:'4',
+            title: '插件',
+            icon:<CopyOutlined />
+        },
+        {
+            id:'5',
+            key:'5',
+            title: '安全',
+            icon:<CopyOutlined />,
+            children:[
+                {
+                    id:'5-1',
+                    key:'5-1',
+                    title: '操作日记',
+                }
+            ]
+        },
+        {
+            id:'6',
+            key:'6',
+            title: '版本与许可证',
+            icon:<CopyOutlined />
+        }
 
     ]
 
@@ -92,6 +107,10 @@ const SettingNav = props => {
                 router:`/sysmgr/user`,
             },
             {
+                key:'1-3',
+                router: '/sysmgr/userGroup',
+            },
+            {
                 key:'1-4',
                 router:`/sysmgr/user/directory`,
             },
@@ -101,19 +120,23 @@ const SettingNav = props => {
             },
             {
                 key:'3-1',
-                router:`/sysmgr/messageType`,
+                router:`/sysmgr/notice`,
             },
             {
                 key:'3-2',
-                router:`/sysmgr/messageSendType`,
+                router:`/sysmgr/messageSend`,
             },
             {
-                key:'3-3',
-                router:`/sysmgr/messageTemplate`,
+                key:'4',
+                router:`/sysmgr/plugin`,
             },
             {
-                key:'3-4',
-                router:`/sysmgr/messageManagement`,
+                key:'5-1',
+                router:'/sysmgr/logList',
+            },
+            {
+                key:'6',
+                router:'/sysmgr/version',
             },
         ];
         onSelectMenuSetting(props.history, key, links)

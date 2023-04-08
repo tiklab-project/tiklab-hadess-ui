@@ -10,7 +10,6 @@ import './LibrarySurvey.scss'
 import Survey from "../common/Survey";
 const LibrarySurvey = (props) => {
     const {match:{params}} = props;
-    debugger
     return(
         <div className='survey'>
             <div className='history-width'>

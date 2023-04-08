@@ -7,15 +7,14 @@
  * @LastEditTime: 2023-01-03 19:56:02
  */
 import React from "react";
-import { DomainRoleList } from 'tiklab-privilege-ui';
+import {DomainUser} from "tiklab-user-ui";
 import { inject, observer } from "mobx-react";
 
-const ProgramDomainRole = props => {
+const ProgramUser = props => {
     const programId = props.match.params.id;
-    console.log(programId)
     return (
-        <div>
-            <DomainRoleList
+        <div >
+            <DomainUser
                 {...props}
                 domainId={programId}
                 bgroup = {"xpack"}
@@ -23,4 +22,5 @@ const ProgramDomainRole = props => {
         </div>
     )
 }
-export default inject("privilegeDomainRoleStore")(observer(ProgramDomainRole)) ;
+
+export default inject("domainUserStore")(observer(ProgramUser));

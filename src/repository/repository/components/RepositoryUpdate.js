@@ -157,7 +157,7 @@ const RepositoryUpdate = (props) => {
     return(
         <div className='repository-info'>
             <div className='info-title'>制品库信息</div>
-            <div className='mt-6'>
+            <div className='info-table'>
                 <Form
                     {...layout}
                     form={form}
@@ -260,7 +260,7 @@ const RepositoryUpdate = (props) => {
                     <div className='info-title '>
                         删除制品库
                     </div>
-                    <div className='text-red-500 mt-4'>此操作无法恢复！请慎重操作！</div>
+                    <div className='delete-text'>此操作无法恢复！请慎重操作！</div>
                     <Button type="primary" htmlType="submit" onClick={openDeletePop} className='mt-2'>
                         删除
                     </Button>

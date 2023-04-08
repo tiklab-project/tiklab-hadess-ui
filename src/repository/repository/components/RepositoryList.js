@@ -6,13 +6,14 @@
  * @update: 2022-12-27 10:30
  */
 import React, {useState, useEffect} from "react";
-import './Repository.scss'
+import './RepositoryList.scss'
 import {Space, Table, Dropdown, Menu} from "antd";
-import RepositoryAdd from "./RepositoryAdd";
 import repositoryService from "../api/RepositoryApi";
 import GuideType from "../../guide/components/GuideType";
-import GuideDetails from "../../guide/components/GuideDetail";
-import Profile from "tiklab-eam-ui/es/profile";
+import GuideContent from "../../guide/components/GuideContent";
+import ListIcon from "../../../common/repositoryIcon/Listicon";
+import {PlusOutlined} from "@ant-design/icons";
+import Btn from "../../../common/btn/Btn";
 const RepositoryList = (props) => {
     //制品库类型
     const [repositoryType,setRepositoryType]=useState('local')
@@ -33,15 +34,18 @@ const RepositoryList = (props) => {
     //操作指引抽屉-制品库列表
     const [typeRepositoryList,setTypeRepositoryList]=useState([])
 
+    //制品类型
+    const [type,setType]=useState(null)
+
     const columns = [
         {
             title: '制品库名称',
             dataIndex: 'name',
             width:'15%',
             render:(text,record)=>(
-                <div className='space-x-1 flex'>
-                    <Profile/>
-                    <div className='text-blue-500 cursor-pointer ' onClick={()=>goRepositoryDetails(record)}>
+                <div className='repository-flex'>
+                    <ListIcon text={record?.name}/>
+                    <div className='repository-name ' onClick={()=>goRepositoryDetails(record)}>
                         {text}
                     </div>
                 </div>
@@ -53,16 +57,16 @@ const RepositoryList = (props) => {
             dataIndex: 'type',
             width:'5%',
         },
-      /*  {
-            title: '地址',
-            dataIndex: 'repositoryUrl',
-            width:'15%',
-
-        },*/
         {
             title: '制品数量',
             dataIndex: 'libraryNum',
             width:'10%',
+
+        },
+          {
+            title: '地址',
+            dataIndex: 'repositoryUrl',
+            width:'15%',
 
         },
         {
@@ -76,7 +80,7 @@ const RepositoryList = (props) => {
             width:'10%',
             render: (text, record) => (
                 <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
-                    <div onClick={()=>openDetailsDrawer(record)} >操作指引</div>
+                   {/* <div onClick={()=>openDetailsDrawer(record)} >操作指引</div>*/}
                     <div onClick={()=>goDeploy(record)}>设置</div>
                 </Space>
             )
@@ -137,13 +141,13 @@ const RepositoryList = (props) => {
         await findRepository(value)
     }
 
+
     /**
-     * 打开创建制品库弹窗
-     * @param  value （local、remote、group）
+     * 跳转添加制品库
+     * @param  type （local、remote、group）
      */
-    const openVisible = (value) => {
-        setCreateType(value)
-      setVisible(true)
+    const goRepositoryAdd=async (type)=>{
+        props.history.push(`/index/repository/add/${type}`)
     }
     /**
      * 关闭创建制品库弹窗
@@ -173,6 +177,7 @@ const RepositoryList = (props) => {
      */
     const goDetails =async (type) => {
         await findRepositoryList(type)
+        setType(type)
         onClose()
         setDetailsDrawerVisible(true)
     }
@@ -204,41 +209,41 @@ const RepositoryList = (props) => {
      */
     const SystemTypes=() => (
         <Menu>
-            <Menu.Item onClick={()=>openVisible('local')}>
+            <Menu.Item onClick={()=>goRepositoryAdd('local')}>
                本地库Local
             </Menu.Item>
-            <Menu.Item onClick={()=>openVisible('remote')}>
+            <Menu.Item onClick={()=>goRepositoryAdd('remote')}>
                 远程库Remote
             </Menu.Item>
-            <Menu.Item onClick={()=>openVisible('group')}>
+            <Menu.Item onClick={()=>goRepositoryAdd('group')}>
                 组合库Group
             </Menu.Item>
         </Menu>
     );
     return(
-        <div className='repository '>
-            <div className=' max-w-screen-xl mx-auto'>
-                <div className='flex justify-between'>
+        <div className='repository'>
+            <div className='repository-width'>
+                <div className='repository-head-style'>
                     <div className='title'>制品库</div>
-                    <div className='flex space-x-2'>
-                        <div className='px-2 py-1 border rounded-md cursor-pointer' onClick={openDrawer}>操作指引</div>
-                      {/*  <div className='px-2 py-1 border rounded-md bg-blue-500 text-white cursor-pointer' onClick={openVisible}>
-                            +制品库
-                        </div>*/}
-                        <Dropdown overlay={()=>SystemTypes()}  >
-                            <div className='px-2 py-1 border rounded-md bg-blue-500 text-white cursor-pointer' >
-                                +制品库
+                    <div className='repository-flex'>
+                        <Btn
+                            title={'操作指引'}
+                            onClick={openDrawer}
+                        />
+                        <Dropdown overlay={()=>SystemTypes()} >
+                            <div className='add-button' >
+                                +新建制品库
                             </div>
                         </Dropdown>
                     </div>
                 </div>
 
-                <div className='flex space-x-8  '>
-                   <div className={`${repositoryType==='local'&& ' choose_type '}  repository_tab`} onClick={()=>cuteType("local")}>本地库</div>
-                   <div className={`${repositoryType==='remote'&& ' choose_type '}  repository_tab`} onClick={()=>cuteType("remote")}>远程库</div>
-                   <div className={`${repositoryType==='group'&& ' choose_type '}  repository_tab`} onClick={()=>cuteType("group")}>组合库</div>
+                <div className='repository-flex '>
+                   <div className={`${repositoryType==='local'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("local")}>本地库</div>
+                   <div className={`${repositoryType==='remote'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("remote")}>远程库</div>
+                   <div className={`${repositoryType==='group'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("group")}>组合库</div>
                 </div>
-                <div className='mt-6'>
+                <div className='repository-table'>
                     <Table
                         dataSource={repositoryList}
                         columns={columns}
@@ -246,9 +251,8 @@ const RepositoryList = (props) => {
                     />
                 </div>
             </div>
-            <RepositoryAdd visible={visible} onCancel={onCancel} createType={createType}/>
             <GuideType onClose={onClose} visible={drawerVisible} goDetails={goDetails}/>
-            <GuideDetails onClose={closeDetailsDrawer} visible={detailsDrawerVisible} repository={repository} repositoryList={typeRepositoryList}/>
+            <GuideContent onClose={closeDetailsDrawer} visible={detailsDrawerVisible} repository={repository} repositoryList={typeRepositoryList} type={type}/>
         </div>
     )
 }

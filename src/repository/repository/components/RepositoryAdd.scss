@@ -1,11 +1,17 @@
-.repository-addmodel {
-    top: 0;
-    width: 100vw;
-    padding: 0;
-    margin: 0;
-    max-width: 100vw;
-    height: 100%;
-    background-color: rgb(243, 244, 246);
+.repository-add{
+    padding: var(--tiklab-padding-item);
+    overflow: auto;
+    height: calc(100vh - 50px);
+    min-width: 1080px;
+    .repository-add-width{
+        max-width: 1000px;;
+        margin: 0 auto;
+    }
+    .add-title{
+        font-size: 16px;
+        font-weight: bold;
+        margin-bottom: 15px;
+    }
     .ant-modal-header {
         display: none;
     }
@@ -16,22 +22,73 @@
         font-weight: bold;
         font-size: 16px;
     }
-    .ant-modal-body {
-        padding: 0 !important;
-        height: 100%;
-        overflow: auto;
-        padding: 0!important;
-        background-color: var(--tiklab-gray-600);
-        .add-model-page {
-            height: 100%;
-            padding-bottom: 20px;
-            .add-model-head {
-                font-size: var(--tiklab-font-16);
-                font-weight: var(--tiklab-font-weight-bold);
-                height: 56px;
-                line-height: 56px;
-                font-size: 20px;
-            }
+    .repository-type{
+        display: grid;
+        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-row-gap: 10px;
+        margin-top: 5px;
+        .type-border{
+            border-style: solid;
+            border-width: 1px;
+            width: 100px;
+            padding: 15px 0;
+            border-radius: 5px;
+            cursor: pointer;
         }
+        .type-opt{
+            color: #0063FF;
+            border-color: #0063FF;
+        }
+        .type-text{
+            text-align: center;
+        }
+    }
+    .repository-group{
+        display: flex;
+        justify-content: space-between;
+        .group-bord{
+            border-style: solid;
+            border-width: 1px;
+            width: 40%;
+            height: 150px;
+        }
+        .cut-repository.hover{
+            background-color: #EBECF0;
+            cursor: pointer;
+        }
+        .opt-color{
+            background-color: #DCDCDC;
+        }
+        .opt-text{
+            padding: 5px;
+        }
+        .icon-style{
+            font-size: 20px;
+            cursor: pointer;
+            color: #999999;
+            margin-top: 30px;
+        }
+    }
+    .name-nav{
+        margin-bottom: 15px;
+    }
+    .error-text{
+        color:#ff0000;
+    }
+}
+
+.add-table-nav{
+    display: flex;
+    margin-bottom: 10px;
+    &::after{
+        display: inline-block;
+        margin-right: 4px;
+        padding-left: 2px;
+        padding-top: 3px;
+        color: #ff4d4f;
+        font-size: 14px;
+        font-family: SimSun,sans-serif;
+        line-height: 1;
+        content: "*";
     }
 }

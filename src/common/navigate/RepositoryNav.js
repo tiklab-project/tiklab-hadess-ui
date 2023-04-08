@@ -1,25 +1,35 @@
 /**
- * @name: xpack 制品库左侧导航栏
+ * @name: RepositoryNav
  * @author: limingliang
  * @date: 2022-05-21 16:51
- * @description：setting
+ * @description：xpack 制品库左侧导航栏
  * @update: 2022-05-21 16:51
  */
 import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
 import './RepositoryNav.scss'
 import {CaretDownOutlined, CodeOutlined, SettingOutlined} from "@ant-design/icons";
-import {Profile} from "tiklab-eam-ui";
 import ChangeRepository from "./ChangeRepository";
+import {withRouter} from "react-router";
+import {inject, observer} from "mobx-react";
+import {Dropdown} from "antd";
+import ListIcon from "../repositoryIcon/Listicon";
 const RepositoryNav = props => {
-    const [key,setKey]=useState('')
-    const {match} =props
+    const {repositoryStore}=props
+    const {repositoryData,findRepository,findAllRepository,repositoryAllList}=repositoryStore
+
     const repositoryId = props.match.params.id;      // 当前选中路由
     const [type,setType]=useState('2')   //左侧导航览类型
-    const [openState,setOpenState]=useState(false)
+    const [triggerVisible,setTriggerVisible] = useState(false)
+
 
     useEffect(async () => {
         compileType()
+        findRepository(repositoryId)
+    }, []);
+
+    useEffect(async () => {
+        findAllRepository()
     }, []);
 
     const compileType = () => {
@@ -74,15 +84,33 @@ const RepositoryNav = props => {
         <div className='setting layerSetup'>
             <div className={'left-nav left-nav-setting-width'}>
                 <div>
-                    <div className='flex pl-6 '>
-                        <ChangeRepository openState={openState}
+                    <div className='nav-repository'>
+                        <Dropdown
+                            overlay={<ChangeRepository
+                                {...props}
+                                repositoryAllList={repositoryAllList}
+                                setTriggerVisible={setTriggerVisible}
+                            />}
+                            trigger={['click']}
+                            visible={triggerVisible}
+                            onVisibleChange={visible=>setTriggerVisible(visible)}
+                            overlayClassName={`aside-dropdown-normal aside-dropdown`}
+                        >
+                            <div className='repository-nav' >
+                                <ListIcon text={repositoryData.name}/>
+                                <CaretDownOutlined  className='repository-nav-icon'/>
+                            </div>
+                        </Dropdown>
+
+                      {/*  <ChangeRepository openState={openState}
                                           setOpenState={setOpenState}
-                                          repositoryId={repositoryId}
-                                          setType={setType} {...props}/>
+                                          repository={repositoryData}
+                                          repositoryAllList={repositoryAllList}
+                                          setType={setType} {...props}/>*/}
                     </div>
                     {scrumRouter?.map(item=>{
                         return(
-                            <div key={item.key} className={`${type===item.key&&' choice-table'} my-2 py-1 cursor-pointer hover:bg-gray-200 `} onClick={()=>cuteType(item)} >
+                            <div key={item.key} className={`${type===item.key&&' choice-table-nav'} table-nav `} onClick={()=>cuteType(item)} >
                                 <div className='setting-nav'>
                                     <div>{item.icon}</div>
                                     <div>{item.title}</div>
@@ -106,4 +134,5 @@ const RepositoryNav = props => {
         </div>
     )
 };
-export default RepositoryNav
+
+export default withRouter(inject('repositoryStore')(observer(RepositoryNav)))

@@ -1,18 +1,15 @@
-/*
- * @Descripttion: 
- * @version: 1.0.0
- * @Author: limingliang
- * @Date: 2022-01-04 10:16:25
- * @LastEditors: limingliang
- * @LastEditTime: 2022-01-04 10:39:18
+/**
+ * @name: Organ
+ * @author: limingliang
+ * @date: 2022-05-21 16:51
+ * @description：部门
+ * @update: 2022-05-21 16:51
  */
 import React from "react";
-import { UserList} from 'tiklab-user-ui';
+import { User} from 'tiklab-user-ui';
 const OrgaUser = props => {
     return (
-        <UserList
-            {...props}
-        />
+        <User{...props} bgroup={"xpack"}/>
     )
 }
 

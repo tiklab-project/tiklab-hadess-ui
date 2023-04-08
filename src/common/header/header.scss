@@ -5,8 +5,8 @@
     height: 48px;
     top: 0;
     background-color: #5d70ea;
+    color: #EBECF0;
     z-index: 100;
-
     .frame-header-logo {
         height: 48px;
         width: 100px;
@@ -14,10 +14,10 @@
         margin-left: 10px;
     }
     .frame-header-right {
+        justify-content: space-between;
         display: flex;
         flex-direction: row;
         align-items: center;
-
     }
     .frame-header-left {
         display: flex;
@@ -25,6 +25,14 @@
         align-items: center;
         height: 100%;
         padding-left: 22px;
+        .project-icon{
+            margin-bottom: 7px;
+        }
+        .project-text{
+            font-size: 30px;
+            padding-left: 10px;
+            font-weight: 25;
+        }
     }
     .frame-header-link {
         display: flex;
@@ -47,15 +55,13 @@
     &-user-box {
         width: 250px;
         background: #fff;
-        box-shadow: 0 10px 16px 0 rgb(0 0 0 / 18%);
+        box-shadow: 0 10px 16px 0 #EBECF0;
         border-radius: 5px;
-
         .user-head {
             font-size: 15px;
             font-weight: var(--tiklab-font-weight-bold);
             padding: 15px 20px 10px;
         }
-
         .user-info {
             display: flex;
             align-items: center;
@@ -83,44 +89,13 @@
             font-size: 12px;
 
         }
-        .user-language {
-            position: relative;
-            .language-text {
-                border-top: 2px solid #EFEFF2;
-                padding: 10px 20px;
-                cursor: pointer;
-                display: inline-flex;
-                width: 100%;
-                align-items: center;
-                justify-content: space-between;
-            }
-            .language-left {
-                display: flex;
-                align-items: center;
-            }
-            .language-box-select {
-                background-color: #f0f0f0;
-            }
-            .language-box {
-                position: absolute;
-                top: 2px;
-                left: -100px;
-                z-index: 1;
-                width: 100px;
-                background: #fff;
-                box-shadow: 0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%);
-                .language-box-item {
-                    line-height: 40px;
-                    height: 40px;
-                    padding: 0 20px;
-                }
 
-                .language-box-item:hover {
-                    background-color: #f0f0f0;
-                }
-            }
+        .icon-size{
+            font-size: 25px;
         }
-
+        .log-out{
+            padding-left: 20px;
+        }
     }
 
     &-nav{
@@ -135,81 +110,20 @@
             height: 45px;
             align-items: center;
             cursor: pointer;
+            margin-right: 20px;
+            .head-icon{
+                font-size: 20px;
+            }
             &-link{
-                font-size: 16px;
-                color: #000;
-                margin: 0;
+                font-size: 23px;
+                color: #EBECF0;
+                margin-right: 10px;
                 text-decoration: none;
+
             }
            .dk-head-product-nav{
                 display: block;
             }
-        }
-    }
-    &-product{
-        &-nav{
-            width: 250px;
-            top: 60px;
-            left: -13px;
-            background-color: #fff;
-            box-shadow: 0 10px 16px 0 rgb(0 0 0 / 18%);
-            border-radius: 6px;
-            z-index: 9999;
-
-        }
-        &-content{
-            &-nav {
-                position: relative;
-                display: flex;
-            }
-        }
-        &-left{
-            background-color: #fff;
-            &-item {
-                position: relative;
-                width: 180px;
-                height: 38px;
-                padding: 0 15px;
-                font-size: 14px;
-                color: rgba(0, 0, 0, .7);
-                line-height: 38px;
-                cursor: pointer;
-                &:hover {
-                    background-color: #F6F6F6;
-                    color: #000;
-                }
-            }
-            .active {
-                background-color: #F6F6F6;
-                color: #000;
-            }
-        }
-        &-block{
-            display: none;
-        }
-        &-right{
-            background-color: #F6F6F6;
-            &-link{
-                position: relative;
-                display: block;
-                width: 180px;
-                height: 38px;
-                padding: 0 15px;
-                line-height: 38px;
-                text-decoration: none;
-                font-size: 14px;
-                color: rgba(0, 0, 0, .7);
-                &:hover{
-                    color: #0089FF;
-                }
-            }
-        }
-
-        &-icon {
-            position: absolute;
-            font-size: 12px;
-            right: 12px;
-            color: #7b7f91;
         }
     }
 }
@@ -222,4 +136,6 @@
     height: 100vh;
     overflow: hidden;
 }
-
+.dis-flex{
+    display: flex;
+}

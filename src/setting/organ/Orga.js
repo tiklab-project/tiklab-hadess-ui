@@ -1,18 +1,17 @@
-/*
- * @Descripttion:
- * @version: 1.0.0
- * @Author: limingliang
- * @Date: 2022-01-04 10:16:25
- * @LastEditors: limingliang
- * @LastEditTime: 2022-01-27 11:39:35
+/**
+ * @name: Organ
+ * @author: limingliang
+ * @date: 2022-05-21 16:51
+ * @description：部门
+ * @update: 2022-05-21 16:51
  */
 import React from "react";
-import { OrgaList} from 'tiklab-user-ui';
+import { Orga} from 'tiklab-user-ui';
 
-const Orga = () => {
+const Organ = (props) => {
     return (
-        <OrgaList/>
+        <Orga  {...props} bgroup={"xpack"}/>
     )
 }
 
-export default Orga
+export default Organ

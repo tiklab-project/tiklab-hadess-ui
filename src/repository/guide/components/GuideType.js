@@ -7,6 +7,7 @@
  */
 import React from "react";
 import {Drawer} from 'antd'
+import './GuideType.scss'
 const GuideType = props => {
     const {visible, onClose,goDetails} = props;
 
@@ -28,30 +29,30 @@ const GuideType = props => {
         >
             <div>
                 <div>请选择类型</div>
-                <div className='flex grid grid-cols-4 gap-x-2 gap-y-4 mt-5'>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer`} onClick={()=>cuteType("Maven")}>
-                        <div className='flex-row text-center '>Maven</div>
+                <div className='guide-type'>
+                    <div className={`border-style`} onClick={()=>cuteType("Maven")}>
+                        <div className='border-text'>Maven</div>
                     </div>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer `} onClick={()=>cuteType("npm")}>
-                        <div className='text-center'>npm</div>
+                    <div className={`border-style`} onClick={()=>cuteType("npm")}>
+                        <div className='border-text'>npm</div>
                     </div>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer `} onClick={()=>cuteType("Docker")}>
-                        <div className='text-center'>Docker</div>
+                    <div className={`border-style`} onClick={()=>cuteType("Docker")}>
+                        <div className='border-text'>Docker</div>
                     </div>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer `} onClick={()=>cuteType("Generic")}>
-                        <div className='text-center'>Generic</div>
+                    <div className={`border-style`} onClick={()=>cuteType("Generic")}>
+                        <div className='border-text'>Generic</div>
                     </div>
-                    <div className={`border w-24 py-5 rounded-md cursor-pointer `} onClick={()=>cuteType("PyPI")}>
-                        <div className='text-center'>PyPI</div>
+                    <div className={`border-style`} onClick={()=>cuteType("PyPI")}>
+                        <div className='border-text'>PyPI</div>
                     </div>
-                    <div className={`border w-24 py-5 rounded-md cursor-pointer`} onClick={()=>cuteType("HeIm")}>
-                        <div className='text-center'>HeIm</div>
+                    <div className={`border-style`} onClick={()=>cuteType("HeIm")}>
+                        <div className='border-text'>HeIm</div>
                     </div>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer `} onClick={()=>cuteType("NuGet")}>
-                        <div className='text-center'>NuGet</div>
+                    <div className={`border-style`} onClick={()=>cuteType("NuGet")}>
+                        <div className='border-text'>NuGet</div>
                     </div>
-                    <div className={`border w-24 py-6 rounded-md cursor-pointer`} onClick={()=>cuteType("Rpm")}>
-                        <div className='text-center'>Rpm</div>
+                    <div className={`border-style`} onClick={()=>cuteType("Rpm")}>
+                        <div className='border-text'>Rpm</div>
                     </div>
                 </div>
             </div>

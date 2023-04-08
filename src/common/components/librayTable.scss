@@ -1,18 +1,28 @@
 .libraryTable{
-    .choose_library_type{
+    .choose-library-type{
         color: #0063FF;
         border-bottom:2px solid #0063FF;
     }
-    .library_tab{
+    .library-tab{
+        display: flex;
+
+    }
+    .library-tab-nav{
         font-size: var(--tiklab-font-14);;
         cursor: pointer;
         height: 50px;
         line-height: 50px;
         margin-top: 10px;
+        &-mar{
+            margin-left: 20px;
+            margin-right: 20px;
+        }
     }
+
     .library-title{
         display: flex;
         font-weight: bold;
         font-size: 16px;
     }
+
 }

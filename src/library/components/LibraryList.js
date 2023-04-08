@@ -170,14 +170,14 @@ const LibraryList = (props) => {
        <div className='library'>
            <div className='library-width'>
                <div className='library-title'>制品</div>
-               <div className='mt-5'>
-                   <div className=' space-x-12'>
+               <div className='library-nav'>
+                   <div className=' '>
                        <Input placeholder={'名称'} value={name}  onChange={onInputName}
-                              onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
+                              onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
                        <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
-                              onPressEnter={onSearchVersion}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
-                       <Select    style={{width: 200}}  onChange={cuteType} options={options} placeholder='类型'/>
-                       <Select    style={{width: 200}}  onChange={cuteRepository}  placeholder='制品库'>
+                              onPressEnter={onSearchVersion}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
+                       <Select    style={{width: 200}}  onChange={cuteType} options={options} placeholder='类型' className='input-style'/>
+                       <Select    style={{width: 200}}  onChange={cuteRepository}  placeholder='制品库' className='input-style'>
                            {repositoryList.map(item=>{
                                return(
                                    <Option  key={item.id} value={item.id}>
@@ -188,7 +188,7 @@ const LibraryList = (props) => {
                        </Select>
                    </div>
                </div>
-               <div className='mt-4'>
+               <div className='library-table'>
                    <Table
                        dataSource={libraryList}
                        columns={columns}

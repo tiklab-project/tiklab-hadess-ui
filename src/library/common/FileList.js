@@ -9,7 +9,8 @@ import React,{useEffect, useState}  from "react";
 import LibraryTable from "../../common/components/libraryTable";
 import { Space, Table} from "antd";
 import libraryService from "../api/LibraryApi";
-import FileDetails from "./FileDetails";
+import FileDetails from "./FileDetails"
+import './fileList.scss'
 const FileList = (props) => {
     const {versionId,type}=props
     //制品文件列表
@@ -28,7 +29,7 @@ const FileList = (props) => {
             dataIndex: 'fileName',
             width:'10%',
             render: (text, record) => {
-                return <a className='hover:text-blue-500' onClick={() => openDetails(record)}>{record.fileName}</a>
+                return <a className='file-name' onClick={() => openDetails(record)}>{record.fileName}</a>
             }
         },
         {
@@ -42,8 +43,8 @@ const FileList = (props) => {
             key: 'activity',
             width:'10%',
             render: (text, record) => (
-                <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
-                    <div  onClick={()=>download(record.id)}>下载</div>
+                <Space>
+                    <div className='file-handle'  onClick={()=>download(record.id)}>下载</div>
                 </Space>
             )
         },

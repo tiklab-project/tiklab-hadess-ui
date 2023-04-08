@@ -10,7 +10,7 @@ import {MessageSendType} from 'tiklab-message-ui';
 
 const OmsMessageSendType = (props) => {
     return (
-        <MessageSendType isBase={true}/>
+        <MessageSendType {...props} bgroup={"xpack"}/>
     )
 }
 export default OmsMessageSendType;

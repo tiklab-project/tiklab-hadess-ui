@@ -39,15 +39,15 @@ const LibraryTable = (props) => {
     }
     return(
         <div className='libraryTable'>
-            <div className='library-title space-x-2 '>
+            <div className='library-title  '>
                 <div className='cursor-pointer' onClick={goLibrary}>制品</div>
                 <div>/</div>
                 <div>历史</div>
             </div>
-            <div className='flex space-x-8 '>
-                <div className={`${classify==='survey'&& ' choose_library_type '}  library_tab`} onClick={()=>cuteTable("survey")}>概览</div>
-                <div className={`${classify==='file'&& ' choose_library_type '}  library_tab`} onClick={()=>cuteTable("file")}>文件列表</div>
-                <div className={`${classify==='history'&& ' choose_library_type '}  library_tab`} onClick={()=>cuteTable("history")}>历史版本</div>
+            <div className='library-tab '>
+                <div className={`${classify==='survey'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>cuteTable("survey")}>概览</div>
+                <div className={`${classify==='file'&& ' choose-library-type '}  library-tab-nav library-tab-nav-mar`} onClick={()=>cuteTable("file")}>文件列表</div>
+                <div className={`${classify==='history'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>cuteTable("history")}>历史版本</div>
             </div>
         </div>
 

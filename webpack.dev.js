@@ -20,7 +20,7 @@ module.exports = merge(baseWebpackConfig,{
     plugins:[
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'组织中心',
+            title:'Xpack',
             template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',

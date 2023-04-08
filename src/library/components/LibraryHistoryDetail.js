@@ -56,7 +56,7 @@ const LibraryHistoryDetail = (props) => {
                     <Descriptions.Item label="hash">{versionDetails?.hash}</Descriptions.Item>
                 </Descriptions>
 
-                <div className='details-title mt-5'>文件列表</div>
+                <div className='details-title table-top'>文件列表</div>
                 <Table
                     dataSource={fileList}
                     columns={columns}

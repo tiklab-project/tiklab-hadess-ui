@@ -10,10 +10,12 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( '/plugin/getPluginConfig'),
     method:JSON.stringify('post'),
 
-    appKey: JSON.stringify('appKey-1'),
-    appSecret: JSON.stringify('appSecret-1'),
-    version: JSON.stringify('version-1'),
-    client: JSON.stringify('client-1'),
+     appKey : JSON.stringify(""),
+     appSecret : JSON.stringify(""),
+     version : JSON.stringify("cloud"),
+     client : JSON.stringify("web"),
+     DEPLOY_MODE: JSON.stringify("saas"),
+     tenant_type: JSON.stringify("mult"),
 }
 
 module.exports = {

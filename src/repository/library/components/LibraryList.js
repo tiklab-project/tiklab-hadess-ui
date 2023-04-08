@@ -24,7 +24,7 @@ const LibraryList = (props) => {
             title: '名称',
             dataIndex: 'name',
             width:'20%',
-            render:(text,record)=><div className='text-blue-500 cursor-pointer' onClick={()=>goLibraryDetails(record)}> {text}</div>
+            render:(text,record)=><div className='library-blue-color library-pointer' onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
             title: 'groupId',
@@ -56,7 +56,7 @@ const LibraryList = (props) => {
             width:'5%',
             render: (text, record) => (
                 <Tooltip title="删除">
-                    <DeleteOutlined className='cursor-pointer' onClick={()=>deletePop(record.id)}/>
+                    <DeleteOutlined className='library-pointer' onClick={()=>deletePop(record.id)}/>
                 </Tooltip>
             )
         },
@@ -138,18 +138,18 @@ const LibraryList = (props) => {
         <div className='repositoryLibrary'>
             <div className='repository-library-width'>
                 <div className=' repository-library-title'>制品列表</div>
-                <div className='mt-6'>
-                    <div className=' space-x-12'>
-                        <Input placeholder={'名称'} value={name}  onChange={onInputName}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
-                        <Input placeholder={'Group Id'} value={groupId}  onChange={onInputGroupId}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
-                        <Input placeholder={'Artifact Id'} value={artifactId}  onChange={onInputArtifactId}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
-                        <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='text-gray-400'/>
-                    </div>
+                <div className='library-mt'>
                     <div>
+                        <Input placeholder={'名称'} value={name}  onChange={onInputName}
+                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                        <Input placeholder={'Group Id'} value={groupId}  onChange={onInputGroupId}
+                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                        <Input placeholder={'Artifact Id'} value={artifactId}  onChange={onInputArtifactId}
+                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                        <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
+                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                    </div>
+                    <div className='library-mt'>
                         <Table
                             dataSource={libraryList}
                             columns={columns}

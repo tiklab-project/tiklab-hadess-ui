@@ -1,16 +1,16 @@
-import {cn, en} from './index'
 
 
-import {message_cn} from 'tiklab-message-ui/es/_utils';
-import {orga_cn} from "tiklab-user-ui/es/_utils"
-import {privilege_cn} from 'tiklab-privilege-ui/es/_utils';
-import {eam_cn} from 'tiklab-eam-ui/es/_utils';
+import zhCnTrans from "./cn/translation.json";
+import {eam_cn} from "tiklab-eam-ui/es/utils";
+import {flow_cn} from "tiklab-flow-ui/es/utils";
+import {message_cn} from "tiklab-message-ui/es/utils";
+import { user_cn } from "tiklab-user-ui/es/utils";
 
 
 const resources = {
     zh: {
-        translation: {...cn, ...privilege_cn, ...eam_cn,...message_cn,...orga_cn},
-    },
+        translation: {...zhCnTrans, ...eam_cn, ...flow_cn, ...message_cn,  ...user_cn },
+    }
     // en: {
     //     translation: en,
     // },

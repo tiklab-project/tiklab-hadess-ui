@@ -7,6 +7,7 @@
  */
 import React from "react";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
+import './Paging.scss'
 const Paging = (props) => {
     const {totalPage, currentPage,handleTableChange} = props;
 
@@ -17,18 +18,18 @@ const Paging = (props) => {
         <div>
             {
                 totalPage>1&&
-                <div className=' flex justify-center  py-4 border-t space-x-3'>
+                <div className='paging'>
                     {
                         currentPage===1?
-                            <LeftOutlined   className='mt-1   text-gray-400'/> :
-                            <LeftOutlined  className='mt-1 cursor-pointer' disabled onClick={()=>cutPage(currentPage-1)}/>
+                            <LeftOutlined   className='paging-icon'/> :
+                            <LeftOutlined  className='paging-text' disabled onClick={()=>cutPage(currentPage-1)}/>
                         }
 
-                    <div>第{currentPage}页 / 共{totalPage}页</div>
+                    <div className='paging-mar'>第{currentPage}页 / 共{totalPage}页</div>
                     {
                         currentPage===totalPage?
-                            <RightOutlined className='mt-1 text-gray-400' />:
-                            <RightOutlined className='mt-1 cursor-pointer'   onClick={()=>cutPage(currentPage+1)}/>
+                            <RightOutlined className='paging-icon' />:
+                            <RightOutlined className='paging-text'   onClick={()=>cutPage(currentPage+1)}/>
                     }
                 </div>
             }

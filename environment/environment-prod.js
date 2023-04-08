@@ -11,10 +11,12 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( 'http://114.215.180.181:8080/plugin/getPluginConfig'),
     method:JSON.stringify('get'),
 
-    appKey: JSON.stringify('appKey-1'),
-    appSecret: JSON.stringify('appSecret-1'),
-    version: JSON.stringify('version-1'),
-    client: JSON.stringify('client-1'),
+    appKey : JSON.stringify(""),
+    appSecret : JSON.stringify(""),
+    version : JSON.stringify("cloud"),
+    client : JSON.stringify("web"),
+    DEPLOY_MODE: JSON.stringify("saas"),
+    tenant_type: JSON.stringify("mult"),
 
     // DEPLOY_MODE: JSON.stringify('saas'),
     // // 登录认证类型

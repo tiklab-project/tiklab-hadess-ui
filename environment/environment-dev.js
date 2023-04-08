@@ -1,4 +1,4 @@
-const api =  'http://192.168.10.12:8083/';
+const api =  'http://192.168.10.19:8083/';
 const base_url = JSON.stringify(api);
 const ftp_url ="http://192.168.10.12:8083";
 
@@ -12,10 +12,12 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( api + 'pluginConfig/getPluginConfig'),
     method:JSON.stringify('get'),
 
-    appKey: JSON.stringify('appKey-1'),
-    appSecret: JSON.stringify('appSecret-1'),
-    version: JSON.stringify('version-1'),
-    client: JSON.stringify('client-1'),
+    appKey : JSON.stringify(""),
+    appSecret : JSON.stringify(""),
+    version : JSON.stringify("cloud"),
+    client : JSON.stringify("web"),
+    DEPLOY_MODE: JSON.stringify("saas"),
+    tenant_type: JSON.stringify("mult"),
 
     // cookieDomain:  JSON.stringify('tiklab.com'),
 

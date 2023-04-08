@@ -11,6 +11,7 @@ import Paging from "../../common/components/paging";
 import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import LibraryTable from "../../common/components/libraryTable";
 import libraryService from "../api/LibraryApi";
+import './history.scss'
 const { confirm } = Modal;
 const History = (props) => {
     const {versionId,type,repositoryId}=props
@@ -28,7 +29,7 @@ const History = (props) => {
             title: '版本',
             dataIndex: 'version',
             width:'10%',
-            render:(text,record)=><div className='text-blue-500 cursor-pointer' onClick={()=>openVersionDetail(record)}> {text}</div>
+            render:(text,record)=><div className='history-name' onClick={()=>openVersionDetail(record)}> {text}</div>
         },
         {
             title: '大小',
@@ -54,7 +55,7 @@ const History = (props) => {
             width:'10%',
             render: (text, record) => (
                 <Tooltip title="删除">
-                    <DeleteOutlined className='cursor-pointer' onClick={()=>deletePop(record.id)}/>
+                    <DeleteOutlined className='history-cursor' onClick={()=>deletePop(record.id)}/>
                 </Tooltip>
             )
         }

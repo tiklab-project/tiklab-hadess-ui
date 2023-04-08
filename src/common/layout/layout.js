@@ -7,18 +7,18 @@
  */
 
 import React ,{Fragment,useState}from 'react';
-import { verifyUserHoc } from "tiklab-eam-ui";
+import { UserVerify } from "tiklab-eam-ui";
 import {  EAM_STORE } from "tiklab-eam-ui/es/store";
 import {inject, observer} from 'mobx-react'
 import {renderRoutes} from "react-router-config";
 
 import Header from "../header/header";
-
+import "./layout.scss"
 const SaasLayout = props => {
     return (
         <div>
           <Header {...props} />
-            <div stye={{display: 'flex',height: '100%'}} className={'pt-12 '} >
+            <div stye={{display: 'flex',height: '100%'}} className={'layout '} >
                 <div style={{width:'100%'}} >
                     {renderRoutes(props.route.routes)}
                 </div>
@@ -28,4 +28,4 @@ const SaasLayout = props => {
     )
 };
 
-export default verifyUserHoc(inject(EAM_STORE)(observer(SaasLayout)), "oms")
+export default UserVerify(inject(EAM_STORE)(observer(SaasLayout)), "oms")
