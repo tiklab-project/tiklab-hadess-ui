@@ -128,7 +128,6 @@ const RepositoryAdd = (props) => {
                     id:items.id
                 }
             }
-
             repositoryService.createRepositoryGroup(param)
         }
         )
@@ -142,7 +141,8 @@ const RepositoryAdd = (props) => {
     const createAgency=async (repositoryId)=>{
         const param={
             repository:{
-                id:repositoryId
+                id:repositoryId,
+                agencyName:"Maven Central"
             },
             agencyUrl:agencyUrl,
         }

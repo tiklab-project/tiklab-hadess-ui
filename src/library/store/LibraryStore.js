@@ -74,7 +74,9 @@ export class LibraryStore{
      */
     @action
     deleteVersionAndLibrary=async (versionId)=>{
-        const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",versionId)
+        const param=new FormData();
+        param.append("id",versionId)
+        const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",param)
         return res;
     }
     /**
@@ -83,6 +85,8 @@ export class LibraryStore{
      */
     @action
     deleteLibraryVersion=async (versionId)=>{
+        const param=new FormData();
+        param.append("id",versionId)
         const res = await Axios.post("/libraryVersion/deleteLibraryVersion",versionId)
         return res;
     }
