@@ -9,7 +9,7 @@ import {Axios} from 'tiklab-core-ui';
 
 
 export const findLibraryListApi = '/library/findLibraryList';   //条件查询制品
-export const findMavenLibraryListApi = '/library/findMavenLibraryList';   //maven条件查询制品
+export const findLibraryListByCondition = '/library/findLibraryListByCondition';   //条件查询制品
 export const deleteLibraryApi = '/library/deleteLibrary';   //制品删除
 
 export const findLibraryVersionListApi = '/libraryVersion/findLibraryVersionList';   //条件查询制品版本
@@ -31,8 +31,8 @@ class LibraryApi {
         return response
     }
 
-    async findMavenLibraryList(data){
-        const response = await Axios.post(findMavenLibraryListApi,data)
+    async findLibraryListByCondition(data){
+        const response = await Axios.post(findLibraryListByCondition,data)
         return response
     }
     async deleteLibrary(data){

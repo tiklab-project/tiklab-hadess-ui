@@ -9,22 +9,31 @@ import React, {useState, useEffect} from "react";
 import './Library.scss'
 import {Input, Modal, Space, Table, Tag, Tooltip} from "antd";
 import {DeleteOutlined, ExclamationCircleOutlined, SearchOutlined} from "@ant-design/icons";
-import libraryService from "../api/LibraryApi";
+import libraryService, {findLibraryListByCondition} from "../api/LibraryApi";
+import {withRouter} from "react-router";
+import {inject, observer} from "mobx-react";
 const { confirm } = Modal;
 const LibraryList = (props) => {
-    const {match:{params}} = props;
+    const {repositoryStore,match:{params}} = props;
+    const {findRepository,repositoryData}=repositoryStore
     const [name,setName]=useState(null)   //搜索的名称
     const [groupId,setGroupId]=useState(null)  //搜索的groupId
     const [artifactId,setArtifactId]=useState(null)    //搜索的ArtifactId
     const [version,setVersion]=useState(null)    //搜索的版本
     const [libraryList,setLibraryList]=useState([])  //制品list
 
-    const columns = [
+    const MavenColumns = [
         {
             title: '名称',
             dataIndex: 'name',
             width:'20%',
             render:(text,record)=><div className='library-blue-color library-pointer' onClick={()=>goLibraryDetails(record)}> {text}</div>
+        },
+        {
+            title: '类型',
+            dataIndex: 'libraryType',
+            width:'10%',
+
         },
         {
             title: 'groupId',
@@ -37,11 +46,6 @@ const LibraryList = (props) => {
             dataIndex: 'newVersion',
             width:'10%',
 
-        },
-        {
-            title: '版本数',
-            dataIndex: 'versionNum',
-            width:'10%',
         },
 
         {
@@ -61,9 +65,47 @@ const LibraryList = (props) => {
             )
         },
     ];
+    const otherColumns = [
+        {
+            title: '名称',
+            dataIndex: 'name',
+            width:'20%',
+            render:(text,record)=><div className='library-blue-color library-pointer' onClick={()=>goLibraryDetails(record)}> {text}</div>
+        },
+        {
+            title: '类型',
+            dataIndex: 'libraryType',
+            width:'10%',
+
+        },
+        {
+            title: '最新版本',
+            dataIndex: 'newVersion',
+            width:'20%',
+
+        },
+
+        {
+            title: '更新时间',
+            dataIndex: 'updateTime',
+            width:'20%',
+        },
+
+        {
+            title: '操作',
+            key: 'activity',
+            width:'5%',
+            render: (text, record) => (
+                <Tooltip title="删除">
+                    <DeleteOutlined className='library-pointer' onClick={()=>deletePop(record.id)}/>
+                </Tooltip>
+            )
+        },
+    ];
 
     useEffect(async () => {
         await findLibraryList()
+        await findRepository(params.id)
     }, [params.id]);
 
 
@@ -76,7 +118,7 @@ const LibraryList = (props) => {
             groupId:groupId,
             artifactId:artifactId,
         }
-        const res = await libraryService.findMavenLibraryList(param)
+        const res = await libraryService.findLibraryListByCondition(param)
         if (res.code===0){
             setLibraryList(res.data)
         }
@@ -139,20 +181,26 @@ const LibraryList = (props) => {
             <div className='repository-library-width'>
                 <div className=' repository-library-title'>制品列表</div>
                 <div className='library-mt'>
-                    <div>
+                    <div className={'library-flex'}>
+
                         <Input placeholder={'名称'} value={name}  onChange={onInputName}
                                onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
-                        <Input placeholder={'Group Id'} value={groupId}  onChange={onInputGroupId}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
-                        <Input placeholder={'Artifact Id'} value={artifactId}  onChange={onInputArtifactId}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                        {repositoryData?.type==="maven"&&
+                            <div >
+                                <Input placeholder={'Group Id'} value={groupId}  onChange={onInputGroupId}
+                                       onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+                                <Input placeholder={'Artifact Id'} value={artifactId}  onChange={onInputArtifactId}
+                                       onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
+
+                            </div>
+                           }
                         <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
                                onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border library-mr'/>
                     </div>
                     <div className='library-mt'>
                         <Table
                             dataSource={libraryList}
-                            columns={columns}
+                            columns={repositoryData?.type==="maven"?MavenColumns:otherColumns}
                             pagination={false}
                         />
                     </div>
@@ -162,4 +210,4 @@ const LibraryList = (props) => {
         </div>
     )
 }
-export default LibraryList
+export default withRouter(inject('repositoryStore')(observer(LibraryList)))
