@@ -73,8 +73,9 @@ const RepositoryAdd = (props) => {
      * @param type 类型
      */
     const findRepository =async (type) => {
+       const types= type.toLowerCase();
        const param = new FormData()
-        param.append("type",type)
+        param.append("type",types)
       const res =  await repositoryService.findLocalAndRemoteRepository(param)
         if (res.code===0){
             setRepositoryList(res.data)
@@ -165,6 +166,7 @@ const RepositoryAdd = (props) => {
                 break
         }
         setType(value)
+        setChoiceRepositoryList([])
        await findRepository(value)
     }
     /**
@@ -311,28 +313,6 @@ const RepositoryAdd = (props) => {
                             }
                         </div>
                     }
-                   {/* <Form.Item
-                        label="存储库"
-                        name="storage"
-                        rules={[
-                            {
-                                required: true,
-                                message: '存储库必填',
-                            },
-                        ]}
-                    >
-                        <Select  showArrow placeholder='请选择存储库'>
-                            {
-                                storageList?.map(item=>{
-                                    return (
-                                        <Option  key={item.id} value={item.id}>
-                                            {item.name}
-                                        </Option>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </Form.Item>*/}
                     {
                         params.type==='group'&&
                         <Form.Item

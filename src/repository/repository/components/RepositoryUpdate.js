@@ -40,7 +40,6 @@ const RepositoryUpdate = (props) => {
 
     //通过id查询制品库
     const findRepositoryById =async () => {
-        debugger
         const param = new FormData()
         param.append('id',params.id)
         const res = await repositoryService.findRepository(param);
@@ -84,24 +83,20 @@ const RepositoryUpdate = (props) => {
             const res= await repositoryService.updateRepository({...values,id:repository.id,repositoryUrl:repository.repositoryUrl,
                 repositoryType:repository.repositoryType,storage:{id:values.storage},type:repository?.type})
             if (res.code===0){
+                if (repository?.repositoryType==='group'){
+                    await compileRepositoryGroup(repository.id)
+                }
                 await findRepositoryById()
-                await compileRepositoryGroup(res.data)
             }
         })
     }
 
     const compileRepositoryGroup =async (repositoryGroupId) => {
-        choiceRepositoryList.map(items=>{
-            const param={
-                repositoryGroup:{
-                    id:repositoryGroupId,
-                },
-                repository:{
-                    id:items.id
-                }
-            }
-            repositoryService.compileRepositoryGroup(param)
-        } )
+        const param={
+            repositoryGroupId:repositoryGroupId,
+            repositoryList:choiceRepositoryList
+        }
+        await repositoryService.compileRepositoryGroup(param)
     }
 
     //删除制品库弹窗
@@ -152,7 +147,7 @@ const RepositoryUpdate = (props) => {
     const chooseRepository =async () => {
         if (repository){
             setRepositoryList(repositoryList.filter(item=>underRepository?.id!==item.id))
-            setChoiceRepositoryList(choiceRepositoryList.concat(repository))
+            setChoiceRepositoryList(choiceRepositoryList.concat(underRepository))
             setUnderRepository(null)
         }
     }
@@ -182,28 +177,6 @@ const RepositoryUpdate = (props) => {
                         <div>{repository?.repositoryUrl}</div>
 
                     </Form.Item>
-                   {/* <Form.Item
-                        label="存储库"
-                        name="storage"
-                        rules={[
-                            {
-                                required: true,
-                                message: '使用中英文、数字、空格组合',
-                            },
-                        ]}
-                    >
-                        <Select  showArrow placeholder='请选择存储库' >
-                            {
-                                storageList?.map(item=>{
-                                    return (
-                                        <Option  key={item.id}  value={item.id}>
-                                            {item.name}
-                                        </Option>
-                                    )
-                                })
-                            }
-                        </Select>
-                    </Form.Item>*/}
                     {
                         repository?.repositoryType==='group'&&
                         <Form.Item
