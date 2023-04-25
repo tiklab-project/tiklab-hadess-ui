@@ -23,6 +23,13 @@
         display: flex;
         font-weight: bold;
         font-size: 16px;
+        color:#999999;
+        &-text{
+            cursor: pointer;
+        }
+        &-icon{
+            padding: 0 5px;
+        }
     }
 
 }

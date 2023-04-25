@@ -8,6 +8,7 @@
 import React, {useEffect} from "react";
 import {Form, Modal, Input} from 'antd';
 import proxyService from "../api/ProxyApi";
+import "./AgencyAddEdit.scss"
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 25},
@@ -78,6 +79,9 @@ const AgencyAddEdit = (props) => {
                 >
                     <Input placeholder='请输入来源名称'/>
                 </Form.Item>
+
+                <div className={"agency-verify-title"}>校验信息</div>
+                <div className='agency-verify-text'>您可以通过设置用户信息取私有包</div>
                 <Form.Item
                     name="userName"
                     label='账号'

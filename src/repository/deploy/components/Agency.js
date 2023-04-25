@@ -125,7 +125,7 @@ const Agency = (props) => {
     return(
         <div className='agency'>
             <div className='agency-width'>
-                <div className='flex justify-between'>
+                <div className='agency-exe-table'>
                     <div className=' agency-title'>代理</div>
                     <div className='agency-button'>
                         <Button type="primary" htmlType="submit" onClick={openAgencyCompile}>

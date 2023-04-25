@@ -10,10 +10,10 @@ import {Drawer,Select} from 'antd'
 const { Option } = Select;
 import './GuideContent.scss'
 import DeployDetails from "./DeployDetails";
-import PullDetails from "./PullDetails";
 import PushDetails from "./PushDetails";
+import PullDetails from "./PullDetails";
 const GuideContent = (props) => {
-    const {visible, onClose,repository,type,repositoryList} = props;
+    const {visible, onClose,type} = props;
     const [table,setTable]=useState('deploy')
 
 
@@ -35,22 +35,6 @@ const GuideContent = (props) => {
                    <div className='guide-type-table'>
                        <div className='guide-type-table-text'>{type}</div>
                    </div>
-                {/*   <div>
-                       <div className='guide-title'>制品库</div>
-                       <Select
-                           defaultValue={repository?.id}
-                           style={{width: 150}}
-                           onChange={handleChange}
-                       >
-                           {
-                               repositoryList?.map(item=>{
-                                   return(
-                                       <Option key={item.id} value={item.id}>{item.name}</Option>
-                                   )
-                               })
-                           }
-                       </Select>
-                   </div>*/}
                </div>
                <div className='guide-dec-type '>
                    <div className='guide-details-flex '>
@@ -59,9 +43,9 @@ const GuideContent = (props) => {
                        <div className={`${table==="pull"&&" choose_type"} guide-type-title`} onClick={()=>cuteTable('pull')}>拉取</div>
                    </div>
                    {
-                       table==="deploy"&& <DeployDetails repository={repository} type={type}/>||
-                       table==="push"&& <PushDetails type={type}/>||
-                       table==="pull"&&<PullDetails type={type}/>
+                       table==="deploy"&& <DeployDetails type={type}/>||
+                       table==="pull"&& <PullDetails type={type}/>||
+                       table==="push"&&<PushDetails type={type}/>
                    }
                </div>
            </div>

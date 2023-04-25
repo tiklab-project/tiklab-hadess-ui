@@ -37,12 +37,12 @@ module.exports = merge(baseWebpackConfig,{
         contentBase: path.join(__dirname, './dist'),
         hot:true,
         compress:true,
-        port:8030,
+        port:3030,
         host: '0.0.0.0',
         historyApiFallback: true,
         disableHostCheck: true,
         headers:{
-           'Access-Control-Allow-Origin': '*'
+           'Access-Control-Allow-Origin': "http://192.168.10.19:8083"
         }
     }
 });

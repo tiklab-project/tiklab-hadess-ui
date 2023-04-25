@@ -14,6 +14,10 @@ export class RepositoryStore{
     @observable repositoryList = [];
     //制品库数据
     @observable repositoryData=''
+    //创建制品库id
+    @observable repositoryId=''
+    //制品库类型 local、remote、group
+    @observable addRepositoryType=''
     /**
      * 查询所有制品库
      * @param value
@@ -24,6 +28,7 @@ export class RepositoryStore{
         if (res.code===0){
             this.repositoryAllList=res.data
         }
+        return res;
     }
 
     /**
@@ -32,7 +37,10 @@ export class RepositoryStore{
      */
     @action
     findRepositoryList=async (value)=>{
-        const res = await Axios.post("/repository/findRepositoryList",value)
+        const param={
+            repositoryType:value
+        }
+        const res = await Axios.post("/repository/findRepositoryList",param)
         if (res.code===0){
             this.repositoryList=res.data
         }
@@ -51,6 +59,24 @@ export class RepositoryStore{
             this.repositoryData=res.data
         }
         return res
+    }
+    /**
+     * 创建制品库
+     * @param value
+     */
+    @action
+    createRepository=async (value)=>{
+        this.addRepositoryType=value.repositoryType
+        const res = await Axios.post("/repository/createRepository",value)
+        if (res.code===0){
+            this.repositoryId=res.data
+        }
+        return res;
+    }
+
+    @action
+    setRepositoryTypeNull=async ()=>{
+        this.addRepositoryType=""
     }
 }
 export const REPOSITORY_STORE = "repositoryStore";

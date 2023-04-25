@@ -120,7 +120,7 @@ const RepositoryNav = props => {
                     })
                     }
                 </div>
-                <div className='hover:bg-gray-200 border-t py-1' onClick={goSetting}>
+                <div className='setting-nav-color setting-nav-style' onClick={goSetting}>
                     <div className='setting-nav '>
                         <SettingOutlined className='icon-nav'/>
                         <div>设置</div>

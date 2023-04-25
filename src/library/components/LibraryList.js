@@ -9,10 +9,15 @@ import React, {useState, useEffect} from "react";
 import './LibraryList.scss'
 import {Input, Select, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
-import libraryService from "../api/LibraryApi";
+import {withRouter} from "react-router";
+import {inject, observer} from "mobx-react";
 const { Option } = Select;
 const options=[{value: 'all', label: '全部类型'}, {value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
 const LibraryList = (props) => {
+    const {libraryStore,repositoryStore}=props
+    const {findAllRepository}=repositoryStore
+    const {findLibraryList,findLibraryNewVersion}=libraryStore
+
     //搜索的制品名字
     const [name,setName]=useState(null)
     //搜索的制品版本
@@ -31,7 +36,7 @@ const LibraryList = (props) => {
             title: '名称',
             dataIndex: 'name',
             width:'10%',
-            render:(text,record)=><div className='text-blue-500 cursor-pointer' onClick={()=>goLibraryDetails(record)}> {text}</div>
+            render:(text,record)=><div className='library-name' onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
             title: '类型',
@@ -55,14 +60,14 @@ const LibraryList = (props) => {
 
     useEffect(async () => {
         await findRepository()
-        await findLibraryList()
+        await findLibraryByCondition()
     }, []);
 
     /**
      * 查询所有的制品库
      */
     const findRepository = async () => {
-        const res=await libraryService.findAllRepository()
+        const res=await findAllRepository()
         if (res.code===0){
             const  all=[{id:'all',name:"全部制品库"}]
             setRepositoryList(all.concat(res.data))
@@ -74,14 +79,15 @@ const LibraryList = (props) => {
      * @param  type 制品类型
      * @param  repositoryId 制品库id
      */
-    const findLibraryList = async (type,repositoryId) => {
+    const findLibraryByCondition = async (type,repositoryId) => {
         const param={
             repositoryId:repositoryId,
             libraryType:type,
             name:name,
             newVersion:version
         }
-       const res = await libraryService.findLibraryList(param)
+
+        const res=await findLibraryList(param)
         if (res.code===0){
             setLibraryList(res.data)
         }
@@ -92,11 +98,7 @@ const LibraryList = (props) => {
      * @param  value 选择的制品数据
      */
     const goLibraryDetails =async (value) => {
-        const param={
-            libraryId: value.id
-        }
-        //通过制品库的id查询最新版本
-        const res= await libraryService.findLibraryNewVersion(param)
+        const res=await findLibraryNewVersion(value.id)
         if (res.code===0){
             props.history.push(`/index/library/librarySurvey/${res.data.id}`)
         }
@@ -118,7 +120,7 @@ const LibraryList = (props) => {
      * 制品名称搜索
      */
     const onSearch = async () => {
-        await  findLibraryList(type,repository)
+        await  findLibraryByCondition(type,repository)
     }
 
     /**
@@ -137,7 +139,7 @@ const LibraryList = (props) => {
      * 制品版本搜索
      */
     const onSearchVersion = async () => {
-        await  findLibraryList(type,repository)
+        await  findLibraryByCondition(type,repository)
     }
 
     /**
@@ -146,10 +148,10 @@ const LibraryList = (props) => {
      */
     const cuteType =async (value) => {
         if (value==='all'){
-            await findLibraryList(null,repository)
+            await findLibraryByCondition(null,repository)
             setType(null)
         }else {
-            await findLibraryList(value,repository)
+            await findLibraryByCondition(value,repository)
             setType(value)
         }
     }
@@ -160,10 +162,10 @@ const LibraryList = (props) => {
     const cuteRepository =async (value) => {
         if (value==='all'){
             setRepository(null)
-            await findLibraryList(type)
+            await findLibraryByCondition(type)
         }else {
             setRepository(value)
-            await findLibraryList(type,value)
+            await findLibraryByCondition(type,value)
         }
     }
     return(
@@ -199,6 +201,6 @@ const LibraryList = (props) => {
        </div>
     )
 }
-export default LibraryList
+export default withRouter(inject('libraryStore','repositoryStore')(observer(LibraryList)))
 
 

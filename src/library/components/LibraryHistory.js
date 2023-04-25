@@ -7,7 +7,7 @@
  */
 import React from "react";
 import './LibraryHistory.scss'
-import History from "../common/History";
+import History from "../../common/library/History";
 const LibraryHistory = (props) => {
     const {match:{params}} = props;
     return(

@@ -29,6 +29,7 @@
         margin-top: 5px;
         .type-border{
             border-style: solid;
+            border-color: #DCDCDC;
             border-width: 1px;
             width: 100px;
             padding: 15px 0;
@@ -48,6 +49,7 @@
         justify-content: space-between;
         .group-bord{
             border-style: solid;
+            border-color: #DCDCDC;
             border-width: 1px;
             width: 40%;
             height: 150px;
@@ -90,5 +92,13 @@
         font-family: SimSun,sans-serif;
         line-height: 1;
         content: "*";
+    }
+}
+.add-table-proxy{
+    display: flex;
+    margin-bottom: 10px;
+    &-text{
+        color: #999999;
+        margin-left: 10px;
     }
 }

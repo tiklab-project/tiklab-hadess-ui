@@ -7,35 +7,29 @@
  */
 
 import React, {useState, useEffect} from "react";
-import {Modal, Row, Col, Form,Input,Button,Select,Steps,message} from 'antd';
-const { Option } = Select;
+import { Form,Input,Button} from 'antd';
 import './RepositoryAdd.scss'
-import {CloseOutlined, LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons";
+import {LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons";
 import repositoryService from "../api/RepositoryApi";
 import {getUser} from "tiklab-core-ui";
+import proxyService from "../../deploy/api/ProxyApi";
+import {withRouter} from "react-router";
+import {inject, observer} from "mobx-react";
+import {Validation} from "../../../common/client/Client";
 const { TextArea } = Input;
 const layout = {
     labelCol: {
         span: 6,
     }
 };
-const steps = [
-    {
-        title: 'First',
-        content: 'First-content',
-    },
-    {
-        title: 'Second',
-        content: 'Second-content',
-    },
-    {
-        title: 'Last',
-        content: 'Last-content',
-    },
-];
+
 const RepositoryAdd = (props) => {
     const [form] = Form.useForm();
     const {match:{params}} = props;
+
+    const {repositoryStore}=props
+    const {createRepository,repositoryAllList,findAllRepository}=repositoryStore
+
     //制品库类型
     const [type,setType]=useState('Maven')
     //存储库列表
@@ -44,8 +38,9 @@ const RepositoryAdd = (props) => {
     const [repositoryList,setRepositoryList]=useState([])
     //选中的制品库
     const [repository,setRepository]=useState(null)
-    //输入的制品库名称
-    const [repositoryName,setRepositoryName]=useState(null)
+
+    //代理地址
+    const [agencyUrl,setAgencyUrl]=useState("https://repo1.maven.org/maven2")
 
     //选中的制品库
     const [choiceRepository,setChoiceRepository]=useState(null)
@@ -53,12 +48,14 @@ const RepositoryAdd = (props) => {
     const [choiceRepositoryList,setChoiceRepositoryList]=useState([])
 
     //错误信息
-    const [errorMessage,setErrorMessage]=useState(null)
-
+    const [errorMessage,setErrorMessage]=useState({})
 
     useEffect(async () => {
-       await findStorage()
+        await findStorage()
         await findRepository(type)
+        await findAllRepository()
+
+
     }, []);
 
     /**
@@ -70,6 +67,7 @@ const RepositoryAdd = (props) => {
             setStorageList(res.data)
         }
     }
+
     /**
      * 本地库和远程库的列表
      * @param type 类型
@@ -86,21 +84,29 @@ const RepositoryAdd = (props) => {
      * 创建制品库提交
      */
     const onFinish =async () => {
-        if (!errorMessage){
+        if (!errorMessage?.key){
             form.validateFields().then(async values => {
                 const param={
-                    name:repositoryName,
+                    name:values.name,
                     type:type,
                     repositoryType:params.type,
                     description:values.description,
                     createUser:getUser().userId,
+                    repositoryUrl:getUser().tenant?getUser().tenant+"/"+values.name:values.name,
                     storage:{
                         id:values.storage
                     }
                 }
-                const res = await repositoryService.createRepository(param)
+                const res = await createRepository(param)
                 if (res.code===0){
-                    await createGroupItems(res.data)
+                    switch (params.type){
+                        case "remote":
+                            await createAgency(res.data)
+                            break
+                        case "group":
+                            await createGroupItems(res.data)
+                            break
+                    }
                     await goCancel()
                 }
             })
@@ -121,6 +127,7 @@ const RepositoryAdd = (props) => {
                     id:items.id
                 }
             }
+
             repositoryService.createRepositoryGroup(param)
         }
         )
@@ -128,10 +135,35 @@ const RepositoryAdd = (props) => {
     }
 
     /**
+     * 创建代理信息
+     * @param repositoryGroupId
+     */
+    const createAgency=async (repositoryId)=>{
+        const param={
+            repository:{
+                id:repositoryId
+            },
+            agencyUrl:agencyUrl,
+        }
+        await proxyService.createRepositoryRemoteProxy(param)
+    }
+
+    /**
      * 选择制品库类型
      * @param value 制品库类型  maven、npm...
      */
     const cuteType =async (value) => {
+        switch (value){
+            case "Maven":
+                setAgencyUrl("https://repo1.maven.org/maven2")
+                break
+            case "Npm":
+                setAgencyUrl(" https://registry.npmjs.org")
+                break
+            default:
+                setAgencyUrl(null)
+                break
+        }
         setType(value)
        await findRepository(value)
     }
@@ -170,32 +202,36 @@ const RepositoryAdd = (props) => {
             setChoiceRepository(null)
         }
     }
-    const items = steps.map((item) => ({
-        key: item.title,
-        title: item.title,
-    }));
+
 
     /**
-     * 输入制品库名称
-     * @param e 输入的制品库名称
+     * 代理地址校验
+     * @param e 输入的代理地址
      */
-    const inputRepositoryName =async (e) => {
+    const inputProxyUrl = async (e) => {
         if (e.target.value) {
-            let reg = /[\u4E00-\u9FA5]|[\uFE30-\uFFA0]|[#$@/\\()<>{}[\] ]/g;
-            if (reg.test(e.target.value)) {
-                setErrorMessage("只能以字母、数字、“_”、“-” ")
+            let  match = /^((([Hh][Tt])|(Ff))[Tt][Pp][Ss]?):\/\/[\w\-]+(\.[\w\-]+)+([\w\-\.,@?^=%&:\/~\+#]*[\w\-\@?^=%&\/~\+#])?$/;
+            if (match.test(e.target.value)) {
+                setErrorMessage({key:"agency",value:'请输入正确地址格式'})
             }else {
                 setErrorMessage(null)
             }
         }else {
             setErrorMessage(null)
         }
-        setRepositoryName(e.target.value)
+        setAgencyUrl(e.target.value)
     }
 
- const goCancel = async () => {
-     props.history.push(`/index/repository`)
- }
+     const goCancel = async () => {
+         props.history.push(`/index/repository`)
+     }
+
+    /**
+     * 跳转到上一级路由
+     */
+    const goBack = () => {
+        props.history.go(-1)
+    }
     return(
         <div className='repository-add '>
             <div className='repository-add-width'>
@@ -215,8 +251,8 @@ const RepositoryAdd = (props) => {
                             <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
                                 <div className='type-text'>Maven</div>
                             </div>
-                            <div className={`type-border ${type==='npm'&&' type-opt'}`} onClick={()=>cuteType("npm")}>
-                                <div className='type-text'>npm</div>
+                            <div className={`type-border ${type==='Npm'&&' type-opt'}`} onClick={()=>cuteType("Npm")}>
+                                <div className='type-text'>Npm</div>
                             </div>
                             <div className={`type-border ${type==='Docker'&&' type-opt'}`} onClick={()=>cuteType("Docker")}>
                                 <div className='type-text'>Docker</div>
@@ -238,14 +274,44 @@ const RepositoryAdd = (props) => {
                             </div>
                         </div>
                     </Form.Item>
-                    <div className='name-nav'>
-                       <div className="add-table-nav">制品库名称</div>
-                        <Input placeholder="请输入制品库名称" value={repositoryName} onChange={inputRepositoryName}  className={errorMessage&&'border-red-500'}/>
-                        {errorMessage&&
-                        <div className='error-text'>{errorMessage}</div>
-                        }
-                    </div>
                     <Form.Item
+                        label='制品库名称'
+                        name='name'
+                        placeholder={"请输入制品库名称"}
+                        rules={[
+                            {required:true,message:'请输入名称'},
+                            {max:30,message:'请输入1~31位以内的名称'},
+                            Validation('名称','appoint'),
+                            ({getFieldValue})=>({
+                                validator(rule,value) {
+                                    let nameArray = []
+                                    if(repositoryAllList){
+                                        nameArray = repositoryAllList && repositoryAllList.map(item=>item.name)
+                                    }
+                                    if (nameArray.includes(value)) {
+                                        return Promise.reject('名称已经存在')
+                                    }
+                                    return Promise.resolve()
+                                }
+                            })
+                        ]}>
+                        <Input style={{background:'#fff'}}/>
+                    </Form.Item>
+                    {
+                        params.type==='remote'&&
+
+                        <div className='name-nav'>
+                            <div className='add-table-proxy'>
+                                <div>代理地址</div>
+                                <div className='add-table-proxy-text'>(创建后也可以在该制品库设置里面配置, 默认{agencyUrl} )</div>
+                            </div>
+                            <Input placeholder="请输入代理地址" value={agencyUrl} onChange={inputProxyUrl}  className={errorMessage?.key==='agency'&&'border-red-500'}/>
+                            {errorMessage?.key==='agency'&&
+                                <div className='error-text'>{errorMessage?.value}</div>
+                            }
+                        </div>
+                    }
+                   {/* <Form.Item
                         label="存储库"
                         name="storage"
                         rules={[
@@ -266,7 +332,7 @@ const RepositoryAdd = (props) => {
                                 })
                             }
                         </Select>
-                    </Form.Item>
+                    </Form.Item>*/}
                     {
                         params.type==='group'&&
                         <Form.Item
@@ -328,4 +394,4 @@ const RepositoryAdd = (props) => {
         </div>
     )
 }
-export default RepositoryAdd
+export default withRouter(inject('repositoryStore')(observer(RepositoryAdd)))

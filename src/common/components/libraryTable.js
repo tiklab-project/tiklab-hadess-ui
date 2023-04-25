@@ -40,8 +40,8 @@ const LibraryTable = (props) => {
     return(
         <div className='libraryTable'>
             <div className='library-title  '>
-                <div className='cursor-pointer' onClick={goLibrary}>制品</div>
-                <div>/</div>
+                <div className='library-title-text' onClick={goLibrary}>制品</div>
+                <div className='library-title-icon'>/</div>
                 <div>历史</div>
             </div>
             <div className='library-tab '>

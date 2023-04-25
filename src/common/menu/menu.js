@@ -37,7 +37,6 @@ const MenuList = (props) => {
 
 
     const clickSelect = e => {
-        console.info("查询e",e)
         setSelectedKeys([e.key])
         onSelectMenu(e)
     }

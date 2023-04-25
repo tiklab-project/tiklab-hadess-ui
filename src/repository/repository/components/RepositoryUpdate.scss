@@ -18,4 +18,46 @@
         color: red;
         margin-top: 4px;
     }
+    .repository-type-table{
+        border-style: solid;
+        border-width: 1px;
+        border-color: #DCDCDC;
+        width: 100px;
+        padding: 15px 0;
+        border-radius: 5px;
+        .type-text{
+            flex-direction: row;
+            text-align: center;
+        }
+    }
+    .repository-group{
+        display: flex;
+        justify-content: space-between;
+        .group-bord{
+            border-style: solid;
+            border-width: 1px;
+            border-color: #DCDCDC;
+            width: 40%;
+            height: 150px;
+        }
+        .cut-repository.hover{
+            background-color: #EBECF0;
+            cursor: pointer;
+        }
+        .opt-color{
+            background-color: #DCDCDC;
+        }
+        .opt-text{
+            padding: 5px;
+        }
+        .icon-style{
+            font-size: 20px;
+            cursor: pointer;
+            color: #999999;
+            margin-top: 30px;
+        }
+    }
+    .click-cursor{
+        cursor: pointer;
+    }
 }

@@ -14,7 +14,7 @@
         "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/components && ncp ./src/ui.js es/index.js && ncp README.md es/README.md"
     },
     "publishConfig": {
-        "registry": "http://172.12.1.11:8081/repository/npm-hosted "
+        "registry": "http://172.12.1.11:8081/repository/npm-hosted"
     },
     "peerDependencies": {
         "@ant-design/icons": "^4.3.0",
@@ -52,7 +52,7 @@
         "mobx": "^5.15.4",
         "mobx-react": "^6.2.2",
         "moment": "^2.29.3",
-        "react": "^16.8.0",
+        "react": "^17.0.2",
         "react-dnd": "^14.0.5",
         "react-dnd-html5-backend": "^14.1.0",
         "react-dom": "^17.0.2",

@@ -1,5 +1,5 @@
 
-import React,{useEffect, useState} from 'react';
+import React,{ useState} from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';

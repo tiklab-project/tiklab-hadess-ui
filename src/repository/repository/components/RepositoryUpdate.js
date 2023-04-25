@@ -40,6 +40,7 @@ const RepositoryUpdate = (props) => {
 
     //通过id查询制品库
     const findRepositoryById =async () => {
+        debugger
         const param = new FormData()
         param.append('id',params.id)
         const res = await repositoryService.findRepository(param);
@@ -47,11 +48,12 @@ const RepositoryUpdate = (props) => {
             form.setFieldsValue({
                 type: res.agencyUrl,
                 name:res.data.name,
-                storage:res.data.storage.id,
+               /* storage:res.data.storage.id,*/
                 description:res.data.description,
 
             })
             setRepository(res.data)
+
             await findRepository(res.data.type,params.id)
             await findRepositoryGroupList(params.id)
         }
@@ -168,8 +170,8 @@ const RepositoryUpdate = (props) => {
                         label="制品仓库"
                         name="type"
                     >
-                        <div className={`border w-20 py-4 rounded-md cursor-pointer `}>
-                            <div className='flex-row text-center '>{repository?.type}</div>
+                        <div className={`repository-type-table`}>
+                            <div className='type-text'>{repository?.type}</div>
                         </div>
                     </Form.Item>
                     <Form.Item
@@ -177,9 +179,10 @@ const RepositoryUpdate = (props) => {
                         name="name"
                         rules={[{required: true, message: '仓库名称必填'}]}
                     >
-                        <Input placeholder="请输入制品库名称"/>
+                        <div>{repository?.repositoryUrl}</div>
+
                     </Form.Item>
-                    <Form.Item
+                   {/* <Form.Item
                         label="存储库"
                         name="storage"
                         rules={[
@@ -200,20 +203,20 @@ const RepositoryUpdate = (props) => {
                                 })
                             }
                         </Select>
-                    </Form.Item>
+                    </Form.Item>*/}
                     {
                         repository?.repositoryType==='group'&&
                         <Form.Item
                             label="组合选择"
                             name="name"
                         >
-                            <div className='flex justify-between'>
-                                <div className='border w-2/5 h-32 '>
+                            <div className='repository-group'>
+                                <div className='group-bord'>
                                     {
                                         repositoryList?.map(item=>{
                                             return(
-                                                <div className={`${underRepository?.id===item.id&&" bg-gray-300"} hover:bg-gray-300 cursor-pointer`} onClick={()=>cuteRepository(item)}>
-                                                    <div className='pl-2 py-1 '>
+                                                <div className={`${underRepository?.id===item.id&&" opt-color"} cut-repository click-cursor`} onClick={()=>cuteRepository(item)}>
+                                                    <div className='opt-text '>
                                                         {item.name+' ('+item.repositoryType+")"}
                                                     </div>
                                                 </div>
@@ -221,18 +224,18 @@ const RepositoryUpdate = (props) => {
                                         })
                                     }
                                 </div>
-                                <div className='flex-row space-y-2'>
+                                <div>
                                     <div>
-                                        <RightCircleOutlined className='text-2xl text-gray-400 cursor-pointer' onClick={chooseRepository}/>
+                                        <RightCircleOutlined className='icon-style' onClick={chooseRepository}/>
                                     </div>
-                                    <LeftCircleOutlined className='text-2xl text-gray-400 cursor-pointer' onClick={cancelRepository}/>
+                                    <LeftCircleOutlined className='icon-style ' onClick={cancelRepository}/>
                                 </div>
-                                <div className='border w-2/5  h-32'>
+                                <div className='group-bord'>
                                     {
                                         choiceRepositoryList?.map(item=>{
                                             return(
-                                                <div className={`${choiceRepository?.id===item.id&&" bg-gray-300"} hover:bg-gray-300 cursor-pointer`} onClick={()=>cuteChooseRepository(item)}>
-                                                    <div className='pl-2 py-1 '>
+                                                <div className={`${choiceRepository?.id===item.id&&" opt-color"}  cut-repository click-cursor`} onClick={()=>cuteChooseRepository(item)}>
+                                                    <div className='opt-text '>
                                                         {item.name+' ('+item.repositoryType+")"}
                                                     </div>
                                                 </div>

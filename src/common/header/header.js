@@ -7,17 +7,19 @@
  */
 
 
-import React, { useState} from 'react';
+import React, { useState,useEffect} from 'react';
 import {
-    MessageOutlined,
-    PoweroffOutlined,
-    SettingOutlined, UserOutlined,
+    ExpandOutlined,
+    GlobalOutlined, LogoutOutlined,
+    MessageOutlined, ProfileOutlined,
+    QuestionCircleOutlined, ScheduleOutlined,
+    SettingOutlined, UserOutlined, WhatsAppOutlined,
 } from "@ant-design/icons";
-import {Avatar, Dropdown, Space, Tooltip, Badge, Row, Col} from "antd";
+import {Avatar, Dropdown, Badge } from "antd";
 import {AppLink} from "tiklab-integration-ui"
-import Message from "../components/message";
+import Message from "./message";
 import './header.scss'
-const HeaderConfig = [
+const HeaderRuter = [
      /*{
          to:'/homes',
          title:'首页',
@@ -40,105 +42,157 @@ const HeaderConfig = [
     },*/
 ];
 const Header = props => {
-    const [type,setType]=useState("library");  //首页类型
-    const [headState,setHeadState]=useState()
-    const [open, setOpen] = useState(false);
+    let path = props.location.pathname
+    const [currentLink,setCurrentLink] = useState(path)
+    const [visible,setVisible] = useState(false)
 
-    const logOut = item => {
-        if (item === '/logout') {
-            props.history.push(item)
-        } else {
-            props.history.push(item.to)
+    useEffect(()=>{
+        if(path.indexOf('/index/repository')===0){
+            path='/index/repository'
         }
+        if(path.indexOf('/index/library')===0){
+            path='/index/library'
+        }
+        setCurrentLink(path)
+    },[path])
+
+
+    /**
+     * 退出登录
+     */
+    const goOut = () => {
+        props.history.push({
+            pathname: '/logout',
+            state:{
+                preRoute: props.location.pathname
+            }
+        })
     }
 
-    //切换head类型
-    const cutHeadType =async (item) => {
-        setType(item.key)
+    /**
+     * 路由跳转
+     * @param item
+     */
+    const changeCurrentLink = item => {
         props.history.push(item.to)
     }
+    // 切换语言目录
+    const languageMenu = (
+        <div className='outMenu-lan-menu'>
+            <div className='lan-menu' >中文</div>
+            {/*<div className='lan-menu'>英文</div>*/}
+        </div>
+    )
 
-    const goSetting =async (path) => {
-        setType("")
+    // 渲染一级标题
+    const renderRouter = routers => {
+        return routers.map(routers=>{
+            return  <div key={routers.key}
+                         onClick={()=>changeCurrentLink(routers)}
+                         className={currentLink===routers.to ? 'headers-active' : null}
+            >{routers.title}</div>
+        })
+    }
+    /**
+     * 跳转系统设置
+     */
+    const goSystem = () =>{
         props.history.push('/sysmgr/orga')
     }
 
-    const onclickHead = async (value) => {
-        if (headState){
-            setHeadState(null)
-        }else {
-            setHeadState(value)
-        }
-    }
-
-    const helpMenu = (
-        <div className="dk-head-user-box ">
-            <div className='user-head'>
-                个人资料
-            </div>
-            <div className='user-info'>
-                <UserOutlined className='icon-size' />
-                <div className='user-info-text'>
-                    <div className='user-info-name'>admin</div>
-                    <div className='user-info-email'>1810617772</div>
+    // 退出登录页面
+    const outMenu = (
+        <div className='header-outMenu'>
+            <div className='header-outMenu-top'>
+                <div className='outMenu-out'>
+                    <Avatar icon={<UserOutlined />} />
+                    <div className='outMenu-out-info'>
+                        <div className='outMenu-out-name'>name</div>
+                        <div className='outMenu-out-eamil'>tiklab@</div>
+                    </div>
                 </div>
             </div>
-            <div onClick={()=>logOut('/logout')} className='user-logout'>
-                <PoweroffOutlined className='' width={"20"} height={"20"}/>
-                  <div className='log-out'>退出</div>
+            <div className='header-outMenu-lan'>
+                <Dropdown overlay={languageMenu}>
+                    <div className='outMenu-lan'>
+                        <GlobalOutlined className='header-dropdown-icon'/>
+                        <span className='lan'>切换语言</span>
+                    </div>
+                </Dropdown>
+            </div>
+            <div className='header-outMenu-out'>
+                <div onClick={()=>goOut()} className='outMenu-out'>
+                    <LogoutOutlined className='header-dropdown-icon'/>
+                    <span className='bottom-out'>退出</span>
+                </div>
+            </div>
+        </div>
+    )
+
+    // 帮助目录
+    const helpMenu = (
+        <div className='header-helpMenu'>
+            <div className='header-helpMenu-item'>
+                <ProfileOutlined className='header-dropdown-icon'/>
+                文档
+            </div>
+            <div className='header-helpMenu-item'>
+                <ExpandOutlined className='header-dropdown-icon'/>
+                社区支持
+            </div>
+            <div className='header-helpMenu-item'>
+                <ScheduleOutlined className='header-dropdown-icon'/>
+                在线工单
+            </div>
+            <div className='header-helpMenu-item'>
+                <WhatsAppOutlined className='header-dropdown-icon'/>
+                在线客服
             </div>
         </div>
     )
     return(
-        <div className='dk-head ' >
-            <header className='frame-header-right ' >
-                <div className='frame-header-left'>
-                    <div className='project-icon'>
-                        <AppLink  isSSO={false}/>
+            <div>
+                <div className='frame-header' >
+                    <div className='frame-header-right'>
+                        <div className='frame-app-link'>
+                            <AppLink  isSSO={false}/>
+                        </div>
+                        <div className='frame-header-logo'>
+                            <div className='frame-header-logo-text'>Xpack</div>
+                        </div>
+                        <div className='headers-link'>
+                            {renderRouter(HeaderRuter)}
+                        </div>
                     </div>
-
-                    <div className='project-text'>XPack</div>
-                    <div className='frame-header-link'>
-                        {HeaderConfig.map(item=>{
-                           return(
-                               <div key={item.key} className={`frame-header-link-item ${type===item.key&&" frame-header-link-active"}`} onClick={()=>cutHeadType(item)}>
-                                   {item.title}
-                               </div>
-                           )
-                        })}
+                    <div className='frame-header-right'>
+                        <div className='frame-header-right-text'>
+                            <div className='frame-header-set' onClick={()=>goSystem()}>
+                                <SettingOutlined className='frame-header-icon'/>
+                            </div>
+                            <div className='frame-header-message' onClick={()=>setVisible(true)}>
+                                <Badge count={3} size='small'>
+                                    <MessageOutlined className='frame-header-icon'/>
+                                </Badge>
+                            </div>
+                            <div className='frame-header-help'>
+                                <Dropdown overlay={helpMenu}>
+                                    <QuestionCircleOutlined className='frame-header-icon'/>
+                                </Dropdown>
+                            </div>
+                            <Dropdown overlay={outMenu}>
+                                <div className='frame-header-user'>
+                                    <Avatar icon={<UserOutlined />} />
+                                </div>
+                            </Dropdown>
+                        </div>
                     </div>
                 </div>
-                <div className='dis-flex'>
-                        <div  className='dk-head-nav-item'>
-                            <Tooltip title="系统设置">
-                                <SettingOutlined className={'dk-head-nav-item-link  '}  onClick={()=>goSetting('setting')} />
-                            </Tooltip>
-                        </div>
-                        <a className='dk-head-nav-item' onClick={() => setOpen(true)}>
-                            <Badge count={5} size="small">
-                                <Avatar
-                                    size="small" style={{ background: "transparent", fontSize: "18px" }} icon={<MessageOutlined style={{ color: "#ffffff" }} />} />
-                            </Badge>
-                        </a>
-
-
-                        <div className='dk-head-nav-item  ' onClick={()=>onclickHead('head')}>
-                            <Tooltip title="个人资料与设置">
-                                <Dropdown overlay={helpMenu} trigger={"click"}>
-                                    <Space>
-                                        <Avatar icon={<UserOutlined  className='head-icon'/>} />
-                                    </Space>
-                                </Dropdown>
-                            </Tooltip>
-                        </div>
-                    </div>
-
-            </header>
-            <Message
-                open={open}
-                setOpen={setOpen}
-            />
-        </div>
+                <Message
+                    {...props}
+                    visible={visible}
+                    setVisible={setVisible}
+                />
+            </div>
     )
 
 }

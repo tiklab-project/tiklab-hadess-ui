@@ -124,7 +124,7 @@ const Copy = (props) => {
     return(
         <div className='copy'>
             <div className='copy-width'>
-                <div className='flex justify-between'>
+                <div className='copy-exe-table'>
                     <div className='copy-title' >复制</div>
                     <div className='copy-button'>
                         <Button type="primary" htmlType="submit" onClick={openCopyCompile}>

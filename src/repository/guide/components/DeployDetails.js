@@ -9,7 +9,7 @@ import React from "react";
 import {getUser} from "tiklab-core-ui";
 import "./Details.scss"
 const DeployDetails = (props) => {
-    const {repository,type}=props
+    const {type}=props
 
     return(
       <div className='guide-details'>

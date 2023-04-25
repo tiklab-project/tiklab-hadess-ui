@@ -7,7 +7,7 @@
  */
 import React from "react";
 import './Library.scss'
-import Survey from "../../../library/common/Survey";
+import Survey from "../../../common/library/Survey";
 const LibrarySurvey = (props) => {
     const {match:{params}} = props;
     return(

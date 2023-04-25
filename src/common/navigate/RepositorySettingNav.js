@@ -58,7 +58,6 @@ const RepositorySettingNav = (props) => {
         await findRepository(repositoryId)
 
     }, []);
-    debugger
 
 
     //切换类型
