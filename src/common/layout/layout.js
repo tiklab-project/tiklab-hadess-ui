@@ -27,4 +27,4 @@ const SaasLayout = props => {
     )
 };
 
-export default UserVerify(inject(EAM_STORE)(observer(SaasLayout)), "oms")
+export default UserVerify(inject(EAM_STORE)(observer(SaasLayout)))

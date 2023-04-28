@@ -18,6 +18,8 @@ export class LibraryStore{
     @observable libraryList=[]
     //maven制品相关 详情
     @observable libraryMavenData=''
+    //服务起ip
+    @observable serverIp=''
 
 
     /**
@@ -118,6 +120,17 @@ export class LibraryStore{
         const res = await Axios.post("/libraryMaven/findLibraryMavenList",param)
         if (res.code===0){
             this.libraryMavenData=res.data[0]
+        }
+    }
+
+    /**
+     * 获取服务器ip
+     */
+    @action
+    findServerIp=async ()=>{
+        const res = await Axios.post("/libraryFile/findServerIp")
+        if (res.code===0){
+            this.serverIp=res.data
         }
     }
 

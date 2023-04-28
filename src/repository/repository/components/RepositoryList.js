@@ -14,6 +14,7 @@ import ListIcon from "../../../common/repositoryIcon/Listicon";
 import Btn from "../../../common/btn/Btn";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
+import {getUser} from "tiklab-core-ui";
 const RepositoryList = (props) => {
     const {repositoryStore}=props
     const {repositoryList,findRepositoryList,addRepositoryType,setRepositoryTypeNull}=repositoryStore
@@ -62,7 +63,7 @@ const RepositoryList = (props) => {
               render: (text, record) => (
                   <>
                       {
-                          filedState(text)
+                          filedState(record)
                       }
                   </>)
         },
@@ -165,19 +166,19 @@ const RepositoryList = (props) => {
      * 字段过长省略
      * @param text
      */
-    const filedState = (text) => {
+    const filedState = (record) => {
         return(
-            text?.length>30?
-                <Tooltip placement="right" title={text}>
+            record?.repositoryUrl?.length>30?
+                <Tooltip placement="right" title={getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}>
                     <div style={{
                         width: 200,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap"
-                    }}>{text}</div>
+                    }}>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>
                 </Tooltip>
                 :
-                <div >{text}</div>
+                <div>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>
         )
     }
 

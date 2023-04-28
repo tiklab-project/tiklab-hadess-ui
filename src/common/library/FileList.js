@@ -14,7 +14,7 @@ import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 const FileList = (props) => {
     const {versionId,type,libraryStore}=props
-    const {findLibraryFileList,libraryFileList,findLibraryMaven,libraryMavenData}=libraryStore
+    const {findLibraryFileList,libraryFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
 
     //制品文件列表
     const [fileDetail,setFileDetail]=useState(null)
@@ -51,17 +51,19 @@ const FileList = (props) => {
 
     useEffect(async () => {
         findLibraryFileList(versionId)
+
+        await findServerIp()
     }, []);
 
 
+    debugger
 
     /**
      * 制品文件下载
      * @param  fileId 制品文件id
      */
     const download =async (fileDetail) => {
-        window.open(base_url+"/libraryFile/downloadSingleFile"+fileDetail?.fileUrl)
-
+        window.open(serverIp+"/libraryFile/downloadSingleFile"+fileDetail?.fileUrl)
     }
 
     /**
@@ -91,7 +93,7 @@ const FileList = (props) => {
                 columns={columns}
                 pagination={false}
             />
-            <FileDetails onClose={closeFileDetails} visible={detailsVisible} fileDetail={fileDetail} mavenData={libraryMavenData}/>
+            <FileDetails onClose={closeFileDetails} visible={detailsVisible} fileDetail={fileDetail} mavenData={libraryMavenData} serverIp={serverIp}/>
         </div>
     )
 

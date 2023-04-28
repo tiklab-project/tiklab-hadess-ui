@@ -9,8 +9,8 @@ import React  from "react";
 import {Drawer, Tooltip} from 'antd'
 import './FileDetails.scss'
 const FileDetails = (props) => {
-    const {visible, onClose,fileDetail,mavenData} = props;
-
+    const {visible, onClose,fileDetail,mavenData,serverIp} = props;
+    debugger
     /**
      * 省略过长路径
      * @param  value
@@ -36,7 +36,7 @@ const FileDetails = (props) => {
      * @param  fileId 制品文件id
      */
     const goContent =async () => {
-        window.open(base_url+"/libraryFile/snapshots"+fileDetail?.fileUrl)
+        window.open(serverIp+"/libraryFile/snapshots"+fileDetail?.fileUrl)
     }
 
     return(
@@ -102,7 +102,7 @@ const FileDetails = (props) => {
                         <span className='nav-path-color nav-path-cursor' onClick={goContent}>{omitFiled(fileDetail?.relativePath)}</span>
                     </div>
                     {
-                        fileDetail?.repository.type==="Maven"&&
+                        fileDetail?.repository.type==="maven"&&
                         <div className='nav-use'>
                             <div className='use-title'>Usage</div>
                             <div className='use-des'>Insert this snippet into your pom.xml</div>

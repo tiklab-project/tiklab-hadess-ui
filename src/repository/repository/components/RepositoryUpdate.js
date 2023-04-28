@@ -13,6 +13,7 @@ const { TextArea } = Input;
 const { confirm } = Modal;
 const { Option } = Select;
 import repositoryService from "../api/RepositoryApi";
+import {getUser} from "tiklab-core-ui";
 const layout = {labelCol: {span: 6}};
 const RepositoryUpdate = (props) => {
     const {match:{params}} = props;
@@ -174,7 +175,7 @@ const RepositoryUpdate = (props) => {
                         name="name"
                         rules={[{required: true, message: '仓库名称必填'}]}
                     >
-                        <div>{repository?.repositoryUrl}</div>
+                        <div>{getUser().tenant? repository?.repositoryUrl+getUser().tenant+"/"+repository?.name:repository?.repositoryUrl+repository?.name}</div>
 
                     </Form.Item>
                     {

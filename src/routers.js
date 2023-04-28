@@ -12,7 +12,7 @@ const LayerSetup = SyncComponent(() => import('./common/navigate/RepositorySetti
 
 
 // 系统管理模块
-const System = SyncComponent(() => import('./common/navigate/SettingNav'));
+const System = SyncComponent(() => import('./common/navigate/Setting'));
 const Login = SyncComponent(() => import('./Login/components/LoginXpack'));
 
 
@@ -53,9 +53,9 @@ const agency = SyncComponent(() => import('./repository/deploy/components/Agency
 const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
 
 //制品库-成员
-const programUser = SyncComponent(() => import('./setting/repository/ProgramUser'))
+const programUser = SyncComponent(() => import('./repository/setting/ProgramUser'))
 //制品库-权限
-const programDomainRole = SyncComponent(() => import('./setting/repository/ProgramDomainRole'))
+const programDomainRole = SyncComponent(() => import('./repository/setting/ProjectDomainRole'))
 
 //设置-消息通知方案
 const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
@@ -262,7 +262,7 @@ const routers = [
                     {
                         path: '/',
                         exact: true,
-                        render: ()=><Redirect to="/sysmgr/orga"/>
+                        render: ()=><Redirect to="sysmgr/systemRole"/>
                     },
                 ]
             },

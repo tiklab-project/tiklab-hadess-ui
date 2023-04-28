@@ -97,7 +97,7 @@ const Header = props => {
      * 跳转系统设置
      */
     const goSystem = () =>{
-        props.history.push('/sysmgr/orga')
+        props.history.push('/sysmgr/systemRole')
     }
 
     // 退出登录页面

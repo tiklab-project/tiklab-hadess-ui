@@ -1,12 +1,12 @@
 
-import React, { Fragment, useEffect,useState } from "react";
-import {SystemRole} from "tiklab-user-ui";
+import React from "react";
+import {SystemRole} from "tiklab-privilege-ui";
 import { inject, observer } from "mobx-react";
 const SystemRoleWrap = props => {
     return (
             <SystemRole
                 {...props}
-                group={'system'}
+                bgroup={'xpack'}
             />
     )
 }
