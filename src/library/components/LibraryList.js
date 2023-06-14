@@ -7,16 +7,16 @@
  */
 import React, {useState, useEffect} from "react";
 import './LibraryList.scss'
-import {Input, Select, Table} from "antd";
+import {Input, Select, Spin, Table} from "antd";
 import {SearchOutlined} from "@ant-design/icons";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 const { Option } = Select;
-const options=[{value: 'all', label: '全部类型'}, {value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
+const options=[{value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
 const LibraryList = (props) => {
     const {libraryStore,repositoryStore}=props
-    const {findAllRepository}=repositoryStore
-    const {findLibraryList,findLibraryNewVersion}=libraryStore
+    const {findRepositoryList}=repositoryStore
+    const {findLibraryListByCondition,findLibraryNewVersion}=libraryStore
 
     //搜索的制品名字
     const [name,setName]=useState(null)
@@ -29,7 +29,9 @@ const LibraryList = (props) => {
     //制品列表
     const [libraryList,setLibraryList]=useState([])
     //制品列表
-    const [type,setType]=useState()
+    const [type,setType]=useState("maven")
+
+    const [openState,setOpenState]=useState(false)
 
     const columns = [
         {
@@ -54,20 +56,24 @@ const LibraryList = (props) => {
             title: '版本',
             dataIndex: 'newVersion',
             width:'10%',
-
+        },
+        {
+            title: 'Group',
+            dataIndex: 'groupId',
+            width:'10%',
         }
     ];
 
     useEffect(async () => {
-        await findRepository()
-        await findLibraryByCondition()
+        await findRepository(type)
+        await findLibraryByCondition(type)
     }, []);
 
     /**
      * 查询所有的制品库
      */
-    const findRepository = async () => {
-        const res=await findAllRepository()
+    const findRepository = async (type) => {
+        const res=await findRepositoryList(null,type)
         if (res.code===0){
             const  all=[{id:'all',name:"全部制品库"}]
             setRepositoryList(all.concat(res.data))
@@ -86,8 +92,9 @@ const LibraryList = (props) => {
             name:name,
             newVersion:version
         }
-
-        const res=await findLibraryList(param)
+        setOpenState(true)
+        const res=await findLibraryListByCondition(param)
+        setOpenState(false)
         if (res.code===0){
             setLibraryList(res.data)
         }
@@ -120,6 +127,7 @@ const LibraryList = (props) => {
      * 制品名称搜索
      */
     const onSearch = async () => {
+        await findRepository()
         await  findLibraryByCondition(type,repository)
     }
 
@@ -147,13 +155,9 @@ const LibraryList = (props) => {
      * @param value 制品类型
      */
     const cuteType =async (value) => {
-        if (value==='all'){
-            await findLibraryByCondition(null,repository)
-            setType(null)
-        }else {
-            await findLibraryByCondition(value,repository)
-            setType(value)
-        }
+        await findRepository(value)
+        setType(value)
+        await findLibraryByCondition(value,repository)
     }
     /**
      * 通过制品库类型查询
@@ -170,7 +174,8 @@ const LibraryList = (props) => {
     }
     return(
        <div className='library'>
-           <div className='library-width'>
+           <Spin  spinning={openState}>
+                <div className='library-width'>
                <div className='library-title'>制品</div>
                <div className='library-nav'>
                    <div className=' '>
@@ -178,7 +183,7 @@ const LibraryList = (props) => {
                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
                        <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
                               onPressEnter={onSearchVersion}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
-                       <Select    style={{width: 200}}  onChange={cuteType} options={options} placeholder='类型' className='input-style'/>
+                       <Select    style={{width: 200}} defaultValue={type}  onChange={cuteType} options={options} placeholder='类型' className='input-style'/>
                        <Select    style={{width: 200}}  onChange={cuteRepository}  placeholder='制品库' className='input-style'>
                            {repositoryList.map(item=>{
                                return(
@@ -198,6 +203,7 @@ const LibraryList = (props) => {
                    />
                </div>
            </div>
+           </Spin>
        </div>
     )
 }

@@ -32,13 +32,14 @@ export class RepositoryStore{
     }
 
     /**
-     * 条件查询制品库
+     * 通过类型查询制品库
      * @param value
      */
     @action
-    findRepositoryList=async (value)=>{
+    findRepositoryList=async (repositoryType,type)=>{
         const param={
-            repositoryType:value
+            repositoryType:repositoryType,
+            type:type
         }
         const res = await Axios.post("/repository/findRepositoryList",param)
         if (res.code===0){

@@ -7,6 +7,7 @@
  */
 import { observable, action } from "mobx";
 import {Axios} from 'tiklab-core-ui';
+import {data} from "autoprefixer";
 
 export class LibraryStore{
 
@@ -50,6 +51,32 @@ export class LibraryStore{
     }
 
     /**
+     * 制品库下面条件查询制品列表
+     * @param  data data
+     */
+    @action
+    findLibraryListByRepository=async (data)=>{
+        const res = await Axios.post("/library/findLibraryListByRepository",data)
+        if (res.code===0){
+            this.libraryList=res.data
+        }
+        return res;
+    }
+
+    /**
+     * 条件查询制品
+     * @param  data data
+     */
+    @action
+    findLibraryListByCondition=async (data)=>{
+        const res = await Axios.post("/library/findLibraryListByCondition",data)
+        if (res.code===0){
+            this.libraryList=res.data
+        }
+        return res;
+    }
+
+    /**
      * 分页查询制品版本
      * @param  data data
      */
@@ -76,6 +103,7 @@ export class LibraryStore{
      */
     @action
     deleteVersionAndLibrary=async (versionId)=>{
+        debugger
         const param=new FormData();
         param.append("id",versionId)
         const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",param)
@@ -89,7 +117,7 @@ export class LibraryStore{
     deleteLibraryVersion=async (versionId)=>{
         const param=new FormData();
         param.append("id",versionId)
-        const res = await Axios.post("/libraryVersion/deleteLibraryVersion",versionId)
+        const res = await Axios.post("/libraryVersion/deleteLibraryVersion",param)
         return res;
     }
 
@@ -103,6 +131,18 @@ export class LibraryStore{
             libraryVersionId:versionId
         }
         const res = await Axios.post("/libraryFile/findLibraryFileList",param)
+        if (res.code===0){
+            this.libraryFileList=res.data
+        }
+    }
+
+    /**
+     * 查询最新的制品文件
+     * @param  value
+     */
+    @action
+    findLibraryNewFileList=async (value)=>{
+        const res = await Axios.post("/libraryFile/findLibraryNewFileList",value)
         if (res.code===0){
             this.libraryFileList=res.data
         }

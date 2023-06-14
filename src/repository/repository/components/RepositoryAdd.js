@@ -93,6 +93,7 @@ const RepositoryAdd = (props) => {
                     repositoryType:params.type,
                     description:values.description,
                     createUser:getUser().userId,
+                    repositoryUrl:getUser().tenant?getUser().tenant+"/"+values.name:values.name,
                     storage:{
                         id:values.storage
                     }

@@ -130,9 +130,7 @@ const History = (props) => {
      * @param  versionId 删除制品版本id
      */
     const deleteHistoryVersion =async (versionId) => {
-        debugger
         if (versionList?.length===1){
-
            const res=await deleteVersionAndLibrary(versionId)
             if (res.code===0){
                 props.history.push(`/index/library`)

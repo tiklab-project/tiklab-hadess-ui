@@ -86,7 +86,6 @@ const RepositoryList = (props) => {
     ];
 
     useEffect(async () => {
-
       if (addRepositoryType){
           setRepositoryType(addRepositoryType)
           findRepositoryList(addRepositoryType)

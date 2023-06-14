@@ -3,7 +3,7 @@ import React,{ useState} from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import enableAxiosCE from 'tiklab-enable-axios-ce'
+import { enableAxiosCE } from 'tiklab-core-ui'
 import {orgStores} from "tiklab-user-ui/es/store";
 import {privilegeStores} from "tiklab-privilege-ui/es/store";
 import { ConfigProvider } from 'antd';

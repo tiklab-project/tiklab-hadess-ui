@@ -9,7 +9,7 @@ import React, {useState, useEffect} from "react";
 import './Library.scss'
 import {Input, Modal, Space, Table, Tag, Tooltip} from "antd";
 import {DeleteOutlined, ExclamationCircleOutlined, SearchOutlined} from "@ant-design/icons";
-import libraryService, {findLibraryListByCondition} from "../api/LibraryApi";
+import libraryService from "../api/LibraryApi";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 const { confirm } = Modal;
@@ -118,7 +118,7 @@ const LibraryList = (props) => {
             groupId:groupId,
             artifactId:artifactId,
         }
-        const res = await libraryService.findLibraryListByCondition(param)
+        const res = await libraryService.findLibraryListByRepository(param)
         if (res.code===0){
             setLibraryList(res.data)
         }

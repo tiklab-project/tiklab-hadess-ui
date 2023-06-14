@@ -100,7 +100,7 @@ const routers = [
     },
     {
         component: LayoutHoc,
-        key: 'index',
+        path: "/index",
         routes: [
             {
                 path: '/index/library',
@@ -210,64 +210,66 @@ const routers = [
             },
             {
                 component: System,
-                path:'/sysmgr',
+                path:'/index/sysmgr',
                 routes: [
                     {
-                        path: '/sysmgr/notice',
+                        path: '/index/sysmgr/notice',
                         component:messageNotice,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/messageSend',
+                        path: '/index/sysmgr/messageSend',
                         component:messagesendtype,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/orga',
+                        path: '/index/sysmgr/orga',
                         component:orga,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/user',
+                        path: '/index/sysmgr/user',
                         component:user,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/userGroup',
+                        path: '/index/sysmgr/userGroup',
                         component:group,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/user/directory',
+                        path: '/index/sysmgr/user/directory',
                         component:userDirectory,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/systemRole',
+                        path: '/index/sysmgr/role',
                         component:systemRole,
                         exact: true,
                     },
                     {
-                        path: '/sysmgr/plugin',
+                        path: '/index/sysmgr/plugin',
                         component: plugin,
                     },
                     {
-                        path: '/sysmgr/logList',
+                        path: '/index/sysmgr/logList',
                         component: MyLog,
                     },
                     {
-                        path: '/sysmgr/version',
+                        path: '/index/sysmgr/version',
                         component: Version,
                     },
                     {
                         path: '/',
                         exact: true,
-                        render: ()=><Redirect to="sysmgr/systemRole"/>
+                        render: ()=><Redirect to="/index/sysmgr/systemRole"/>
                     },
                 ]
             },
         ],
+
     },
+
 
 
 ];

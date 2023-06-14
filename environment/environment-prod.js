@@ -13,7 +13,7 @@ const webpackGlobal = {
 
     appKey : JSON.stringify(""),
     appSecret : JSON.stringify(""),
-    version : JSON.stringify("cloud"),
+    version : JSON.stringify("ce"),
     client : JSON.stringify("web"),
     DEPLOY_MODE: JSON.stringify("saas"),
     tenant_type: JSON.stringify("mult"),

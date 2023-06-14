@@ -14,7 +14,7 @@ import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 const FileList = (props) => {
     const {versionId,type,libraryStore}=props
-    const {findLibraryFileList,libraryFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
+    const {findLibraryNewFileList,libraryFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
 
     //制品文件列表
     const [fileDetail,setFileDetail]=useState(null)
@@ -50,13 +50,14 @@ const FileList = (props) => {
     ];
 
     useEffect(async () => {
-        findLibraryFileList(versionId)
+        const param={
+            libraryVersionId:versionId
+        }
+        findLibraryNewFileList(param)
 
         await findServerIp()
     }, []);
 
-
-    debugger
 
     /**
      * 制品文件下载

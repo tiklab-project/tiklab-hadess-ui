@@ -58,7 +58,7 @@
     --xpack-hover-color: #edf0f5;
     --xpack-backdrop-color: #f7f7f7;
     --xpack-head-height: 48px;
-
+    --xpack-content-height: calc(100vh - 48px)
 }
 
 .ant-table-thead>tr>th {
@@ -109,4 +109,8 @@ img {
     border-radius: 0;
     -webkit-box-shadow: none;
     box-shadow: none;
+}
+
+.ant-menu-inline .ant-menu-item:after, .ant-menu-vertical-left .ant-menu-item:after, .ant-menu-vertical-right .ant-menu-item:after, .ant-menu-vertical .ant-menu-item:after {
+    border-right: none !important;
 }

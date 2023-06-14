@@ -175,7 +175,7 @@ const RepositoryUpdate = (props) => {
                         name="name"
                         rules={[{required: true, message: '仓库名称必填'}]}
                     >
-                        <div>{getUser().tenant? repository?.repositoryUrl+getUser().tenant+"/"+repository?.name:repository?.repositoryUrl+repository?.name}</div>
+                        <div>{repository?.repositoryUrl}</div>
 
                     </Form.Item>
                     {
