@@ -175,4 +175,6 @@ export class LibraryStore{
     }
 
 }
-export const LIBRARY_STORE = "libraryStore";
+
+let libraryStore=new LibraryStore()
+export default libraryStore;

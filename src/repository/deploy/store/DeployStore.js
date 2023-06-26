@@ -23,4 +23,5 @@ export class DeployStore{
         }
     }
 }
-export const DEPLOY_STORE = "deployStore";
+const deployStore=new DeployStore()
+export default deployStore;

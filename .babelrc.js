@@ -160,16 +160,12 @@ module.exports ={
                 return `tiklab-licence-ui/es/${fullName}`;
             }
         }, "tiklab-licence-ui"],
+
         ["@babel/plugin-proposal-decorators", { "legacy": true }],
         ["@babel/plugin-proposal-class-properties", { "loose" : false }],
         ["dynamic-import-webpack"],
         "@babel/plugin-syntax-dynamic-import",
-        ["@babel/plugin-transform-runtime",
-            {
-                "regenerator": true
-            }
-        ],
-        "@babel/plugin-transform-regenerator",
-        "react-hot-loader/babel"
+        "react-hot-loader/babel",
+        "equire"
     ]
 }

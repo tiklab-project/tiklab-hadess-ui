@@ -45,7 +45,6 @@ const SettingNav = props => {
     }
 
     const renderMenu = (data,deep)=> {
-        debugger
         return (
             <PrivilegeButton key={data.id} code={data.purviewCode} {...props}>
                 <li

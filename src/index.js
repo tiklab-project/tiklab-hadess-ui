@@ -4,7 +4,7 @@ import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
 import { enableAxiosCE } from 'tiklab-core-ui'
-import {orgStores} from " tiklab-user-ui/es/store";
+import {orgStores} from "tiklab-user-ui/es/store";
 import {privilegeStores} from "tiklab-privilege-ui/es/store";
 import { ConfigProvider } from 'antd';
 import { Provider } from 'mobx-react';
@@ -13,8 +13,7 @@ import {stores} from './stores'
 import './common/language/i18n';
 import "./assets/font-icon/iconfont";
 
-import './App.scss';
-import './common/styles/tailwind.css';
+import './index.scss';
 import {useTranslation} from "react-i18next";
 import zhCN from 'antd/es/locale/zh_CN';
 import {PluginProvider} from "tiklab-plugin-core-ui";

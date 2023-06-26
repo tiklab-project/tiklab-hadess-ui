@@ -9,10 +9,9 @@ import React,{useEffect} from "react";
 import LibraryTable from "../../common/components/libraryTable";
 import {Descriptions} from "antd";
 import './survey.scss'
-import {withRouter} from "react-router";
-import {inject, observer} from "mobx-react";
+import libraryStore from "../../library/store/LibraryStore"
 const Survey = (props) => {
-    const {type,repositoryId,versionId,libraryStore}=props
+    const {type,repositoryId,versionId}=props
     const {findLibraryVersion,libraryVersionData}=libraryStore
 
 
@@ -57,4 +56,4 @@ const Survey = (props) => {
         </div>
     )
 }
-export default withRouter(inject('libraryStore')(observer(Survey)))
+export default Survey

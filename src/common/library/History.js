@@ -11,11 +11,10 @@ import Paging from "../../common/components/paging";
 import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import LibraryTable from "../../common/components/libraryTable";
 import './history.scss'
-import {withRouter} from "react-router";
-import {inject, observer} from "mobx-react";
 const { confirm } = Modal;
+import libraryStore from "../../library/store/LibraryStore"
 const History = (props) => {
-    const {versionId,type,repositoryId,libraryStore}=props
+    const {versionId,type,repositoryId}=props
     const {findLibraryVersion,findLibraryVersionPage,deleteVersionAndLibrary,deleteLibraryVersion}=libraryStore
 
     //制品版本列表
@@ -168,4 +167,4 @@ const History = (props) => {
         </div>
     )
 }
-export default withRouter(inject('libraryStore')(observer(History)))
+export default History

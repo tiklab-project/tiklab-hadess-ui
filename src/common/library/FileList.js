@@ -10,10 +10,9 @@ import LibraryTable from "../../common/components/libraryTable";
 import { Space, Table} from "antd";
 import FileDetails from "./FileDetails"
 import './fileList.scss'
-import {withRouter} from "react-router";
-import {inject, observer} from "mobx-react";
+import libraryStore from "../../library/store/LibraryStore"
 const FileList = (props) => {
-    const {versionId,type,libraryStore}=props
+    const {versionId,type}=props
     const {findLibraryNewFileList,libraryFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
 
     //制品文件列表
@@ -100,4 +99,4 @@ const FileList = (props) => {
 
 
 }
-export default withRouter(inject('libraryStore')(observer(FileList)))
+export default FileList

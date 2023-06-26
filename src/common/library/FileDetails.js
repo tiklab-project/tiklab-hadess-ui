@@ -10,7 +10,7 @@ import {Drawer, Tooltip} from 'antd'
 import './FileDetails.scss'
 const FileDetails = (props) => {
     const {visible, onClose,fileDetail,mavenData,serverIp} = props;
-    debugger
+
     /**
      * 省略过长路径
      * @param  value

@@ -13,8 +13,9 @@ import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 const { Option } = Select;
 const options=[{value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
+import libraryStore from "../store/LibraryStore";
 const LibraryList = (props) => {
-    const {libraryStore,repositoryStore}=props
+    const {repositoryStore}=props
     const {findRepositoryList}=repositoryStore
     const {findLibraryListByCondition,findLibraryNewVersion}=libraryStore
 
@@ -207,6 +208,6 @@ const LibraryList = (props) => {
        </div>
     )
 }
-export default withRouter(inject('libraryStore','repositoryStore')(observer(LibraryList)))
+export default withRouter(inject('repositoryStore')(observer(LibraryList)))
 
 

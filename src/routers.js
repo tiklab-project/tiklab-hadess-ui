@@ -5,6 +5,8 @@ import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './common/layout/layout';
 
 
+
+
 // 制品库设置模块
 const Setting = SyncComponent(() => import('./common/navigate/RepositoryNav'));
 // 制品库设置-设置模块
@@ -13,8 +15,8 @@ const LayerSetup = SyncComponent(() => import('./common/navigate/RepositorySetti
 
 // 系统管理模块
 const System = SyncComponent(() => import('./common/navigate/Setting'));
-const Login = SyncComponent(() => import('./Login/components/LoginXpack'));
-
+const Login = SyncComponent(() => import('./login/components/LoginXpack'));
+const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
 
 // 制品列表
 const librarys = SyncComponent(() => import('./library/components/LibraryList'))
@@ -92,6 +94,12 @@ const routers = [
         exact: true,
         component: Logout,
         key:'logout'
+    },
+
+    {
+        path:'/no-auth',
+        exact:true,
+        component:ExcludeProductUser,
     },
     {
         path: '/',
