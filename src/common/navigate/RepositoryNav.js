@@ -15,23 +15,31 @@ import {inject, observer} from "mobx-react";
 import {Dropdown} from "antd";
 import ListIcon from "../repositoryIcon/Listicon";
 const RepositoryNav = props => {
-    const {location,repositoryStore}=props
-    let path = location.pathname
-
+    const {repositoryStore}=props
     const {repositoryData,findRepository,findAllRepository,repositoryAllList}=repositoryStore
 
     const repositoryId = props.match.params.id;      // 当前选中路由
+    const [type,setType]=useState('2')   //左侧导航览类型
     const [triggerVisible,setTriggerVisible] = useState(false)
 
+
     useEffect(async () => {
+        compileType()
         findRepository(repositoryId)
     }, []);
 
     useEffect(async () => {
-
         findAllRepository()
     }, []);
 
+    const compileType = () => {
+        if (props.location.pathname.includes("/compile")) {
+            setType("3")
+        }
+        if (props.location.pathname.includes("/survey")){
+            setType("1")
+        }
+    }
 
     let scrumRouter = [
         /*{
@@ -62,11 +70,13 @@ const RepositoryNav = props => {
 
     //切换类型
     const cuteType =async (value) => {
+        setType(value.key)
         props.history.push(value.router)
     }
 
     //跳转设置
     const goSetting =async () => {
+        setType(null)
         props.history.push(`/index/repository/${repositoryId}/setting/repositoryInfo`)
     }
 
@@ -100,7 +110,7 @@ const RepositoryNav = props => {
                     </div>
                     {scrumRouter?.map(item=>{
                         return(
-                            <div key={item.key} className={`${path===item.router&&' choice-table-nav'} table-nav `} onClick={()=>cuteType(item)} >
+                            <div key={item.key} className={`${type===item.key&&' choice-table-nav'} table-nav `} onClick={()=>cuteType(item)} >
                                 <div className='setting-nav'>
                                     <div>{item.icon}</div>
                                     <div>{item.title}</div>

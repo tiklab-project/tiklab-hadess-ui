@@ -26,7 +26,6 @@
     --page-details-padding:15px 0;  /*页面数据和head的边距*/
 
     /* 色调*/
-    --tiklab-gray-color: #efefef;  /*主色调灰 左侧一级导航*/
     --tiklab-white: #fff;   /* 主色调白*/
     --tiklab-black: #000;   /*主色调黑 */
     --tiklab-blue: #5D70EA;   /* 主色调蓝*/
@@ -34,7 +33,7 @@
     --tiklab-gray-300: #EDF0F5;  /*hover颜色 */
     --tiklab-gray-400: #e3e8f0;  /*左侧导航 选中颜色 */
     --tiklab-gray-500: #999; /* 文字次级颜色灰色调*/
-    --tiklab-gray: #f7f7f7; /* 主色调灰 左侧二级导航*/
+    --tiklab-gray: #f7f8fa;  /* 主色调灰 左侧导航*/
 
     --tiklab-font-12: 12px;  /*图文排需要的文字 */
     --tiklab-font-13: 13px;  /*描述文字 */
@@ -55,9 +54,7 @@
     --xpack-hover-color: #edf0f5;
     --xpack-backdrop-color: #f7f7f7;
     --xpack-head-height: 48px;
-    --xpack-content-height: calc(100vh - 48px);
-
-
+    --xpack-content-height: calc(100vh - 48px)
 }
 
 

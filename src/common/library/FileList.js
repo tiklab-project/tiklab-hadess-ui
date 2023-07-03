@@ -13,9 +13,8 @@ import './fileList.scss'
 import libraryStore from "../../library/store/LibraryStore"
 const FileList = (props) => {
     const {versionId,type}=props
-    const {findLibraryNewFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
+    const {findLibraryNewFileList,libraryFileList,findLibraryMaven,libraryMavenData,findServerIp,serverIp}=libraryStore
 
-    const [libraryFileList,setLibraryFileList]=useState([])
     //制品文件列表
     const [fileDetail,setFileDetail]=useState(null)
 
@@ -50,20 +49,14 @@ const FileList = (props) => {
     ];
 
     useEffect(async () => {
-        await findLibraryFile()
-        await findServerIp()
-    }, []);
-
-    const findLibraryFile =async () => {
         const param={
             libraryVersionId:versionId
         }
-        const res=await findLibraryNewFileList(param)
-        debugger
-        if (res.code===0){
-            setLibraryFileList(res.data)
-        }
-    }
+        findLibraryNewFileList(param)
+
+        await findServerIp()
+    }, []);
+
 
     /**
      * 制品文件下载
