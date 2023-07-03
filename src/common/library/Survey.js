@@ -5,20 +5,22 @@
  * @description：制品详情-概览
  * @update: 2023-01-09 14:30
  */
-import React,{useEffect} from "react";
+import React,{useEffect,useState} from "react";
 import LibraryTable from "../../common/components/libraryTable";
 import {Descriptions} from "antd";
 import './survey.scss'
 import libraryStore from "../../library/store/LibraryStore"
 const Survey = (props) => {
     const {type,repositoryId,versionId}=props
-    const {findLibraryVersion,libraryVersionData}=libraryStore
+    const {findLibraryVersion}=libraryStore
 
-
+    const [libraryVersionData,setLibraryVersionData]=useState(null)
     useEffect(async () => {
-        findLibraryVersion(versionId)
+     const res=  await findLibraryVersion(versionId)
+        if (res.code===0){
+            setLibraryVersionData(res.data)
+        }
     }, []);
-
 
     return(
         <div>

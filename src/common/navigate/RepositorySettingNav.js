@@ -11,10 +11,10 @@ import './RepsoitorySettingNav.scss'
 import {inject, observer} from "mobx-react";
 const RepositorySettingNav = (props) => {
     const repositoryId = props.match.params.id;      // 当前选中路由
-    const {repositoryStore} = props
+    const {location,repositoryStore} = props
+    let path = location.pathname
 
     const {findRepository,repositoryData}=repositoryStore
-    const [type,setType]=useState('1')   //左侧导航览类型
     let remoteLayerRouter = [
         {
             key:'1',
@@ -62,7 +62,6 @@ const RepositorySettingNav = (props) => {
 
     //切换类型
     const cuteType =async (value) => {
-        setType(value.key)
         props.history.push(value.router)
     }
     return(
@@ -73,7 +72,7 @@ const RepositorySettingNav = (props) => {
                     repositoryData.repositoryType ==='remote'?
                     remoteLayerRouter?.map(item=>{
                         return(
-                            <div key={item.key} className={`${type===item.key&&' layer-choice-table'}  nav-tabs pitch-nav-table`} onClick={()=>cuteType(item)} >
+                            <div key={item.key} className={`${path===item.router&&' layer-choice-table'}  nav-tabs pitch-nav-table`} onClick={()=>cuteType(item)} >
                                 <div className='layer-nav-char'>
                                     {item.title}
                                 </div>
@@ -82,7 +81,7 @@ const RepositorySettingNav = (props) => {
                     }):
                         layerRouter?.map(item=>{
                         return(
-                            <div key={item.key} className={`${type===item.key&&' layer-choice-table'}  nav-tabs pitch-nav-table`} onClick={()=>cuteType(item)} >
+                            <div key={item.key} className={`${path===item.router&&' layer-choice-table'}  nav-tabs pitch-nav-table`} onClick={()=>cuteType(item)} >
                                 <div className='layer-nav-char'>
                                     {item.title}
                                 </div>

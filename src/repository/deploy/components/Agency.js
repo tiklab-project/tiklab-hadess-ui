@@ -40,9 +40,9 @@ const Agency = (props) => {
             key: 'activity',
             width:'10%',
             render: (text, record) => (
-                <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
+                <Space size="useState" className=' agency-exe-ope'>
                     <div onClick={()=>updateAgency(record)}>配置</div>
-                    <div onClick={()=>openDeletePop(record)}>删除</div>
+                    <div className={'agency-exe-ope-text'} onClick={()=>openDeletePop(record)} >删除</div>
                 </Space>
             )
         },

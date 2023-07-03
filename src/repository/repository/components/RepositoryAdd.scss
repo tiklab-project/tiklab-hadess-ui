@@ -4,7 +4,7 @@
     height: calc(100vh - 50px);
     min-width: 1080px;
     .repository-add-width{
-        max-width: 1000px;;
+        max-width: 900px;;
         margin: 0 auto;
     }
     .add-title{
@@ -77,6 +77,9 @@
     }
     .error-text{
         color:#ff0000;
+    }
+    .form-top{
+        padding-top: 15px;
     }
 }
 

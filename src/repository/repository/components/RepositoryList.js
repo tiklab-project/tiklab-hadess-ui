@@ -15,6 +15,7 @@ import Btn from "../../../common/btn/Btn";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
+import {SettingOutlined} from "@ant-design/icons";
 const RepositoryList = (props) => {
     const {repositoryStore}=props
     const {repositoryList,findRepositoryList,addRepositoryType,setRepositoryTypeNull}=repositoryStore
@@ -77,9 +78,13 @@ const RepositoryList = (props) => {
             key: 'activity',
             width:'10%',
             render: (text, record) => (
-                <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
+                <Space size="useState" >
                    {/* <div onClick={()=>openDetailsDrawer(record)} >操作指引</div>*/}
-                    <div className='exe-button' onClick={()=>goDeploy(record)}>设置</div>
+                    <Tooltip title='设置'>
+                        <span className='exe-button' onClick={()=>goDeploy(record)}>
+                            <SettingOutlined className='actions-se'/>
+                        </span>
+                    </Tooltip>
                 </Space>
             )
         },
@@ -92,7 +97,6 @@ const RepositoryList = (props) => {
       }else {
           findRepositoryList(repositoryType)
       }
-
     }, [repositoryType]);
 
 
@@ -168,13 +172,13 @@ const RepositoryList = (props) => {
     const filedState = (record) => {
         return(
             record?.repositoryUrl?.length>30?
-                <Tooltip placement="right" title={getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}>
+                <Tooltip placement="right" title={getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl}>
                     <div style={{
                         width: 200,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap"
-                    }}>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>
+                    }}>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl}</div>
                 </Tooltip>
                 :
                 <div>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>

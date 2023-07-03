@@ -9,9 +9,8 @@
     "scripts": {
         "start": "cross-env NODE_ENV=development CUSTOM_ENV=dev webpack-dev-server --progress --config webpack.dev.js ",
         "build:dev": "cross-env NODE_ENV=production CUSTOM_ENV=dev webpack --config webpack.dev.js ",
-        "build:test": "cross-env NODE_ENV=test CUSTOM_ENV=test webpack --config webpack.test.js",
+        "build:webpack": "cross-env NODE_ENV=test CUSTOM_ENV=test webpack --config webpack.test.js",
         "build": "rimraf es/* && ./node_modules/.bin/babel src --copy-files  --extensions .js --out-dir es/components && ncp ./src/ui.js es/index.js && ncp README.md es/README.md",
-
         "build:prod": "npm run build:esm && npm run build:css",
         "build:esm": "rimraf es && cross-env NODE_ENV=production BABEL_ENV=esm rollup -c",
         "build:css": "cd scripts && gulp compile"

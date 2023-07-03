@@ -51,7 +51,9 @@ module.exports = merge(baseWebpackConfig, {
         }),
         new CssMinimizerPlugin(),
         new ProgressBarPlugin(),
-        new BundleAnalyzerPlugin(),
+        new BundleAnalyzerPlugin({
+            analyzerPort: 8891,
+        }),
 
         new webpack.ContextReplacementPlugin(
             /moment[/\\]locale$/,

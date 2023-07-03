@@ -1,5 +1,4 @@
 import {createContext} from 'react'
-import {EAM_STORE, EamStore} from "tiklab-eam-ui/es/store";
 import {messageModuleStores} from 'tiklab-message-ui/es/store';
 import {orgStores} from "tiklab-user-ui/es/store"
 import {privilegeStores} from "tiklab-privilege-ui/es/store"
@@ -11,7 +10,6 @@ function createStores() {
         ...messageModuleStores,
         ...orgStores,
         ...privilegeStores,
-        [EAM_STORE]: new EamStore(),
         [REPOSITORY_STORE]:new RepositoryStore(),
     };
 }

@@ -146,6 +146,7 @@ export class LibraryStore{
         if (res.code===0){
             this.libraryFileList=res.data
         }
+        return res;
     }
 
     /**
