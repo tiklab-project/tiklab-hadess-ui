@@ -7,22 +7,23 @@
  */
 import React, {useState, useEffect} from "react";
 import {Table, Tooltip,Modal} from "antd";
-import Paging from "../../common/components/paging";
+import Page from "../../common/page/Page";
 import {DeleteOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
-import LibraryTable from "../../common/components/libraryTable";
+import LibraryTopNav from "./LibraryTopNav";
 import './history.scss'
 const { confirm } = Modal;
 import libraryStore from "../../library/store/LibraryStore"
+import {observer} from "mobx-react";
 const History = (props) => {
-    const {versionId,type,repositoryId}=props
-    const {findLibraryVersion,findLibraryVersionPage,deleteVersionAndLibrary,deleteLibraryVersion}=libraryStore
+    const {versionId,type,repositoryId,match:{params}}=props
+    const {findLibraryVersion,findHistoryVersionPage,deleteVersionAndLibrary,deleteLibraryVersion}=libraryStore
 
     //制品版本列表
     const [versionList,setVersionList]=useState([])
     //当前页
     const [currentPage, setCurrentPage] = useState(1);
     //每页条数
-    const [pageSize] = useState(10);
+    const [pageSize] = useState(15);
     //总页数
     const [totalPage,setTotalPage]=useState(0);
 
@@ -46,8 +47,8 @@ const History = (props) => {
 
         },
         {
-            title: '创建时间',
-            dataIndex: "createTime",
+            title: '推送时间',
+            dataIndex: "updateTime",
             width:'10%',
 
         },
@@ -79,9 +80,11 @@ const History = (props) => {
                 pageParam: {
                     pageSize: pageSize,
                     currentPage: currentPage,
-                }
+                },
+                currentVersionId:params.versionId
             }
-           const res=await  findLibraryVersionPage(param)
+            debugger
+           const res=await  findHistoryVersionPage(param)
             if (res.code===0){
                 setTotalPage(res.data.totalPage)
                 setVersionList(res.data.dataList)
@@ -144,27 +147,33 @@ const History = (props) => {
     }
 
     /**
-     * 打开制品版本详情弹窗
+     * 打开制品版本详
      * @param  value 当前制品版本详情
      */
     const openVersionDetail =async (value) => {
         if (type==='repository'){
-            props.history.push(`/index/repository/${repositoryId}/libraryList/survey/${value.id}`)
+            props.history.push(`/index/repository/${repositoryId}/libraryList/survey/${value.id}/2`)
         }else {
-            props.history.push(`/index/library/librarySurvey/${value.id}`)
+            props.history.push(`/index/library/${value.libraryType}/survey/${value.id}/2`)
         }
     }
 
     return(
         <div>
-            <LibraryTable type={type}  classify={"history"}  versionId={versionId} {...props} />
-            <Table
-                dataSource={versionList}
-                columns={columns}
-                pagination={false}
-            />
-            <Paging totalPage={totalPage} currentPage={currentPage} handleTableChange={handleTableChange}/>
+            <LibraryTopNav type={type}  classify={"history"}  versionId={versionId} {...props} />
+            <div className='library-history'>
+                <Table
+                    dataSource={versionList}
+                    columns={columns}
+                    pagination={false}
+                />
+            </div>
+
+            {
+                (totalPage>1)?
+                    <Page totalPage={totalPage} pageCurrent={currentPage} changPage={handleTableChange}/>:null
+            }
         </div>
     )
 }
-export default History
+export default observer(History)

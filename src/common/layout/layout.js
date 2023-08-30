@@ -8,15 +8,13 @@
 
 import React ,{Fragment,useState}from 'react';
 import {renderRoutes} from "react-router-config";
-import {UserVerify} from 'tiklab-eam-ui';
 import Header from "../header/header";
 import "./layout.scss"
-import {connect} from "tiklab-plugin-core-ui";
-
-const SaasLayout = props => {
+const Layout = props => {
+    const {AppLink}=props
     return (
         <div>
-          <Header {...props} />
+          <Header {...props} AppLink={AppLink}/>
             <div className='frame-content'>
                 <div style={{width:'100%',height: '100%'}} >
                     {renderRoutes(props.route.routes)}
@@ -26,10 +24,4 @@ const SaasLayout = props => {
     )
 }
 
-function mapStateToProps(state) {
-    return {
-        pluginStore: state.pluginStore
-    }
-}
-
-export default connect(mapStateToProps)(UserVerify(SaasLayout,"/no-auth"))
+export default Layout

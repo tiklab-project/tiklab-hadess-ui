@@ -1,17 +1,8 @@
 import {stores as xpackStore} from "./stores";
 import routesSaas  from "./routers";
 import Layout from "./common/layout/layout";
-import SettingNav from "./common/navigate/SettingNav";
 import SyncComponent from "./common/lazy/SyncComponent";
 
-// 制品库设置模块
-const Setting = SyncComponent(() => import('./common/navigate/RepositoryNav'));
-// 制品库设置-设置模块
-const LayerSetup = SyncComponent(() => import('./common/navigate/RepositorySettingNav'));
-
-
-// 系统管理模块
-const System = SyncComponent(() => import('./common/navigate/Setting'));
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
 
 // 制品列表
@@ -29,38 +20,38 @@ const RepositoryList = SyncComponent(() => import('./repository/repository/compo
 // 制品库-创建
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 //制品列表
-const LibraryList = SyncComponent(() => import('./repository/library/components/LibraryList'))
+const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
 //制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./repository/library/components/LibrarySurvey'))
+const reLibrarySurvey = SyncComponent(() => import('./repository/library/LibrarySurvey'))
 //制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./repository/library/components/LibraryFileList'))
+const reLibraryFileList = SyncComponent(() => import('./repository/library/LibraryFileList'))
 //制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./repository/library/components/LibraryHistory'))
-
-
+const reLibraryHistory = SyncComponent(() => import('./repository/library/LibraryHistory'))
 // 制品库-概览
 const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
-
 //制品库信息
 const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
-
-
 //配置-代理信息
 const agency = SyncComponent(() => import('./repository/deploy/components/Agency'))
 //配置-复制信息
 const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
-
 //制品库-成员
 const programUser = SyncComponent(() => import('./repository/setting/ProgramUser'))
 //制品库-权限
 const programDomainRole = SyncComponent(() => import('./repository/setting/ProjectDomainRole'))
+// 制品库nav
+const RepositoryAside = SyncComponent(() => import('./repository/navigator/RepositoryAside'));
+// 制品库设置nav
+const RepositorySetting = SyncComponent(() => import('./repository/setting/navigator/RepositorySetting'));
+//推送中央仓库
+const LibraryPush = SyncComponent(() => import('./repository/setting/pushCenter/components/LibraryPush'))
 
+
+const SettingContent =SyncComponent(()=>import('./setting/navigator/SettingContent'))
 //设置-消息通知方案
 const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
 //设置-消息发送方式
 const messagesendtype =SyncComponent(()=>import('./setting/message/Messagesendtype'))
-
-
 //设置-部门
 const orga =SyncComponent(()=>import('./setting/organ/Orga'))
 //设置-用户
@@ -81,9 +72,6 @@ const Version =SyncComponent(()=>import('./setting/licence/Version'))
 
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 export {
-    Setting,
-    LayerSetup,
-    System,
     ExcludeProductUser,
     librarys,
     librarySurvey,
@@ -94,6 +82,9 @@ export {
     LibraryList,
     reLibrarySurvey,
     programDomainRole,
+    RepositoryAside,
+    RepositorySetting,
+    LibraryPush,
     messageNotice,
     messagesendtype,
     orga,
@@ -116,5 +107,5 @@ export {
     routesSaas ,
     xpackStore,
     Layout,
-    SettingNav,
+    SettingContent,
 }

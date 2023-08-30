@@ -12,6 +12,14 @@ import './GuideContent.scss'
 import DeployDetails from "./DeployDetails";
 import PushDetails from "./PushDetails";
 import PullDetails from "./PullDetails";
+import mvn from "../../../assets/images/img/mvn.png"
+import npm from "../../../assets/images/img/npm.png"
+import docker from "../../../assets/images/img/docker.png"
+import generic from "../../../assets/images/img/generic.png"
+import pypi from "../../../assets/images/img/pypi.png"
+import nuget from "../../../assets/images/img/nuget.png"
+import go from "../../../assets/images/img/go.png"
+import helm from "../../../assets/images/img/helm.png"
 const GuideContent = (props) => {
     const {visible, onClose,type} = props;
     const [table,setTable]=useState('deploy')
@@ -33,6 +41,11 @@ const GuideContent = (props) => {
            <div className='guide-detail'>
                <div className='guide-details-flex'>
                    <div className='guide-type-table'>
+                       <div className='border-img-center'>
+                           <img  src={type==='Maven'&&mvn||type==="npm"&&npm||type==='Docker'&&docker||type==='Generic'&&generic||
+                           type==='PyPI'&&pypi||type==='HeIm'&&helm||type==='NuGet'&&nuget||type==='Go'&&go
+                           }  style={{width:40,height:40}}/>
+                       </div>
                        <div className='guide-type-table-text'>{type}</div>
                    </div>
                </div>

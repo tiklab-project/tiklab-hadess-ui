@@ -8,15 +8,20 @@
 import React from "react";
 import './LibraryFileList.scss'
 import FileList from "../../common/library/FileList";
+import LibraryNav from "./LibraryNav";
+import {observer} from "mobx-react";
 const LibraryFileList = (props) => {
     const {match:{params}} = props;
 
     return(
         <div className='fileList'>
-            <div className='fileList-width'>
-                <FileList versionId={params.versionId} type={'library'}   {...props}/>
+            <LibraryNav {...props} type={params.type}/>
+            <div className='fileList-style'>
+                <div className='fileList-data'>
+                    <FileList versionId={params.versionId} type={'library'}   {...props}/>
+                </div>
             </div>
         </div>
     )
 }
-export default LibraryFileList
+export default observer(LibraryFileList)

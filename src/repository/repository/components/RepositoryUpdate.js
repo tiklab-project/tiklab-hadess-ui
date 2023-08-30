@@ -8,19 +8,21 @@
 import React, {useState, useEffect} from "react";
 import './RepositoryUpdate.scss'
 import {ExclamationCircleOutlined, LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons";
-import {Button, Form, Input, Modal, Select} from "antd";
+import {Button, Form, Input, message, Modal, Select} from "antd";
 const { TextArea } = Input;
 const { confirm } = Modal;
-const { Option } = Select;
-import repositoryService from "../api/RepositoryApi";
-import {getUser} from "tiklab-core-ui";
+import {withRouter} from "react-router";
+import {inject, observer} from "mobx-react";
+import Print from "../../../common/image/Print";
 const layout = {labelCol: {span: 6}};
 const RepositoryUpdate = (props) => {
-    const {match:{params}} = props;
+    const {match:{params},repositoryStore} = props;
+
+    const {compileRepositoryGroup,findRepository,updateRepository,deleteRepository,findRepositoryByGroup,findUnRelevanceRepository}=repositoryStore
+
     const [form] = Form.useForm();
-    const [storageList,setStorageList]=useState([])   //存储库信息
     const [repository,setRepository]=useState(null)  //制品库
-    const [repositoryList,setRepositoryList]=useState([])  //远程库和本地库和
+    const [repositoryList,setRepositoryList]=useState([])  //未关联的本地和远程库
 
     const [underRepository,setUnderRepository]=useState()
     const [choiceRepository,setChoiceRepository]=useState(null)   //选中选择后的制品库
@@ -28,22 +30,13 @@ const RepositoryUpdate = (props) => {
 
     useEffect(async () => {
         await findRepositoryById()
-        await findStorage()
-    }, [params.id]);
+    }, [params.id,]);
 
-    //查询存储库
-    const findStorage =async () => {
-        const res=await repositoryService.findAllStorage()
-        if (res.code===0){
-            setStorageList(res.data)
-        }
-    }
 
     //通过id查询制品库
     const findRepositoryById =async () => {
-        const param = new FormData()
-        param.append('id',params.id)
-        const res = await repositoryService.findRepository(param);
+        debugger
+        const res=await findRepository(params.id)
         if (res.code===0){
             form.setFieldsValue({
                 type: res.agencyUrl,
@@ -54,51 +47,38 @@ const RepositoryUpdate = (props) => {
             })
             setRepository(res.data)
 
-            await findRepository(res.data.type,params.id)
-            await findRepositoryGroupList(params.id)
-        }
-    }
+            //查询未关联组合库的制品库
+            findUnRelevanceRepository(res.data.type,params.id).then(item=>{
+                item.code===0&& setRepositoryList(item.data)
+            })
 
-    //查询未关联组合库的本地和远程库list
-    const findRepository =async (type,repositoryGroupId) => {
-        const param = new FormData()
-        param.append("repositoryType",type)
-        param.append("repositoryGroupId",repositoryGroupId)
-        const res =  await repositoryService.findUnRelevanceRepository(param)
-        if (res.code===0){
-            setRepositoryList(res.data)
-        }
-    }
-    //查询组合库关联的制品的库
-    const findRepositoryGroupList =async (repositoryGroupId) => {
-        const param = new FormData();
-        param.append("repositoryGroupId",repositoryGroupId)
-        const res=await repositoryService.findRepositoryByGroup(param)
-        if (res.code===0){
-            setChoiceRepositoryList(res.data)
+            //查询组合库关联的制品的库
+            findRepositoryByGroup(params.id).then(item=>{
+                item.code===0&&setChoiceRepositoryList(item.data)
+
+            })
         }
     }
 
     const onFinish = () => {
         form.validateFields().then(async values => {
-            const res= await repositoryService.updateRepository({...values,id:repository.id,repositoryUrl:repository.repositoryUrl,
-                repositoryType:repository.repositoryType,storage:{id:values.storage},type:repository?.type})
+            const res=await updateRepository({...values,id:repository.id,
+                repositoryType:repository.repositoryType,
+                storage:{id:values.storage},
+                type:repository?.type})
             if (res.code===0){
+                message.success("修改成功",1)
                 if (repository?.repositoryType==='group'){
-                    await compileRepositoryGroup(repository.id)
+                    compileRepositoryGroup({ repositoryGroupId:repository.id, repositoryList:choiceRepositoryList}).then(item=>{
+                        item.code===0&& findRepositoryById()
+                    })
+                }else {
+                    await findRepositoryById()
                 }
-                await findRepositoryById()
             }
         })
     }
 
-    const compileRepositoryGroup =async (repositoryGroupId) => {
-        const param={
-            repositoryGroupId:repositoryGroupId,
-            repositoryList:choiceRepositoryList
-        }
-        await repositoryService.compileRepositoryGroup(param)
-    }
 
     //删除制品库弹窗
     const openDeletePop =async () => {
@@ -109,23 +89,14 @@ const RepositoryUpdate = (props) => {
             okText: '确认',
             okType: 'danger',
             cancelText: '取消',
-
             onOk() {
-                deleteRepository(params.id)
+                deleteRepository(params.id).then(item=>{
+                    item.code==0&& props.history.push(`/index/repository`)
+                })
             },
             onCancel() {
             },
         });
-    }
-
-    const deleteRepository =async (id) => {
-        const param = new FormData();
-        param.append('id',id)
-        const res=await repositoryService.deleteRepository(param)
-        if (res.code===0){
-            props.history.push(`/index/repository`)
-        }
-
     }
 
     //切换选择后的制品库
@@ -146,14 +117,15 @@ const RepositoryUpdate = (props) => {
     }
     //选择制品库
     const chooseRepository =async () => {
+        debugger
         if (repository){
             setRepositoryList(repositoryList.filter(item=>underRepository?.id!==item.id))
-            setChoiceRepositoryList(choiceRepositoryList.concat(underRepository))
+            underRepository&& setChoiceRepositoryList(choiceRepositoryList.concat(underRepository))
             setUnderRepository(null)
         }
     }
     return(
-        <div className='repository-info'>
+        <div className=' xpack-setting-width repository-info'>
             <div className='info-title'>制品库信息</div>
             <div className='info-table'>
                 <Form
@@ -167,6 +139,7 @@ const RepositoryUpdate = (props) => {
                         name="type"
                     >
                         <div className={`repository-type-table`}>
+
                             <div className='type-text'>{repository?.type}</div>
                         </div>
                     </Form.Item>
@@ -179,6 +152,19 @@ const RepositoryUpdate = (props) => {
 
                     </Form.Item>
                     {
+                        (repository?.repositoryType==='local'&&repository.type==="maven")&&
+
+                        <Form.Item
+                            label="版本控制"
+                            name="version"
+                        >
+                            <div>{repository?.versionType}</div>
+
+                        </Form.Item>
+                    }
+
+
+                    {
                         repository?.repositoryType==='group'&&
                         <Form.Item
                             label="组合选择"
@@ -187,7 +173,7 @@ const RepositoryUpdate = (props) => {
                             <div className='repository-group'>
                                 <div className='group-bord'>
                                     {
-                                        repositoryList?.map(item=>{
+                                        repositoryList.length?repositoryList?.map(item=>{
                                             return(
                                                 <div className={`${underRepository?.id===item.id&&" opt-color"} cut-repository click-cursor`} onClick={()=>cuteRepository(item)}>
                                                     <div className='opt-text '>
@@ -195,7 +181,7 @@ const RepositoryUpdate = (props) => {
                                                     </div>
                                                 </div>
                                             )
-                                        })
+                                        }):null
                                     }
                                 </div>
                                 <div>
@@ -207,6 +193,7 @@ const RepositoryUpdate = (props) => {
                                 <div className='group-bord'>
                                     {
                                         choiceRepositoryList?.map(item=>{
+                                            debugger
                                             return(
                                                 <div className={`${choiceRepository?.id===item.id&&" opt-color"}  cut-repository click-cursor`} onClick={()=>cuteChooseRepository(item)}>
                                                     <div className='opt-text '>
@@ -246,4 +233,4 @@ const RepositoryUpdate = (props) => {
         </div>
     )
 }
-export default RepositoryUpdate
+export default withRouter(inject('repositoryStore')(observer(RepositoryUpdate)))

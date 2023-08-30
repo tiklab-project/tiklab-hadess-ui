@@ -3,18 +3,18 @@ import { Redirect } from 'react-router';
 import {Logout} from 'tiklab-eam-ui'
 import SyncComponent from './common/lazy/SyncComponent';
 import LayoutHoc from './common/layout/layout';
-
-
+import Home from './home/Home';
 
 
 // 制品库设置模块
-const Setting = SyncComponent(() => import('./common/navigate/RepositoryNav'));
+const RepositoryAside = SyncComponent(() => import('./repository/navigator/RepositoryAside'));
 // 制品库设置-设置模块
-const LayerSetup = SyncComponent(() => import('./common/navigate/RepositorySettingNav'));
-
-
+const RepositorySetting = SyncComponent(() => import('./repository/setting/navigator/RepositorySetting'));
 // 系统管理模块
-const System = SyncComponent(() => import('./common/navigate/Setting'));
+const SettingAside = SyncComponent(() => import('./setting/navigator/SettingAside'));
+
+
+
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
 
@@ -33,13 +33,13 @@ const RepositoryList = SyncComponent(() => import('./repository/repository/compo
 // 制品库-创建
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 //制品列表
-const LibraryList = SyncComponent(() => import('./repository/library/components/LibraryList'))
+const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
 //制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./repository/library/components/LibrarySurvey'))
+const reLibrarySurvey = SyncComponent(() => import('./repository/library/LibrarySurvey'))
 //制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./repository/library/components/LibraryFileList'))
+const reLibraryFileList = SyncComponent(() => import('./repository/library/LibraryFileList'))
 //制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./repository/library/components/LibraryHistory'))
+const reLibraryHistory = SyncComponent(() => import('./repository/library/LibraryHistory'))
 
 
 // 制品库-概览
@@ -58,6 +58,10 @@ const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
 const programUser = SyncComponent(() => import('./repository/setting/ProgramUser'))
 //制品库-权限
 const programDomainRole = SyncComponent(() => import('./repository/setting/ProjectDomainRole'))
+//推送中央仓库
+const LibraryPush = SyncComponent(() => import('./repository/setting/pushCenter/components/LibraryPush'))
+
+
 
 //设置-消息通知方案
 const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
@@ -82,6 +86,10 @@ const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
 const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
 //设置-版本与许可证
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
+
+//设置-版本与许可证
+const ManageList =SyncComponent(()=>import('./repository/deploy/old/ManageList'))
+
 const routers = [
     {
         path: "/login",
@@ -104,29 +112,44 @@ const routers = [
     {
         path: '/',
         exact: true,
-        render: ()=><Redirect to="/index/library"/>
+        render: ()=><Redirect to="/index/library/maven"/>
     },
     {
-        component: LayoutHoc,
+        component: Home,
         path: "/index",
         routes: [
             {
-                path: '/index/library',
+                path: '/index/library/:type',
                 component: librarys,
                 exact: true,
             },
             {
-                path: '/index/library/librarySurvey/:versionId',
+                path: '/index/library/:type/survey/:versionId',
                 component: librarySurvey,
                 exact: true,
             },
             {
-                path: '/index/library/fileList/:versionId',
+                path: '/index/library/:type/survey/:versionId/:num',
+                component: librarySurvey,
+                exact: true,
+            },
+            {
+                path: '/index/library/:type/fileList/:versionId',
                 component: fileList,
                 exact: true,
             },
             {
-                path: '/index/library/history/:versionId',
+                path: '/index/library/:type/fileList/:versionId/:num',
+                component: fileList,
+                exact: true,
+            },
+            {
+                path: '/index/library/:type/history/:versionId',
+                component: libraryHistory,
+                exact: true,
+            },
+            {
+                path: '/index/library/:type/history/:versionId/:num',
                 component: libraryHistory,
                 exact: true,
             },
@@ -141,7 +164,7 @@ const routers = [
                 exact: true,
             },
             {
-                component: Setting,
+                component: RepositoryAside,
                 path:'/index/repository/:id',
                 routes:[
                     {
@@ -171,14 +194,23 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/programUser',
-                        component: programUser,
+                        path: '/index/repository/:id/libraryList/survey/:versionId/:num',
+                        component: reLibrarySurvey,
                         exact: true,
                     },
-
+                    {
+                        path: '/index/repository/:id/libraryList/file/:versionId/:num',
+                        component: reLibraryFileList,
+                        exact: true,
+                    },
+                    {
+                        path: '/index/repository/:id/libraryList/history/:versionId/:num',
+                        component: reLibraryHistory,
+                        exact: true,
+                    },
                     {
                         path: '/index/repository/:id/setting',
-                        component: LayerSetup,
+                        component: RepositorySetting,
                         routes:[
                             {
                                 path: '/index/repository/:id/setting/repositoryInfo',
@@ -201,6 +233,21 @@ const routers = [
                                 exact: true,
                             },
                             {
+                                path: '/index/repository/:id/setting/pushCenter',
+                                component: LibraryPush,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting/programUser',
+                                component: programUser,
+                                exact: true,
+                            },
+                            {
+                                path: '/index/repository/:id/setting/ManageList',
+                                component: ManageList,
+                                exact: true,
+                            },
+                            {
                                 path: '/index/repository/:id/setting',
                                 exact: true,
                                 render: ()=><Redirect to='/index/repository/:id/setting/repositoryInfo'/>
@@ -209,15 +256,11 @@ const routers = [
                             ]
 
                     },
-                    {
-                        path: '/',
-                        exact: true,
-                        render: ()=><Redirect to="/index/library"/>
-                    },
+
                 ]
             },
             {
-                component: System,
+                component: SettingAside,
                 path:'/index/sysmgr',
                 routes: [
                     {

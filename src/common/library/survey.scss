@@ -1,7 +1,36 @@
 .file-survey{
-    margin-top: 5px;
-    &-nav{
-        font-size: 10px;
-        padding: 10px 0;
+    margin-top: var(---xpack-data-top);
+    .survey-title{
+        font-weight: var(--tiklab-font-weight-bold);
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+    .survey-body{
+        display: flex;
+        width: 100%;
+        margin: 20px 0;
+        flex: 1;
+        .survey-body-left{
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+            gap:25px
+        }
+        .survey-body-right{
+            display: flex;
+            flex-direction: column;
+            width: 48%;
+            gap:25px
+        }
+        .survey-body-item{
+            display: flex;
+            .survey-body-item-title{
+                width: 100px ;
+                color: var(--tiklab-gray-500);
+            }
+        }
+    }
+    .survey-top{
+        margin-top: 50px;
     }
 }

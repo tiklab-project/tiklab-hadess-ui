@@ -20,8 +20,9 @@ const FileDetails = (props) => {
             value?.length>50?
                 <Tooltip placement="right" title={value}>
                     <div style={{
-                        width: 540,
+                        display:"flex",
                         overflow: "hidden",
+                        maxWidth:"500px",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap"
                     }} >{value}</div>
@@ -36,22 +37,22 @@ const FileDetails = (props) => {
      * @param  fileId 制品文件id
      */
     const goContent =async () => {
-        window.open(serverIp+"/libraryFile/snapshots"+fileDetail?.fileUrl)
+        window.open(serverIp+"/libraryFile/read/"+fileDetail?.fileUrl)
     }
 
     return(
         <Drawer
-            title={"文件详情/  "+fileDetail?.fileName}
+            title={`文件详情 / ${fileDetail?.fileName}`}
             placement='right'
-            closable={false}
+
             onClose={onClose}
             visible={visible}
             width  ={'700'}
-            className='locker-top'
+            className='file-details-top'
         >
             {
                 fileDetail&&
-                <div className=' file-details'>
+                <div className='file-details'>
                     <div className='nav-table'>
                         <div className='title-text'>制品库:</div>
                         <span>{fileDetail?.repository.name}</span>
@@ -93,10 +94,7 @@ const FileDetails = (props) => {
                         <div className='title-text'>更新时间:</div>
                         <span>{fileDetail.libraryVersion.updateTime}</span>
                     </div>
-                    <div className='nav-table'>
-                        <div className='title-text'>最后下载:</div>
-                        <span>{fileDetail.createTime}</span>
-                    </div>
+
                     <div className='nav-table nav-path'>
                         <div className='title-text'>路径:</div>
                         <span className='nav-path-color nav-path-cursor' onClick={goContent}>{omitFiled(fileDetail?.relativePath)}</span>
@@ -104,7 +102,7 @@ const FileDetails = (props) => {
                     {
                         fileDetail?.repository.type==="maven"&&
                         <div className='nav-use'>
-                            <div className='use-title'>Usage</div>
+                            <div className='use-title'>使用</div>
                             <div className='use-des'>Insert this snippet into your pom.xml</div>
                             <div className='use-table'>
                                 <div>{"<dependency>"}</div>
@@ -131,14 +129,13 @@ const FileDetails = (props) => {
                     {
                         fileDetail?.repository.type==="npm"&&
                         <div className='nav-use'>
-                            <div className='use-title'>Usage</div>
+                            <div className='use-title'>使用</div>
                             <div className='use-des'>Install runtime dependency</div>
                             <div className='use-table'>
                                 npm install {"tiklab-eam-ui@1.0.0"}
                             </div>
                         </div>
                     }
-
                 </div>
             }
         </Drawer>

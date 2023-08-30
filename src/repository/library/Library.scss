@@ -1,0 +1,29 @@
+.repositoryLibrary{
+    padding: var(--tiklab-padding-item);
+    flex: 1;
+    .repository-library-width{
+        max-width:var(--page-max-width);
+        margin: 0 auto;
+    }
+}
+
+.library-mt{
+    margin-top: 20px;
+}
+.library-border{
+    color: #999999;
+}
+.library-mr{
+    margin: 0 20px;
+}
+.library-blue-color{
+    color: #3967FF;
+}
+.library-pointer{
+    cursor: pointer;
+}
+.library-flex{
+    display: flex;
+    gap:16px
+}
+

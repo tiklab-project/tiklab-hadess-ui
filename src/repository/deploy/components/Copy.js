@@ -9,7 +9,7 @@ import React, {useState, useEffect} from "react";
 import "./Copy.scss"
 import {Button, Modal, Space, Table} from "antd";
 import copyService from "../api/CopyApi";
-import CopyAddEdit from "./CopyAddEdit";
+import CopyAddEdit from "../old/CopyAddEditNew";
 import {ExclamationCircleOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 const Copy = (props) => {
@@ -122,27 +122,26 @@ const Copy = (props) => {
         setVisible(true)
     }
     return(
-        <div className='copy'>
-            <div className='copy-width'>
-                <div className='copy-exe-table'>
-                    <div className='copy-title' >复制</div>
-                    <div className='copy-button'>
-                        <Button type="primary" htmlType="submit" onClick={openCopyCompile}>
-                            + 配置复制
-                        </Button>
-                    </div>
+        <div className='xpack-setting-width copy'>
+            <div className='copy-exe-table'>
+                <div className='copy-title' >复制</div>
+                <div className='copy-button'>
+                    <Button type="primary" htmlType="submit" onClick={openCopyCompile}>
+                        + 配置复制
+                    </Button>
                 </div>
-
-               {/* <Deploy type={"copy"} repositoryId={params.id} {...props} />*/}
-                <div className='copy-table'>
-                    <Table
-                        dataSource={copyList}
-                        columns={columns}
-                        pagination={false}
-                    />
-                </div>
-                <CopyAddEdit visible={visible} onCancel={onCancel} repositoryId={params.id} copy={copy} compileType={compileType}/>
             </div>
+
+           {/* <Deploy type={"copy"} repositoryId={params.id} {...props} />*/}
+            <div className='copy-table'>
+                <Table
+                    dataSource={copyList}
+                    columns={columns}
+                    pagination={false}
+                />
+            </div>
+            <CopyAddEdit visible={visible} onCancel={onCancel} repositoryId={params.id} copy={copy} compileType={compileType}/>
+
         </div>
     )
 }

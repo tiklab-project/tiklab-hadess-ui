@@ -1,0 +1,23 @@
+.xpack-page{
+    width: 100%;
+    text-align: center;
+    padding-top: 10px;
+    height: 47px;
+    .xpack-page-ban{
+        cursor:not-allowed;
+        color: var(--tiklab-gray-500);
+    }
+    .xpack-page-allow{
+        cursor: pointer;
+        &:hover{
+          color: var(--tiklab-blue);
+        }
+    }
+    .xpack-page-icon{
+       padding: 0 5px;
+    }
+    .xpack-page-current{
+        color: var(--tiklab-blue);
+    }
+
+}

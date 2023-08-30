@@ -195,7 +195,7 @@ module.exports = merge(baseWebpackConfig, {
                 parallel: true,
                 terserOptions: {
                     compress: {
-                        // 去除console.log ,debugger
+                        // 去除console.log ,
                         drop_console: false,
                         drop_debugger: false,
                     },

@@ -123,26 +123,24 @@ const Agency = (props) => {
     }
 
     return(
-        <div className='agency'>
-            <div className='agency-width'>
-                <div className='agency-exe-table'>
-                    <div className=' agency-title'>代理</div>
-                    <div className='agency-button'>
-                        <Button type="primary" htmlType="submit" onClick={openAgencyCompile}>
-                            + 代理来源
-                        </Button>
-                    </div>
+        <div className='xpack-setting-width agency'>
+            <div className='agency-exe-table'>
+                <div className=' agency-title'>代理</div>
+                <div className='agency-button'>
+                    <Button type="primary" htmlType="submit" onClick={openAgencyCompile}>
+                        + 代理来源
+                    </Button>
                 </div>
-                {/*<Deploy type={"agency"}  repositoryId={params.id} {...props}/>*/}
-                <div className='agency-table'>
-                    <Table
-                        dataSource={agencyList}
-                        columns={columns}
-                        pagination={false}
-                    />
-                </div>
-                <AgencyCompile visible={visible} onCancel={onCancel} repositoryId={params.id} agency={agency} compileType={compileType}/>
             </div>
+            {/*<Deploy type={"agency"}  repositoryId={params.id} {...props}/>*/}
+            <div className='agency-table'>
+                <Table
+                    dataSource={agencyList}
+                    columns={columns}
+                    pagination={false}
+                />
+            </div>
+            <AgencyCompile visible={visible} onCancel={onCancel} repositoryId={params.id} agency={agency} compileType={compileType}/>
         </div>
     )
 }

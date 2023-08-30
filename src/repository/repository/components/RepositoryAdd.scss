@@ -4,13 +4,11 @@
     height: calc(100vh - 50px);
     min-width: 1080px;
     .repository-add-width{
-        max-width: 1000px;;
+        max-width: 900px;;
         margin: 0 auto;
     }
-    .add-title{
-        font-size: 16px;
-        font-weight: bold;
-        margin-bottom: 15px;
+    .add-top{
+      padding-top: 20px;
     }
     .ant-modal-header {
         display: none;
@@ -24,7 +22,7 @@
     }
     .repository-type{
         display: grid;
-        grid-template-columns: repeat(5, minmax(0, 1fr));
+        grid-template-columns: repeat(6, minmax(0, 1fr));
         grid-row-gap: 10px;
         margin-top: 5px;
         .type-border{
@@ -32,7 +30,7 @@
             border-color: #DCDCDC;
             border-width: 1px;
             width: 100px;
-            padding: 15px 0;
+            padding: 12px 0;
             border-radius: 5px;
             cursor: pointer;
         }
@@ -43,6 +41,7 @@
         .type-text{
             text-align: center;
         }
+
     }
     .repository-group{
         display: flex;
@@ -77,6 +76,34 @@
     }
     .error-text{
         color:#ff0000;
+    }
+
+    .add-power{
+        display: flex;
+        .repository-power-item {
+            width: 260px;
+            background: #ffffff;
+            padding: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            border: 1px solid #d9d9d9;
+            .power-item{
+                display: flex;
+                justify-content: space-between;
+            }
+            .power-title{
+                font-size: 16px;
+            }
+            .power-desc{
+                padding-top: 20px;
+            }
+        }
+        .power-not{
+            margin-left:60px;
+        }
+        .repository-power-select{
+            border: 2px solid var(--tiklab-blue) !important;
+        }
     }
 }
 

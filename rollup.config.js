@@ -58,7 +58,7 @@ const extensions = ['.js', '.jsx',]
 
 const umdOutput = {
     format: 'umd',
-    name: 'tiklab-xpack-ui',
+    name: 'tiklab-xcode-ui',
     globals,
     assetFileNames: '[name].[ext]'
 };

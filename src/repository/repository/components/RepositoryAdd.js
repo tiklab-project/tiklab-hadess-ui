@@ -7,15 +7,21 @@
  */
 
 import React, {useState, useEffect} from "react";
-import { Form,Input,Button} from 'antd';
+import {Form, Input, Button, Select} from 'antd';
 import './RepositoryAdd.scss'
-import {LeftCircleOutlined, RightCircleOutlined} from "@ant-design/icons";
-import repositoryService from "../api/RepositoryApi";
+import {
+    LeftCircleOutlined,
+    LockOutlined,
+    RightCircleOutlined,
+    UnlockOutlined
+} from "@ant-design/icons";
 import {getUser} from "tiklab-core-ui";
 import proxyService from "../../deploy/api/ProxyApi";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {Validation} from "../../../common/client/Client";
+import BreadcrumbContent from "../../../common/breadcrumb/Breadcrumb";
+import Print from "../../../common/image/Print";
 const { TextArea } = Input;
 const layout = {
     labelCol: {
@@ -28,7 +34,7 @@ const RepositoryAdd = (props) => {
     const {match:{params}} = props;
 
     const {repositoryStore}=props
-    const {createRepository,repositoryAllList,findAllRepository}=repositoryStore
+    const {createRepository,createRepositoryMaven,repositoryAllList,findAllRepository,findLocalAndRemoteRepository ,createRepositoryGroup}=repositoryStore
 
     //制品库类型
     const [type,setType]=useState('Maven')
@@ -50,36 +56,25 @@ const RepositoryAdd = (props) => {
     //错误信息
     const [errorMessage,setErrorMessage]=useState({})
 
+    const [powerType,setPowerType] = useState("public")  //权限控制
+    const [version,setVersion]=useState("Release")   //版本控制
+
     useEffect(async () => {
-        await findStorage()
         await findRepository(type)
         await findAllRepository()
 
 
     }, []);
 
-    /**
-     * 存储库列表
-     */
-    const findStorage =async () => {
-      const res=await repositoryService.findAllStorage()
-        if (res.code===0){
-            setStorageList(res.data)
-        }
-    }
 
     /**
      * 本地库和远程库的列表
      * @param type 类型
      */
     const findRepository =async (type) => {
-       const types= type.toLowerCase();
-       const param = new FormData()
-        param.append("type",types)
-      const res =  await repositoryService.findLocalAndRemoteRepository(param)
-        if (res.code===0){
-            setRepositoryList(res.data)
-        }
+        findLocalAndRemoteRepository(type.toLowerCase()).then(item=>{
+            item.code===0&&setRepositoryList(item.data)
+        })
     }
     /**
      * 创建制品库提交
@@ -107,6 +102,9 @@ const RepositoryAdd = (props) => {
                         case "group":
                             await createGroupItems(res.data)
                             break
+                        case "local":
+                            await createRepositoryMaven({repository:{id:res.data},version:version})
+                            break
                     }
                     await goCancel()
                 }
@@ -120,15 +118,14 @@ const RepositoryAdd = (props) => {
      */
     const createGroupItems =async (repositoryGroupId) => {
         choiceRepositoryList.map(items=>{
-            const param={
-                repositoryGroup:{
-                    id:repositoryGroupId,
-                },
-                repository:{
-                    id:items.id
-                }
-            }
-            repositoryService.createRepositoryGroup(param)
+                createRepositoryGroup({
+                    repositoryGroup:{
+                        id:repositoryGroupId,
+                    },
+                    repository:{
+                        id:items.id
+                    }
+                })
         }
         )
 
@@ -228,147 +225,223 @@ const RepositoryAdd = (props) => {
          props.history.push(`/index/repository`)
      }
 
+
+
     /**
      * 跳转到上一级路由
      */
     const goBack = () => {
         props.history.go(-1)
     }
+
+    const powerLis = [
+        {
+            id:"public",
+            title:'全局',
+            icon:<UnlockOutlined />,
+            desc:'公共项目，全部成员可见'
+        },
+        {
+            id:"private",
+            title:'私有',
+            icon:<LockOutlined />,
+            desc: '私有项目，只有项目成员可以见'
+        }
+    ]
+
+    const RepositoryPower = () => {
+      return(
+          <div className='add-power'>
+              {
+                  powerLis.map(item=>{
+                      return <div
+                          key={item.id}
+                          className={`repository-power-item  ${powerType===item.id?'repository-power-select':''} ${item.id==='private'&&"power-not"}`}
+                          onClick={()=>setPowerType(item.id)}
+                      >
+                          <div className='power-item'>
+                              <div>
+                                  <div className='power-title'>{item.icon}</div>
+                                  <div className='power-title'>{item.title}</div>
+                              </div>
+                          </div>
+                          <div className='power-desc'> {item.desc} </div>
+                      </div>
+                  })
+              }
+          </div>
+      )
+    }
+
+
     return(
         <div className='repository-add '>
             <div className='repository-add-width'>
-                <div className='add-title'>{`新建${params.type}仓库`}</div>
-                <Form
-                    {...layout}
-
-                    form={form}
-                    onFinish={onFinish}
-                    layout="vertical"
-                >
-                    <Form.Item
-                        label="制品仓库"
-                        name="type"
+                <BreadcrumbContent className='add-title' firstItem={`新建${params.type}仓库`} goBack={goBack}/>
+                <div className='add-top'>
+                    <Form
+                        {...layout}
+                        form={form}
+                        onFinish={onFinish}
+                        layout="vertical"
                     >
-                        <div className='repository-type'>
-                            <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
-                                <div className='type-text'>Maven</div>
-                            </div>
-                            <div className={`type-border ${type==='Npm'&&' type-opt'}`} onClick={()=>cuteType("Npm")}>
-                                <div className='type-text'>Npm</div>
-                            </div>
-                            <div className={`type-border ${type==='Docker'&&' type-opt'}`} onClick={()=>cuteType("Docker")}>
-                                <div className='type-text'>Docker</div>
-                            </div>
-                            <div className={`type-border ${type==='Generic'&&' type-opt'}`} onClick={()=>cuteType("Generic")}>
-                                <div className='type-text'>Generic</div>
-                            </div>
-                            <div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
-                                <div className='type-text'>PyPI</div>
-                            </div>
-                            <div className={`type-border ${type==='HeIm'&&' type-opt'}`} onClick={()=>cuteType("HeIm")}>
-                                <div className='type-text'>HeIm</div>
-                            </div>
-                            <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
-                                <div className='type-text'>NuGet</div>
-                            </div>
-                            <div className={`type-border ${type==='Rpm'&&' type-opt'}`} onClick={()=>cuteType("Rpm")}>
-                                <div className='type-text'>Rpm</div>
-                            </div>
-                        </div>
-                    </Form.Item>
-                    <Form.Item
-                        label='制品库名称'
-                        name='name'
-                        placeholder={"请输入制品库名称"}
-                        rules={[
-                            {required:true,message:'请输入名称'},
-                            {max:30,message:'请输入1~31位以内的名称'},
-                            Validation('名称','appoint'),
-                            ({getFieldValue})=>({
-                                validator(rule,value) {
-                                    let nameArray = []
-                                    if(repositoryAllList){
-                                        nameArray = repositoryAllList && repositoryAllList.map(item=>item.name)
-                                    }
-                                    if (nameArray.includes(value)) {
-                                        return Promise.reject('名称已经存在')
-                                    }
-                                    return Promise.resolve()
-                                }
-                            })
-                        ]}>
-                        <Input style={{background:'#fff'}}/>
-                    </Form.Item>
-                    {
-                        params.type==='remote'&&
-
-                        <div className='name-nav'>
-                            <div className='add-table-proxy'>
-                                <div>代理地址</div>
-                                <div className='add-table-proxy-text'>(创建后也可以在该制品库设置里面配置, 默认{agencyUrl} )</div>
-                            </div>
-                            <Input placeholder="请输入代理地址" value={agencyUrl} onChange={inputProxyUrl}  className={errorMessage?.key==='agency'&&'border-red-500'}/>
-                            {errorMessage?.key==='agency'&&
-                                <div className='error-text'>{errorMessage?.value}</div>
-                            }
-                        </div>
-                    }
-                    {
-                        params.type==='group'&&
                         <Form.Item
-                            label="组合选择"
-                            name="name"
+                            label="制品仓库"
+                            name="type"
                         >
-                            <div className='repository-group'>
-                                <div className='group-bord'>
-                                    {
-                                        repositoryList?.map(item=>{
-                                            return(
-                                                <div className={`${repository?.id===item.id&&" opt-color"} cut-repository`} onClick={()=>cuteRepository(item)}>
-                                                    <div className='opt-text '>
-                                                        {item.name+' ('+item.repositoryType+")"}
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
+                            <div className='repository-type'>
+                                <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
+                                    <Print type={"maven"} width={40} height={40} />
+                                    <div className='type-text'>Maven</div>
                                 </div>
-                                <div>
-                                    <div>
-                                        <RightCircleOutlined className='icon-style' onClick={chooseRepository}/>
-                                    </div>
-                                    <LeftCircleOutlined className='icon-style ' onClick={cancelRepository}/>
+                                <div className={`type-border ${type==='Npm'&&' type-opt'}`} onClick={()=>cuteType("Npm")}>
+                                    <Print type={"npm"} width={40} height={40}/>
+                                    <div className='type-text'>Npm</div>
                                 </div>
-                                <div className='group-bord'>
-                                    {
-                                        choiceRepositoryList?.map(item=>{
-                                            return(
-                                                <div className={`${choiceRepository?.id===item.id&&" opt-color"} cut-repository`} onClick={()=>cuteChooseRepository(item)}>
-                                                    <div className='opt-text'>
-                                                        {item.name+' ('+item.repositoryType+")"}
-                                                    </div>
-                                                </div>
-                                            )
-                                        })
-                                    }
+                                <div className={`type-border ${type==='Docker'&&' type-opt'}`} onClick={()=>cuteType("Docker")}>
+                                    <Print type={"docker"} width={40} height={40}/>
+                                    <div className='type-text'>Docker</div>
+                                </div>
+                                <div className={`type-border ${type==='Generic'&&' type-opt'}`} onClick={()=>cuteType("Generic")}>
+                                    <Print type={"generic"} width={40} height={40}/>
+                                    <div className='type-text'>Generic</div>
+                                </div>
+                                <div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
+                                    <Print type={"pypi"} width={40} height={40}/>
+                                    <div className='type-text'>PyPI</div>
+                                </div>
+                                <div className={`type-border ${type==='HeIm'&&' type-opt'}`} onClick={()=>cuteType("HeIm")}>
+                                    <Print type={"helm"} width={40} height={40}/>
+                                    <div className='type-text'>HeIm</div>
+                                </div>
+                                <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
+                                    <Print type={"nuget"} width={40} height={40}/>
+                                    <div className='type-text'>NuGet</div>
+                                </div>
+                                <div className={`type-border ${type==='Go'&&' type-opt'}`} onClick={()=>cuteType("Go")}>
+                                    <Print type={"go"} width={40} height={40}/>
+                                    <div className='type-text'>Go</div>
                                 </div>
                             </div>
                         </Form.Item>
-                    }
+                        <Form.Item
+                            label='制品库名称'
+                            name='name'
+                            placeholder={"请输入制品库名称"}
+                            rules={[
+                                {required:true,message:'请输入名称'},
+                                {max:30,message:'请输入1~31位以内的名称'},
+                                Validation('名称','appoint'),
+                                ({getFieldValue})=>({
+                                    validator(rule,value) {
+                                        let nameArray = []
+                                        if(repositoryAllList){
+                                            nameArray = repositoryAllList && repositoryAllList.map(item=>item.name)
+                                        }
+                                        if (nameArray.includes(value)) {
+                                            return Promise.reject('名称已经存在')
+                                        }
+                                        return Promise.resolve()
+                                    }
+                                })
+                            ]}>
+                            <Input style={{background:'#fff'}}/>
+                        </Form.Item>
+                        {
+                            ( params.type==='local'&&type==="Maven")&&
+                            <Form.Item
+                                label="版本控制"
+                                name="version"
+                            >
+                                <Select
+                                    defaultValue="Release"
+                                    options={[
+                                        {value: 'Release', label: 'Release'},
+                                        {value: 'Snapshot', label: 'Snapshot'},
+                                        {value: 'Mixed', label: 'Mixed'},
+                                    ]}
+                                    onChange={setVersion}
+                                />
+                            </Form.Item>
+                        }
+                        {
+                            params.type==='remote'&&
 
-                    <Form.Item
-                        label="描述"
-                        name="description"
-                    >
-                        <TextArea rows={4} />
-                    </Form.Item>
-                    <Button style={{ margin: '0 8px 0 0' }} onClick={goCancel}>
-                        取消
-                    </Button>
-                    <Button type="primary" htmlType="submit">
-                        提交
-                    </Button>
-                </Form>
+                            <div className='name-nav'>
+                                <div className='add-table-proxy'>
+                                    <div>代理地址</div>
+                                    <div className='add-table-proxy-text'>(创建后也可以在该制品库设置里面配置, 默认{agencyUrl} )</div>
+                                </div>
+                                <Input placeholder="请输入代理地址" value={agencyUrl} onChange={inputProxyUrl}  className={errorMessage?.key==='agency'&&'border-red-500'}/>
+                                {errorMessage?.key==='agency'&&
+                                    <div className='error-text'>{errorMessage?.value}</div>
+                                }
+                            </div>
+                        }
+                       {/* <Form.Item
+                            label="可见范围"
+                            name="visible"
+                        >
+                            {RepositoryPower()}
+                        </Form.Item>*/}
+
+                        {
+                            params.type==='group'&&
+                            <Form.Item
+                                label="组合选择"
+                                name="name"
+                            >
+                                <div className='repository-group'>
+                                    <div className='group-bord'>
+                                        {
+                                            repositoryList?.map(item=>{
+                                                return(
+                                                    <div className={`${repository?.id===item.id&&" opt-color"} cut-repository`} onClick={()=>cuteRepository(item)}>
+                                                        <div className='opt-text '>
+                                                            {item.name+' ('+item.repositoryType+")"}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                    <div>
+                                        <div>
+                                            <RightCircleOutlined className='icon-style' onClick={chooseRepository}/>
+                                        </div>
+                                        <LeftCircleOutlined className='icon-style ' onClick={cancelRepository}/>
+                                    </div>
+                                    <div className='group-bord'>
+                                        {
+                                            choiceRepositoryList?.map(item=>{
+                                                return(
+                                                    <div className={`${choiceRepository?.id===item.id&&" opt-color"} cut-repository`} onClick={()=>cuteChooseRepository(item)}>
+                                                        <div className='opt-text'>
+                                                            {item.name+' ('+item.repositoryType+")"}
+                                                        </div>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
+                                </div>
+                            </Form.Item>
+                        }
+
+                        <Form.Item
+                            label="描述"
+                            name="description"
+                        >
+                            <TextArea rows={4} />
+                        </Form.Item>
+                        <Button style={{ margin: '0 8px 0 0' }} onClick={goCancel}>
+                            取消
+                        </Button>
+                        <Button type="primary" htmlType="submit">
+                            提交
+                        </Button>
+                    </Form>
+                </div>
             </div>
 
         </div>

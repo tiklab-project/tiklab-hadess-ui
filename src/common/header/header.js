@@ -16,46 +16,41 @@ import {
     SettingOutlined, UserOutlined, WhatsAppOutlined,
 } from "@ant-design/icons";
 import {Avatar, Dropdown, Badge } from "antd";
-import {AppLink} from "tiklab-integration-ui"
 import Message from "./message";
 import './header.scss'
-const HeaderRuter = [
-     /*{
-         to:'/homes',
-         title:'首页',
-         key: 'homes'
-     },*/
-    {
-        to:`/index/library`,
-        title:'制品',
-        key: 'library'
-    },
-    {
-        to:`/index/repository`,
-        title:'制品库',
-        key: 'repository'
-    },
-    /*{
-        to:`/scan`,
-        title:'扫描',
-        key: 'scan'
-    },*/
-];
+import {getUser} from "tiklab-core-ui";
+
+
 const Header = props => {
-    let path = props.location.pathname
+    const {location,AppLink}=props
+
     const [currentLink,setCurrentLink] = useState(path)
     const [visible,setVisible] = useState(false)
 
+    let path = location.pathname
     useEffect(()=>{
         if(path.indexOf('/index/repository')===0){
             path='/index/repository'
         }
-        if(path.indexOf('/index/library')===0){
-            path='/index/library'
+        if(path.indexOf('/index/library/maven')===0){
+            path='/index/library/maven'
         }
         setCurrentLink(path)
     },[path])
 
+    const HeaderRuter = [
+        {
+            to:`/index/library/maven`,
+            title:'制品',
+            key: 'library'
+        },
+        {
+            to:`/index/repository`,
+            title:'制品库',
+            key: 'repository'
+        },
+
+    ];
 
     /**
      * 退出登录
@@ -107,8 +102,8 @@ const Header = props => {
                 <div className='outMenu-out'>
                     <Avatar icon={<UserOutlined />} />
                     <div className='outMenu-out-info'>
-                        <div className='outMenu-out-name'>name</div>
-                        <div className='outMenu-out-eamil'>tiklab@</div>
+                        <div className='outMenu-out-name'>{getUser().nickname || getUser().name || "用户"}</div>
+                        <div className='outMenu-out-eamil'>{getUser().phone || getUser().eamil || "--"}</div>
                     </div>
                 </div>
             </div>
@@ -155,7 +150,7 @@ const Header = props => {
                 <div className='frame-header' >
                     <div className='frame-header-right'>
                         <div className='frame-app-link'>
-                            <AppLink  isSSO={false}/>
+                            {AppLink}
                         </div>
                         <div className='frame-header-logo'>
                             <div className='frame-header-logo-text'>Xpack</div>
@@ -194,6 +189,5 @@ const Header = props => {
                 />
             </div>
     )
-
 }
 export default Header

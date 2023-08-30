@@ -22,6 +22,25 @@ export class LibraryStore{
     //服务起ip
     @observable serverIp=''
 
+    @observable libraryVersion=''
+
+    @action
+    setLibraryVersion=async (value)=>{
+        this.libraryVersion=value
+    }
+
+    /**
+     * 删除制品
+     * @param  id 制品id
+     */
+    @action
+    deleteLibrary=async (id)=>{
+        const param = new FormData()
+        param.append('id',id)
+        const res = await Axios.post("/library/deleteLibrary",param)
+        return res;
+    }
+
 
     /**
      * 通过制品版本id查询制品文件列表
@@ -38,12 +57,41 @@ export class LibraryStore{
         return res;
     }
     /**
+     * 通过id查询
+     * @param  versionId 版本id
+     */
+    @action
+    findLibraryVersionById=async (versionId)=>{
+        const param = new FormData()
+        param.append('versionId',versionId)
+        const res = await Axios.post("/libraryVersion/findLibraryVersionById",param)
+        if (res.code===0){
+            this.libraryVersion = res.data&&res.data
+        }
+        return res;
+    }
+
+    /**
      * 条件查询制品列表
      * @param  data data
      */
     @action
     findLibraryList=async (data)=>{
         const res = await Axios.post("/library/findLibraryList",data)
+        if (res.code===0){
+            this.libraryList=res.data
+        }
+        return res;
+    }
+
+    /**
+     * 查询未添加到推送中央仓表的制品
+     * @param  versionId 制品版本id
+     */
+    @action
+    findNotPushLibraryList=async (param)=>{
+
+        const res = await Axios.post("/library/findNotPushLibraryList",param)
         if (res.code===0){
             this.libraryList=res.data
         }
@@ -86,6 +134,25 @@ export class LibraryStore{
         return res;
     }
     /**
+     * 分页查询历史制品版本
+     * @param  data data
+     */
+    @action
+    findHistoryVersionPage=async (data)=>{
+        const res = await Axios.post("/libraryVersion/findHistoryVersionPage",data)
+        return res;
+    }
+    /**
+     * 分页查询制品版本
+     * @param  data data
+     */
+    @action
+    findLibraryVersionList=async (data)=>{
+        const res = await Axios.post("/libraryVersion/findLibraryVersionList",data)
+        return res;
+    }
+
+    /**
      * 通过制品id查询最新的制品版本
      * @param  libraryId 制品id
      */
@@ -103,7 +170,7 @@ export class LibraryStore{
      */
     @action
     deleteVersionAndLibrary=async (versionId)=>{
-        debugger
+
         const param=new FormData();
         param.append("id",versionId)
         const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",param)
@@ -136,6 +203,8 @@ export class LibraryStore{
         }
     }
 
+
+
     /**
      * 查询最新的制品文件
      * @param  value
@@ -146,6 +215,8 @@ export class LibraryStore{
         if (res.code===0){
             this.libraryFileList=res.data
         }
+        return res;
+
     }
 
     /**
@@ -173,6 +244,7 @@ export class LibraryStore{
             this.serverIp=res.data
         }
     }
+
 
 }
 

@@ -4,7 +4,7 @@
     white-space: nowrap;
     text-align: center;
     cursor: pointer;
-    padding: 7px 15px;
+    padding: 5px 15px;
     font-size: 14px;
     border-radius: 4px;
     color: rgba(0,0,0,.85);
@@ -41,6 +41,13 @@
 .xcode-btn-common{
     background: #f4f4f4;
     border-color: #f4f4f4;
+}
+.xcode-btn-text {
+    color: rgba(0,0,0,.85);
+    background: transparent;
+    border-color: transparent;
+    box-shadow: none;
+    padding-top: 5px;
 }
 
 .xcode-btn-link{

@@ -14,61 +14,50 @@ import {inject, observer} from "mobx-react";
 const { Option } = Select;
 const options=[{value: 'maven', label: 'maven'}, {value: 'npm', label: 'npm'}]
 import libraryStore from "../store/LibraryStore";
+import Page from "../../common/page/Page";
+import LibraryTable from "./LibraryTable";
+import Breadcrumb from "../../common/breadcrumb/Breadcrumb";
+import LibraryNav from "./LibraryNav";
+
 const LibraryList = (props) => {
-    const {repositoryStore}=props
+    const {repositoryStore,match:{params}}=props
     const {findRepositoryList}=repositoryStore
-    const {findLibraryListByCondition,findLibraryNewVersion}=libraryStore
+    const {findLibraryListByCondition}=libraryStore
 
     //搜索的制品名字
     const [name,setName]=useState(null)
     //搜索的制品版本
     const [version,setVersion]=useState(null)
+
+    //搜索的制品group
+    const [groupId,setGroupId]=useState(null)
+
     //所有的制品库列表
     const [repositoryList,setRepositoryList]=useState([])
     //选择的制品库
-    const [repository,setRepository]=useState(null)
+    const [repositoryId,setRepositoryId]=useState(null)
     //制品列表
     const [libraryList,setLibraryList]=useState([])
-    //制品列表
-    const [type,setType]=useState("maven")
+    //制品类型
+    const [type,setType]=useState()
+
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalPage,setTotalPage]=useState()
 
     const [openState,setOpenState]=useState(false)
 
-    const columns = [
-        {
-            title: '名称',
-            dataIndex: 'name',
-            width:'10%',
-            render:(text,record)=><div className='library-name' onClick={()=>goLibraryDetails(record)}> {text}</div>
-        },
-        {
-            title: '类型',
-            dataIndex: 'libraryType',
-            width:'10%',
-
-        },
-        {
-            title: '所属制品库',
-            dataIndex: ["repository",'name'],
-            width:'10%',
-
-        },
-        {
-            title: '版本',
-            dataIndex: 'newVersion',
-            width:'10%',
-        },
-        {
-            title: 'Group',
-            dataIndex: 'groupId',
-            width:'10%',
-        }
-    ];
 
     useEffect(async () => {
-        await findRepository(type)
-        await findLibraryByCondition(type)
-    }, []);
+        if (params.type){
+            await findLibraryByCondition({libraryType:params.type},1)
+            await findRepository(params.type)
+            setType(params.type)
+            setName(null)
+            setVersion(null)
+            setGroupId(null)
+            setRepositoryId("all")
+        }
+    }, [params.type]);
 
     /**
      * 查询所有的制品库
@@ -76,7 +65,7 @@ const LibraryList = (props) => {
     const findRepository = async (type) => {
         const res=await findRepositoryList(null,type)
         if (res.code===0){
-            const  all=[{id:'all',name:"全部制品库"}]
+            const  all=[{id:'all',name:"全部"}]
             setRepositoryList(all.concat(res.data))
         }
     }
@@ -86,29 +75,24 @@ const LibraryList = (props) => {
      * @param  type 制品类型
      * @param  repositoryId 制品库id
      */
-    const findLibraryByCondition = async (type,repositoryId) => {
-        const param={
-            repositoryId:repositoryId,
-            libraryType:type,
-            name:name,
-            newVersion:version
-        }
+    const findLibraryByCondition = async (data,currentPage) => {
         setOpenState(true)
+        const param={
+            ...data,
+            name:name,
+            newVersion:version,
+            groupId:groupId,
+            pageParam:{
+                currentPage:currentPage,
+                pageSize:15,
+            }
+        }
         const res=await findLibraryListByCondition(param)
         setOpenState(false)
         if (res.code===0){
-            setLibraryList(res.data)
-        }
-    }
 
-    /**
-     * 跳转制品详情
-     * @param  value 选择的制品数据
-     */
-    const goLibraryDetails =async (value) => {
-        const res=await findLibraryNewVersion(value.id)
-        if (res.code===0){
-            props.history.push(`/index/library/librarySurvey/${res.data.id}`)
+            setLibraryList(res.data.dataList)
+            setTotalPage(res.data.totalPage)
         }
     }
 
@@ -128,8 +112,10 @@ const LibraryList = (props) => {
      * 制品名称搜索
      */
     const onSearch = async () => {
+        setCurrentPage(1)
+        setRepositoryId("all")
+        await  findLibraryByCondition({libraryType:type},1)
         await findRepository()
-        await  findLibraryByCondition(type,repository)
     }
 
     /**
@@ -138,74 +124,103 @@ const LibraryList = (props) => {
      */
     const onInputVersion = (e) => {
         const value = e.target.value
-        if (value){
-            setVersion(value)
-        }else {
-            setVersion(null)
-        }
+        value?setVersion(value):setVersion(null)
+    }
+    /**
+     * 输入搜索制品groupId
+     * @param  e 输入的制品groupId
+     */
+    const onInputGroup =async (e) => {
+        const value = e.target.value
+        value?setGroupId(value):setGroupId(null)
     }
     /**
      * 制品版本搜索
      */
     const onSearchVersion = async () => {
-        await  findLibraryByCondition(type,repository)
+        if (repositoryId!=='all'){
+            await  findLibraryByCondition({libraryType:type,repositoryId:repositoryId},1)
+        }else {
+            await  findLibraryByCondition({libraryType:type},1)
+        }
+    }
+    /**
+     * 制品版本搜索
+     */
+    const onSearchGroup = async () => {
+        setCurrentPage(1)
+        if (repositoryId!=='all'){
+            await  findLibraryByCondition({libraryType:type,repositoryId:repositoryId},1)
+        }else {
+            await  findLibraryByCondition({libraryType:type},1)
+        }
     }
 
-    /**
-     * 制品类型切换
-     * @param value 制品类型
-     */
-    const cuteType =async (value) => {
-        await findRepository(value)
-        setType(value)
-        await findLibraryByCondition(value,repository)
-    }
     /**
      * 通过制品库类型查询
      * @param value 制品类型
      */
     const cuteRepository =async (value) => {
+        setRepositoryId(value)
+        setCurrentPage(1)
         if (value==='all'){
-            setRepository(null)
-            await findLibraryByCondition(type)
+            await findLibraryByCondition({libraryType:type},1)
         }else {
-            setRepository(value)
-            await findLibraryByCondition(type,value)
+            await findLibraryByCondition({libraryType:type,repositoryId:value},1)
         }
     }
+
+    const changPage =async (value) => {
+        if (repositoryId==='all'){
+            await  findLibraryByCondition({libraryType:type},value)
+        }else {
+            await  findLibraryByCondition({libraryType:type,repositoryId:repositoryId},value)
+        }
+        setCurrentPage(value)
+
+    }
+
     return(
-       <div className='library'>
-           <Spin  spinning={openState}>
-                <div className='library-width'>
-               <div className='library-title'>制品</div>
-               <div className='library-nav'>
-                   <div className=' '>
-                       <Input placeholder={'名称'} value={name}  onChange={onInputName}
-                              onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
-                       <Input placeholder={'Version'} value={version}  onChange={onInputVersion}
-                              onPressEnter={onSearchVersion}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
-                       <Select    style={{width: 200}} defaultValue={type}  onChange={cuteType} options={options} placeholder='类型' className='input-style'/>
-                       <Select    style={{width: 200}}  onChange={cuteRepository}  placeholder='制品库' className='input-style'>
-                           {repositoryList.map(item=>{
-                               return(
-                                   <Option  key={item.id} value={item.id}>
-                                       {item.name}
-                                   </Option>
-                               )
-                           })}
-                       </Select>
-                   </div>
-               </div>
-               <div className='library-table'>
-                   <Table
-                       dataSource={libraryList}
-                       columns={columns}
-                       pagination={false}
-                   />
-               </div>
-           </div>
-           </Spin>
-       </div>
+        <div className='library'>
+            <LibraryNav {...props}  type={type}/>
+            <div className='library-right'>
+                <Spin  spinning={openState}>
+                    <div className={'library-right-data'}>
+                        <div className='library-data'>
+                            <Breadcrumb  firstItem={"制品"}/>
+                            <div className='library-nav'>
+                                <Select  value={repositoryId}   style={{width: 200}}  onChange={cuteRepository}  placeholder='制品库' className='input-style'>
+                                    {repositoryList.map(item=>{
+                                        return(
+                                            <Option  key={item.id} value={item.id}>
+                                                {item.name}
+                                            </Option>
+                                        )
+                                    })}
+                                </Select>
+
+                                <Input placeholder={'名称'} value={name}  onChange={onInputName}
+                                       onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
+                                <Input placeholder={'版本'} value={version}  onChange={onInputVersion}
+                                       onPressEnter={onSearchVersion}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
+                                {
+                                    type==='maven'&&
+                                    <Input placeholder={'制品组名'} value={groupId}  onChange={onInputGroup}
+                                           onPressEnter={onSearchGroup}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className=' input-style'/>
+                                }
+                            </div>
+                            <div className='library-table xpack-table'>
+                                <LibraryTable {...props}  libraryList={libraryList} libraryType={type}/>
+                                {
+                                    (totalPage>1)?
+                                        <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>:null
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </Spin >
+            </div>
+        </div>
     )
 }
 export default withRouter(inject('repositoryStore')(observer(LibraryList)))

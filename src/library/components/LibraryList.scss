@@ -1,20 +1,25 @@
 .library {
-    padding: var(--tiklab-padding-item);
     overflow: auto;
-    height: calc(100vh - 50px);
-    min-width: 1080px;
-    .library-width{
-        max-width: 1250px;;
-        margin: 0 auto;
-    }
-    .library-title{
-        font-weight: bold;
-        font-size: 16px;
+    height: 100%;
+    width: 100%;
+    min-width: var(---xpack-min_width);
+    display: flex;
+    .library-right{
+        padding: var(--tiklab-padding-item);
+        flex: 1;
+        overflow: auto;
+        .library-right-data{
+            display: flex;
+            justify-content: center;
+        }
+   }
+    .library-data{
+        width: 1200px;;
     }
     .library-nav{
-        margin-top: 10px;
+        margin: 15px 0;
         .input-style{
-            margin: 5px 15px;
+            margin: 5px 20px 0 0;
             color: darkgrey;
         }
     }

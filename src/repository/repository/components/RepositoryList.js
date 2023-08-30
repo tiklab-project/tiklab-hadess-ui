@@ -15,12 +15,15 @@ import Btn from "../../../common/btn/Btn";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
+import {SettingOutlined} from "@ant-design/icons";
+import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
 const RepositoryList = (props) => {
     const {repositoryStore}=props
-    const {repositoryList,findRepositoryList,addRepositoryType,setRepositoryTypeNull}=repositoryStore
+    const {findRepositoryList,addRepositoryType,setRepositoryTypeNull}=repositoryStore
     //制品库类型
     const [repositoryType,setRepositoryType]=useState('local')
 
+    const [repositoryList,setRepositoryList]=useState([])
     //操作指引弹窗状态
     const [drawerVisible,setDrawerVisible]=useState(false)
     //单个制品库操作指引弹窗状态
@@ -77,21 +80,25 @@ const RepositoryList = (props) => {
             key: 'activity',
             width:'10%',
             render: (text, record) => (
-                <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
-                   {/* <div onClick={()=>openDetailsDrawer(record)} >操作指引</div>*/}
-                    <div className='exe-button' onClick={()=>goDeploy(record)}>设置</div>
-                </Space>
+                <Tooltip title='设置'>
+                    <span className='repository-tables-set' onClick={()=>goDeploy(record)}>
+                        <SettingOutlined className='actions-se'/>
+                    </span>
+                </Tooltip>
+
             )
         },
     ];
 
     useEffect(async () => {
+        let res;
       if (addRepositoryType){
           setRepositoryType(addRepositoryType)
-          findRepositoryList(addRepositoryType)
+          res=await findRepositoryList(addRepositoryType)
       }else {
-          findRepositoryList(repositoryType)
+          res=  await  findRepositoryList(repositoryType)
       }
+        setRepositoryList(res.data)
 
     }, [repositoryType]);
 
@@ -168,16 +175,16 @@ const RepositoryList = (props) => {
     const filedState = (record) => {
         return(
             record?.repositoryUrl?.length>30?
-                <Tooltip placement="right" title={getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}>
+                <Tooltip placement="right" title={record.repositoryUrl}>
                     <div style={{
                         width: 200,
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap"
-                    }}>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>
+                    }}>{record.repositoryUrl}</div>
                 </Tooltip>
                 :
-                <div>{getUser().tenant? record.repositoryUrl+getUser().tenant+"/"+record.name:record.repositoryUrl+record.name}</div>
+                <div>{record.repositoryUrl}</div>
         )
     }
 
@@ -201,7 +208,7 @@ const RepositoryList = (props) => {
         <div className='repository'>
             <div className='repository-width'>
                 <div className='repository-head-style'>
-                    <div className='title'>制品库</div>
+                    <Breadcrumb firstItem={'制品库'}/>
                     <div className='repository-flex'>
                         <Btn
                             title={'操作指引'}

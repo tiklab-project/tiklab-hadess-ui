@@ -16,6 +16,7 @@
     --title-size: 16px;         /*title字体大小*/
     --title-margin: 1.5rem 0;   /*title上下外边距*/
     --title-hight:32px;         /*title固定高度*/
+    --title-pdding:20px;         /*title内边距*/
 
     --page-padding:20px 20px 0 20px;  /*页面内边距*/
     --page-max-width: 1200px;  /*页面最大宽度*/
@@ -25,15 +26,19 @@
 
     --page-details-padding:15px 0;  /*页面数据和head的边距*/
 
-    /* 色调*/
-    --tiklab-white: #fff;   /* 主色调白*/
-    --tiklab-black: #000;   /*主色调黑 */
+
+    --tiklab-white: #fff;   /*主色调白*/
+    --tiklab-black: #000;  /* 主色调黑*/
     --tiklab-blue: #5D70EA;   /* 主色调蓝*/
-    --tiklab-gray-200: #ececec;  /*border 的边线 */
-    --tiklab-gray-300: #EDF0F5;  /*hover颜色 */
-    --tiklab-gray-400: #e3e8f0;  /*左侧导航 选中颜色 */
+    --tiklab-gray-200: #ececec;  /*border 的边线*/
+    --tiklab-gray-300: #EDF0F5;  /* hover颜色*/
+    --tiklab-gray-400: #e3e8f0;  /* 左侧导航 选中颜色*/
     --tiklab-gray-500: #999; /* 文字次级颜色灰色调*/
-    --tiklab-gray: #f7f8fa;  /* 主色调灰 左侧导航*/
+    --tiklab-gray-600: #f7f7f7;
+
+    --tiklab-gray-color: #efefef;  /*主色调灰 左侧一级导航*/
+    --tiklab-gray: #f7f8fa; /* 主色调灰 左侧二级导航*/
+
 
     --tiklab-font-12: 12px;  /*图文排需要的文字 */
     --tiklab-font-13: 13px;  /*描述文字 */
@@ -54,9 +59,24 @@
     --xpack-hover-color: #edf0f5;
     --xpack-backdrop-color: #f7f7f7;
     --xpack-head-height: 48px;
-    --xpack-content-height: calc(100vh - 48px)
+    --xpack-content-height: calc(100vh - 48px);
+
+    ---xpack-min_width:1024px;  /*最小宽度*/
+    ---xpack-data-width:1200px;  /*左侧数据宽度*/
+    ---xpack-data-top:20px  /*页面数据top*/
 }
 
+
+.xpack-setting-width{
+    max-width:var(--page-max-width);
+    width: var(--page-max-width);
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+.ant-form-item{
+    margin:0 0 18px;
+}
 
 /*弹窗 必填红星位置*/
 .ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional):before {
@@ -70,6 +90,13 @@
     font-family: SimSun,sans-serif;
     line-height: 1;
     content: "*";
+}
+.ant-table-thead>tr>th:not(:last-child):not(.ant-table-selection-column):not(.ant-table-row-expand-icon-cell):not([colspan]):before{
+    content:none!important;
+}
+.ant-table-tbody>tr>td {
+     border-bottom: none !important;
+    transition: background .3s;
 }
 .ant-modal-body {
     padding: 10px 24PX;
@@ -108,3 +135,7 @@ img {
 .ant-menu-inline .ant-menu-item:after, .ant-menu-vertical-left .ant-menu-item:after, .ant-menu-vertical-right .ant-menu-item:after, .ant-menu-vertical .ant-menu-item:after {
     border-right: none !important;
 }
+.ant-table-tbody>tr>td, .ant-table-thead>tr>th, .ant-table tfoot>tr>td, .ant-table tfoot>tr>th{
+    padding:8px !important;
+}
+

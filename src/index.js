@@ -11,8 +11,8 @@ import { Provider } from 'mobx-react';
 import routes from './routers'
 import {stores} from './stores'
 import './common/language/i18n';
-import "./assets/font-icon/iconfont";
-
+import "./assets/font_icon/iconfont";
+import "./assets/images/index"
 import './index.scss';
 import {useTranslation} from "react-i18next";
 import zhCN from 'antd/es/locale/zh_CN';

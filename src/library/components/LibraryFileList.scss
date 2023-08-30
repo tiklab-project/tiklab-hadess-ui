@@ -1,10 +1,18 @@
 .fileList{
-    padding: var(--tiklab-padding-item);
     overflow: auto;
-    height: calc(100vh - 50px);
-    min-width: 1080px;
-    .fileList-width{
-        max-width: 1250px;;
-        margin: 0 auto;
+    height: 100%;
+    width: 100%;
+    min-width: var(---xpack-min_width);
+    display: flex;
+    flex: 1;
+    .fileList-style{
+        overflow: auto;
+        justify-items: center;
+        flex: 1;
+        padding: var(--tiklab-padding-item);
+        .fileList-data{
+            max-width: var(---xpack-data-width);
+            margin: 0 auto;
+        }
     }
 }

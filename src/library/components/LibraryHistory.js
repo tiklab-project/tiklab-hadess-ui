@@ -8,12 +8,21 @@
 import React from "react";
 import './LibraryHistory.scss'
 import History from "../../common/library/History";
+import LibraryNav from "./LibraryNav";
+
 const LibraryHistory = (props) => {
     const {match:{params}} = props;
+
+
+
+
     return(
         <div className='history'>
-            <div className='history-width'>
-              <History versionId={params.versionId} type={'library'} {...props}/>
+            <LibraryNav {...props} type={params.type}/>
+            <div className='history-style'>
+                <div className='history-data'>
+                    <History versionId={params.versionId} type={'library'} {...props}/>
+                </div>
             </div>
          </div>
     )

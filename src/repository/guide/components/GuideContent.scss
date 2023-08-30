@@ -3,7 +3,7 @@
         border-style: solid;
         border-width: 1px;
         width: 100px;
-        padding: 20px 0;
+        padding: 12px 0;
         border-radius:5px;
         cursor:pointer;
         margin-right: 15px;
@@ -34,6 +34,10 @@
     .per-line{
         display: flex;
         padding-left: 25px;
+    }
+    .border-img-center{
+        display: flex;
+        justify-content: center;
     }
 
 }

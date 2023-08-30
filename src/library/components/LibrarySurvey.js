@@ -8,13 +8,18 @@
 import React from "react";
 import './LibrarySurvey.scss'
 import Survey from "../../common/library/Survey";
+import LibraryNav from "./LibraryNav";
 const LibrarySurvey = (props) => {
     const {match:{params}} = props;
     return(
         <div className='survey'>
-            <div className='history-width'>
-                <Survey versionId={params.versionId} type={"library"} {...props}/>
+            <LibraryNav {...props} type={params.type}/>
+            <div className='survey-style'>
+                <div className='survey-data'>
+                    <Survey versionId={params.versionId} type={"library"} {...props}/>
+                </div>
             </div>
+
         </div>
     )
 }

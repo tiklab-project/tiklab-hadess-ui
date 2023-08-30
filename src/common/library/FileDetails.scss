@@ -1,7 +1,7 @@
 .file-details{
     .nav-table{
         display: flex;
-        margin: 10px 0;
+        margin-bottom: 16px;
         .title-text{
             width: 100px;
         }
@@ -14,7 +14,8 @@
     .nav-use{
         margin-top: 35px;
         .use-title{
-            font-size: 20px;
+            font-weight: var(--tiklab-font-weight-bold);
+            font-size: 16px;
         }
         .use-des{
             color: #999999;
@@ -40,4 +41,7 @@
             cursor: pointer;
         }
     }
+}
+.file-details-top{
+    margin-top:48px
 }

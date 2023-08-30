@@ -1,0 +1,29 @@
+.library-left{
+    background-color: #efefef;
+    height: 100%;
+    .library-left-nav{
+        width: 140px;
+
+        .library-left-item{
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            padding: 12px 0 12px 25px ;
+        }
+        .choice-table-nav{
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            padding: 12px 0 12px 25px ;
+            background-color: var(--tiklab-gray-400);
+            color: #1890ff;
+        }
+        .library-left-item-bar{
+            display: flex;
+            cursor: pointer;
+        }
+        .library-left-item-text{
+            padding-left: 15px;
+        }
+    }
+}

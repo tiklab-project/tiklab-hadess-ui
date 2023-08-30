@@ -1,0 +1,32 @@
+.push{
+    &-up{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding-top: var(--title-pdding);
+    }
+    &-operate{
+        cursor: pointer;
+        &-left{
+            padding-left: 12px;
+        }
+    }
+    &-table{
+        padding-top: 10px;
+    }
+    &-text-gray {
+        color: #999999;
+    }
+    &-text-read {
+        color: #ff0000;
+    }
+    &-text-green {
+        color: #55a532;
+    }
+}
+
+
+.option{
+
+}

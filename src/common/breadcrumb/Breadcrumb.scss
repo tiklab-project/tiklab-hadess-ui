@@ -1,0 +1,22 @@
+.xpack-breadcrumb{
+    z-index: 100;
+    font-size: 16px;
+    font-weight: var(--tiklab-font-weight-bold);
+
+    .xpack-breadcrumb-content{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+    .xpack-breadcrumb-span{
+        color: #00000073;
+        padding-right: 8px;
+    }
+    .xpack-breadcrumb-secondItem{
+
+        display: inline-block;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+}
