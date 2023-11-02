@@ -13,10 +13,10 @@
     }
     .layer-nav{
         height: auto;
-        width: 180px;
+        width: 200px;
         min-width: 100px;
         overflow: auto;
-        background-color: var(--tiklab-gray-600);
+        background-color: var(--tiklab-gray-700);
     }
     .layer-nav-char{
         padding-left: 25px;
@@ -31,5 +31,9 @@
     }
     .pitch-nav-table:hover{
         background-color: #EBECF0;
+    }
+    .layer-right-style{
+        width: 100%;
+        overflow: auto;
     }
 }

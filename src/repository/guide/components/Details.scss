@@ -3,7 +3,7 @@
         margin: 20px 0;
     }
     &-back{
-        background-color: #EBECF0;
+        background-color: #f5f7fa;
         padding: 15px;
     }
     &-explain{
@@ -41,5 +41,15 @@
     }
     .guide-top-10{
         margin-top: 10px;
+    }
+    .text-style{
+        margin-top: 20px;
+        .text-nav{
+            display: flex;
+            margin: 10px 20px 0 20px;
+            &-title{
+                width: 150px;
+            }
+        }
     }
 }

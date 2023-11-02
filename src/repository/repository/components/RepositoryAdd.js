@@ -88,7 +88,8 @@ const RepositoryAdd = (props) => {
                     repositoryType:params.type,
                     description:values.description,
                     createUser:getUser().userId,
-                    repositoryUrl:getUser().tenant?getUser().tenant+"/"+values.name:values.name,
+                    category:2,
+                    repositoryUrl:values.name,
                     storage:{
                         id:values.storage
                     }
@@ -139,9 +140,10 @@ const RepositoryAdd = (props) => {
         const param={
             repository:{
                 id:repositoryId,
-                agencyName:"Maven Central"
+                agencyName:"central"
             },
             agencyUrl:agencyUrl,
+            agencyName:"central"
         }
         await proxyService.createRepositoryRemoteProxy(param)
     }

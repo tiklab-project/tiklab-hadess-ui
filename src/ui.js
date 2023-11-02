@@ -7,12 +7,11 @@ const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludePro
 
 // 制品列表
 const librarys = SyncComponent(() => import('./library/components/LibraryList'))
-// 制品详情-概览
-const librarySurvey = SyncComponent(() => import('./library/components/LibrarySurvey'))
-// 制品详情-文件列表
-const fileList = SyncComponent(() => import('./library/components/LibraryFileList'))
-// 制品详情-历史版本
-const libraryHistory = SyncComponent(() => import('./library/components/LibraryHistory'))
+
+//制品扫描
+const ScanList = SyncComponent(() => import('./repository/detection/components/ScanList'))
+const ScanDetails = SyncComponent(() => import('./repository/detection/components/ScanDetails'))
+const ScanHistory = SyncComponent(() => import('./repository/detection/components/ScanHistory'))
 
 
 // 制品库列表
@@ -21,16 +20,11 @@ const RepositoryList = SyncComponent(() => import('./repository/repository/compo
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 //制品列表
 const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
-//制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./repository/library/LibrarySurvey'))
-//制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./repository/library/LibraryFileList'))
-//制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./repository/library/LibraryHistory'))
+
 // 制品库-概览
 const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
 //制品库信息
-const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
+const RepositoryInfo = SyncComponent(() => import('./repository/setting/basicInfo/RepositoryBasicInfo'))
 //配置-代理信息
 const agency = SyncComponent(() => import('./repository/deploy/components/Agency'))
 //配置-复制信息
@@ -71,16 +65,18 @@ const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
 
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
+
+const BackupRecovery =SyncComponent(()=>import('./setting/backup/components/BackupRecovery'))
+
 export {
     ExcludeProductUser,
     librarys,
-    librarySurvey,
-    fileList,
-    libraryHistory,
+    ScanList,
+    ScanDetails,
+    ScanHistory,
     RepositoryList,
     RepositoryAdd,
     LibraryList,
-    reLibrarySurvey,
     programDomainRole,
     RepositoryAside,
     RepositorySetting,
@@ -95,8 +91,6 @@ export {
     plugin,
     MyLog,
     Version,
-    reLibraryFileList,
-    reLibraryHistory,
     repositorySurvey,
     RepositoryInfo,
     agency,
@@ -108,4 +102,5 @@ export {
     xpackStore,
     Layout,
     SettingContent,
+    BackupRecovery
 }

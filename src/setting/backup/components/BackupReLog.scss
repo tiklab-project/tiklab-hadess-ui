@@ -1,0 +1,24 @@
+.backupReLog{
+    margin-top: 20px;
+    .log-style{
+        .log-icon{
+            cursor: pointer;
+        }
+        display: flex;
+        gap: 10px;
+        margin-bottom: 10px;
+        font-size: 13px;
+        font-weight: 700;
+    }
+    .progress-content-log{
+        flex: 1;
+        overflow: auto;
+        border-radius: 4px;
+        padding: 10px;
+        background: #000000;
+        color: #ffffff;
+        word-wrap: break-word;
+        white-space: pre-wrap;
+
+    }
+}

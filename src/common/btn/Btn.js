@@ -8,6 +8,7 @@
 import React from 'react';
 import {Space} from 'antd';
 import './Btn.scss';
+import {LoadingOutlined} from "@ant-design/icons";
 const Btn = (props) => {
     const {icon,type,title,onClick,isMar} = props
 
@@ -20,7 +21,7 @@ const Btn = (props) => {
                 {
                     icon &&  <span className='xcode-btn-icon'>{icon}</span>
                 }
-                {title}
+                {title!=='加载中'?title:<LoadingOutlined />}
             </Space>
         </div>
     )

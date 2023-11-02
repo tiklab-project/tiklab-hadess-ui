@@ -17,7 +17,7 @@ const webpackGlobal = {
     client : JSON.stringify("web"),
     DEPLOY_MODE: JSON.stringify("saas"),
     tenant_type: JSON.stringify("mult"),
-
+    node_env: false,
     // DEPLOY_MODE: JSON.stringify('saas'),
     // // 登录认证类型
     // authType: JSON.stringify('acc'),  // axios 根据该字段判断是否是sass

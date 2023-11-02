@@ -8,16 +8,20 @@
  * @update: 2022-12-30 10:30
  */
 import {observer} from "mobx-react";
-import React, {useState ,useEffect} from "react";
+import React, {useState ,useEffect,Fragment} from "react";
 import {Table} from "antd";
 import libraryStore from "../store/LibraryStore";
+import LibraryDetails from "../../common/library/LibraryDetails";
+import LibraryDrawer from "../../common/library/LibraryDrawer";
 const LibraryTable = (props) => {
 
     const {libraryList,libraryType}=props
-    const {findLibraryNewVersion,setLibraryVersion}=libraryStore
+    const {findLibraryNewVersion}=libraryStore
 
     const [columns,setColumns]=useState([])
-
+    //制品文件详情弹窗
+    const [visible,setVisible]=useState(false)
+    const [version,setVersion]=useState()
     useEffect(async () => {
         let list;
         switch (libraryType){
@@ -25,6 +29,12 @@ const LibraryTable = (props) => {
                 list=mavenColumns
                 break
             case 'npm':
+                list= npmColumns
+                break
+            case 'generic':
+                list= npmColumns
+                break
+            case 'docker':
                 list= npmColumns
                 break
         }
@@ -37,7 +47,7 @@ const LibraryTable = (props) => {
             dataIndex: 'name',
             key:"name",
             width:'10%',
-            render:(text,record)=><div style={{color:'#1890ff',cursor:'pointer'}} onClick={()=>goLibraryDetails(record)}> {text}</div>
+            render:(text,record)=><div className={'text-color'}  onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
             title: '类型',
@@ -78,7 +88,7 @@ const LibraryTable = (props) => {
             dataIndex: 'name',
             key:"name",
             width:'35%',
-            render:(text,record)=><div className='library-name' onClick={()=>goLibraryDetails(record)}> {text}</div>
+            render:(text,record)=><div className={'text-color'} onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
             title: '类型',
@@ -101,6 +111,8 @@ const LibraryTable = (props) => {
         }
     ]
 
+
+
     /**
      * 跳转制品详情
      * @param  value 选择的制品数据
@@ -108,20 +120,27 @@ const LibraryTable = (props) => {
     const goLibraryDetails =async (value) => {
         const res=await findLibraryNewVersion(value.id)
         if (res.code===0){
-            setLibraryVersion(res.data)
-            props.history.push(`/index/library/${libraryType}/survey/${res.data.id}`)
+            setVisible(true)
+
+            setVersion(res.data)
+           // props.history.push(`/index/library/${libraryType}/survey/${res.data.id}`)
         }
     }
 
 
 
     return(
-        <Table
-            columns={columns}
-            dataSource={libraryList}
-            rowKey={record=>record.id}
-            pagination={false}
-        />
+        <Fragment>
+            <Table
+                columns={columns}
+                dataSource={libraryList}
+                rowKey={record=>record.id}
+                pagination={false}
+            />
+            <LibraryDrawer visible={visible} version={version}  setVisible={()=>setVisible(false)} />
+        </Fragment>
+
+
     )
 }
 

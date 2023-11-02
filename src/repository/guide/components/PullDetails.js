@@ -5,99 +5,139 @@
  * @description：拉取信息
  * @update: 2022-12-27 10:30
  */
-import React from "react";
+import React ,{Fragment}from "react";
+import "./PullDetails.scss"
 const PullDetails = (props) => {
-    const {type}=props
+    const {type,serverIp}=props
 
     return(
-        <div className='guide-details'>
+        <div className='guide-details pull-details'>
             {
                 type==='Maven'&&
-                <>
-                    <div className='guide-details-title'>请将下列配置添加到您的 settings.xml 文件中：</div>
-                    <div className='guide-details-back'>
+                <Fragment>
+                    <div className='push-details-title'>请将下列配置添加到您的 settings.xml 文件中：</div>
+                    <div className='nav-style'>
                         <div>{"<settings>"}</div>
-                        <div className='ref-line'>{"<mirrors>"}</div>
-                        <div className='ref-line'>
-                            <div className=' ref-line-20 '>{"<id>"}</div>
-                            <div>[local库名称]</div>
-                            <div>{"</id>"}</div>
+                        <div className='nav-left-20'>{"<mirrors>"}</div>
+                        <div className='nav-left-40 display'>
+                            {"<id> [local库名称] </id>"}
                         </div>
-                        <div className='ref-line'>
-                            <div className=' ref-line-20 '>{"<name>"}</div>
-                            <div>[local库名称]</div>
-                            <div>{"</name>"}</div>
+                        <div className='nav-left-40 display'>
+                            {"<name> [local库名称] </name>"}
                         </div>
-                        <div className='ref-line'>
-                            <div className=' ref-line-20 '>{"<url>"}</div>
-                            <div>[组合库URL]</div>
-                            <div>{"</url>"}</div>
+                        <div className='nav-left-40 display'>
+                            {"<url> [组合库URL] </url>"}
                         </div>
-                        <div className='ref-line'>
-                            <div className='ref-line-20 '>{"<mirrorOf>"}</div>
-                            <div>*</div>
-                            <div>{"</mirrorOf>"}</div>
+                        <div className='nav-left-40 display'>
+                            {"<mirrorOf> * </mirrorOf>"}
                         </div>
-                        <div className='ref-line'>{"</mirrors>"}</div>
+                        <div className='nav-left-20'>{"</mirrors>"}</div>
 
                         {/*---*/}
                         <div className='ref-line-top'>
-                            <div className='ref-line'>{"<profiles>"}</div>
-                            <div className='ref-line ref-line-20'>{"<profile>"}</div>
-                            <div className='ref-line ref-line-40'>
-                                <div >{"<id>"}</div>
-                                <div>{"repository profile"}</div>
-                                <div >{"<id>"}</div>
+                            <div className='nav-left-20 display'>{"<profiles>"}</div>
+                            <div className='nav-left-40'>{"<profile>"}</div>
+                            <div className='nav-left-60 display'>
+                                {"<id> repository profile </div>"}
                             </div>
-                            <div className='ref-line ref-line-40'>{"<repositories>"}</div>
-                            <div className='ref-line ref-line-60'>{"<repository>"}</div>
-                            <div className='ref-line ref-line-80'>
-                                <div>{"<id>"}</div>
-                                <div>{"[xpack-maven]"}</div>
-                                <div>{"</id>"}</div>
+                            <div className='nav-left-60'>{"<repositories>"}</div>
+                            <div className='nav-left-80'>{"<repository>"}</div>
+                            <div className='nav-left-100 display'>
+                                {"<div> xpack-maven </div>"}
                             </div>
-                            <div className='ref-line ref-line-80'>
-                                <div>{"<name>"}</div>
-                                <div>{"xpack-maven"}</div>
-                                <div>{"</name>"}</div>
+                            <div className='nav-left-100 display'>
+                                {"<name> xpack-maven </name>"}
                             </div>
-                            <div className='ref-line ref-line-80'>
-                                <div>{"<url>"}</div>
-                                <div>{"[组合库地址]"}</div>
-                                <div>{"</url>"}</div>
+                            <div className='nav-left-100 display'>
+                                {"<url> [组合库地址] </url>"}
                             </div>
-                            <div className='ref-line ref-line-80'>{"<releases>"}</div>
-                            <div className='ref-line ref-line-100'>
-                                <div>{"<enabled>"}</div>
-                                <div>{"true"}</div>
-                                <div>{"</enabled>"}</div>
+                            <div className='nav-left-100'>{"<releases>"}</div>
+                            <div className='nav-left-120'>
+                                {"<url> [组合库地址] </url>"}
                             </div>
-                            <div className='ref-line ref-line-80'>{"</releases>"}</div>
-                            <div className='ref-line ref-line-80'>{"<snapshots>"}</div>
-                            <div className='ref-line ref-line-100'>
-                                <div>{"<enabled>"}</div>
-                                <div>{"true"}</div>
-                                <div>{"</enabled>"}</div>
+                            <div className='nav-left-120'>
+                                {"<enabled> true </enabled>"}
                             </div>
-                            <div className='ref-line ref-line-80'>{"</snapshots>"}</div>
-                            <div className='ref-line ref-line-60'>{"</repository>"}</div>
-                            <div className='ref-line ref-line-40'>{"</repositories>"}</div>
-                            <div className='ref-line'>{"</profiles>"}</div>
+                            <div className='nav-left-100'>{"</releases>"}</div>
+                            <div className='nav-left-100'>{"<snapshots>"}</div>
+                            <div className='nav-left-120'>
+                                {"<enabled> true </enabled>"}
+                            </div>
+                            <div className='nav-left-100'>{"</snapshots>"}</div>
+                            <div className='nav-left-80'>{"</repository>"}</div>
+                            <div className='nav-left-60'>{"</repositories>"}</div>
+                            <div className='nav-left-40'>{"</profile>"}</div>
+                            <div className='nav-left-20'>{"</profiles>"}</div>
                         </div>
                         <div>{"<settings>"}</div>
                     </div>
-                    <div className='guide-top'>
+                    <div className='text-style'>
                         <div>替换文本：</div>
-                        <div className='ref-line-20 guide-top-10'>[组合库URL] 替换您组合库的地址</div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[组合库URL]"}</div>
+                            替换您组合库的地址
+                        </div>
                     </div>
-                </>||
+                </Fragment>||
                 type==='npm'&&
-                <>
-                    <div className='guide-details-title'>命令拉取：</div>
-                    <div className='guide-details-back'>
-                        {"npm install <PACKAGE>@<VERSION>"}
+                <Fragment>
+                    <div className='push-details-title'>命令拉取：</div>
+                    <div className='nav-style'>
+                        {"npm install [PACKAGE]@[VERSION]"}
                     </div>
-                </>
+                </Fragment>||
+                type==='Generic'&&
+                <Fragment>
+                    <div className='push-details-title'>命令拉取：</div>
+                    <div className='nav-style'>
+                        {`curl -H "type:download"  -u [USER_NAME]:[PASSWORD]  "${node_env? base_url:window.location.origin}/generic/generic/[GENERIC_RPY]/[FILE_NAME]" -o [OUTPUT_FILE]`}
+                    </div>
+                    <div className='text-style'>
+                        <div>替换文本：</div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[USER_NAME]"}</div>
+                            账号
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[PASSWORD]"}</div>
+                            密码
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[GENERIC_RPY]"}</div>
+                            generic仓库
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[FILE_NAME]"}</div>
+                            拉取的文件名称
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[OUTPUT_FILE]"}</div>
+                            下载文件的位置（地址/文件名称）
+                        </div>
+                    </div>
+                </Fragment>||
+                type==='Docker'&&
+                <Fragment>
+                    <div className='push-details-title'>请在命令行执行以下命令进行拉取：</div>
+                    <div className='nav-style'>
+                        {`docker push ${serverIp}/[REPOSITORY-NAME]/[LIBRARY-NAME]:[VERSION]`}
+                    </div>
+                    <div className='text-style'>
+                        <div>替换文本：</div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[REPOSITORY-NAME]"}</div>
+                            制品库名字
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[LIBRARY-NAME]"}</div>
+                            制品名字
+                        </div>
+                        <div className='text-nav'>
+                            <div className='text-nav-title'>{"[VERSION]"}</div>
+                            版本
+                        </div>
+                    </div>
+                </Fragment>
             }
 
         </div>

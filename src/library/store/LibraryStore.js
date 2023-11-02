@@ -51,6 +51,7 @@ export class LibraryStore{
         const param = new FormData()
         param.append('id',versionId)
         const res = await Axios.post("/libraryVersion/findLibraryVersion",param)
+
         if (res.code===0){
             this.libraryVersionData=res.data
         }
@@ -92,9 +93,22 @@ export class LibraryStore{
     findNotPushLibraryList=async (param)=>{
 
         const res = await Axios.post("/library/findNotPushLibraryList",param)
+
         if (res.code===0){
             this.libraryList=res.data
         }
+        return res;
+    }
+
+    /**
+     * 查询未添加到扫描的制品
+     * @param  versionId 制品版本id
+     */
+    @action
+    findNotScanLibraryList=async (param)=>{
+
+        const res = await Axios.post("/library/findNotScanLibraryList",param)
+
         return res;
     }
 
@@ -170,7 +184,6 @@ export class LibraryStore{
      */
     @action
     deleteVersionAndLibrary=async (versionId)=>{
-
         const param=new FormData();
         param.append("id",versionId)
         const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",param)
@@ -239,13 +252,31 @@ export class LibraryStore{
      */
     @action
     findServerIp=async ()=>{
-        const res = await Axios.post("/libraryFile/findServerIp")
+        const res = await Axios.post("/fileHand/findServerIp")
         if (res.code===0){
             this.serverIp=res.data
         }
     }
 
+    /**
+     * 手动推送制品
+     */
+    @action
+    libraryHandPush=async (param)=>{
+        const res = await Axios.post("/fileHand/libraryHandPush",param)
+        return res
+    }
 
+    /**
+     * 手动推送制品
+     */
+    @action
+    findHandPushResult=async (repositoryId)=>{
+        const param=new FormData()
+        param.append("repositoryId",repositoryId)
+        const res = await Axios.post("/fileHand/findHandPushResult",param)
+        return res
+    }
 }
 
 let libraryStore=new LibraryStore()

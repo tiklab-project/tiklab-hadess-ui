@@ -11,7 +11,7 @@ import {AppLink} from "tiklab-licence-ui";
 import Layout from "../common/layout/layout";
 import {UserVerify} from "tiklab-eam-ui";
 const Home = (props) => {
-    return <Layout {...props} AppLink={<AppLink isSSO={false}/>}/>
+    return <Layout {...props} AppLink={<AppLink />}/>
 
 }
 function mapStateToProps(state) {

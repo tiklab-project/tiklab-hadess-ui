@@ -15,6 +15,8 @@ import Page from "../../common/page/Page";
 import Breadcrumb from "../../common/breadcrumb/Breadcrumb";
 import LibraryTable from "./LibraryTable";
 import libraryStore from "../../library/store/LibraryStore";
+import Btn from "../../common/btn/Btn";
+import LibraryUpload from "./LibraryUpload";
 const LibraryList = (props) => {
     const {repositoryStore,match:{params}} = props;
     const {findRepository,repositoryData}=repositoryStore
@@ -29,10 +31,16 @@ const LibraryList = (props) => {
     const [currentPage,setCurrentPage]=useState(1)
     const [totalPage,setTotalPage]=useState()
 
+    const [visible,setVisible]=useState(false)
+
     useEffect(async () => {
-        await findLibraryList()
         await findRepository(params.id)
     }, [params.id]);
+
+
+    useEffect(async () => {
+        await findLibraryList()
+    }, [visible,params.id]);
 
 
     //通过条件查询制品
@@ -78,10 +86,21 @@ const LibraryList = (props) => {
         setCurrentPage(value)
         await findLibraryList(value)
     }
+
     return(
         <div className='repositoryLibrary'>
             <div className='repository-library-width'>
-                <Breadcrumb firstItem={"制品"}/>
+                <div className='library-list-head-nav'>
+                    <Breadcrumb firstItem={"制品"}/>
+                    {
+                        (repositoryData.repositoryType==="local"&&(repositoryData?.type==="maven"||repositoryData?.type==="generic"))&&
+                        <Btn   type={'primary'}
+                               title={'上传制品'}
+                               onClick={()=> setVisible(true)}
+                        />
+                    }
+                </div>
+
                 <div className='library-mt'>
                     <div className={'library-flex'}>
                         <Input placeholder={'名称'} value={name}  onChange={onInputName}
@@ -99,16 +118,12 @@ const LibraryList = (props) => {
                                onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} className='library-border '/>
                     </div>
                     <div className='library-mt'>
-                        <LibraryTable {...props}  libraryList={libraryList} libraryType={repositoryData?.type} repositoryId={repositoryData.id}/>
-
-                        {
-                            (totalPage>1)?
-                                <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>:null
-                        }
+                        <LibraryTable {...props}  libraryList={libraryList} libraryType={repositoryData?.type} repositoryId={repositoryData.id} findLibraryList={findLibraryList}/>
+                        <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>
                     </div>
                 </div>
             </div>
-
+            <LibraryUpload visible={visible} setVisible={setVisible} repositoryId={params.id} type={repositoryData.type}/>
         </div>
     )
 }

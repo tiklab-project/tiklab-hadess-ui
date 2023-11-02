@@ -1,5 +1,4 @@
 import {createContext} from 'react'
-import {messageModuleStores} from 'tiklab-message-ui/es/store';
 import {orgStores} from "tiklab-user-ui/es/store"
 import {privilegeStores} from "tiklab-privilege-ui/es/store"
 import {REPOSITORY_STORE, RepositoryStore} from "./repository/repository/store/repositoryStore";
@@ -7,7 +6,6 @@ import {REPOSITORY_STORE, RepositoryStore} from "./repository/repository/store/r
 
 function createStores() {
     return {
-        ...messageModuleStores,
         ...orgStores,
         ...privilegeStores,
         [REPOSITORY_STORE]:new RepositoryStore(),

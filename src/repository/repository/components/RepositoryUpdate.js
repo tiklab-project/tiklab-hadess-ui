@@ -27,15 +27,17 @@ const RepositoryUpdate = (props) => {
     const [underRepository,setUnderRepository]=useState()
     const [choiceRepository,setChoiceRepository]=useState(null)   //选中选择后的制品库
     const [choiceRepositoryList,setChoiceRepositoryList]=useState([])    //选择后的制品库id
+    const [repositoryName,setRepositoryName]=useState('')   //仓库名称
 
     useEffect(async () => {
         await findRepositoryById()
-    }, [params.id,]);
+
+    }, [params.id]);
 
 
     //通过id查询制品库
     const findRepositoryById =async () => {
-        debugger
+
         const res=await findRepository(params.id)
         if (res.code===0){
             form.setFieldsValue({
@@ -46,6 +48,9 @@ const RepositoryUpdate = (props) => {
 
             })
             setRepository(res.data)
+            //仓库名字
+            setRepositoryName(res.data?.name)
+
 
             //查询未关联组合库的制品库
             findUnRelevanceRepository(res.data.type,params.id).then(item=>{
@@ -63,7 +68,10 @@ const RepositoryUpdate = (props) => {
     const onFinish = () => {
         form.validateFields().then(async values => {
             const res=await updateRepository({...values,id:repository.id,
+                name:repositoryName,
+                repositoryUrl:repositoryName,
                 repositoryType:repository.repositoryType,
+                category:repository.category,
                 storage:{id:values.storage},
                 type:repository?.type})
             if (res.code===0){
@@ -115,9 +123,17 @@ const RepositoryUpdate = (props) => {
     const cuteRepository =async (item) => {
         setUnderRepository(item)
     }
+
+    //修改仓库名称
+    const inputRepositoryName =async (e) => {
+        const value = e.target.value;
+      setRepositoryName(value)
+    }
+
+
     //选择制品库
     const chooseRepository =async () => {
-        debugger
+
         if (repository){
             setRepositoryList(repositoryList.filter(item=>underRepository?.id!==item.id))
             underRepository&& setChoiceRepositoryList(choiceRepositoryList.concat(underRepository))
@@ -139,7 +155,7 @@ const RepositoryUpdate = (props) => {
                         name="type"
                     >
                         <div className={`repository-type-table`}>
-
+                            <Print type={"maven"} width={40} height={40} />
                             <div className='type-text'>{repository?.type}</div>
                         </div>
                     </Form.Item>
@@ -148,8 +164,8 @@ const RepositoryUpdate = (props) => {
                         name="name"
                         rules={[{required: true, message: '仓库名称必填'}]}
                     >
-                        <div>{repository?.repositoryUrl}</div>
 
+                        <Input addonBefore={`${repository?.prefixPath}`}    onChange={inputRepositoryName}/>
                     </Form.Item>
                     {
                         (repository?.repositoryType==='local'&&repository.type==="maven")&&
@@ -193,7 +209,7 @@ const RepositoryUpdate = (props) => {
                                 <div className='group-bord'>
                                     {
                                         choiceRepositoryList?.map(item=>{
-                                            debugger
+
                                             return(
                                                 <div className={`${choiceRepository?.id===item.id&&" opt-color"}  cut-repository click-cursor`} onClick={()=>cuteChooseRepository(item)}>
                                                     <div className='opt-text '>

@@ -20,13 +20,9 @@ const LibraryOption = (props) => {
         {
             title: '制品名称',
             dataIndex: 'name',
-            width:'50%',
+            width:'70%',
         },
-        {
-            title: '版本',
-            dataIndex: 'version',
-            width:'20%',
-        },
+
         {
             title: '创建时间',
             dataIndex: 'createTime',

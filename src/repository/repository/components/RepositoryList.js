@@ -7,16 +7,13 @@
  */
 import React, {useState, useEffect} from "react";
 import './RepositoryList.scss'
-import {Space, Table, Dropdown, Menu, Tooltip} from "antd";
-import GuideType from "../../guide/components/GuideType";
-import GuideContent from "../../guide/components/GuideContent";
+import { Table, Dropdown, Menu, Tooltip} from "antd";
 import ListIcon from "../../../common/repositoryIcon/Listicon";
-import Btn from "../../../common/btn/Btn";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
-import {getUser} from "tiklab-core-ui";
 import {SettingOutlined} from "@ant-design/icons";
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
+import GuideDrawer from "../../guide/components/GuideDrawer";
 const RepositoryList = (props) => {
     const {repositoryStore}=props
     const {findRepositoryList,addRepositoryType,setRepositoryTypeNull}=repositoryStore
@@ -26,23 +23,27 @@ const RepositoryList = (props) => {
     const [repositoryList,setRepositoryList]=useState([])
     //操作指引弹窗状态
     const [drawerVisible,setDrawerVisible]=useState(false)
-    //单个制品库操作指引弹窗状态
-    const [detailsDrawerVisible,setDetailsDrawerVisible]=useState(false)
 
 
-    //制品类型
-    const [type,setType]=useState(null)
 
     const columns = [
         {
             title: '制品库名称',
             dataIndex: 'name',
-            width:'15%',
+            width:'30%',
             render:(text,record)=>(
                 <div className='repository-flex'>
                     <ListIcon text={record?.name}/>
-                    <div className='repository-name ' onClick={()=>goRepositoryDetails(record)}>
+                    <div className='repository-name text-color' onClick={()=>goRepositoryDetails(record)}>
                         {text}
+                        {
+                            record.category===1&&
+                            <div>
+                                <span className='name-text-type'>{ "示例仓库"}</span>
+                            </div>
+
+                        }
+
                     </div>
                 </div>
                 )
@@ -51,7 +52,7 @@ const RepositoryList = (props) => {
         {
             title: '类型',
             dataIndex: 'type',
-            width:'5%',
+            width:'10%',
         },
         {
             title: '制品数量',
@@ -62,7 +63,7 @@ const RepositoryList = (props) => {
           {
             title: '地址',
             dataIndex: 'repositoryUrl',
-            width:'15%',
+            width:'25%',
               render: (text, record) => (
                   <>
                       {
@@ -129,38 +130,6 @@ const RepositoryList = (props) => {
         props.history.push(`/index/repository/add/${type}`)
     }
 
-
-    /**
-     * 打开操作指引抽屉
-     */
-    const openDrawer = () => {
-      setDrawerVisible(true)
-    }
-    /**
-     * 关闭操作指引抽屉
-     */
-    const onClose = () => {
-        setDrawerVisible(false);
-    };
-    /**
-     * 工具类型跳转指引详情
-     * @param type  制品库类型
-     */
-    const goDetails =async (type) => {
-        setType(type)
-        onClose()
-        setDetailsDrawerVisible(true)
-    }
-
-
-
-    /**
-     * 关闭单个制品库操作指引抽屉
-     */
-    const closeDetailsDrawer = () => {
-        setDetailsDrawerVisible(false);
-    };
-
     /**
      * 跳转配置界面
      */
@@ -210,10 +179,10 @@ const RepositoryList = (props) => {
                 <div className='repository-head-style'>
                     <Breadcrumb firstItem={'制品库'}/>
                     <div className='repository-flex'>
-                        <Btn
-                            title={'操作指引'}
-                            onClick={openDrawer}
-                        />
+
+                        <div className='guide-button'  onClick={()=>setDrawerVisible(true)} >
+                            操作指引
+                        </div>
                         <Dropdown overlay={()=>SystemTypes()} >
                             <div className='add-button' >
                                 +新建制品库
@@ -227,7 +196,7 @@ const RepositoryList = (props) => {
                    <div className={`${repositoryType==='remote'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("remote")}>远程库</div>
                    <div className={`${repositoryType==='group'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("group")}>组合库</div>
                 </div>
-                <div className='repository-table'>
+                <div className='repository-table '>
                     <Table
                         dataSource={repositoryList}
                         columns={columns}
@@ -235,8 +204,8 @@ const RepositoryList = (props) => {
                     />
                 </div>
             </div>
-            <GuideType onClose={onClose} visible={drawerVisible} goDetails={goDetails}/>
-            <GuideContent onClose={closeDetailsDrawer} visible={detailsDrawerVisible}  type={type}/>
+            <GuideDrawer setDrawerVisible={setDrawerVisible} visible={drawerVisible} />
+
         </div>
     )
 }

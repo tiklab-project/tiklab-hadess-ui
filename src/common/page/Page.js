@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{Fragment} from 'react';
 import {LeftOutlined,RightOutlined} from '@ant-design/icons';
 import './Page.scss';
 
@@ -26,18 +26,25 @@ const Page = props =>{
         )
     }
 
-    return <div className='xpack-page'>
-                <span
-                    className={`${pageCurrent===1?'xpack-page-ban':'xpack-page-allow'} xpack-page-icon`}
-                    onClick={()=>pageCurrent===1? null :changPage(pageCurrent - 1)}
-                >
-                    <LeftOutlined/>
-                </span>
-                <span className='xpack-page-current'>{`第${pageCurrent}页`}</span>
-                <span className='xpack-page-icon'>/</span>
-                <span>{`共${totalPage}页`}</span>
-                { renderRightOut() }
-         </div>
+    return(
+        <div className='xpack-page'>
+            {
+                (totalPage>1)?
+                    <Fragment>
+                        <span className={`${pageCurrent===1?'xpack-page-ban':'xpack-page-allow'} xpack-page-icon`}
+                              onClick={()=>pageCurrent===1? null :changPage(pageCurrent - 1)}
+                        >
+                            <LeftOutlined/>
+                        </span>
+                        <span className='xpack-page-current'>{`第${pageCurrent}页`}</span>
+                        <span className='xpack-page-icon'>/</span>
+                        <span>{`共${totalPage}页`}</span>
+                        { renderRightOut() }
+                    </Fragment>:null
+            }
+
+        </div>
+    )
 }
 
 export default Page

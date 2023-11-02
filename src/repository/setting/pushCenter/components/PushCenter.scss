@@ -6,6 +6,9 @@
         align-items: center;
         padding-top: var(--title-pdding);
     }
+    &-search{
+        margin: 10px 0;
+    }
     &-operate{
         cursor: pointer;
         &-left{
@@ -29,4 +32,10 @@
 
 .option{
 
+}
+/* 在分辨率大于 1024px 时应用的样式 */
+@media (min-width: 1280px) {
+    .work-add-page {
+        height: 80vh;
+    }
 }

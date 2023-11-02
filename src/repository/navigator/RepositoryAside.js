@@ -29,6 +29,12 @@ const RepositoryAside = (props) => {
             router:`/index/repository/${repositoryId}/libraryList`,
             icon:   <CodeOutlined className='icon-nav'/>
         },
+        {
+            key:'3',
+            title: '制品检测',
+            router:`/index/repository/${repositoryId}/scanPlay`,
+            icon:   <CodeOutlined className='icon-nav'/>
+        },
        ];
 
     useEffect(async () => {
@@ -38,10 +44,11 @@ const RepositoryAside = (props) => {
     }, []);
 
     useEffect(async () => {
-        if (path.includes(`/index/repository/${repositoryId}/libraryList`)){
-            setNavPath(`/index/repository/${repositoryId}/libraryList`)
+        if (path.includes("scan")){
+            setNavPath(`/index/repository/${repositoryId}/scanPlay`)
+        }else {
+            setNavPath(path)
         }
-
     }, [path]);
 
 

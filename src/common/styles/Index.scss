@@ -35,6 +35,7 @@
     --tiklab-gray-400: #e3e8f0;  /* 左侧导航 选中颜色*/
     --tiklab-gray-500: #999; /* 文字次级颜色灰色调*/
     --tiklab-gray-600: #f7f7f7;
+    --tiklab-gray-700: #fafafa;
 
     --tiklab-gray-color: #efefef;  /*主色调灰 左侧一级导航*/
     --tiklab-gray: #f7f8fa; /* 主色调灰 左侧二级导航*/
@@ -67,11 +68,13 @@
 }
 
 
+
 .xpack-setting-width{
     max-width:var(--page-max-width);
-    width: var(--page-max-width);
+    min-width: 900px;
     margin: 0 auto;
     padding: 0 15px;
+    flex: 1;
 }
 
 .ant-form-item{
@@ -108,7 +111,7 @@
 }
 
 img {
-    height: fit-content !important;
+    height: fit-content ;
 }
 
 .locker-top{
@@ -121,9 +124,7 @@ img {
 }
 
 /*drawer  take out underline*/
-.ant-drawer-header {
-     border-bottom: none;
-}
+
 .ant-menu-sub.ant-menu-inline {
     padding: 0;
     background: var(--tiklab-gray-color) !important;
@@ -139,3 +140,23 @@ img {
     padding:8px !important;
 }
 
+.ant-modal-body{
+    overflow: auto;
+}
+
+.xpack-home-limited{
+    margin: auto;
+    max-width: 1280px;
+    min-width: 768px;
+    padding: var(--tiklab-padding);
+}
+.xpack-home-limited-870{
+    margin: auto;
+    max-width: 870px;
+    min-width: 768px;
+    padding: var(--tiklab-padding);
+}
+.text-color:hover{
+    color: #1890ff;
+    cursor: pointer;
+}

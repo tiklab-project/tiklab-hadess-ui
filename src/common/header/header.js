@@ -8,6 +8,7 @@
 
 
 import React, { useState,useEffect} from 'react';
+import {inject,observer} from "mobx-react";
 import {
     ExpandOutlined,
     GlobalOutlined, LogoutOutlined,
@@ -19,23 +20,29 @@ import {Avatar, Dropdown, Badge } from "antd";
 import Message from "./message";
 import './header.scss'
 import {getUser} from "tiklab-core-ui";
-
+import {AvatarLink, HelpLink} from "tiklab-licence-ui";
+import xpack from "../../assets/images/img/xpack.png"
 
 const Header = props => {
-    const {location,AppLink}=props
+    const {location,AppLink,systemRoleStore}=props
+
+    const {getSystemPermissions} = systemRoleStore
+
 
     const [currentLink,setCurrentLink] = useState(path)
     const [visible,setVisible] = useState(false)
 
     let path = location.pathname
+
     useEffect(()=>{
         if(path.indexOf('/index/repository')===0){
             path='/index/repository'
         }
-        if(path.indexOf('/index/library/maven')===0){
+        if(path.indexOf('/index/library')===0){
             path='/index/library/maven'
         }
         setCurrentLink(path)
+        getSystemPermissions(getUser().userId)
     },[path])
 
     const HeaderRuter = [
@@ -145,14 +152,18 @@ const Header = props => {
             </div>
         </div>
     )
+
     return(
-            <div>
+            <div className=''>
                 <div className='frame-header' >
                     <div className='frame-header-right'>
                         <div className='frame-app-link'>
                             {AppLink}
                         </div>
                         <div className='frame-header-logo'>
+                            <div style={{paddingTop:12}}>
+                                <img  src={xpack}  style={{width:22,height:22}}/>
+                            </div>
                             <div className='frame-header-logo-text'>Xpack</div>
                         </div>
                         <div className='headers-link'>
@@ -169,16 +180,8 @@ const Header = props => {
                                     <MessageOutlined className='frame-header-icon'/>
                                 </Badge>
                             </div>
-                            <div className='frame-header-help'>
-                                <Dropdown overlay={helpMenu}>
-                                    <QuestionCircleOutlined className='frame-header-icon'/>
-                                </Dropdown>
-                            </div>
-                            <Dropdown overlay={outMenu}>
-                                <div className='frame-header-user'>
-                                    <Avatar icon={<UserOutlined />} />
-                                </div>
-                            </Dropdown>
+                            <HelpLink/>
+                            <AvatarLink {...props}/>
                         </div>
                     </div>
                 </div>
@@ -190,4 +193,5 @@ const Header = props => {
             </div>
     )
 }
-export default Header
+
+export default inject("systemRoleStore")(observer(Header))

@@ -1,0 +1,35 @@
+.scanHistory{
+    padding: var(--tiklab-padding-item);
+    flex: 1;
+    .scanHistory-width {
+        max-width: var(--page-max-width);
+        margin: 0 auto;
+        .scanHistory-data-style {
+            margin-top: 20px;
+        }
+    }
+    .icon-style{
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .scan-text{
+        gap: 5px;
+        display: flex;
+    }
+    .scan-text-gray{
+        color: #999999;
+    }
+    .scan-text-red{
+        color: #ff0000;
+    }
+    .scan-text-dired{
+        color:#df5000;
+    }
+    .scan-text-yellow{
+        color:#ee9900;
+    }
+    .scan-text-blue{
+        color:#1890ff;
+    }
+}

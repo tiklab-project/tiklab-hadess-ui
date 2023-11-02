@@ -16,14 +16,13 @@
         padding: 5px;
     }
 
-
 }
 
 .left-nav{
     display: flex;
     height: auto;
     overflow: auto;
-    background-color: var(--tiklab-gray-color);
+    background-color: var(--tiklab-gray-600);
     flex-direction: column;
     justify-content: space-between;
     .icon-nav{

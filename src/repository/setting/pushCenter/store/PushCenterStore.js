@@ -54,6 +54,17 @@ export class PushCenterStore{
         return res;
     }
 
+
+    /**
+     * 分页查询推送制品
+     * @param repositoryId
+     */
+    @action
+    findPushLibraryPage=async (param)=>{
+        const res = await Axios.post("/pushLibrary/findPushLibraryPage", param)
+        return res;
+    }
+
     /**
      * 添加推送制品
      * @param value

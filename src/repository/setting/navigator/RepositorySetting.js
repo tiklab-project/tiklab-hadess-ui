@@ -31,11 +31,11 @@ const RepositorySetting = (props) => {
             title: '代理',
             router:`/index/repository/${repositoryId}/setting/agency`,
         },
-        {
+  /*      {
             key:'3',
             title: '复制',
             router:`/index/repository/${repositoryId}/setting/copy`,
-        },
+        },*/
       /*  {
             key:'3',
             title: '复制',
@@ -104,7 +104,7 @@ const RepositorySetting = (props) => {
                     })
                 }
             </div>
-            <div  className={'setting_right_height'}>
+            <div  className={'layer-right-style'}>
                 {renderRoutes(props.route.routes)}
             </div>
         </div>

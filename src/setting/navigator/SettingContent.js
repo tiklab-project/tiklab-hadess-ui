@@ -126,4 +126,4 @@ const SettingContent = (props) => {
     )
 
 }
-export default inject(SYSTEM_ROLE_STORE)(observer(SettingContent))
+export default inject("systemRoleStore")(observer(SettingContent))

@@ -9,6 +9,8 @@ import React, {useEffect} from "react";
 import {Form, Modal, Input} from 'antd';
 import proxyService from "../api/ProxyApi";
 import "./AgencyAddEdit.scss"
+import Modals from "../../../common/modal/Modal";
+import Btn from "../../../common/btn/Btn";
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 25},
@@ -47,18 +49,38 @@ const AgencyAddEdit = (props) => {
 
         })
     }
+
+
+    const modalFooter = (
+        <>
+            <Btn onClick={onCancel} title={'取消'} isMar={true}/>
+            <Btn onClick={handleOk} title={'确定'} type={'primary'}/>
+        </>
+    )
     return(
-        <Modal
+        <Modals
+            open={visible}
+            onCancel={onCancel}
+            closable={false}
+            footer={modalFooter}
+            destroyOnClose={true}
+            width={500}
+            title={compileType==='add'?'添加来源':'修改来源'}
+        >
+
+
+      {/*  <Modal
             visible={visible}
             title={compileType==='add'?'添加来源':'修改来源'}
             onCancel={onCancel}
+            className='agency-edit'
             okText='保存'
             cancelText='取消'
             width={500}
             destroyOnClose={true}
             closable={false}
             onOk={handleOk}
-        >
+        >*/}
             <Form
                 {...layout}
                 form={form}
@@ -66,18 +88,18 @@ const AgencyAddEdit = (props) => {
                 layout="vertical"
             >
                 <Form.Item
-                    name="agencyUrl"
-                    label='地址'
-                    rules={[{required: true, message: '地址必填'}]}
-                >
-                    <Input placeholder='请输入来源地址'/>
-                </Form.Item>
-                <Form.Item
                     name="agencyName"
                     label='名称'
                     rules={[{required: true, message: '名称必填'}]}
                 >
                     <Input placeholder='请输入来源名称'/>
+                </Form.Item>
+                <Form.Item
+                    name="agencyUrl"
+                    label='地址'
+                    rules={[{required: true, message: '地址必填'}]}
+                >
+                    <Input placeholder='请输入来源地址'/>
                 </Form.Item>
 
                 <div className={"agency-verify-title"}>校验信息</div>
@@ -95,7 +117,7 @@ const AgencyAddEdit = (props) => {
                     <Input  placeholder='请输入密码' type={"text"}/>
                 </Form.Item>
             </Form>
-        </Modal>
+        </Modals>
     )
 }
 export default AgencyAddEdit

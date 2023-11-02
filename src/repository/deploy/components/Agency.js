@@ -7,10 +7,10 @@
  */
 import React, {useState, useEffect} from "react";
 import "./Agency.scss"
-import {Button, Modal, Space, Table} from "antd";
+import {Button, Modal, Space, Table, Tooltip} from "antd";
 import AgencyCompile  from "./AgencyAddEdit";
 import proxyService from "../api/ProxyApi";
-import {ExclamationCircleOutlined} from "@ant-design/icons";
+import {DeleteOutlined, ExclamationCircleOutlined, SettingOutlined} from "@ant-design/icons";
 const { confirm } = Modal;
 const Agency = (props) => {
     const {match:{params}} = props;
@@ -27,22 +27,26 @@ const Agency = (props) => {
         {
             title: '来源',
             dataIndex: 'agencyName',
-            width:'20%',
+            width:'30%',
             render:(text,record)=><div className=''> {text}</div>
         },
         {
             title: '地址',
             dataIndex: 'agencyUrl',
-            width:'50%',
+            width:'60%',
         },
         {
             title: '操作',
             key: 'activity',
             width:'10%',
             render: (text, record) => (
-                <Space size="useState" className='space-x-4 text-blue-500 cursor-pointer'>
-                    <div onClick={()=>updateAgency(record)}>配置</div>
-                    <div onClick={()=>openDeletePop(record)}>删除</div>
+                <Space size="useState" style={{gap:15,cursor:'pointer'}} >
+                    <Tooltip title='配置' onClick={()=>updateAgency(record)}>
+                        <SettingOutlined className='actions-se'/>
+                    </Tooltip>
+                    <Tooltip title='删除' onClick={()=>openDeletePop(record)}>
+                        <DeleteOutlined />
+                    </Tooltip>
                 </Space>
             )
         },

@@ -20,34 +20,29 @@ const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludePro
 
 // 制品列表
 const librarys = SyncComponent(() => import('./library/components/LibraryList'))
-// 制品详情-概览
-const librarySurvey = SyncComponent(() => import('./library/components/LibrarySurvey'))
-// 制品详情-文件列表
-const fileList = SyncComponent(() => import('./library/components/LibraryFileList'))
-// 制品详情-历史版本
-const libraryHistory = SyncComponent(() => import('./library/components/LibraryHistory'))
+
 
 
 // 制品库列表
 const RepositoryList = SyncComponent(() => import('./repository/repository/components/RepositoryList'))
 // 制品库-创建
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
+
 //制品列表
 const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
-//制品库-制品列表-概览
-const reLibrarySurvey = SyncComponent(() => import('./repository/library/LibrarySurvey'))
-//制品库-制品列表-文件列表
-const reLibraryFileList = SyncComponent(() => import('./repository/library/LibraryFileList'))
-//制品库-制品列表-历史版本
-const reLibraryHistory = SyncComponent(() => import('./repository/library/LibraryHistory'))
 
+//制品扫描
+const ScanPlayList = SyncComponent(() => import('./repository/detection/components/ScanPlayList'))
+const ScanList = SyncComponent(() => import('./repository/detection/components/ScanList'))
+const ScanDetails = SyncComponent(() => import('./repository/detection/components/ScanDetails'))
+const ScanHistory = SyncComponent(() => import('./repository/detection/components/ScanHistory'))
 
 // 制品库-概览
 const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
 
 //制品库信息
-const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
-
+//const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
+const RepositoryInfo = SyncComponent(() => import('./repository/setting/basicInfo/RepositoryBasicInfo'))
 
 //配置-代理信息
 const agency = SyncComponent(() => import('./repository/deploy/components/Agency'))
@@ -90,6 +85,10 @@ const Version =SyncComponent(()=>import('./setting/licence/Version'))
 //设置-版本与许可证
 const ManageList =SyncComponent(()=>import('./repository/deploy/old/ManageList'))
 
+//设置-备份与恢复
+const BackupRecovery =SyncComponent(()=>import('./setting/backup/components/BackupRecovery'))
+
+
 const routers = [
     {
         path: "/login",
@@ -124,36 +123,6 @@ const routers = [
                 exact: true,
             },
             {
-                path: '/index/library/:type/survey/:versionId',
-                component: librarySurvey,
-                exact: true,
-            },
-            {
-                path: '/index/library/:type/survey/:versionId/:num',
-                component: librarySurvey,
-                exact: true,
-            },
-            {
-                path: '/index/library/:type/fileList/:versionId',
-                component: fileList,
-                exact: true,
-            },
-            {
-                path: '/index/library/:type/fileList/:versionId/:num',
-                component: fileList,
-                exact: true,
-            },
-            {
-                path: '/index/library/:type/history/:versionId',
-                component: libraryHistory,
-                exact: true,
-            },
-            {
-                path: '/index/library/:type/history/:versionId/:num',
-                component: libraryHistory,
-                exact: true,
-            },
-            {
                 path: '/index/repository',
                 component: RepositoryList,
                 exact: true,
@@ -168,44 +137,28 @@ const routers = [
                 path:'/index/repository/:id',
                 routes:[
                     {
-
-                        path: '/index/repository/:id/survey',
-                        component: repositorySurvey,
-                        exact: true,
-                    },
-                    {
                         path: '/index/repository/:id/libraryList',
                         component: LibraryList,
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/libraryList/survey/:versionId',
-                        component: reLibrarySurvey,
+                        path: '/index/repository/:id/scanPlay',
+                        component: ScanPlayList,
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/libraryList/file/:versionId',
-                        component: reLibraryFileList,
+                        path: '/index/repository/:id/scanPlay/:playId',
+                        component: ScanList,
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/libraryList/history/:versionId',
-                        component: reLibraryHistory,
+                        path: '/index/repository/:id/scanDetails/:scanRecordId/:type',
+                        component: ScanDetails,
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/libraryList/survey/:versionId/:num',
-                        component: reLibrarySurvey,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/libraryList/file/:versionId/:num',
-                        component: reLibraryFileList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/libraryList/history/:versionId/:num',
-                        component: reLibraryHistory,
+                        path: '/index/repository/:id/scanHistory/:scanRecordId',
+                        component: ScanHistory,
                         exact: true,
                     },
                     {
@@ -309,6 +262,10 @@ const routers = [
                     {
                         path: '/index/sysmgr/version',
                         component: Version,
+                    },
+                    {
+                        path:'/index/sysmgr/backupRecovery',
+                        component: BackupRecovery,
                     },
                     {
                         path: '/',

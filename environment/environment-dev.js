@@ -16,7 +16,7 @@ const webpackGlobal = {
     client : JSON.stringify("web"),
     DEPLOY_MODE: JSON.stringify("ce"),
     tenant_type: JSON.stringify("xpack"),
-
+    node_env: true,
     // cookieDomain:  JSON.stringify('tiklab.com'),
 
     // 本地开发测试acc登录 配置的账号统一登录跳转那个登录页面

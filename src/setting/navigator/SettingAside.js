@@ -7,6 +7,8 @@
  * @update: 2022-05-21 16:51
  */
 import {
+    BarsOutlined,
+    BuildOutlined,
     LayoutOutlined, MergeCellsOutlined,
     SafetyCertificateOutlined,
     SoundOutlined,
@@ -77,6 +79,11 @@ const SettingAside = (props) => {
                 {
                     id:'/index/sysmgr/logList',
                     title: '操作日记',
+                },
+                {
+                    id:'/index/sysmgr/backupRecovery',
+
+                    title: '备份与恢复',
                 }
             ]
         },

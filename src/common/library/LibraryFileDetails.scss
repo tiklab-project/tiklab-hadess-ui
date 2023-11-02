@@ -1,0 +1,51 @@
+.file-details {
+    margin-top: var(---xpack-data-top);
+    .file-details-name{
+        font-weight: var(--tiklab-font-weight-bold);
+        margin-top: 5px;
+        margin-left: 5px;
+        font-size: 14px;
+    }
+    .file-details-title{
+        font-weight: var(--tiklab-font-weight-bold);
+        margin-bottom: 5px;
+        font-size: 13px;
+    }
+    .file-details-body{
+        column-gap: 10px;
+        .nav-table{
+            display: flex;
+            margin-bottom: 16px;
+            .nav-title{
+                width: 100px;
+            }
+        }
+    }
+
+    .file-details-use{
+        margin-top: 35px;
+        .use-des{
+            color: #999999;
+        }
+        .use-table{
+            margin-top: 5px;
+            background-color: #DCDCDC;
+            padding: 8px;
+            .per-line{
+                display: flex;
+                margin-left: 25px;
+            }
+        }
+    }
+    .nav-path {
+        height: 20px;
+        .nav-path-cursor:hover{
+            border-bottom: #1890ff;
+            border-bottom-style: solid;
+        }
+        .nav-path-color{
+            color: #1890ff;
+            cursor: pointer;
+        }
+    }
+}

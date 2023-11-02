@@ -1,0 +1,47 @@
+.scanPlay{
+    padding: var(--tiklab-padding-item);
+    flex: 1;
+    .scanPlay-width {
+        max-width: var(--page-max-width);
+        margin: 0 auto;
+        .scanPlay-head-style{
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            .scanPlay-but-style{
+                display: flex;
+                gap: 15px;
+            }
+        }
+        .scanPlay-data-style {
+            margin-top: 20px;
+        }
+    }
+
+    .icon-style{
+        display: flex;
+        gap: 15px;
+        cursor: pointer;
+        .icon-style-size{
+            font-weight: 20;
+            font-size: 16px;
+            cursor: pointer;
+        }
+    }
+    .scanPlay-text{
+        gap: 5px;
+        display: flex;
+    }
+    .scanPlay-text-gray{
+        color: #999999;
+    }
+    .scanPlay-text-red{
+        color: #ff0000;
+    }
+    .scanPlay-text-dired{
+        color:#df5000;
+    }
+    .scanPlay-text-yellow{
+        color:#ee9900;
+    }
+}

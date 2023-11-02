@@ -6,37 +6,41 @@
  * @update: 2023-07-19 10:30
  */
 import React, {useState, useEffect} from "react";
-import {Space, Table, Tooltip, message, Popconfirm} from "antd";
+import {Space, Table, Tooltip, message, Popconfirm, Input} from "antd";
 import "./PushCenter.scss"
 import BreadcrumbContent from '../../../../common/breadcrumb/Breadcrumb';
 import LibraryStore from "../../../../library/store/LibraryStore";
 import PushCenterStore from "../store/PushCenterStore";
 import {inject, observer} from "mobx-react";
-import {DeleteOutlined, LoadingOutlined, PlayCircleOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    LoadingOutlined,
+    PlayCircleOutlined,
+    SearchOutlined, SyncOutlined
+} from "@ant-design/icons";
 import Btn from "../../../../common/btn/Btn";
 import LibraryOption from "./LibraryOption";
 import {withRouter} from "react-router";
+import Page from "../../../../common/page/Page";
 const LibraryPush = (props) => {
     const {match:{params},repositoryStore} = props;
     const {libraryList,findNotPushLibraryList}=LibraryStore
-    const {pushCentralWare,pushResult,findPushLibraryList,createPushLibrary,deletePushLibrary,refresh}=PushCenterStore
+    const {pushCentralWare,pushResult,findPushLibraryList,findPushLibraryPage,createPushLibrary,deletePushLibrary,refresh}=PushCenterStore
     const {findRepository}=repositoryStore
     const [repository,setRepository]=useState(null)
     const [PushLibrary,setPushLibrary]=useState([])   //推送版本
     const [pushLibraryList,setPushLibraryList]=useState([])
 
     const [addVisible,setAddVisible]=useState(false)
-    useEffect(  async () => {
-       const res=await findRepository(params.id)
-        if (res.code===0&&res.data){
-            setRepository(res.data)
-        }
 
-        await findNotPushLibraryList({repositoryId:params.id})
-      const pushRes= await findPushLibraryList(params.id)
-        if (pushRes.code===0){
-            setPushLibraryList(pushRes.data)
-        }
+    const [searchName,setSearchName]=useState('')
+    const [currentPage,setCurrentPage]=useState(1)
+    const [totalPage,setTotalPage]=useState()
+
+    useEffect(  async () => {
+
+      await findNotPushLibraryList({repositoryId:params.id})
+       await findPushList(currentPage)
 
     }, [refresh]);
 
@@ -49,13 +53,13 @@ const LibraryPush = (props) => {
         {
             title: '最近推送时间',
             dataIndex: 'lastPushTime',
-            width:'30%',
+            width:'20%',
             render:(text)=><div>{text?text:<div className='push-text-gray'>{"未推送"}</div>}</div>
         },
         {
             title: '最近推送状态',
             dataIndex: 'lastPushResult',
-            width:'10%',
+            width:'20%',
             render:(text)=><div>{text?(text==="fail"?<div className='push-text-read'>{"失败"}</div>:<div className='push-text-green'>{"成功"}</div>):
                 (<div className='push-text-gray'>{"未推送"}</div>)}</div>
         },
@@ -97,7 +101,7 @@ const LibraryPush = (props) => {
                         <div className='push-operate push-operate-left'>
                             {
                                 (stateInfo && stateInfo[0]?.state) ?
-                                    <LoadingOutlined className='remote-icon '/> :
+                                    <SyncOutlined spin/>:
                                     <Tooltip title='推送'>
                                         <PlayCircleOutlined className='remote-icon'
                                                             onClick={() => pushCenter(record)}/>
@@ -110,6 +114,30 @@ const LibraryPush = (props) => {
     ]
 
 
+    //查询推的的制品列表
+    const findPushList =async (page) => {
+        const pushRes=await  findPushLibraryPage({pageParam:{currentPage:page, pageSize:30},
+            repositoryId:params.id,libraryName:searchName});
+        if (pushRes.code===0){
+            setPushLibraryList(pushRes.data.dataList)
+            setTotalPage(pushRes.data.totalPage)
+        }
+    }
+
+    //分页
+    const changPage =async (value) => {
+        setCurrentPage(value)
+      await  findPushList(value)
+    }
+
+    //输入制品名称
+    const onInputName = (e) => {
+        setSearchName(e.target.value)
+    }
+    //搜索
+    const onSearch = async () => {
+        await  findPushList(1)
+    }
     //推送中央仓库
     const pushCenter =async (value) => {
        // setPushLibrary(PushLibrary.concat({id:value.id,state:true}))
@@ -120,29 +148,17 @@ const LibraryPush = (props) => {
         }
     }
 
+
     //定时任务
     const timeTask =async (value) => {
         let timer=setInterval(()=>{
-            debugger
             pushResult(value).then(res=>{
                 if (res.code===0){
                     if (res.data.length>0){
-                        debugger
                         setPushLibraryList(res.data)
-                     /*   if (res.data==="succeed"){
-                            updatePushVersion(value)
-                            message.success("推送成功",1)
-
-                        }else {
-                            updatePushVersion(value)
-                            message.error(res.data,1)
-                            clearInterval(timer)
-                        }*/
                     }else {
-                        debugger
                         clearInterval(timer)
                     }
-
                 } else {
                     updatePushVersion(value)
                     clearInterval(timer)
@@ -150,6 +166,7 @@ const LibraryPush = (props) => {
             })
         },2000)
     }
+
 
     const updatePushVersion = (value) => {
         const newArray = PushLibrary.map(function(info) {
@@ -161,6 +178,8 @@ const LibraryPush = (props) => {
          findPushLibraryList(params.id)
         setPushLibrary(newArray)
     }
+
+
     return(
         <div className='xpack-setting-width push'>
             <div className='push-up'>
@@ -172,7 +191,10 @@ const LibraryPush = (props) => {
                        title={'添加推送'}
                        onClick={()=> setAddVisible(true)}/>
             </div>
-
+            <div className='push-search'>
+                <Input placeholder={'名称'} value={searchName}  onChange={onInputName}
+                       onPressEnter={onSearch}    size='middle' style={{ width: 200 }}   prefix={<SearchOutlined/>} />
+            </div>
             <div className='push-table'>
                 <Table
                     rowKey = {record => record.id}
@@ -180,6 +202,7 @@ const LibraryPush = (props) => {
                     columns={columns}
                     pagination={false}
                 />
+                <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>
             </div>
 
             <LibraryOption {...props} addVisible={addVisible} setAddVisible={setAddVisible}

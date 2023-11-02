@@ -211,10 +211,7 @@ const LibraryList = (props) => {
                             </div>
                             <div className='library-table xpack-table'>
                                 <LibraryTable {...props}  libraryList={libraryList} libraryType={type}/>
-                                {
-                                    (totalPage>1)?
-                                        <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>:null
-                                }
+                                <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>
                             </div>
                         </div>
                     </div>

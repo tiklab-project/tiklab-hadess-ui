@@ -1,9 +1,98 @@
 .basicInfo{
-    &-up{
-        padding-bottom: var(--tiklab-padding-item);
+    .basicInfo-up{
+        margin: 20px 0;
+
+    }
+    .repository-type-table{
+        border-style: solid;
+        border-width: 1px;
+        border-color: #DCDCDC;
+        width: 80px;
+        padding: 10px 0;
+        border-radius: 5px;
+        .type-text{
+            flex-direction: row;
+            text-align: center;
+        }
     }
     &-li{
         border: 1px solid #ececec;
         border-radius: 4px;
+        .border-top{
+            border-top: 1px solid #ececec;
+            border-radius: 4px;
+        }
+        .basicInfo-li-top{
+            display: flex;
+            align-items: flex-start;
+            padding: 10px 20px;
+            cursor: pointer;
+            background-color: #f8f8f8;
+            &:hover{
+                background: #f4f4f4;
+            }
+        }
+        .basicInfo-li-icon{
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            margin-right: 10px;
+            margin-top: 4px;
+            font-weight: var(--tiklab-font-weight-bold);
+        }
+        .basicInfo-li-center{
+            flex-grow: 1;
+        }
+        .basicInfo-li-title{
+            font-weight: var(--tiklab-font-weight-bold);
+        }
+        .basicInfo-li-desc{
+            font-size: var(--tiklab-font-13);
+            color: var(--tiklab-gray-500);
+        }
+        .basicInfo-li-down{
+            align-self: center;
+        }
+        .basicInfo-li-select{
+            background: #f4f4f4;
+        }
+        .basicInfo-li-bottom{
+            padding:10px 20px;
+        }
+        .basicInfo-li-none{
+            display: none;
+        }
+    }
+    .repository-group{
+        display: flex;
+        justify-content: space-between;
+        width: 70%;
+        .group-bord{
+            border-style: solid;
+            border-width: 1px;
+            border-color: #DCDCDC;
+            width: 45%;
+            height: 150px;
+            overflow: auto;
+        }
+        .cut-repository:hover{
+            background-color: #EBECF0;
+            cursor: pointer;
+        }
+        .opt-color{
+            background-color: #DCDCDC;
+        }
+        .opt-text{
+            padding: 5px;
+        }
+        .icon-style{
+            font-size: 20px;
+            cursor: pointer;
+            color: #999999;
+            margin-top: 30px;
+        }
+    }
+    .click-cursor{
+        cursor: pointer;
     }
 }
