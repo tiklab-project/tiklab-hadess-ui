@@ -1,0 +1,22 @@
+.select-menu {
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background-color: #ffffff;
+    width: 250px;
+    .select-item {
+        padding: 10px var(--tiklab-padding-item);
+        .select-title{
+            font-size: 16px;
+            font-weight: var(--tiklab-font-weight-bold);
+            margin-bottom: 10px;
+        }
+    }
+
+    .select-exec{
+        display: flex;
+        align-items: center;
+        //margin-top: var(--tiklab-padding-item);
+        justify-content:flex-end;
+        padding: 20px 15px 15px 20px;
+    }
+}

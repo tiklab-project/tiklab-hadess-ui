@@ -52,9 +52,6 @@ export class ScanRecordStore  {
         const param=new FormData()
         param.append("id",value)
         const res = await Axios.post("/scanRecord/findScanRecord",param)
-        if(res.code===0){
-            this.scanRecord=res.data
-        }
         return res;
     }
 
@@ -86,6 +83,21 @@ export class ScanRecordStore  {
         return res;
     }
 
+
+    /**
+     * 条件查询有漏洞的扫描依赖树
+     * @param  param
+     */
+    @action
+    findHaveHoleRelyTreeList=async (scanGroup)=>{
+        const param=new FormData()
+        param.append("scanGroup",scanGroup)
+        const res = await Axios.post("/scanRecord/findHaveHoleRelyTreeList",param)
+        if(res.code===0){
+            this.scanRecordList=res.data
+        }
+        return res;
+    }
 
 
 }

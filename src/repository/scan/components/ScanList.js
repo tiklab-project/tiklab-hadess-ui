@@ -274,7 +274,7 @@ const ScanList = (props) => {
                         <div>{scanPlay?.playName}</div>
                     </div>
                     <div className='scan-but-style'>
-                        <Btn   type={'common'} title={'添加制品'} onClick={()=> openAddPop(true)}/>
+
                         {
                             multiState?
                                 <Btn   type={'primary'} title={'加载中'} />:
@@ -285,8 +285,12 @@ const ScanList = (props) => {
                 <div className='scan-data-style'>
                     <div className='scan-tab-style'>
                         <div className={`${tableType==='library'&&' choose-scanDetails-type'}`} onClick={()=>cuteTab("library")}>制品</div>
-                        <div className={`${tableType==='report'&&' choose-scanDetails-type'}`} onClick={()=>cuteTab("report")}>报告</div>
+                        <div className={`${tableType==='report'&&' choose-scanDetails-type'}`} onClick={()=>cuteTab("report")}>扫描报告</div>
                     </div>
+                    <div style={{paddingTop:20}}>
+                        <Btn   type={'primary'} title={'添加制品'} onClick={()=> openAddPop(true)}/>
+                    </div>
+
                     {
                         tableType==='library'?
                             <Fragment>

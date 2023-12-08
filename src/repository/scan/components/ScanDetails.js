@@ -23,8 +23,9 @@ const holeIconList=[{type:"severity",title:"C"},{type:"high",title:"H"},{type:"m
 const ScanDetails = (props) => {
     const {match:{params}} = props;
 
-    const {findScanRecord,findScanRecordByGroup,scanRecord}=scanRecordStore
-    const {findHaveHoleRelyTreeList,scanRelyList,findScanRelyPage}=scanRelyStore
+    const {findScanRecord,findScanRecordByGroup,scanRecord,findHaveHoleRelyTreeList}=scanRecordStore
+    const {findScanRelyPage}=scanRelyStore
+
 
     const [openRely,setOpenRely]=useState([])  //打开的第一层依赖
     const [openSecondRely,setOpenSecondRely]=useState([])//打开的第二层依赖
@@ -36,13 +37,30 @@ const ScanDetails = (props) => {
     const [state,setState]=useState(false)
 
     const [tableType,setTableType]=useState("hole")
+    const [scanRecordData,setScanRecordData]=useState('') //右侧详情
 
     const [findScanRelyList,setFindScanRelyList]=useState([])  //依赖列表
     const [currentPage,setCurrentPage]=useState(1)
     const [totalPage,setTotalPage]=useState()
 
+    const [scanRecordList,setScanRecordList]=useState([])
+
     useEffect(async () => {
-        if (params.type==='one'){
+        if (params.type==='group'){
+            findScanRecordByGroup(params.scanRecordId)
+            findHaveHoleRelyTreeList(params.scanRecordId).then(res=>{
+                if (res.code===0) {
+                    setScanRecordList(res.data)
+                    setOptType("library")
+                    setOptData(res.data[0])
+                    setOpenRely([res.data[0].id])
+                    setOptNav(res.data[0].id)
+                    findScanRecord(res.data[0].id).then(res => {
+                        setScanRecordData(res.data)
+                    })
+                }
+            })
+        }/*else {
             findScanRecord(params.scanRecordId)
             findHaveHoleRelyTreeList({scanRecordId:params.scanRecordId}).then(res=>{
                 if (res.code===0){
@@ -57,9 +75,7 @@ const ScanDetails = (props) => {
                     }
                 }
             })
-        }else {
-            findScanRecordByGroup(params.scanRecordId)
-        }
+        }*/
     }, []);
 
     const columns = [
@@ -124,9 +140,9 @@ const ScanDetails = (props) => {
 
 
     //打开第一层依赖
-    const openRelyNav = (item) => {
+    const openRelyNav = (item,type) => {
         setOptData(item)
-        setOptType("rely")
+        setOptType(type)
         setOptNav(item.id)
         if (openRely.length>0){
             const relyId=openRely.filter(a=>a===item.id)
@@ -137,6 +153,11 @@ const ScanDetails = (props) => {
             }
         }else {
             setOpenRely([item.id])
+        }
+        if (type==='library'){
+            findScanRecord(item.id).then(res=>{
+                res.code===0&&setScanRecordData(res.data)
+            })
         }
     }
     //打开第二层依赖
@@ -179,14 +200,14 @@ const ScanDetails = (props) => {
     }
 
     //漏洞等级图标
-    const holeIcon = (hole,size) => {
+    const holeIcon = (holeLevel,size) => {
       return(
           <div>
               {
-                  hole.holeLevel===1&& <HoleBtn type={'severity'} title={'C'} size={size}/>||
-                  hole.holeLevel===2&& <HoleBtn type={'high'} title={'H'} size={size}/>||
-                  hole.holeLevel===3&& <HoleBtn type={'middle'} title={'M'} size={size}/>||
-                  hole.holeLevel===4&& <HoleBtn type={'low'} title={'L'} size={size}/>
+                  holeLevel===1&& <HoleBtn type={'severity'} title={'C'} size={size}/>||
+                  holeLevel===2&& <HoleBtn type={'high'} title={'H'} size={size}/>||
+                  holeLevel===3&& <HoleBtn type={'middle'} title={'M'} size={size}/>||
+                  holeLevel===4&& <HoleBtn type={'low'} title={'L'} size={size}/>
               }
           </div>
       )
@@ -195,6 +216,7 @@ const ScanDetails = (props) => {
 
     //依赖title图标
     const holeTitleIcon = (value,optId) => {
+        debugger
         return(
             <Fragment>
                 {
@@ -269,43 +291,60 @@ const ScanDetails = (props) => {
                                   </div>
                                   <div className='scanDetails-title-style'>
                                       {
-                                          scanRelyList&&scanRelyList.length>0&&scanRelyList.map(item=>{
+                                          ( scanRecordList&&scanRecordList?.length>0)&&scanRecordList.map(scanRely=>{
                                               return(
-                                                  <div key={item.id} className='scanDetails-hole-title-nav' >
-                                                      <div className={`flex-style ${optNav===item.id&&'opt-title-nav'}`} onClick={()=>openRelyNav(item)}>
-                                                          <div>{holeTitleIcon(openRely,item.id)}</div>
-                                                          <div>{item.relyName}</div>
+                                                  <div key={scanRely.id} className='scan-record-title-nav'>
+                                                      <div className={`flex-style ${optNav===scanRely?.id&&'opt-title-nav'}`} onClick={()=>openRelyNav(scanRely,'library')}>
+                                                          {
+                                                              scanRely.library&&
+                                                                  <>
+                                                                      <div>{holeTitleIcon(openRely,scanRely.id)}</div>
+                                                                      <div>{scanRely.library.name}</div>
+                                                                  </>
+                                                          }
                                                       </div>
                                                       {
-                                                          (openRely.length>0&&openRely.filter(a=>a===item.id).length>0)
-                                                          &&item.scanHoleList.map(hole=>{
+                                                          scanRely.scanRelyList&&scanRely.scanRelyList.length>0&&(openRely.filter(a=>a===scanRely.id).length>0)&&scanRely.scanRelyList.map(item=>{
                                                               return(
-                                                                  <div key={hole.id} className='hole-second-title-nav' onClick={()=>openHole(hole)}>
-                                                                      <div className='hole-title-nav-style'>
-                                                                          {holeIcon(hole,"small")}
-                                                                          <div className={`flex-style ${optNav===hole.id&&'opt-title-nav'}`}>{hole.holeName}</div>
-                                                                      </div>
-                                                                  </div>
-                                                              )
-                                                          })
-                                                      }
-                                                      {
-                                                          (openRely.length>0&&openRely.filter(a=>a===item.id).length>0)&& item.scanRelyList.map(second=>{
-                                                              return(
-                                                                  <div key={second.id} className=' hole-second-title-nav'  >
-                                                                      <div className={`flex-style ${optNav===second.id&&'opt-title-nav'}`} onClick={()=>openSecondRelyNav(second)}>
-                                                                          <div>{holeTitleIcon(openSecondRely,second.id)}</div>
-                                                                          <div>{second.relyName}</div>
+                                                                  <div key={item.id} className='scanDetails-hole-title-nav' >
+                                                                      <div className={`flex-style ${optNav===item.id&&'opt-title-nav'}`} onClick={()=>openRelyNav(item,'rely')}>
+                                                                          <div>{holeTitleIcon(openRely,item.id)}</div>
+                                                                          <div>{item.relyName}</div>
                                                                       </div>
                                                                       {
-                                                                          (openSecondRely.length>0&&openSecondRely.filter(a=>a===second.id).length>0)
-                                                                          &&second.scanHoleList.map(hole=>{
+                                                                          (openRely.length>0&&openRely.filter(a=>a===item.id).length>0)
+                                                                          &&item.scanHoleList.map(hole=>{
                                                                               return(
                                                                                   <div key={hole.id} className='hole-second-title-nav' onClick={()=>openHole(hole)}>
                                                                                       <div className='hole-title-nav-style'>
-                                                                                          {holeIcon(hole,"small")}
+                                                                                          {holeIcon(hole.holeLevel,"small")}
                                                                                           <div className={`flex-style ${optNav===hole.id&&'opt-title-nav'}`}>{hole.holeName}</div>
                                                                                       </div>
+                                                                                  </div>
+                                                                              )
+                                                                          })
+                                                                      }
+                                                                      {
+                                                                          (openRely.length>0&&openRely.filter(a=>a===item.id).length>0)&& item.scanRelyList.map(second=>{
+                                                                              return(
+                                                                                  <div key={second.id} className=' hole-second-title-nav'  >
+                                                                                      <div className={`flex-style ${optNav===second.id&&'opt-title-nav'}`} onClick={()=>openSecondRelyNav(second)}>
+                                                                                          <div>{holeTitleIcon(openSecondRely,second.id)}</div>
+                                                                                          <div>{second.relyName}</div>
+                                                                                      </div>
+                                                                                      {
+                                                                                          (openSecondRely.length>0&&openSecondRely.filter(a=>a===second.id).length>0)
+                                                                                          &&second.scanHoleList.map(hole=>{
+                                                                                              return(
+                                                                                                  <div key={hole.id} className='hole-second-title-nav' onClick={()=>openHole(hole)}>
+                                                                                                      <div className='hole-title-nav-style'>
+                                                                                                          {holeIcon(hole.holeLevel,"small")}
+                                                                                                          <div className={`flex-style ${optNav===hole.id&&'opt-title-nav'}`}>{hole.holeName}</div>
+                                                                                                      </div>
+                                                                                                  </div>
+                                                                                              )
+                                                                                          })
+                                                                                      }
                                                                                   </div>
                                                                               )
                                                                           })
@@ -317,6 +356,7 @@ const ScanDetails = (props) => {
                                                   </div>
                                               )
                                           })
+
                                       }
                                   </div>
                               </div>
@@ -324,7 +364,53 @@ const ScanDetails = (props) => {
                                   {
                                       optData &&
                                       <Fragment>
-                                          {  optType==='rely' ?
+                                          {
+                                              optType==='library' &&
+                                              <div className='library-dec-style'>
+                                                  <div className='library-dec-head-name'>{optData.library.name}</div>
+                                                  <div className=' library-dec-nav-style'>
+                                                    <div className='library-dec-title'>扫描时长:</div>
+                                                    <div>{scanRecordData.scanTimeLong}</div>
+                                                  </div>
+                                                  <div className=' library-dec-nav-style'>
+                                                      <div className='library-dec-title'>依赖数:</div>
+                                                      <div>{scanRecordData.relyNum}个</div>
+                                                  </div>
+                                                  <div className=' library-dec-nav-style'>
+                                                      <div className='library-dec-title'>漏洞:</div>
+                                                      <div className='library-dec-icon-style'>
+                                                          <div className='library-dec-icon-nav'>
+                                                              <div className='library-dec-icon-display'>
+                                                                  {holeIcon(1,"small")}
+                                                                  <div className='library-dec-icon-text'>严重:</div>
+                                                              </div>
+                                                              <div className='library-dec-text'>{scanRecordData.holeSeverity}</div>
+                                                          </div>
+                                                          <div className='library-dec-icon-nav'>
+                                                              <div className='library-dec-icon-display'>
+                                                                  {holeIcon(2,"small")}
+                                                                  <div className='library-dec-icon-text'> 高危:</div>
+                                                              </div>
+                                                              <div className='library-dec-text'>{scanRecordData.holeHigh}</div>
+                                                          </div>
+                                                          <div className='library-dec-icon-nav'>
+                                                              <div className='library-dec-icon-display'>
+                                                                  {holeIcon(3,"small")}
+                                                                  <div className='library-dec-icon-text'> 中危:</div>
+                                                              </div>
+                                                              <div className='library-dec-text'>{scanRecordData.holeMiddle}</div>
+                                                          </div>
+                                                          <div className='library-dec-icon-nav'>
+                                                              <div className={'library-dec-icon-display'}>
+                                                                  {holeIcon(4,"small")}
+                                                                  <div className='library-dec-icon-text'>低危:</div>
+                                                              </div>
+                                                              <div className='library-dec-text'>{scanRecordData.holeLow}</div>
+                                                          </div>
+                                                      </div>
+                                                  </div>
+                                              </div>||
+                                              optType==='rely' &&
                                               <div className='rely-dec-style'>
                                                   <div className='rely-dec-head-name'>{optData.relyName}</div>
                                                   <div className=' rely-dec-nav-style'>
@@ -357,10 +443,11 @@ const ScanDetails = (props) => {
                                                       </div>
                                                       <div>{optData.relyLicenses}</div>
                                                   </div>
-                                              </div>:
+                                              </div>||
+                                              optType==='hole'&&
                                               <div className='hole-desc-style'>
                                                   <div className='hole-name-nav'>
-                                                      {holeIcon(optData,"large")}
+                                                      {holeIcon(optData.holeLevel,"large")}
                                                       <div className='hole-name'>{optData.holeName}</div>
                                                   </div>
                                                   <div className='hole-nav hole-code-style'>

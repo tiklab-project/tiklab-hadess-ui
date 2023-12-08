@@ -1,0 +1,36 @@
+.scanScheme{
+  .scanScheme-up{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .scanScheme-table{
+    padding-top: var(---xcode-table-top);
+  }
+  .scanScheme-ill{
+    margin: var(--tiklab-padding-item) 0;
+    padding: 10px;
+    background: #F8FFFF;
+    color: var(--tiklab-blue);
+    border: 1px solid #e3e9ed;
+  }
+  .scanScheme-table-title{
+    color: var(--tiklab-blue);
+    cursor: pointer;
+  }
+}
+.scanScheme-add-modal{
+  .scanScheme-add-up{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: var(--tiklab-font-weight-bold);
+    padding: var(--tiklab-padding) var(--tiklab-padding) var(--tiklab-padding-item);
+  }
+  .scanScheme-add-content{
+    padding: 0 var(--tiklab-padding);
+    overflow:auto;
+  }
+}

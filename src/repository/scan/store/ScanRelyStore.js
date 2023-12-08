@@ -21,7 +21,9 @@ export class ScanRelyStore  {
      * @param  param
      */
     @action
-    findHaveHoleRelyTreeList=async (param)=>{
+    findHaveHoleRelyTreeList=async (scanGroup)=>{
+        const param=new FormData()
+        param.append("scanGroup",scanGroup)
         const res = await Axios.post("/scanRely/findHaveHoleRelyTreeList",param)
         if (res.code===0){
             this.scanRelyList=res.data

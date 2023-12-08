@@ -114,15 +114,19 @@
                         height: calc(100vh - 350px);
                         overflow: auto;
                     }
-                    .scanDetails-hole-title-nav{
+                    .scan-record-title-nav{
                         margin: 10px 0;
-                        .hole-second-title-nav{
-                            margin: 5px 0 5px 20px ;
-                        }
                         .opt-title-nav{
                             background-color:#1890ff;
                             color: #EBECF0;
                         }
+                    }
+                    .scanDetails-hole-title-nav{
+                        margin: 5px 0 5px 15px ;
+                        .hole-second-title-nav{
+                            margin: 5px 0 5px 15px ;
+                        }
+
                         .icon-style{
                             font-size: 12px;
                             font-weight: 500;
@@ -137,6 +141,40 @@
                     width: 70%;
                     overflow: auto;
                     height: calc(100vh - 330px);
+                    .library-dec-style{
+                        margin: 10px 10px 10px 20px;
+                        .library-dec-head-name{
+                            font-size: 17px;
+                            font-weight: bold;
+                            padding-top: 2px;
+                        }
+                        .library-dec-nav-style{
+                            display: flex;
+                            gap: 30px;
+                            margin-top: 20px;
+                            .library-dec-title{
+                                width: 70px;
+                            }
+                            .library-dec-icon-style{
+                                display: flex;
+                                gap: 30px;
+                                .library-dec-icon-nav{
+                                    display: flex;
+                                    gap: 10px;
+                                    .library-dec-icon-display{
+                                        display: flex;
+                                        gap: 3px;
+                                        .library-dec-icon-text{
+                                            padding-top: 2px;
+                                        }
+                                    }
+                                    .library-dec-text{
+                                        margin-top: 2px;
+                                    }
+                                }
+                            }
+                        }
+                    }
                     .rely-dec-style{
                         margin: 10px 10px 10px 20px;
                         .rely-dec-nav-style{
