@@ -2,7 +2,7 @@
  * @name: LibrarySelect
  * @author: limingliang
  * @date: 2022-12-30 10:30
- * @description：制品查询
+ * @description：制品版本搜索
  * @update: 2022-12-30 10:30
  */
 

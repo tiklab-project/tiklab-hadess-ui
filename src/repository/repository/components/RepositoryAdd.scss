@@ -1,5 +1,5 @@
 .repository-add{
-    padding: var(--tiklab-padding-item);
+    padding: var(--thoughtware-padding-item);
     overflow: auto;
     height: calc(100vh - 50px);
     min-width: 1080px;
@@ -14,7 +14,7 @@
         display: none;
     }
     .project-type-col {
-        padding: var(--tiklab-padding-item);;
+        padding: var(--thoughtware-padding-item);;
     }
     .title{
         font-weight: bold;
@@ -46,11 +46,12 @@
     .repository-group{
         display: flex;
         justify-content: space-between;
+
         .group-bord{
             border-style: solid;
             border-color: #DCDCDC;
             border-width: 1px;
-            width: 40%;
+            width: 45%;
             height: 150px;
             overflow: auto;
         }
@@ -102,7 +103,7 @@
             margin-left:60px;
         }
         .repository-power-select{
-            border: 2px solid var(--tiklab-blue) !important;
+            border: 2px solid var(--thoughtware-blue) !important;
         }
     }
 }
@@ -125,8 +126,30 @@
 .add-table-proxy{
     display: flex;
     margin-bottom: 10px;
-    &-text{
-        color: #999999;
+    justify-content: space-between;
+    .add-proxy-text{
+        color:var(--thoughtware-blue) ;
         margin-left: 10px;
+        cursor: pointer;
     }
 }
+.add-proxy-border{
+    border: 1px solid #E8E8E8;
+    width: 500px;
+}
+
+.proxy-head-nav{
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    .proxy-head-text::after{
+        display: inline-block;
+        margin-right: 4px;
+        color: rgb(255, 77, 79);
+        font-size: 14px;
+        font-family: SimSun, sans-serif;
+        line-height: 1;
+        content: "*";
+    }
+}
+

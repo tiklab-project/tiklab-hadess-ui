@@ -10,13 +10,15 @@ import "./LibraryFileDetails.scss"
 import {Tooltip} from "antd";
 import {observer} from "mobx-react";
 import Return from "../../assets/images/img/return.png";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
+import {LeftOutlined} from "@ant-design/icons";
 const LibraryFileDetails = (props) => {
     const {fileDetail,mavenData,serverIp,goBack}=props
 
     const goContent = () => {
        const a=getUser().tenant
-        window.open(`${node_env? base_url:window.location.origin}/fileHand/read/${a?getUser().tenant+"/":""}${fileDetail?.fileUrl}`)
+       window.open(`${node_env? base_url:window.location.origin}/fileHand/read/${a?getUser().tenant+"/":""}${fileDetail?.fileUrl}`)
+        //window.location.href=`${node_env? base_url:window.location.origin}/fileHand/read/${a?getUser().tenant+"/":""}${fileDetail?.fileUrl}`
     }
 
     /**
@@ -43,57 +45,61 @@ const LibraryFileDetails = (props) => {
     return(
         <Fragment>
             <div className='file-details'>
-                <div style={{display:"flex",marginBottom:15}}>
-                    <img  src={Return}  style={{width:25,height:25,cursor:'pointer'}} onClick={goBack}/>
+                <div className='file-name-style'>
+                    <div className='file-name-icon'>
+                        <LeftOutlined onClick={goBack} style={{color:'#0063FF'}}/>
+                    </div>
                     <div className='file-details-name'>{fileDetail.fileName}</div>
                 </div>
                 <div className='file-details-title' >基本信息</div>
                 <div className='file-details-body'>
-                    <div className='nav-table'  style={{marginTop:10}}>
-                        <div className='nav-title'>制品库:</div>
-                        <span>{fileDetail?.repository.name}</span>
-                    </div>
-                    <div className='nav-table'>
-                        <div className='nav-title'>类型:</div>
-                        <span>{fileDetail?.repository.type}</span>
-                    </div>
-                    {
-                        fileDetail?.repository.type==="Maven"&&
-                        <div>
-                            <div className='nav-table'>
-                                <div className='nav-title'>groupId:</div>
-                                <span>{mavenData?.groupId}</span>
+                    <div className='file-details-basic'>
+                        <div className='basic-body-left'>
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>制品库</div>
+                                <span>{fileDetail?.repository.name}</span>
                             </div>
-                            <div className='nav-table'>
-                                <div className='nav-title'>artifactId:</div>
-                                <span>{mavenData?.artifactId}</span>
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>版本</div>
+                                <span>{fileDetail?.libraryVersion.version}</span>
+                            </div>
+                            {
+                                fileDetail?.repository.type==="maven"&&
+                                <div className='basic-body-item'>
+                                    <div className='basic-body-item-title'>groupId</div>
+                                    <span>{mavenData?.groupId}</span>
+                                </div>
+                            }
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>提交人</div>
+                                <span>{"admin"}</span>
                             </div>
                         </div>
-                    }
-                    <div className='nav-table'>
-                        <div className='nav-title'>版本:</div>
-                        <span>{fileDetail?.libraryVersion.version}</span>
+                        <div className='basic-body-right'>
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>类型</div>
+                                <span>{fileDetail?.repository.type}</span>
+                            </div>
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>大小</div>
+                                <span>{fileDetail.fileSize}</span>
+                            </div>
+                            {
+                                fileDetail?.repository.type==="maven"&&
+                                <div className='basic-body-item'>
+                                    <div className='basic-body-item-title'>artifactId</div>
+                                    <span>{mavenData?.artifactId}</span>
+                                </div>
+                            }
+                            <div className='basic-body-item'>
+                                <div className='basic-body-item-title'>更新时间</div>
+                                <span>{fileDetail.libraryVersion.updateTime}</span>
+                            </div>
+                        </div>
                     </div>
-                    <div className='nav-table'>
-                        <div className='nav-title'>大小:</div>
-                        <span>{fileDetail.fileSize}</span>
-                    </div>
-                    <div className='nav-table'>
-                        <div className='nav-title'>提交人:</div>
-                        <span>{"admin"}</span>
-                    </div>
-                    <div className='nav-table'>
-                        <div className='nav-title'>创建时间:</div>
-                        <span>{fileDetail.createTime}</span>
-                    </div>
-                    <div className='nav-table'>
-                        <div className='nav-title'>更新时间:</div>
-                        <span>{fileDetail.libraryVersion.updateTime}</span>
-                    </div>
-
-                    <div className='nav-table nav-path'>
-                        <div className='nav-title'>路径:</div>
-                        <span className='nav-path-color nav-path-cursor' onClick={goContent}>{omitFiled(fileDetail?.relativePath)}</span>
+                    <div className='basic-body-item'>
+                        <div className='basic-body-item-title'>路径</div>
+                        <span className='basic-path-cursor basic-path-color' onClick={goContent}>{omitFiled(fileDetail?.relativePath)}</span>
                     </div>
                 </div>
                 {
@@ -128,7 +134,7 @@ const LibraryFileDetails = (props) => {
                         <div className='file-details-title'>使用指南</div>
                         <div className='use-des'>Install runtime dependency</div>
                         <div className='use-table'>
-                            npm install {"tiklab-eam-ui@1.0.0"}
+                            npm install {"thoughtware-eam-ui@1.0.0"}
                         </div>
                     </div>
                 }

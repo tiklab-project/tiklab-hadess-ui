@@ -11,8 +11,8 @@ import './Breadcrumb.scss';
  */
 const BreadcrumbContent = props =>{
 
-    const {firstItem,secondItem,goBack} = props
-
+    const {firstItem,secondItem,thirdItem,goBack,children} = props
+    
 
     return  <div className='xpack-breadcrumb'>
                 <div className='xpack-breadcrumb-content'>
@@ -21,7 +21,9 @@ const BreadcrumbContent = props =>{
                         {firstItem}
                     </span>
                     {secondItem && <span className='xpack-breadcrumb-secondItem'>/&nbsp;&nbsp;{secondItem}</span>}
+                    {thirdItem && <span className='xpack-breadcrumb-secondItem'>&nbsp;&nbsp;/&nbsp;&nbsp;{thirdItem}</span>}
                 </div>
+                <div>{children}</div>
             </div>
 }
 

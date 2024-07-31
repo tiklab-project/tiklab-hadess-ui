@@ -6,11 +6,30 @@
  * @update: 2022-12-27 10:30
  */
 import React ,{useState,useEffect}from "react";
-import {getUser} from "tiklab-core-ui";
-import "./Details.scss"
+import {getUser} from "thoughtware-core-ui";
+import "./Voucher.scss"
 const Voucher = (props) => {
     const {type,serverIp}=props
 
+
+    const helm = () => {
+      return(
+          <div>
+                <div className='guide-details-title'>添加helm仓库</div>
+              <div className='guide-details-back'>
+                  {`helm repo add [repositoyName] "${node_env? base_url:window.location.origin}" --username ${getUser().name} --password [password]`}
+              </div>
+              <div className='replace-data'>
+                  <div>替换文本：</div>
+                  <div className='replace-data-nav'>
+                      <li>{"[repositoyName]: helm仓库的名字"}</li>
+                      <li>{"[password]: 你的密码"}</li>
+                  </div>
+              </div>
+          </div>
+      )
+    }
+    debugger
 
     return(
       <div className='guide-details'>
@@ -90,7 +109,9 @@ const Voucher = (props) => {
                           替换您的密码
                       </div>
                   </div>
-              </>
+              </>||
+              type==="Helm"&&
+              helm()
           }
 
       </div>

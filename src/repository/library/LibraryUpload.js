@@ -13,13 +13,13 @@ import Btn from "../../common/btn/Btn";
 import {Form, Input, message, Switch} from "antd";
 import FileUploading  from "../../common/upload/FileUploading"
 import libraryStore from "../../library/store/LibraryStore";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 30},
 };
 const LibraryUpload = (props) => {
-    const {visible,setVisible,repositoryId,type}=props
+    const {visible,setVisible,repositoryId,type,setUploadState}=props
     const [form] = Form.useForm();
 
     const {libraryHandPush,findHandPushResult}=libraryStore
@@ -55,12 +55,16 @@ const LibraryUpload = (props) => {
                        cancel(false)
                        message.success("推送成功",1)
                        clearInterval(timer)
+                       setUploadState(true)
                        setButtonText("确认")
+
                    }
                    if (res.data==="fail"){
                        message.error(res.data,1)
                        clearInterval(timer)
+                       setUploadState(true)
                        setButtonText("确认")
+
                    }
                 } else {
                     clearInterval(timer)

@@ -6,17 +6,38 @@
  * @update: 2021-05-21 16:53
  */
 
-import React ,{Fragment,useState}from 'react';
+import React ,{useEffect,useState}from 'react';
 import {renderRoutes} from "react-router-config";
 import Header from "../header/header";
+import FirstNav from "../navigation/FirstNav"
 import "./layout.scss"
+import {observer,inject} from "mobx-react";
 const Layout = props => {
-    const {AppLink}=props
+    const {location,AppLink,HelpLink,AvatarLink,repositoryStore}=props
+    const {navLevel,setNavLevel}=repositoryStore
+    useEffect(()=>{
+        if (navLevel===2&&((location.pathname==='/repository'||location.pathname.startsWith("/repository/add")||
+            location.pathname.startsWith("/library")))){
+            setNavLevel(1)
+        }
+    },[location.pathname])
+
     return (
-        <div>
-          <Header {...props} AppLink={AppLink}/>
+        <div className='hadess-frame'>
+            <Header {...props}
+                    AppLink={AppLink}
+                    HelpLink={HelpLink}
+                    AvatarLink={AvatarLink}
+            />
+
             <div className='frame-content'>
-                <div style={{width:'100%',height: '100%'}} >
+                {
+                    navLevel===1&&
+                    <FirstNav {...props}
+                              HelpLink={HelpLink}
+                    />
+                }
+                <div style={{height:'100%'}} >
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
@@ -24,4 +45,4 @@ const Layout = props => {
     )
 }
 
-export default Layout
+export default inject('repositoryStore')(observer(Layout))

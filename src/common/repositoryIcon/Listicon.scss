@@ -5,16 +5,34 @@
 
 .xcode-listname-icon{
     display: inline-block;
-    width: var(--tiklab-icon-size-32);
-    height: var(--tiklab-icon-size-32);
-    line-height: var(--tiklab-icon-size-32);
-    margin-right: 10px;
+    width: var(--thoughtware-icon-size-32);
+    height: var(--thoughtware-icon-size-32);
+    line-height: var(--thoughtware-icon-size-32);
+    margin-right: 5px;
     border-radius: 4px;
     text-align: center;
     color: black;
     background-color:#cadbf3;
+    cursor: pointer;
 }
 
 .xcode-listname-name{
-    color: var(--tiklab-blue);
+    color: var(--thoughtware-blue);
+}
+.xcode-icon-0 {
+    background: #cadbf3;
+}
+
+.xcode-icon-1 {
+    background: #ffebee;
+}
+.xcode-icon-2 {
+    background: #e8eaf6;
+}
+.xcode-icon-3 {
+    background: #e0f2f1;
+}
+
+.xcode-icon-4 {
+    background: #f3e5f5;
 }

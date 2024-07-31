@@ -1,0 +1,19 @@
+.proxy{
+    .proxy-head-up{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+  .proxy-table-style{
+      margin-top: 10px;
+  }
+    .proxy-icon-style{
+        display: flex;
+        gap: 10px;
+        cursor: pointer;
+    }
+    .proxy-icon-no{
+        color: #cccccc;
+    }
+}

@@ -2,7 +2,6 @@
     display: flex;
     width: 100%;
     height: 100%;
-    min-width: var(---xpack-min_width);
     .setting-nav{
         text-align: center;
         cursor: pointer;
@@ -22,23 +21,45 @@
     display: flex;
     height: auto;
     overflow: auto;
-    background-color: var(--tiklab-gray-600);
+    background-color: var(--thoughtware-left-nav);
     flex-direction: column;
     justify-content: space-between;
+    border-right: 1px solid #EBECF0;
     .icon-nav{
-        width: 40px;
         font-size: 17px;
     }
     .nav-repository{
         margin-left: 25px;
     }
+
+    .go-back-style{
+        margin: 10px 0;
+        border-bottom: 1px solid #d7d7d7;
+        .nav-go-back{
+            display: flex;
+            width: 100%;
+            align-items: center;
+            flex-direction: column;
+
+            margin: 10px 0;
+            cursor: pointer;
+            .nav-go-back-icon{
+                width: 27px;
+                height: 27px;
+            }
+            &:hover{
+                background-color: var(--thoughtware-gray-400);
+            }
+        }
+    }
+
     .table-nav{
         margin: 20px 0;
         cursor: pointer;
         padding: 5px 0;
     }
     .choice-table-nav{
-        background-color: var(--tiklab-gray-400);
+        background-color: var(--thoughtware-gray-400);
         border-left:2px solid #0063FF;
     }
 }
@@ -47,12 +68,13 @@
     min-width: 200px;
 }
 .left-nav-setting-width{
-    width: 80px;
-    min-width: 80px;
+    width: 81px;
+    min-width: 81px;
 }
 .setting_right_height{
-    width: 100%;
-    overflow: auto;
+    flex: 1;
+    overflow-y:hidden;
+    overflow-x: auto;
 }
 
 .aside-dropdown {
@@ -60,10 +82,8 @@
     box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
     border-radius: 4px;
     background-color: #ffffff;
+    left: 80px !important;
 
-    &-normal{
-        left: 80px !important;
-    }
 }
 
 .repository-nav{

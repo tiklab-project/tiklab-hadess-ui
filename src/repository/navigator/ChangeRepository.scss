@@ -1,28 +1,32 @@
 .menu-toggle{
-    width: 200px;
+    width: 240px;
     min-height: 100px;
     &-title{
-        font-weight: var(--tiklab-font-weight-bold);
-        padding: 0 var(--tiklab-padding-item);
+        font-weight: var(--thoughtware-font-weight-bold);
+        padding: 0 var(--thoughtware-padding-item);
         height: 40px;
         line-height: 40px;
-        border-bottom: 1px solid var(--tiklab-gray-200);
+        border-bottom: 1px solid var(--thoughtware-gray-200);
     }
     &-group{
         max-height: 500px;
         overflow: auto;
     }
     &-item{
-        padding: 8px var(--tiklab-padding-item);
+        padding: 8px var(--thoughtware-padding-item);
         display: flex;
         cursor: pointer;
         text-overflow: ellipsis;
         white-space: nowrap;
         overflow: hidden;
-        max-width: 200px;
+        max-width: 240px;
+        align-items: center;
         &:hover{
             background: #f4f4f4;
         }
+    }
+    &-active{
+        background:#f4f4f4;
     }
     &-icon{
         display: inline-block;
@@ -30,5 +34,15 @@
     }
     &-text{
         padding-top: 15px;
+    }
+    &-tail{
+        cursor: pointer;
+        padding: 5px 0;
+        text-align: center;
+        border-top: 1px solid var(--thoughtware-gray-200);
+        color: #3967FF;
+    }
+    .cursor:hover{
+        background-color: #f6f6f6;
     }
 }

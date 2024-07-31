@@ -9,19 +9,21 @@
  */
 import {observer} from "mobx-react";
 import React, {useState ,useEffect,Fragment} from "react";
-import {Popconfirm, Table, Tooltip} from "antd";
-import libraryStore from "../../library/store/LibraryStore";
-import {DeleteOutlined} from "@ant-design/icons";
+import {Table} from "antd";
 import LibraryDrawer from "../../common/library/LibraryDrawer";
+
+import DeleteExecLibrary from "../../common/delete/DeleteExecLibrary";
+import {PrivilegeProjectButton} from 'thoughtware-privilege-ui';
+import EmptyText from "../../common/emptyText/EmptyText";
 const LibraryTable = (props) => {
 
-    const {libraryList,libraryType,findLibraryList}=props
-    const {findLibraryNewVersion,deleteLibrary,setLibraryVersion}=libraryStore
+    const {libraryList,libraryType,onChange,repositoryId}=props
 
     const [columns,setColumns]=useState([])
     //制品文件详情弹窗
     const [visible,setVisible]=useState(false)
-    const [version,setVersion]=useState()
+    const [versionId,setVersionId]=useState()  //打开制品的详情版本id
+
 
     useEffect(async () => {
         let list;
@@ -29,14 +31,8 @@ const LibraryTable = (props) => {
             case "maven":
                 list=mavenColumns
                 break;
-            case 'npm':
-                list= npmColumns
-                break
-            case 'generic':
-                list= npmColumns
-                break
-            case 'docker':
-                list= npmColumns
+            default :
+                list= basColumns
                 break
         }
         setColumns(list)
@@ -48,79 +44,95 @@ const LibraryTable = (props) => {
             title: '名称',
             dataIndex: 'name',
             key:"name",
-            width:'20%',
+            ellipsis:true,
+            width:'25%',
             render:(text,record)=><div className='text-color' onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
-            title: '类型',
-            dataIndex: 'libraryType',
-            key:"libraryType",
-            width:'10%',
-
+            title: '组名',
+            dataIndex: 'groupId',
+            ellipsis:true,
+            key:"groupId",
+            width:'25%',
         },
         {
-            title: '最新版本',
-            dataIndex: 'newVersion',
-            key:"newVersion",
+            title:  "版本",
+            dataIndex: 'showVersion',
+            ellipsis:true,
+            key:"showVersion",
             width:'20%',
         },
         {
-            title: 'Group',
-            dataIndex: 'groupId',
-            key:"groupId",
-            width:'15%',
-        },
-        {
-            title: 'Artifact',
-            dataIndex: 'artifactId',
-            key:"artifactId",
-            width:'15%',
+            title: '大小',
+            dataIndex: 'versionSize',
+            key: 'versionSize',
+            width:'8%',
+            ellipsis:true,
+            sorter: (a, b) => a.size - b.size,
         },
         {
             title: '更新时间',
             dataIndex: 'updateTime',
+            ellipsis:true,
             width:'10%',
         },
         {
             title: '操作',
             key: 'activity',
-            width:'10%',
-            render: (text, record) => deleteExec(record)
+            ellipsis:true,
+            width:'5%',
+            render: (text, record) => {
+                return(
+                    <PrivilegeProjectButton code={"library_delete"} domainId={repositoryId} >
+                        <DeleteExecLibrary value={record} />
+                    </PrivilegeProjectButton >
+
+                )
+            }
         },
     ];
 
-    const npmColumns=[
+    const basColumns=[
         {
             title: '名称',
             dataIndex: 'name',
             key:"name",
+            ellipsis:true,
             width:'30%',
             render:(text,record)=><div className='text-color' onClick={()=>goLibraryDetails(record)}> {text}</div>
         },
         {
-            title: '类型',
-            dataIndex: 'libraryType',
-            key:"libraryType",
+            title: '最新版本',
+            dataIndex: 'showVersion',
+            key:"showVersion",
+            ellipsis:true,
             width:'20%',
+        },
 
-        },
-        {
-            title: '版本',
-            dataIndex: 'newVersion',
-            key:"newVersion",
-            width:'20%',
-        },
         {
             title: '更新时间',
             dataIndex: 'updateTime',
+            ellipsis:true,
             width:'20%',
+        },
+        {
+            title: '大小',
+            dataIndex: 'versionSize',
+            key: 'versionSize',
+            width:'10%',
+            ellipsis:true,
+            sorter: (a, b) => a.size - b.size,
         },
         {
             title: '操作',
             key: 'activity',
-            width:'10%',
-            render: (text, record) => deleteExec(record)
-
+            ellipsis:true,
+            width: '5%',
+            render: (text, record) => {
+                return (
+                    <DeleteExecLibrary value={record} />
+                )
+            }
         }
     ]
     /**
@@ -128,51 +140,8 @@ const LibraryTable = (props) => {
      * @param  value 选择的制品数据
      */
     const goLibraryDetails =async (value) => {
-        const res=await findLibraryNewVersion(value.id)
-        if (res.code===0){
-            setVisible(true)
-            setVersion(res.data)
-           /* setLibraryVersion(res.data)
-            props.history.push(`/index/repository/${repositoryId}/libraryList/survey/${res.data.id}`)*/
-        }
-    }
-
-    //
-    const columnList = (list,index) => {
-        const columns = list.filter(item=>item.key!=='repositoryName')
-        columns.splice(index, 0,   {
-            title: '更新时间',
-            dataIndex: 'updateTime',
-            width:'10%',
-        });
-        return columns
-    }
-
-
-
-
-   //删除操作
-    const deleteExec= (record) => {
-        return(
-            <Tooltip title='删除'>
-                <Popconfirm
-                    title="你确定删除吗"
-                    onConfirm={()=>deleteli(record.id)}
-                    okText="确定"
-                    cancelText="取消"
-                    placement="topRight"
-                >
-                 <DeleteOutlined/>
-                </Popconfirm>
-            </Tooltip>
-        )
-    }
-    //删除
-    const deleteli = (value) => {
-        deleteLibrary(value).then(res=>{
-            res.code===0&& findLibraryList()
-        })
-
+        setVersionId(value.versionId)
+        setVisible(true)
     }
 
     return(
@@ -180,10 +149,11 @@ const LibraryTable = (props) => {
             <Table
                 columns={columns}
                 dataSource={libraryList}
-                rowKey={record=>record.id}
                 pagination={false}
+                onChange={onChange}
+                locale={{emptyText: <EmptyText title={"暂无数据"}/>}}
             />
-            <LibraryDrawer visible={visible} version={version}  setVisible={()=>setVisible(false)} />
+            <LibraryDrawer visible={visible} versionId={versionId}  setVisible={()=>setVisible(false)} />
         </Fragment>
     )
 }

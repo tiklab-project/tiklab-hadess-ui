@@ -5,68 +5,62 @@
  * @description：setting
  * @update: 2023-02-17 16:51
  */
-import React,{useState,useEffect} from 'react';
+import React,{useState,useEffect,Fragment} from 'react';
 import {renderRoutes} from 'react-router-config'
 import './RepsoitorySetting.scss'
 import {inject, observer} from "mobx-react";
 import {SettingOutlined} from "@ant-design/icons";
+import {ProjectNav,PrivilegeProjectButton} from 'thoughtware-privilege-ui';
 const RepositorySetting = (props) => {
     const {match:{params},location,repositoryStore} = props
     let path = location.pathname
 
-    const repositoryId = params.id;      // 当前选中路由
+    const repositoryId = params.id;      // 仓库id
     const {findRepository}=repositoryStore
     const [navPath,setNavPath]=useState()   //左侧导航览类型
     const [navList,setNavList]=useState([])
 
-
     let remoteLayerRouter = [
         {
-            key:'1',
+            id:'1',
             title: '仓库信息',
-            router:`/index/repository/${repositoryId}/setting/repositoryInfo`,
+            router:`/repository/${repositoryId}/setting/repositoryInfo`,
         },
-        {
-            key:'2',
-            title: '代理',
-            router:`/index/repository/${repositoryId}/setting/agency`,
-        },
-  /*      {
-            key:'3',
-            title: '复制',
-            router:`/index/repository/${repositoryId}/setting/copy`,
-        },*/
-      /*  {
-            key:'3',
-            title: '复制',
-            router:`/index/repository/${repositoryId}/setting/ManageList`,
-        },*/
-        {
-            key:'4',
-            title: '成员',
-            router:`/index/repository/${repositoryId}/setting/programUser`,
-            icon:   <SettingOutlined className='icon-nav'/>
-        },
-        {
-            key:'5',
-            title: '权限',
-            router:`/index/repository/${repositoryId}/setting/programDomainRole`,
-        },
-        {
-            key:'6',
-            title: '推送',
-            router:`/index/repository/${repositoryId}/setting/pushCenter`,
-        }
 
+        {
+            id:'4',
+            title: '成员',
+            router:`/repository/${repositoryId}/setting/programUser`,
+            icon:   <SettingOutlined className='icon-nav'/>,
+            purviewCode: "rpy_user",
+        },
+        {
+            id:'5',
+            title: '权限',
+            router:`/repository/${repositoryId}/setting/programDomainRole`,
+            purviewCode: "rpy_authority",
+        },
+        {
+            id:'6',
+            title: '推送',
+            router:`/repository/${repositoryId}/setting/pushGroup`,
+        }
     ];
 
 
     useEffect(async () => {
-        const res= await findRepository(repositoryId)
-        setNavPath(path)
-        navi(res.data)
+        if (path.endsWith("/pushLibrary")){
+            const pa= path.substr(0,path.lastIndexOf("setting")+7);
+            setNavPath(pa+"/pushGroup")
+        }else {
+            setNavPath(path)
+        }
+       findRepository(repositoryId).then(res=>{
+           if (res.code===0){
+               navi(res.data)
+           }
+       })
     }, [path]);
-
 
     //切换类型
     const cuteType =async (value) => {
@@ -76,38 +70,55 @@ const RepositorySetting = (props) => {
 
     const navi = (repositoryData) => {
         let navList;
-        if ( repositoryData.repositoryType ==='remote'){
-            navList= remoteLayerRouter.filter(a=>a.key!=5)
+        if ( repositoryData?.repositoryType ==='remote'){
+            navList= remoteLayerRouter.filter(a=>a.id!==5)
         }
-        if ( repositoryData.repositoryType ==='group'){
-            navList=  remoteLayerRouter.filter(a=>a.key!=5&&a.key!=2)
+        if ( repositoryData?.repositoryType ==='group'){
+            navList=  remoteLayerRouter.filter(a=>a.id!==5&&a.id!==2)
         }
-        if ( repositoryData.repositoryType ==='local'){
-            navList=remoteLayerRouter.filter(a=>a.key!=2)
+        if ( repositoryData?.repositoryType ==='local'){
+            navList=remoteLayerRouter.filter(a=>a.id!==2)
         }
         setNavList(navList)
     }
 
-    return(
-        <div className='layerSetup'>
-            <div className={'layer-nav'}>
-                <div className='layer-title layer-nav-char'>设置</div>
-                {
-                    navList?.map(item=>{
-                        return(
-                            <div key={item.key} className={`${navPath===item.router&&' layer-choice-table'}  nav-tabs pitch-nav-table`} onClick={()=>cuteType(item)} >
-                                <div className='layer-nav-char'>
-                                    {item.title}
-                                </div>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div  className={'layer-right-style'}>
-                {renderRoutes(props.route.routes)}
+
+    const renderRouter = item => {
+        debugger
+        return  <PrivilegeProjectButton key={item.id} code={item.purviewCode} domainId={repositoryId}>
+            {navContent(item)}
+        </PrivilegeProjectButton>
+    }
+
+    const navContent = item =>{
+        return   <div key={item.id} className={`${navPath===item.router&&' layer-choice-table'}  nav-tabs pitch-nav-table`}
+                      onClick={()=>cuteType(item)} >
+            <div className='layer-nav-char'>
+                {item.title}
             </div>
         </div>
+    }
+
+    return(
+        <ProjectNav
+            {...props}
+            domainId={repositoryId}
+            projectRouters={navList}
+            noAccessPath={"/noaccess"}  //没有访问权限
+            pathkey={'id'}
+            outerPath={`/repository/${path}/setting`}
+        >
+            <div className='layerSetup'>
+                <div className={'layer-nav'}>
+                    <div className='layer-title layer-nav-char'>设置</div>
+                    { navList?.map(item=>renderRouter(item))}
+                </div>
+                <div  className={'layer-right-style'}>
+                    {renderRoutes(props.route.routes)}
+                </div>
+            </div>
+        </ProjectNav>
+
     )
 }
 export default inject('repositoryStore')(observer(RepositorySetting))

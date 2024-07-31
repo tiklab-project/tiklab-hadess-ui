@@ -114,16 +114,16 @@
     "message-type-modal-desc": "描述",
     "message-service-modal-code": "发送方式编码",
 
-    "tiklab-message-service-name": "消息类型名称",
-    "tiklab-message-service-desc": "消息类型描述",
-    "tiklab-message-service-addtype": "添加消息类型",
-    "tiklab-message-service-edittype": "编辑消息类型",
-    "tiklab-message-service-modal-name": "业务类型名称",
+    "thoughtware-message-service-name": "消息类型名称",
+    "thoughtware-message-service-desc": "消息类型描述",
+    "thoughtware-message-service-addtype": "添加消息类型",
+    "thoughtware-message-service-edittype": "编辑消息类型",
+    "thoughtware-message-service-modal-name": "业务类型名称",
 
-    "tiklab-message-user-tab1": "任务代办",
-    "tiklab-message-user-tab2": "发布审批",
+    "thoughtware-message-user-tab1": "任务代办",
+    "thoughtware-message-user-tab2": "发布审批",
 
-    "tiklab-message-mymessage": "我的消息",
+    "thoughtware-message-mymessage": "我的消息",
 
 
     "orga-common": {

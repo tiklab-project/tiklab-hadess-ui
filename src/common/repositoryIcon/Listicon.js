@@ -9,7 +9,7 @@ import "./Listicon.scss";
  * @constructor
  */
 const ListIcon = ({text,colors}) => {
-    return  <span className={`xcode-listname-icon ${colors?`xcode-icon-${colors}`:"xcode-icon-1"}`}>
+    return  <span className={`xcode-listname-icon ${colors?`xcode-icon-${colors}`:"xcode-icon-0"}`}>
                 {text && text.substring(0,1).toUpperCase()}
             </span>
 

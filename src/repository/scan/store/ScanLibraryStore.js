@@ -7,7 +7,7 @@
  */
 
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 export class ScanLibraryStore  {
 
     //扫描制品列表
@@ -71,6 +71,16 @@ export class ScanLibraryStore  {
         const param=new FormData();
         param.append("id",libraryId)
         const res = await Axios.post("/scanLibrary/deleteScanLibrary",param)
+        return res;
+    }
+
+    /**
+     * 查询未添加到扫描的制品
+     * @param  versionId 制品版本id
+     */
+    @action
+    findNotScanLibraryList=async (param)=>{
+        const res = await Axios.post("/scanLibrary/findNotScanLibraryList",param)
         return res;
     }
 

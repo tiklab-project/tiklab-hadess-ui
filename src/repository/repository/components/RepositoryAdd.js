@@ -6,47 +6,45 @@
  * @update: 2022-12-27 10:30
  */
 
-import React, {useState, useEffect} from "react";
-import {Form, Input, Button, Select} from 'antd';
+import React, {useState, useEffect,useRef} from "react";
+import {Form, Input, Button, Select, Space, Divider, Dropdown, Menu, Table, Tooltip} from 'antd';
 import './RepositoryAdd.scss'
 import {
+    DeleteOutlined,
     LeftCircleOutlined,
     LockOutlined,
     RightCircleOutlined,
-    UnlockOutlined
+    UnlockOutlined,
 } from "@ant-design/icons";
-import {getUser} from "tiklab-core-ui";
-import proxyService from "../../deploy/api/ProxyApi";
+import {getUser} from "thoughtware-core-ui";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {Validation} from "../../../common/client/Client";
 import BreadcrumbContent from "../../../common/breadcrumb/Breadcrumb";
 import Print from "../../../common/image/Print";
+import Btn from "../../../common/btn/Btn";
+import RemoteAgencyStore from "../../../setting/remoteAgency/store/RemoteAgencyStore";
+import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
+import {SpinLoading} from "../../../common/loading/Loading";
+import EmptyText from "../../../common/emptyText/EmptyText";
 const { TextArea } = Input;
-const layout = {
-    labelCol: {
-        span: 6,
-    }
-};
+const layout = {labelCol: {span: 6}};
 
 const RepositoryAdd = (props) => {
     const [form] = Form.useForm();
     const {match:{params}} = props;
 
     const {repositoryStore}=props
-    const {createRepository,createRepositoryMaven,repositoryAllList,findAllRepository,findLocalAndRemoteRepository ,createRepositoryGroup}=repositoryStore
+    const {createRepository,createRepositoryMaven,repositoryAllList,findAllRepository,findLocalAndRemoteRepository ,createRepositoryGroup,createRepositoryRemoteProxy}=repositoryStore
+    const {findRemoteProxyList}=RemoteAgencyStore
 
     //制品库类型
     const [type,setType]=useState('Maven')
-    //存储库列表
-    const [storageList,setStorageList]=useState([])
     //本地库和远程库列表
     const [repositoryList,setRepositoryList]=useState([])
     //选中的制品库
     const [repository,setRepository]=useState(null)
 
-    //代理地址
-    const [agencyUrl,setAgencyUrl]=useState("https://repo1.maven.org/maven2")
 
     //选中的制品库
     const [choiceRepository,setChoiceRepository]=useState(null)
@@ -58,13 +56,28 @@ const RepositoryAdd = (props) => {
 
     const [powerType,setPowerType] = useState("public")  //权限控制
     const [version,setVersion]=useState("Release")   //版本控制
+    const [createState,setCreateState]=useState(false)
+
+    const [proxyVisible,setProxyVisible]=useState(false)  //代理地址弹窗状态
+    const [proxyPathList,setProxyPathList]=useState([])  //选择后的代理地址
+    const [remoteProxyList,setRemoteProxyList]=useState([])  //所有的
+
 
     useEffect(async () => {
         await findRepository(type)
         await findAllRepository()
-
-
+        getRemoteProxyList(type)
     }, []);
+
+
+
+    //获取代理list
+    const getRemoteProxyList = (agencyType) => {
+        const type=agencyType.toLowerCase()
+        findRemoteProxyList({agencyType:type}).then(res=>{
+            res.code===0&&setRemoteProxyList(res.data)
+        })
+    }
 
 
     /**
@@ -76,11 +89,16 @@ const RepositoryAdd = (props) => {
             item.code===0&&setRepositoryList(item.data)
         })
     }
+
+
+
     /**
      * 创建制品库提交
      */
     const onFinish =async () => {
-        if (!errorMessage?.key){
+        if (params.type==='remote'&&proxyPathList.length===0){
+            setErrorMessage({key:"agency",value:'代理地址不能为空'})
+        }else {
             form.validateFields().then(async values => {
                 const param={
                     name:values.name,
@@ -92,14 +110,15 @@ const RepositoryAdd = (props) => {
                     repositoryUrl:values.name,
                     storage:{
                         id:values.storage
-                    }
+                    },
+                    proxyDataList:proxyPathList,
+
                 }
+                setCreateState(true)
                 const res = await createRepository(param)
+                setCreateState(false)
                 if (res.code===0){
                     switch (params.type){
-                        case "remote":
-                            await createAgency(res.data)
-                            break
                         case "group":
                             await createGroupItems(res.data)
                             break
@@ -111,7 +130,6 @@ const RepositoryAdd = (props) => {
                 }
             })
         }
-
     }
     /**
      * 创建组合库关联
@@ -126,26 +144,8 @@ const RepositoryAdd = (props) => {
                     repository:{
                         id:items.id
                     }
-                })
-        }
+                })}
         )
-
-    }
-
-    /**
-     * 创建代理信息
-     * @param repositoryGroupId
-     */
-    const createAgency=async (repositoryId)=>{
-        const param={
-            repository:{
-                id:repositoryId,
-                agencyName:"central"
-            },
-            agencyUrl:agencyUrl,
-            agencyName:"central"
-        }
-        await proxyService.createRepositoryRemoteProxy(param)
     }
 
     /**
@@ -153,17 +153,8 @@ const RepositoryAdd = (props) => {
      * @param value 制品库类型  maven、npm...
      */
     const cuteType =async (value) => {
-        switch (value){
-            case "Maven":
-                setAgencyUrl("https://repo1.maven.org/maven2")
-                break
-            case "Npm":
-                setAgencyUrl(" https://registry.npmjs.org")
-                break
-            default:
-                setAgencyUrl(null)
-                break
-        }
+        setProxyPathList([])
+        getRemoteProxyList(value)
         setType(value)
         setChoiceRepositoryList([])
        await findRepository(value)
@@ -224,7 +215,7 @@ const RepositoryAdd = (props) => {
     }
 
      const goCancel = async () => {
-         props.history.push(`/index/repository`)
+         props.history.push(`/repository`)
      }
 
 
@@ -251,40 +242,59 @@ const RepositoryAdd = (props) => {
         }
     ]
 
-    const RepositoryPower = () => {
-      return(
-          <div className='add-power'>
-              {
-                  powerLis.map(item=>{
-                      return <div
-                          key={item.id}
-                          className={`repository-power-item  ${powerType===item.id?'repository-power-select':''} ${item.id==='private'&&"power-not"}`}
-                          onClick={()=>setPowerType(item.id)}
-                      >
-                          <div className='power-item'>
-                              <div>
-                                  <div className='power-title'>{item.icon}</div>
-                                  <div className='power-title'>{item.title}</div>
-                              </div>
-                          </div>
-                          <div className='power-desc'> {item.desc} </div>
-                      </div>
-                  })
-              }
-          </div>
-      )
+    const columns = [
+        {
+            title: '名称',
+            dataIndex: 'agencyName',
+            key:"agencyName",
+            width:'50%',
+        },
+        {
+            title: '地址',
+            dataIndex: 'agencyUrl',
+            key:"agencyUrl",
+            width:'50%',
+        },
+        {
+            title:"操作",
+            dataIndex:"action",
+            key:"action",
+            width:"5%",
+            ellipsis:true,
+            render: (_,record) => {
+                return  <span>
+                             <DeleteOutlined onClick={()=>del(record)} />
+                        </span>
+
+            }
+        },
+
+    ];
+
+    /**
+     * 移出地址
+     * @param record
+     */
+    const del = record =>{
+        // yUserList（已选择） 减少
+        setProxyPathList(proxyPathList.filter(item=>item.id!==record.id))
     }
 
+    const onVisibleChange = (value) => {
+        setErrorMessage({})
+        setProxyVisible(value)
+    }
 
     return(
         <div className='repository-add '>
             <div className='repository-add-width'>
-                <BreadcrumbContent className='add-title' firstItem={`新建${params.type}仓库`} goBack={goBack}/>
+                <BreadcrumbContent className='add-title' firstItem={`新建${params.type=="local"&&"本地"||
+                                    params.type=="group"&&"组合"||params.type=="remote"&&"远程"}仓库`} goBack={goBack}/>
                 <div className='add-top'>
                     <Form
                         {...layout}
                         form={form}
-                        onFinish={onFinish}
+
                         layout="vertical"
                     >
                         <Form.Item
@@ -308,22 +318,24 @@ const RepositoryAdd = (props) => {
                                     <Print type={"generic"} width={40} height={40}/>
                                     <div className='type-text'>Generic</div>
                                 </div>
-                                <div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
-                                    <Print type={"pypi"} width={40} height={40}/>
-                                    <div className='type-text'>PyPI</div>
-                                </div>
-                                <div className={`type-border ${type==='HeIm'&&' type-opt'}`} onClick={()=>cuteType("HeIm")}>
+                                <div className={`type-border ${type==='Helm'&&' type-opt'}`} onClick={()=>cuteType("Helm")}>
                                     <Print type={"helm"} width={40} height={40}/>
-                                    <div className='type-text'>HeIm</div>
-                                </div>
-                                <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
-                                    <Print type={"nuget"} width={40} height={40}/>
-                                    <div className='type-text'>NuGet</div>
+                                    <div className='type-text'>Helm</div>
                                 </div>
                                 <div className={`type-border ${type==='Go'&&' type-opt'}`} onClick={()=>cuteType("Go")}>
                                     <Print type={"go"} width={40} height={40}/>
                                     <div className='type-text'>Go</div>
                                 </div>
+                                {/*<div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
+                                    <Print type={"pypi"} width={40} height={40}/>
+                                    <div className='type-text'>PyPI</div>
+                                </div>
+
+                                <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
+                                    <Print type={"nuget"} width={40} height={40}/>
+                                    <div className='type-text'>NuGet</div>
+                                </div>
+                                */}
                             </div>
                         </Form.Item>
                         <Form.Item
@@ -347,7 +359,7 @@ const RepositoryAdd = (props) => {
                                     }
                                 })
                             ]}>
-                            <Input style={{background:'#fff'}}/>
+                            <Input style={{background:'#fff'}}  placeholder={'名称'}/>
                         </Form.Item>
                         {
                             ( params.type==='local'&&type==="Maven")&&
@@ -360,7 +372,7 @@ const RepositoryAdd = (props) => {
                                     options={[
                                         {value: 'Release', label: 'Release'},
                                         {value: 'Snapshot', label: 'Snapshot'},
-                                        {value: 'Mixed', label: 'Mixed'},
+                                       /* {value: 'Mixed', label: 'Mixed'},*/
                                     ]}
                                     onChange={setVersion}
                                 />
@@ -371,13 +383,44 @@ const RepositoryAdd = (props) => {
 
                             <div className='name-nav'>
                                 <div className='add-table-proxy'>
-                                    <div>代理地址</div>
-                                    <div className='add-table-proxy-text'>(创建后也可以在该制品库设置里面配置, 默认{agencyUrl} )</div>
+                                    <div className='proxy-head-nav'>
+                                        <div className='proxy-head-text'>代理地址</div>
+                                        {errorMessage?.key==='agency'&&
+                                            <div className='error-text'>{errorMessage?.value}</div>
+                                        }
+                                    </div>
+
+                                    <Dropdown
+                                        getPopupContainer={e => e.parentElement}
+                                        overlay={<ProxyPathAdd
+                                            visible={proxyVisible}
+                                            setVisible={setProxyVisible}
+                                            proxyPathList={proxyPathList}
+                                            setProxyPathList={setProxyPathList}
+                                            remoteProxyList={remoteProxyList}
+                                            type={type}
+                                        />}
+                                        visible={proxyVisible}
+                                        onVisibleChange={proxyVisible=>onVisibleChange(proxyVisible)}
+                                        trigger={['click']}
+                                        placement={'topRight'}
+                                        overlayStyle={{width:540}}
+
+                                    >
+                                        <div className='add-proxy-text' >+添加代理地址</div>
+                                    </Dropdown>
                                 </div>
-                                <Input placeholder="请输入代理地址" value={agencyUrl} onChange={inputProxyUrl}  className={errorMessage?.key==='agency'&&'border-red-500'}/>
-                                {errorMessage?.key==='agency'&&
-                                    <div className='error-text'>{errorMessage?.value}</div>
-                                }
+                                <div className="pipeline-user-table">
+                                    <Table
+                                       /* rowKey={(record) => record.id}*/
+                                        columns={columns}
+                                        dataSource={proxyPathList}
+                                        pagination={false}
+                                        showHeader={false}
+                                        locale={{emptyText: <EmptyText title={"暂无数据"}/>}}
+                                        /*  locale={{emptyText: <ListEmpty/>}}*/
+                                    />
+                                </div >
                             </div>
                         }
                        {/* <Form.Item
@@ -436,14 +479,14 @@ const RepositoryAdd = (props) => {
                         >
                             <TextArea rows={4} />
                         </Form.Item>
-                        <Button style={{ margin: '0 8px 0 0' }} onClick={goCancel}>
-                            取消
-                        </Button>
-                        <Button type="primary" htmlType="submit">
-                            提交
-                        </Button>
+                        <Btn onClick={goCancel} title={'取消'} isMar={true}/>
+                        {createState?
+                            <Btn  title={'加载中'} type={'primary'}/>:
+                            <Btn onClick={onFinish} title={'确定'} type={'primary'}/>
+                        }
                     </Form>
                 </div>
+
             </div>
 
         </div>

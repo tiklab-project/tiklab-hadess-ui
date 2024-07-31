@@ -18,6 +18,7 @@ const webpackGlobal = {
     DEPLOY_MODE: JSON.stringify("saas"),
     tenant_type: JSON.stringify("mult"),
     node_env: false,
+    env:JSON.stringify("prd"),
     // DEPLOY_MODE: JSON.stringify('saas'),
     // // 登录认证类型
     // authType: JSON.stringify('acc'),  // axios 根据该字段判断是否是sass
@@ -31,7 +32,7 @@ const webpackGlobal = {
     //     ]
     // ),
     // saas 版本 cookie
-    // cookieDomain:  JSON.stringify('tiklab.com'),
+    // cookieDomain:  JSON.stringify('thoughtware.com'),
 }
 
 module.exports = {

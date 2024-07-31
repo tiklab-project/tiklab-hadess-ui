@@ -1,0 +1,11 @@
+.library-menu {
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background-color: #ffffff;
+    width: 60px;
+    .library-menu-style{
+        padding: 7px ;
+        text-align: center;
+        cursor: pointer;
+    }
+}

@@ -53,7 +53,7 @@ const GuideDrawer = props => {
             closable={false}
             onClose={close}
             visible={visible}
-            width  ={'60%'}
+            width  ={'800'}
             className='locker-top'
             extra={
                 <CloseOutlined style={{cursor:'pointer'}} onClick={close} />
@@ -62,7 +62,6 @@ const GuideDrawer = props => {
             {
                 detailsType==="type"?
                     <Fragment>
-                        <div>类型</div>
                         <div className='guide-type'>
                             <div className={`border-style`} onClick={()=>cuteType("Maven")}>
                                 <Print type={"maven"} width={40} height={40}/>
@@ -80,14 +79,15 @@ const GuideDrawer = props => {
                                 <Print type={"generic"} width={40} height={40}/>
                                 <div className='border-text'>Generic</div>
                             </div>
-                            <div className={`border-style`} onClick={()=>cuteType("PyPI")}>
-                                <Print type={"pypi"} width={40} height={40}/>
-                                <div className='border-text'>PyPI</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("HeIm")}>
+                            <div className={`border-style`} onClick={()=>cuteType("Helm")}>
                                 <Print type={"helm"} width={40} height={40}/>
                                 <div className='border-text'>HeIm</div>
                             </div>
+                            {/*<div className={`border-style`} onClick={()=>cuteType("PyPI")}>
+                                <Print type={"pypi"} width={40} height={40}/>
+                                <div className='border-text'>PyPI</div>
+                            </div>
+
                             <div className={`border-style`} onClick={()=>cuteType("NuGet")}>
                                 <Print type={"nuget"} width={40} height={40}/>
                                 <div className='border-text'>NuGet</div>
@@ -95,7 +95,7 @@ const GuideDrawer = props => {
                             <div className={`border-style`} onClick={()=>cuteType("Go")}>
                                 <Print type={"go"} width={40} height={40}/>
                                 <div className='border-text'>Go</div>
-                            </div>
+                            </div>*/}
                         </div>
                     </Fragment>:
                     <GuideTable type={type}/>

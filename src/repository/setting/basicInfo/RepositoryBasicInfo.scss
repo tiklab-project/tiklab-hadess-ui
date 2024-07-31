@@ -1,7 +1,6 @@
 .basicInfo{
     .basicInfo-up{
-        margin: 20px 0;
-
+        padding-bottom: var(--thoughtware-padding-item);
     }
     .repository-type-table{
         border-style: solid;
@@ -38,17 +37,17 @@
             line-height: 16px;
             margin-right: 10px;
             margin-top: 4px;
-            font-weight: var(--tiklab-font-weight-bold);
+            font-weight: var(--thoughtware-font-weight-bold);
         }
         .basicInfo-li-center{
             flex-grow: 1;
         }
         .basicInfo-li-title{
-            font-weight: var(--tiklab-font-weight-bold);
+            font-weight: var(--thoughtware-font-weight-bold);
         }
         .basicInfo-li-desc{
-            font-size: var(--tiklab-font-13);
-            color: var(--tiklab-gray-500);
+            font-size: var(--thoughtware-font-13);
+            color: var(--thoughtware-gray-500);
         }
         .basicInfo-li-down{
             align-self: center;
@@ -95,4 +94,31 @@
     .click-cursor{
         cursor: pointer;
     }
+    .strategy-style{
+        display: flex;
+        justify-content: space-between;
+        margin-top: 5px;
+        .strategy-text-desc{
+           color: #999999;
+        }
+    }
 }
+
+.proxy-style{
+    width: 70%;
+    .add-table-proxy{
+        display: flex;
+        margin-bottom: 10px;
+        justify-content: space-between;
+        .add-proxy-text{
+            color:var(--thoughtware-blue) ;
+            margin-left: 10px;
+            cursor: pointer;
+        }
+    }
+    .user-table-ban{
+        color: #cccccc;
+        cursor: not-allowed;
+    }
+}
+

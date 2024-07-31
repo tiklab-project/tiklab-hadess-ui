@@ -7,7 +7,7 @@
  */
 
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 export class ScanRecordStore  {
 
 
@@ -18,8 +18,15 @@ export class ScanRecordStore  {
     scanRecord=''
 
     @observable
-    refresh=false
+    recordFresh=false
 
+    @observable
+    tableType=''
+
+    @action
+    setTableType=async (value)=>{
+        this.tableType=value
+    }
     /**
      * 删除扫描记录
      * @param  id
@@ -29,9 +36,23 @@ export class ScanRecordStore  {
         const param=new FormData()
         param.append("id",recordId)
         const res = await Axios.post("/scanRecord/deleteScanRecord",param)
-        this.refresh=!this.refresh
+        this.recordFresh=!this.recordFresh
         return res;
     }
+
+    /**
+     * 通过group 删除记录
+     * @param  id
+     */
+    @action
+    deleteScanRecordByGroup=async (scanGroup)=>{
+        const param=new FormData()
+        param.append("scanGroup",scanGroup)
+        const res = await Axios.post("/scanRecord/deleteScanRecordByGroup",param)
+        this.recordFresh=!this.recordFresh
+        return res;
+    }
+
 
     /**
      * 条件分页查询扫描记录
@@ -40,6 +61,16 @@ export class ScanRecordStore  {
     @action
     findScanRecordPage=async (param)=>{
         const res = await Axios.post("/scanRecord/findScanRecordPage",param)
+        return res;
+    }
+
+    /**
+     * 条件查询扫描记录
+     * @param  id
+     */
+    @action
+    findScanRecordList=async (param)=>{
+        const res = await Axios.post("/scanRecord/findScanRecordList",param)
         return res;
     }
 

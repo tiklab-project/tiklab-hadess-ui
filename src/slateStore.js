@@ -1,9 +1,9 @@
 /*
  * @Descripttion: 
  * @version: 1.0.0
- * @Author: 袁婕轩
+ * @Author: limingliang
  * @Date: 2021-08-27 15:54:38
- * @LastEditors: 袁婕轩
+ * @LastEditors: limingliang
  * @LastEditTime: 2021-09-22 09:14:36
  */
 import { observable, action} from "mobx";

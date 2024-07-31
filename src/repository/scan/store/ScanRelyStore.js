@@ -7,7 +7,7 @@
  */
 
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 import {message} from 'antd';
 export class ScanRelyStore  {
 
@@ -57,6 +57,16 @@ export class ScanRelyStore  {
         return res;
     }
 
+    /**
+     * 条件查询扫描依赖
+     * @param  param
+     */
+    @action
+    findScanRelyList=async (param)=>{
+        const res = await Axios.post("/scanRely/findScanRelyList",param)
+
+        return res;
+    }
 }
 let scanRelyStore=new ScanRelyStore()
 export default scanRelyStore;

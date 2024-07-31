@@ -21,7 +21,7 @@ const Btn = (props) => {
                 {
                     icon &&  <span className='xcode-btn-icon'>{icon}</span>
                 }
-                {title!=='加载中'?title:<LoadingOutlined />}
+                {title!=='加载中'?<span className='hadess-btn-text-size'>{title}</span>:<LoadingOutlined />}
             </Space>
         </div>
     )

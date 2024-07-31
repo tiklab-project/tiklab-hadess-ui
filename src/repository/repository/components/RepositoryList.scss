@@ -1,32 +1,28 @@
 .repository{
-    padding: var(--tiklab-padding-item);
-    overflow: auto;
+    padding: var(--thoughtware-padding-item);
     height: calc(100vh - 50px);
-    min-width: 1080px;
-    .repository-width{
-        max-width: 1250px;;
-        margin: 0 auto;
-    }
+    overflow: auto;
     .repository-head-style{
         display: flex;
         justify-content: space-between;
         .add-button{
-            padding: 7px;
+            padding: 5px;
             margin-left: 7px;
-            border-style: solid;
-            background-color: var(--tiklab-blue);
+            border: 1px solid #d9d9d9;
+            background-color: var(--thoughtware-blue);
             color: #EBECF0;
             cursor: pointer;
             border-radius: 6px;
+            font-weight: 500;
         }
         .guide-button{
-            padding: 7px;
+            padding: 5px;
             margin-left: 7px;
-            border-style: solid;
-            border-color: #d9d9d9;
-
             cursor: pointer;
             border-radius: 6px;
+            font-weight: 500;
+            color: #42526E;
+            background: #efefef;
         }
     }
 
@@ -35,14 +31,13 @@
         border-bottom:2px solid #0063FF;
     }
     .repository_tab{
-        font-size: var(--tiklab-font-13);;
+        font-size: var(--thoughtware-font-13);;
         cursor: pointer;
         height: 50px;
         line-height: 50px;
     }
     .repository-table{
         margin-top: 15px;
-        border-bottom: 1px solid var(--tiklab-gray-200);
     }
     .repository-tables-set{
         cursor: pointer;
@@ -51,20 +46,25 @@
         }
     }
 }
+.repository-filter{
+    display: flex;
+    justify-content:space-between;
+    align-items: center;
+    margin-top: 10px;
+    .input-icon{
+        font-size: var(--thoughtware-input-icon-15);
+    }
+}
 .repository-flex{
     display: flex;
     gap: 15px;
 }
-.repository-name{
-    margin-left: 3px;
-    margin-top: 2px;
-    display: flex;
-    gap: 10px;
-}
-.exe-button{
-    color: #3967FF;
+
+.repository-name:hover{
     cursor: pointer;
+    color:#3967FF ;
 }
+
 .name-text-type{
     display: inline-block;
     color: #707070;
@@ -74,4 +74,5 @@
     border: 1px solid #e5e5e5;
     border-radius: 100px;
     font-weight: 400;
+    margin-left: 5px;
 }

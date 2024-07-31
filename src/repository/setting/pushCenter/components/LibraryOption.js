@@ -12,7 +12,7 @@ import {Input, Table} from "antd";
 import { SearchOutlined} from "@ant-design/icons";
 const LibraryOption = (props) => {
     const {match:{params}} = props;
-    const {addVisible,setAddVisible,libraryList,createPushLibrary,findNotPushLibraryList}=props
+    const {addVisible,setAddVisible,libraryList,createPushLibrary,findNotPushLibraryList,pushGroupId}=props
     const [libraryName,setLibraryName]=useState();
     const [libraryIds,setLibraryIds]=useState([])
 
@@ -38,11 +38,7 @@ const LibraryOption = (props) => {
     //添加制品到推送表中
     const onOk = () => {
        libraryIds.map(item=>{
-            const param= {
-                repositoryId:params.id,
-                library: {id:item},
-            }
-           createPushLibrary(param)
+           createPushLibrary({repositoryId:params.id, library: {id:item}, pushGroupId: pushGroupId})
         })
         cancel()
     }
@@ -76,7 +72,7 @@ const LibraryOption = (props) => {
             closable={false}
             footer={modalFooter}
             destroyOnClose={true}
-            width={700}
+            width={600}
             title={"添加推送制品"}
         >
             <div>

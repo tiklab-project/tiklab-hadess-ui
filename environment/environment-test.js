@@ -17,6 +17,7 @@ const webpackGlobal = {
      DEPLOY_MODE: JSON.stringify("saas"),
      tenant_type: JSON.stringify("mult"),
      node_env: false,
+     env:JSON.stringify("test"),
 }
 
 module.exports = {

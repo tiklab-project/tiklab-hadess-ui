@@ -93,7 +93,6 @@ const AddScanLibraryPop = (props) => {
                     columns={columns}
                     pagination={false}
                 />
-
             </Fragment>
         </Modals>
     )

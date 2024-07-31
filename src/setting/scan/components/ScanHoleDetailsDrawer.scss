@@ -1,0 +1,29 @@
+.hole-details{
+    margin-top: 20px;
+    .hole-details-style{
+        display: flex;
+        .hole-details-title{
+            width: 100px;
+            color: #999999;
+        }
+        .hole-details-text{
+           flex: 1;
+        }
+    }
+    .hole-details-top{
+        margin-top: 10px;
+    }
+    .text-red{
+        color: red;
+    }
+    .text-dired{
+        color:#df5000;
+    }
+    .text-yellow{
+        color:#ee9900;
+    }
+    .text-blue{
+        color:#1890ff;
+    }
+
+}

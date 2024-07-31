@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react';
-import {BackupRecovery} from 'tiklab-security-ui';
+import {BackupRestore} from 'thoughtware-security-ui';
 import {inject, observer} from "mobx-react";
 
 /**
@@ -7,23 +7,12 @@ import {inject, observer} from "mobx-react";
  */
 const BackupRecoveryContent = (props) => {
 
-    const {repositoryStore} = props
-
-    const {repositoryPath,getRepositoryPath} = repositoryStore
-
-
-    useEffect(async ()=>{
-        getRepositoryPath()
-    },[])
-
-    
     return (
-        <BackupRecovery
+        <BackupRestore
             {...props}
-            path={repositoryPath}
         />
     )
 }
 
 
-export default inject('repositoryStore')(observer(BackupRecoveryContent))
+export default observer(BackupRecoveryContent)

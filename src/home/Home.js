@@ -6,12 +6,19 @@
  * @update: 2022-11-07 17:56
  */
 import React from "react";
-import {connect} from "tiklab-plugin-core-ui";
-import {AppLink} from "tiklab-licence-ui";
+import {connect} from "thoughtware-plugin-core-ui";
+import {AppLink,HelpLink,AvatarLink} from "thoughtware-licence-ui";
 import Layout from "../common/layout/layout";
-import {UserVerify} from "tiklab-eam-ui";
+import {UserVerify} from "thoughtware-eam-ui";
+
 const Home = (props) => {
-    return <Layout {...props} AppLink={<AppLink />}/>
+
+    return <Layout
+                {...props}
+                AppLink={<AppLink/>}
+                HelpLink={<HelpLink/>}
+                AvatarLink={<AvatarLink {...props}/>}
+            />
 
 }
 function mapStateToProps(state) {

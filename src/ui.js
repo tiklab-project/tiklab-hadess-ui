@@ -1,18 +1,32 @@
 import {stores as xpackStore} from "./stores";
-import routesSaas  from "./routers";
+import  Routers  from "./routers";
 import Layout from "./common/layout/layout";
 import SyncComponent from "./common/lazy/SyncComponent";
 
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
 
+//公共组件
+const Breadcrumb=SyncComponent(()=>import('./common/breadcrumb/Breadcrumb'))
+const btn=SyncComponent(()=>import('./common/btn/btn'))
+const HoleBtn=SyncComponent(()=>import('./common/btn/HoleBtn'))
+
+
+
+
 // 制品列表
 const librarys = SyncComponent(() => import('./library/components/LibraryList'))
 
 //制品扫描
-const ScanList = SyncComponent(() => import('./repository/detection/components/ScanList'))
-const ScanDetails = SyncComponent(() => import('./repository/detection/components/ScanDetails'))
-const ScanHistory = SyncComponent(() => import('./repository/detection/components/ScanHistory'))
+const ScanPlayList = SyncComponent(() => import('./repository/scan/components/ScanPlayList'))
+const ScanList = SyncComponent(() => import('./repository/scan/components/ScanList'))
+const ScanDetails = SyncComponent(() => import('./repository/scan/components/ScanDetails'))
+const ScanHistory = SyncComponent(() => import('./repository/scan/components/ScanHistory'))
 
+//扫描方案
+const ScanScheme =SyncComponent(()=>import('./setting/scan/components/ScanScheme'))
+const ScanHole =SyncComponent(()=>import('./setting/scan/components/ScanHole'))
+const HoleList =SyncComponent(()=>import('./setting/scan/components/HoleList'))
+const HoleEdit =SyncComponent(()=>import('./setting/scan/components/HoleEditPop'))
 
 // 制品库列表
 const RepositoryList = SyncComponent(() => import('./repository/repository/components/RepositoryList'))
@@ -21,14 +35,10 @@ const RepositoryAdd = SyncComponent(() => import('./repository/repository/compon
 //制品列表
 const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
 
-// 制品库-概览
-const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
 //制品库信息
 const RepositoryInfo = SyncComponent(() => import('./repository/setting/basicInfo/RepositoryBasicInfo'))
-//配置-代理信息
-const agency = SyncComponent(() => import('./repository/deploy/components/Agency'))
-//配置-复制信息
-const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
+
+
 //制品库-成员
 const programUser = SyncComponent(() => import('./repository/setting/ProgramUser'))
 //制品库-权限
@@ -37,9 +47,10 @@ const programDomainRole = SyncComponent(() => import('./repository/setting/Proje
 const RepositoryAside = SyncComponent(() => import('./repository/navigator/RepositoryAside'));
 // 制品库设置nav
 const RepositorySetting = SyncComponent(() => import('./repository/setting/navigator/RepositorySetting'));
-//推送中央仓库
-const LibraryPush = SyncComponent(() => import('./repository/setting/pushCenter/components/LibraryPush'))
 
+//推送中央仓库
+const PushGroup = SyncComponent(() => import('./repository/setting/pushCenter/components/PushGroup'))
+const PushLibrary = SyncComponent(() => import('./repository/setting/pushCenter/components/PushLibrary'))
 
 const SettingContent =SyncComponent(()=>import('./setting/navigator/SettingContent'))
 //设置-消息通知方案
@@ -63,14 +74,30 @@ const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
 const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
 //设置-版本与许可证
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
+const AuthContent =SyncComponent(()=>import('./setting/licence/AuthContent'))
 
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 
-const BackupRecovery =SyncComponent(()=>import('./setting/backup/components/BackupRecovery'))
+const BackupRecovery =SyncComponent(()=>import('./setting/backup/BackupRecoveryContent'))
+
+//资源监控
+const Resources =SyncComponent(()=>import('./setting/resources/components/Resources'))
+const RemoteAgency =SyncComponent(()=>import('./setting/remoteAgency/components/RemoteAgency'))
+
+import SettingHome from "./setting/home/components/SettingHome";
+
+
+const SystemFunction =SyncComponent(()=>import('./setting/basicData/SystemFunction'))
+const ProjectFunction =SyncComponent(()=>import('./setting/basicData/ProjectFunction'))
+const ProjectRole =SyncComponent(()=>import('./setting/basicData/ProjectRole'))
+const SystemRole =SyncComponent(()=>import('./setting/basicData/SystemRole'))
+const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
 
 export {
+    SettingHome,
     ExcludeProductUser,
     librarys,
+    ScanPlayList,
     ScanList,
     ScanDetails,
     ScanHistory,
@@ -80,7 +107,8 @@ export {
     programDomainRole,
     RepositoryAside,
     RepositorySetting,
-    LibraryPush,
+    PushLibrary,
+    PushGroup,
     messageNotice,
     messagesendtype,
     orga,
@@ -91,16 +119,28 @@ export {
     plugin,
     MyLog,
     Version,
-    repositorySurvey,
+    AuthContent,
     RepositoryInfo,
-    agency,
-    copy,
     programUser,
     Login,
 
-    routesSaas ,
+    Routers ,
     xpackStore,
     Layout,
     SettingContent,
-    BackupRecovery
+    BackupRecovery,
+
+    ScanScheme,
+    ScanHole,
+    HoleList,
+    HoleEdit,
+
+    Resources,
+    RemoteAgency,
+
+    SystemFunction,
+    ProjectFunction,
+    ProjectRole,
+    SystemRole,
+    LogType,
 }

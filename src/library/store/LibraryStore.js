@@ -6,7 +6,7 @@
  * @update: 2023-03-15 15:00
  */
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 import {data} from "autoprefixer";
 
 export class LibraryStore{
@@ -24,6 +24,9 @@ export class LibraryStore{
 
     @observable libraryVersion=''
 
+    //刷新
+    @observable refresh=false
+
     @action
     setLibraryVersion=async (value)=>{
         this.libraryVersion=value
@@ -37,7 +40,11 @@ export class LibraryStore{
     deleteLibrary=async (id)=>{
         const param = new FormData()
         param.append('id',id)
+
         const res = await Axios.post("/library/deleteLibrary",param)
+        if (res.code===0){
+            this.refresh=!this.refresh
+        }
         return res;
     }
 
@@ -100,17 +107,6 @@ export class LibraryStore{
         return res;
     }
 
-    /**
-     * 查询未添加到扫描的制品
-     * @param  versionId 制品版本id
-     */
-    @action
-    findNotScanLibraryList=async (param)=>{
-
-        const res = await Axios.post("/library/findNotScanLibraryList",param)
-
-        return res;
-    }
 
     /**
      * 制品库下面条件查询制品列表
@@ -178,26 +174,36 @@ export class LibraryStore{
         const res = await Axios.post("/libraryVersion/findLibraryNewVersion",param)
         return res;
     }
-    /**
-     * 删除版本及相关的制品
-     * @param  versionId 版本id
-     */
-    @action
-    deleteVersionAndLibrary=async (versionId)=>{
-        const param=new FormData();
-        param.append("id",versionId)
-        const res = await Axios.post("/libraryVersion/deleteVersionAndLibrary",param)
-        return res;
-    }
+
     /**
      * 删除版本
      * @param  versionId 版本id
      */
     @action
-    deleteLibraryVersion=async (versionId)=>{
+    deleteVersion=async (versionId)=>{
         const param=new FormData();
         param.append("id",versionId)
+        const res = await Axios.post("/libraryVersion/deleteVersion",param)
+        if (res.code===0){
+            this.refresh=!this.refresh
+        }
+        return res;
+    }
+
+
+    /**
+     * 删除版本
+     * @param  versionId 版本id
+     */
+    @action
+    deleteLibraryVersion=async (versionId,libraryId)=>{
+        const param=new FormData();
+        param.append("versionId",versionId)
+        param.append("libraryId",libraryId)
         const res = await Axios.post("/libraryVersion/deleteLibraryVersion",param)
+        if (res.code===0){
+            this.refresh=!this.refresh
+        }
         return res;
     }
 

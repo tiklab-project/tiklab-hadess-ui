@@ -6,7 +6,7 @@
  * @update: 2023-07-19 15:00
  */
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 import {message} from "antd";
 export class PushCenterStore{
 
@@ -46,8 +46,8 @@ export class PushCenterStore{
      * @param repositoryId
      */
     @action
-    findPushLibraryList=async (repositoryId)=>{
-        const res = await Axios.post("/pushLibrary/findPushLibraryList", {repositoryId:repositoryId})
+    findPushLibraryList=async (param)=>{
+        const res = await Axios.post("/pushLibrary/findPushLibraryList", param)
         if (res.code===0){
             this.pushLibraryList=res.data
         }

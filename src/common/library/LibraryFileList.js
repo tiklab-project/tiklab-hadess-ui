@@ -12,7 +12,7 @@ import {observer} from "mobx-react";
 import "./LibraryFileList.scss"
 import libraryStore from "../../library/store/LibraryStore";
 import LibraryFileDetails from "./LibraryFileDetails";
-import {getUser} from "tiklab-core-ui";
+import {getUser} from "thoughtware-core-ui";
 const LibraryFileList = (props) => {
     const {versionData}=props
     const {findLibraryNewFileList,findServerIp,serverIp,findLibraryMaven,libraryMavenData}=libraryStore
@@ -33,7 +33,7 @@ const LibraryFileList = (props) => {
         {
             title: '名称',
             dataIndex: 'fileName',
-            width:'50%',
+            width:'52%',
             render: (text, record) => {
                 return <div className='text-color' onClick={() => openDetails(record)}>{record.fileName}</div>
             }
@@ -51,7 +51,7 @@ const LibraryFileList = (props) => {
         {
             title: '操作',
             key: 'activity',
-            width:'10%',
+            width:'8%',
             render: (text, record) => (
                 <Space>
                     <Tooltip title='下载'>
@@ -78,7 +78,8 @@ const LibraryFileList = (props) => {
      * @param  fileId 制品文件id
      */
     const download =async (fileDetail) => {
-        window.open(`${node_env? base_url:window.location.origin}/fileHand/download/${getUser().tenant?getUser().tenant+"/":''}${fileDetail?.fileUrl}`)
+      //  window.open(`${node_env? base_url:window.location.origin}/fileHand/download/${getUser().tenant?getUser().tenant+"/":''}${fileDetail?.fileUrl}`)
+        window.location.href=`${node_env? base_url:window.location.origin}/fileHand/download/${getUser().tenant?getUser().tenant+"/":''}${fileDetail?.fileUrl}`
     }
 
     const goBack = () => {

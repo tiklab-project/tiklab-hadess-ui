@@ -1,12 +1,12 @@
 import React from "react";
-import {MessageNotice} from "tiklab-message-ui";
+import {MessageNotice} from "thoughtware-message-ui";
 
 /*
  * 消息通知方案页面
  */
 const MessageNoticeContent = props =>{
 
-    return <MessageNotice {...props} bgroup={"xpack"}/>
+    return <MessageNotice {...props} bgroup={"hadess"}/>
 
 }
 

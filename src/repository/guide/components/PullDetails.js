@@ -10,6 +10,25 @@ import "./PullDetails.scss"
 const PullDetails = (props) => {
     const {type,serverIp}=props
 
+    const helm = () => {
+        return(
+            <Fragment>
+                <div className='push-details-title'>拉取chart</div>
+                <div className='nav-style'>
+                    helm repo update
+                </div>
+                <div className='nav-style'>
+                    {`helm pull [repositoryName]/[chartName] --version [VERSION]`}
+                </div>
+
+                <div className='push-details-title'>安装</div>
+                <div className='nav-style'>
+                    {`helm pull [repositoryName]/[chartName] --version [VERSION]`}
+                </div>
+            </Fragment>
+        )
+    }
+
     return(
         <div className='guide-details pull-details'>
             {
@@ -120,7 +139,7 @@ const PullDetails = (props) => {
                 <Fragment>
                     <div className='push-details-title'>请在命令行执行以下命令进行拉取：</div>
                     <div className='nav-style'>
-                        {`docker push ${serverIp}/[REPOSITORY-NAME]/[LIBRARY-NAME]:[VERSION]`}
+                        {`docker pull ${serverIp}/[REPOSITORY-NAME]/[LIBRARY-NAME]:[VERSION]`}
                     </div>
                     <div className='text-style'>
                         <div>替换文本：</div>
@@ -137,7 +156,9 @@ const PullDetails = (props) => {
                             版本
                         </div>
                     </div>
-                </Fragment>
+                </Fragment>||
+                type==='Helm'&&
+                helm()
             }
 
         </div>

@@ -1,5 +1,5 @@
 import React,{Fragment} from 'react';
-import {LeftOutlined,RightOutlined} from '@ant-design/icons';
+import {LeftOutlined, RightOutlined, SyncOutlined} from '@ant-design/icons';
 import './Page.scss';
 
 /**
@@ -10,7 +10,7 @@ import './Page.scss';
  */
 const Page = props =>{
 
-    const {pageCurrent,changPage,totalPage} = props
+    const {pageCurrent,changPage,totalPage,totalRecord,refresh} = props
     const renderRightOut = () =>{
         if(pageCurrent===totalPage ){
             return(
@@ -31,6 +31,7 @@ const Page = props =>{
             {
                 (totalPage>1)?
                     <Fragment>
+                        <span className='xpack-page-padding'>{`共${totalRecord}条`}</span>
                         <span className={`${pageCurrent===1?'xpack-page-ban':'xpack-page-allow'} xpack-page-icon`}
                               onClick={()=>pageCurrent===1? null :changPage(pageCurrent - 1)}
                         >
@@ -40,6 +41,7 @@ const Page = props =>{
                         <span className='xpack-page-icon'>/</span>
                         <span>{`共${totalPage}页`}</span>
                         { renderRightOut() }
+                        <span className='xpack-page-padding xpack-page-allow'><SyncOutlined onClick={refresh}/></span>
                     </Fragment>:null
             }
 

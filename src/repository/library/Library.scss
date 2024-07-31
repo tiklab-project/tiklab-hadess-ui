@@ -1,34 +1,31 @@
-.repositoryLibrary{
-    padding: var(--tiklab-padding-item);
-    flex: 1;
-    .repository-library-width{
-        max-width:var(--page-max-width);
-        margin: 0 auto;
+.rpy-library{
+    .rpy-library-head-nav{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
     }
-}
-
-.library-mt{
-    margin-top: 20px;
-}
-.library-border{
-    color: #999999;
-}
-.library-mr{
-    margin: 0 20px;
-}
-.library-blue-color{
-    color: #3967FF;
-}
-.library-pointer{
-    cursor: pointer;
-}
-.library-flex{
-    display: flex;
-    gap:16px
-}
-
-.library-list-head-nav{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    .rpy-library-mt{
+        margin-top: 20px;
+    }
+    .rpy-library-search-nav{
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        .icon-style{
+            cursor: pointer;
+        }
+        .library-flex{
+            display: flex;
+            gap:16px;
+            .input-icon{
+                font-size: var(--thoughtware-input-icon-15);
+            }
+        }
+        .library-border{
+          /*  color: #999999;*/
+        }
+        .input-icon{
+            font-size: var(--thoughtware-input-icon-15);
+        }
+    }
 }

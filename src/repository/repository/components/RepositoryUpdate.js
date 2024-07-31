@@ -99,7 +99,7 @@ const RepositoryUpdate = (props) => {
             cancelText: '取消',
             onOk() {
                 deleteRepository(params.id).then(item=>{
-                    item.code==0&& props.history.push(`/index/repository`)
+                    item.code==0&& props.history.push(`/repository`)
                 })
             },
             onCancel() {

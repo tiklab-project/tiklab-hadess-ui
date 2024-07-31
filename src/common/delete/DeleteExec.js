@@ -1,0 +1,105 @@
+/**
+ * @name: DeleteExec
+ * @author: limingliang
+ * @date: 2022-12-30 10:30
+ * @description：删除操作
+ * @update: 2022-12-30 10:30
+ */
+import React from "react";
+import {Dropdown, Menu, Modal} from "antd";
+const { confirm } = Modal;
+import {EllipsisOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+import TimeTaskStore from "../../repository/scan/store/TimeTaskStore";
+import "./DeleteExec.scss"
+const DeleteExec = (props) => {
+
+    const {value ,deleteData,title,type,findRepositoryByProxyId,schemeId}=props
+
+    const {findTimeTaskList}=TimeTaskStore
+
+    /**
+     * 删除下拉
+     */
+     const DeletePullDown=(value) => (
+        <Menu>
+            <Menu.Item onClick={verify} className='delete-exec'>
+                删除
+            </Menu.Item>
+        </Menu>
+    );
+
+     //校验
+     const verify = () => {
+         //当删除为扫描制品 且为最后一个制品 需要校验是否有定时任务
+         if (type==='scanLibrary'){
+             findTimeTaskList({scanPlayId:value.scanPlayId}).then(res=>{
+                 if (res.code===0&&res.data.length>0){
+                     DeletePop("存在关联的定时任务，请先移除定时任务","1")
+                 }else {
+                     DeletePop(title)
+                 }
+             })
+         }
+
+         //类型为代理地址
+         if (type==='agency'){
+             findRepositoryByProxyId(value.id).then(res=>{
+                 if (res.code===0&&res.data.length>0){
+                     DeletePop("存在关联的仓库,请先去仓库移除关联",res.data)
+                 }else {
+                     DeletePop(title)
+                 }
+             })
+         }
+         if (type!=='scanLibrary'&&type!=='agency'){
+             DeletePop(title)
+         }
+     }
+
+   //删除弹窗
+    const  DeletePop = (title,content) =>{
+        confirm({
+            title: title,
+            icon: <ExclamationCircleOutlined />,
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+
+            onOk() {
+                !content? execDelete():null
+            },
+            onCancel() {
+            },
+        });
+    }
+
+    //删除操作
+    const execDelete = () => {
+        switch (type){
+            case "scanRecord":
+                deleteData(value.scanGroup)
+                break
+            case "schemeHole":
+                deleteData(value.id,schemeId)
+                break
+            default  :
+                deleteData(value.id)
+        }
+    }
+
+
+    return(
+        <Dropdown   overlay={()=>DeletePullDown(value)}
+                    placement="bottomRight"
+                    trigger={['click']}
+        >
+            <EllipsisOutlined style={{fontSize:18}} />
+        </Dropdown>
+    )
+}
+export default DeleteExec
+
+
+
+
+

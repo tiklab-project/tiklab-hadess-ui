@@ -5,7 +5,7 @@
  * @description：axios
  * @update: 2021-07-14 14:43
  */
-import axios from 'tiklab-oms-web/src/utils/axios';
+import axios from 'thoughtware-oms-web/src/utils/axios';
 import {message} from 'antd'
 import {removeUser, getUser} from './index';
 

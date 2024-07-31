@@ -35,6 +35,7 @@ const LibraryDetails = (props) => {
                     }
                     <div className='survey-body-item'>
                         <div className='survey-body-item-title'>版本</div>
+
                         <div>{versionData?.version}</div>
                     </div>
                 </div>
@@ -45,7 +46,7 @@ const LibraryDetails = (props) => {
                     </div>
                     <div className='survey-body-item'>
                         <div className='survey-body-item-title'>大小</div>
-                        <div>{versionData?.size}</div>
+                        <div>{versionData?.showSize}</div>
                     </div>
                     {
                         versionData?.libraryType==='maven'&&
@@ -56,7 +57,8 @@ const LibraryDetails = (props) => {
                     }
                     <div className='survey-body-item'>
                         <div className='survey-body-item-title'>hash</div>
-                        {<OmitFiled value={versionData?.hash}/>}
+                        <div>{versionData?.hash}</div>
+                       {/* {<OmitFiled value={versionData?.hash}/>}*/}
                     </div>
                 </div>
             </div>
@@ -72,7 +74,7 @@ const LibraryDetails = (props) => {
                 <div className='survey-body-right'>
                     <div className='survey-body-item'>
                         <div className='survey-body-item-title'>推送时间</div>
-                        <div>{versionData?.pushTime}</div>
+                        <div>{versionData?.updateTime}</div>
                     </div>
                 </div>
             </div>

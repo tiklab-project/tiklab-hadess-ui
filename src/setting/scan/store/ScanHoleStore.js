@@ -1,117 +1,107 @@
 import {observable,action} from 'mobx';
 import {message} from 'antd';
-import {Axios, getUser} from 'tiklab-core-ui';
+import {Axios, getUser} from 'thoughtware-core-ui';
 
-export class ScanSchemeStore {
+export class ScanHoleStore {
     // 刷新
     @observable
     fresh = false
 
-    // 第三方认证地址
-    @observable
-    scanSchemeList = []
-
     /**
-     * 查询扫描方案
-     * @param value
+     * 添加漏洞
+     * @param param
      * @returns {Promise<void>}
      */
     @action
-    findAllScanScheme = async () =>{
-        const data = await Axios.post('/scanScheme/findAllScanScheme')
-        if (data.code===0){
-            this.scanSchemeList=data.data
-        }
+    createScanHole = async (param) =>{
+        const data = await Axios.post('/scanHole/createScanHole',param)
+        this.fresh = !this.fresh
         return data
     }
 
-    /**
-     * 条件查询扫描方案
-     * @param value
-     * @returns {Promise<void>}
-     */
-    @action
-    findScanSchemeList = async (param) =>{
-        const data = await Axios.post('/scanScheme/findScanSchemeList',param)
-        return data
-    }
 
     /**
-     * 分页查询扫描方案
-     * @param value
+     * 删除漏洞
+     * @param param
      * @returns {Promise<void>}
      */
     @action
-    findScanSchemePage = async (param) =>{
-        const data = await Axios.post('/scanScheme/findScanSchemePage',param)
-        return data
-    }
-
-    /**
-     * 创建扫描方案
-     * @param value
-     * @returns {Promise<void>}
-     */
-    @action
-    createScanScheme = async (param) =>{
-        const data = await Axios.post('/scanScheme/createScanScheme',param)
-        if (data.code===0){
-            this.fresh = !this.fresh
-        }
-        return data
-    }
-
-    /**
-     * 删除扫描方案
-     * @param value
-     * @returns {Promise<void>}
-     */
-    @action
-    deleteScanScheme = async (id) =>{
+    deleteScanHole = async (id) =>{
         const param=new FormData()
-        param.append("id",id)
-        const data = await Axios.post('/scanScheme/deleteScanScheme',param)
+        param.append('id',id)
+        const data = await Axios.post('/scanHole/deleteScanHole',param)
+        this.fresh = !this.fresh
+        return data
+    }
+
+    /**
+     * 分页查询漏洞
+     * @param param
+     * @returns {Promise<void>}
+     */
+    @action
+    findScanHolePage = async (param) =>{
+        const data = await Axios.post('/scanHole/findScanHolePage',param)
+        return data
+    }
+
+    /**
+     * 创建扫描方案和漏洞关联
+     * @param param
+     * @returns {Promise<void>}
+     */
+    @action
+    createScanSchemeHole = async (param) =>{
+        const data = await Axios.post('/scanSchemeHole/createScanSchemeHole',param)
         if (data.code===0){
             this.fresh = !this.fresh
         }
+        return data
     }
 
-
     /**
-     * 创建扫描方案和规则关系
-     * @param value
+     *  根据漏洞ID 和方案id 删除扫描方案和漏洞关联
+     * @param param
      * @returns {Promise<void>}
      */
     @action
-    createScanSchemeRule = async (param) =>{
-        const data = await Axios.post('/scanSchemeRule/createScanSchemeRule',param)
+    deleteScanSchemeHoleByCond = async (holeId,schemeId) =>{
+        const param=new FormData()
+        param.append('holeId',holeId)
+        param.append('schemeId',schemeId)
+        const data = await Axios.post('/scanSchemeHole/deleteScanSchemeHoleByCond',param)
+        if (data.code===0){
+            
+            this.fresh = !this.fresh
+        }
         return data
     }
 
 
     /**
-     * 创建扫描方案和sonar关系
-     * @param value
+     * 条件分页查询方案下面扫描漏洞
+     * @param param
      * @returns {Promise<void>}
      */
     @action
-    createScanSchemeSonar = async (param) =>{
-        const data = await Axios.post('/scanSchemeSonar/createScanSchemeSonar',param)
+    findSchemeHolePage = async (param) =>{
+        const data = await Axios.post('/scanHole/findSchemeHolePage',param)
         return data
     }
 
     /**
-     * 查询扫描方案sonar 关系表
-     * @param value
+     * 条件分页查询没有添加的扫描漏洞
+     * @param param
      * @returns {Promise<void>}
      */
     @action
-    findScanSchemeSonarList = async (param) =>{
-        const data = await Axios.post('/scanSchemeSonar/findScanSchemeSonarList',param)
+    findNotScanHolePage = async (param) =>{
+        const data = await Axios.post('/scanHole/findNotScanHolePage',param)
         return data
     }
+
 
 }
 
-const scanSchemeStore=new ScanSchemeStore()
-export default  scanSchemeStore
+const scanHoleStore=new ScanHoleStore()
+export default  scanHoleStore

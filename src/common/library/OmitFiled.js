@@ -10,7 +10,7 @@ import React from "react";
 import {Tooltip} from "antd";
 const OmitFiled = (props) => {
     const {value}=props
-    
+
     return(
         <div>
             {

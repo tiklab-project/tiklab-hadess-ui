@@ -1,11 +1,10 @@
 .library {
-    overflow: auto;
     height: 100%;
     width: 100%;
-    min-width: var(---xpack-min_width);
     display: flex;
+    overflow: hidden;
     .library-right{
-        padding: var(--tiklab-padding-item);
+        padding: var(--thoughtware-padding-item);
         flex: 1;
         overflow: auto;
         .library-right-data{
@@ -13,14 +12,26 @@
             justify-content: center;
         }
    }
-    .library-data{
-        width: 1200px;;
+
+    .library-data-width{
+        margin: 0 auto;
+    }
+    .library-search-nav{
+        display: flex;
+        justify-content: space-between;
+        align-items:center;
+        .icon-style{
+           cursor: pointer;
+        }
     }
     .library-nav{
         margin: 15px 0;
         .input-style{
             margin: 5px 20px 0 0;
-            color: darkgrey;
+        /*    color: darkgrey;*/
+        }
+        .input-icon{
+            font-size: var(--thoughtware-input-icon-15);
         }
     }
     .library-table{

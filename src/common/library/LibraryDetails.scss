@@ -1,7 +1,8 @@
 .library-details{
-    margin-top: var(---xpack-data-top);
+    margin-top: var(--xpack-table-top);
+    margin-right: 10px;
     .survey-title{
-        font-weight: var(--tiklab-font-weight-bold);
+        font-weight: var(--thoughtware-font-weight-bold);
         margin-bottom: 5px;
         font-size: 13px;
     }
@@ -24,9 +25,10 @@
         }
         .survey-body-item{
             display: flex;
+            flex: 1;
             .survey-body-item-title{
                 min-width: 80px ;
-                color: var(--tiklab-gray-500);
+                color: var(--thoughtware-gray-500);
             }
         }
     }

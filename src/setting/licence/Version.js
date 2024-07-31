@@ -1,5 +1,5 @@
 import React from "react";
-import {Version} from "tiklab-licence-ui";
+import {Version} from "thoughtware-licence-ui";
 import {Table} from "antd";
 import {CloseOutlined,CheckOutlined} from "@ant-design/icons";
 
@@ -103,7 +103,7 @@ const VersionContent = props =>{
         }
     ]
 
-    return <Version {...props} bgroup={"xpack"}>
+    return <Version {...props} bgroup={"hadess"}>
         <Table
             bordered
             columns={columns}

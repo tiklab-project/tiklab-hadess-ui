@@ -84,45 +84,38 @@ module.exports = merge(baseWebpackConfig, {
                     priority: 65,
                     reuseExistingChunk: true //遇到重复包直接引用，不重新打包
                 },
-                tiklabPluginUI: {
-                    name: 'chunk-tiklab-plugin-ui',
-                    chunks: 'all',
-                    test: /tiklab-plugin-ui/,
-                    priority: 60,
-                    reuseExistingChunk: true
-                },
                 tiklabEamUI: {
-                    name: 'chunk-tiklab-eam-ui',
+                    name: 'chunk-thoughtware-eam-ui',
                     chunks: 'all',
-                    test: /tiklab-eam-ui/,
+                    test: /thoughtware-eam-ui/,
                     priority: 60,
                     reuseExistingChunk: true
                 },
                 tiklabUserUI: {
-                    name: 'chunk-tiklab-user-ui',
+                    name: 'chunk-thoughtware-user-ui',
                     chunks: 'all',
-                    test: /tiklab-user-ui/,
+                    test: /thoughtware-user-ui/,
                     priority: 65,
                     reuseExistingChunk: true
                 },
                 tiklabPrivilegeUI: {
-                    name: 'chunk-tiklab-licence-ui',
+                    name: 'chunk-thoughtware-licence-ui',
                     chunks: 'all',
-                    test: /tiklab-licence-ui/,
+                    test: /thoughtware-licence-ui/,
                     priority: 70,
                     reuseExistingChunk: true
                 },
                 tiklabMessageUI: {
-                    name: 'chunk-tiklab-message-ui',
+                    name: 'chunk-thoughtware-message-ui',
                     chunks: 'all',
-                    test: /tiklab-message-ui/,
+                    test: /thoughtware-message-ui/,
                     priority: 70,
                     reuseExistingChunk: true
                 },
                 tiklabSlateUI: {
-                    name: 'chunk-tiklab-slate-ui',
+                    name: 'chunk-thoughtware-slate-ui',
                     chunks: 'all',
-                    test: /tiklab-slate-ui/,
+                    test: /thoughtware-slate-ui/,
                     priority: 70,
                     reuseExistingChunk: true
                 },

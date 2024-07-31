@@ -51,7 +51,7 @@ const GuideTable = (props) => {
                    <div className='guide-type-table'>
                        <div className='border-img-center'>
                            <img  src={type==='Maven'&&mvn||type==="npm"&&npm||type==='Docker'&&docker||type==='Generic'&&generic||
-                           type==='PyPI'&&pypi||type==='HeIm'&&helm||type==='NuGet'&&nuget||type==='Go'&&go
+                           type==='PyPI'&&pypi||type==='Helm'&&helm||type==='NuGet'&&nuget||type==='Go'&&go
                            }  style={{width:40,height:40}}/>
                        </div>
                        <div className='guide-type-table-text'>{type}</div>
@@ -62,7 +62,6 @@ const GuideTable = (props) => {
                        {
                            tables.map(item=>{
                                return(
-
                                    <div className={`${table===item.key&&" choose_type"} guide-type-title`} onClick={()=>cuteTable(item.key)}>{item.value}</div>
                                )
                            })

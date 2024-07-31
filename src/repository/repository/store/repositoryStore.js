@@ -6,7 +6,7 @@
  * @update: 2023-03-15 15:00
  */
 import { observable, action } from "mobx";
-import {Axios} from 'tiklab-core-ui';
+import {Axios} from 'thoughtware-core-ui';
 import {message} from 'antd';
 export class RepositoryStore{
     //所有制品库
@@ -20,6 +20,15 @@ export class RepositoryStore{
     //制品库类型 local、remote、group
     @observable addRepositoryType=''
 
+    @observable repositoryMavenList=[]
+
+    //导航等级
+    @observable navLevel=1
+
+    @action
+    setNavLevel = value =>{
+        this.navLevel = value
+    }
 
     /**
      * 创建制品库
@@ -78,15 +87,21 @@ export class RepositoryStore{
      * @param value
      */
     @action
-    findRepositoryList=async (repositoryType,type)=>{
-        const param={
-            repositoryType:repositoryType,
-            type:type
-        }
+    findRepositoryList=async (param)=>{
         const res = await Axios.post("/xpackRepository/findRepositoryList",param)
         if (res.code===0){
             this.repositoryList=res.data
         }
+        return res
+    }
+
+    /**
+     * 分页查询制品库通过类型查询制品库
+     * @param value
+     */
+    @action
+    findRepositoryPage=async (param)=>{
+        const res = await Axios.post("/xpackRepository/findRepositoryPage",param)
         return res
     }
     /**
@@ -166,6 +181,30 @@ export class RepositoryStore{
     }
 
     /**
+     * 更新maven制品库
+     * @param value
+     */
+    @action
+    updateRepositoryMaven=async (value)=>{
+        const res = await Axios.post("/repositoryMaven/updateRepositoryMaven",value)
+        if (res.code===0){
+            message.success("更新成功",1)
+        }
+    }
+    /**
+     * 通过仓库id
+     * @param value
+     */
+    @action
+    findRepositoryMavenByRpyId=async (value)=>{
+        const res = await Axios.post("/repositoryMaven/findRepositoryMavenList",value)
+        if (res.code===0){
+            this.repositoryMavenList=res.data
+        }
+        return res
+    }
+
+    /**
      * 修改组合库的关联库
      * @param value
      */
@@ -179,6 +218,34 @@ export class RepositoryStore{
         this.addRepositoryType=""
     }
 
+    /**
+     * 通过条件查询仓库的代理
+     * @param value
+     */
+    @action
+    findRepositoryRemoteProxyList=async (value)=>{
+        const res = await Axios.post("/repositoryRemoteProxy/findRepositoryRemoteProxyList",value)
+        return res
+    }
+    /**
+     * 创建仓库的代理
+     * @param value
+     */
+    @action
+    createRepositoryRemoteProxy=async (value)=>{
+        const res = await Axios.post("/repositoryRemoteProxy/createRepositoryRemoteProxy",value)
+        return res
+    }
+
+    /**
+     * 更新仓库的代理
+     * @param value
+     */
+    @action
+    updateRepositoryRemoteProxy=async (value)=>{
+        const res = await Axios.post("/repositoryRemoteProxy/updateRepositoryRemoteProxy",value)
+        return res
+    }
 
 }
 

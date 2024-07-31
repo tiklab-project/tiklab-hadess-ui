@@ -7,7 +7,7 @@
  * @LastEditTime: 2023-01-03 19:56:02
  */
 import React from "react";
-import {DomainUser} from "tiklab-user-ui";
+import {DomainUser} from "thoughtware-user-ui";
 import { inject, observer } from "mobx-react";
 
 const ProgramUser = props => {
@@ -17,7 +17,7 @@ const ProgramUser = props => {
             <DomainUser
                 {...props}
                 domainId={programId}
-                bgroup = {"xpack"}
+                bgroup = {"hadess"}
             />
         </div>
     )

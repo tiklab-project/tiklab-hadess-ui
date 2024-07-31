@@ -1,5 +1,5 @@
 import React from "react";
-import {MyLog} from "tiklab-security-ui";
+import {MyLog} from "thoughtware-security-ui";
 
 /**
  * 我的日志
@@ -9,7 +9,7 @@ import {MyLog} from "tiklab-security-ui";
  */
 const MyLogContent = props => {
 
-    return <MyLog {...props} bgroup={"xpack"}/>
+    return <MyLog {...props} bgroup={"hadess"}/>
 
 }
 

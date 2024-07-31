@@ -1,4 +1,4 @@
-const api =  'http://192.168.10.17:8080';
+const api =  'http://192.168.10.9:8080';
 const base_url = JSON.stringify(api);
 
 const webpackGlobal = {
@@ -15,12 +15,13 @@ const webpackGlobal = {
     version : JSON.stringify("ce"),
     client : JSON.stringify("web"),
     DEPLOY_MODE: JSON.stringify("ce"),
-    tenant_type: JSON.stringify("xpack"),
+    tenant_type: JSON.stringify("Hadess"),
     node_env: true,
-    // cookieDomain:  JSON.stringify('tiklab.com'),
+    env:JSON.stringify("dev"),
+    // cookieDomain:  JSON.stringify('thoughtware.com'),
 
     // 本地开发测试acc登录 配置的账号统一登录跳转那个登录页面
-    // accUrl_env: JSON.stringify('http://www.tiklab.com'),
+    // accUrl_env: JSON.stringify('http://www.thoughtware.com'),
 }
 
 module.exports =  {

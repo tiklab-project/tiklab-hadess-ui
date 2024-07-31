@@ -61,26 +61,6 @@ const Modals = props => {
         >
             {children}
         </Modal>
-     /*   <Modal
-            style={{height:height,top:60}}
-            bodyStyle={{padding:0}}
-            width={width}
-            {...res}
-        >
-            <div className='xpack-modal'>
-                <div className='xpack-modal-up'>
-                    <div>{title}</div>
-                    <Btn
-                        title={<CloseOutlined style={{fontSize:16}}/>}
-                        type="text"
-                        onClick={res.onCancel}
-                    />
-                </div>
-                <div className='xpack-modal-content'>
-                    {children}
-                </div>
-            </div>
-        </Modal>*/
     )
 
 }

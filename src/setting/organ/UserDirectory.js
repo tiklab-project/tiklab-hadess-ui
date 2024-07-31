@@ -1,9 +1,9 @@
 import React from "react";
-import {Directory} from 'tiklab-user-ui';
+import {Directory} from 'thoughtware-user-ui';
 
 const UserDirectory = (props) => {
     return (
-        <Directory/>
+        <Directory {...props} bgroup={'hadess'}/>
     )
 }
 export default UserDirectory;

@@ -3,22 +3,25 @@
     text-align: center;
     padding-top: 10px;
     height: 47px;
-    border-top: 1px solid var(--tiklab-gray-200);
+    border-top: 1px solid var(--thoughtware-gray-200);
+    .xpack-page-padding{
+        margin: 0 25px;
+    }
     .xpack-page-ban{
         cursor:not-allowed;
-        color: var(--tiklab-gray-500);
+        color: var(--thoughtware-gray-500);
     }
     .xpack-page-allow{
         cursor: pointer;
         &:hover{
-          color: var(--tiklab-blue);
+          color: var(--thoughtware-blue);
         }
     }
     .xpack-page-icon{
        padding: 0 5px;
     }
     .xpack-page-current{
-        color: var(--tiklab-blue);
+        color: var(--thoughtware-blue);
     }
 
 }

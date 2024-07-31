@@ -10,54 +10,37 @@
 import React, { useState,useEffect} from 'react';
 import {inject,observer} from "mobx-react";
 import {
-    ExpandOutlined,
-    GlobalOutlined, LogoutOutlined,
-    MessageOutlined, ProfileOutlined,
-    QuestionCircleOutlined, ScheduleOutlined,
-    SettingOutlined, UserOutlined, WhatsAppOutlined,
+    BellOutlined,
 } from "@ant-design/icons";
 import {Avatar, Dropdown, Badge } from "antd";
 import Message from "./message";
 import './header.scss'
-import {getUser} from "tiklab-core-ui";
-import {AvatarLink, HelpLink} from "tiklab-licence-ui";
-import xpack from "../../assets/images/img/xpack.png"
+import {getUser,productImg,productWhiteImg} from "thoughtware-core-ui";
+import hadess from "../../assets/images/img/xpack.png"
+import PortalFeature from "./PortalFeature";
 
 const Header = props => {
-    const {location,AppLink,systemRoleStore}=props
+    const {location,AppLink,HelpLink,AvatarLink,systemRoleStore}=props
 
     const {getSystemPermissions} = systemRoleStore
-
+    let path = location.pathname
 
     const [currentLink,setCurrentLink] = useState(path)
     const [visible,setVisible] = useState(false)
 
-    let path = location.pathname
+    const [unread,setUnread] = useState(1)
 
     useEffect(()=>{
-        if(path.indexOf('/index/repository')===0){
-            path='/index/repository'
+        if(path.indexOf('/repository')===0){
+            path='/repository'
         }
-        if(path.indexOf('/index/library')===0){
-            path='/index/library/maven'
+        if(path.indexOf('/library')===0){
+            path='/library/maven'
         }
         setCurrentLink(path)
         getSystemPermissions(getUser().userId)
     },[path])
 
-    const HeaderRuter = [
-        {
-            to:`/index/library/maven`,
-            title:'制品',
-            key: 'library'
-        },
-        {
-            to:`/index/repository`,
-            title:'制品库',
-            key: 'repository'
-        },
-
-    ];
 
     /**
      * 退出登录
@@ -91,106 +74,69 @@ const Header = props => {
         return routers.map(routers=>{
             return  <div key={routers.key}
                          onClick={()=>changeCurrentLink(routers)}
-                         className={currentLink===routers.to ? 'headers-active' : null}
-            >{routers.title}</div>
+                         className={`hadess-header-link-item ${currentLink===routers.to ? "hadess-header-link-active" : null}`}
+            >
+                <span>
+                    {routers.title}
+                </span>
+            </div>
         })
     }
     /**
      * 跳转系统设置
      */
     const goSystem = () =>{
-        props.history.push('/index/sysmgr/orga')
+        props.history.push('/setting/home')
     }
 
-    // 退出登录页面
-    const outMenu = (
-        <div className='header-outMenu'>
-            <div className='header-outMenu-top'>
-                <div className='outMenu-out'>
-                    <Avatar icon={<UserOutlined />} />
-                    <div className='outMenu-out-info'>
-                        <div className='outMenu-out-name'>{getUser().nickname || getUser().name || "用户"}</div>
-                        <div className='outMenu-out-eamil'>{getUser().phone || getUser().eamil || "--"}</div>
-                    </div>
-                </div>
-            </div>
-            <div className='header-outMenu-lan'>
-                <Dropdown overlay={languageMenu}>
-                    <div className='outMenu-lan'>
-                        <GlobalOutlined className='header-dropdown-icon'/>
-                        <span className='lan'>切换语言</span>
-                    </div>
-                </Dropdown>
-            </div>
-            <div className='header-outMenu-out'>
-                <div onClick={()=>goOut()} className='outMenu-out'>
-                    <LogoutOutlined className='header-dropdown-icon'/>
-                    <span className='bottom-out'>退出</span>
-                </div>
-            </div>
-        </div>
-    )
-
-    // 帮助目录
-    const helpMenu = (
-        <div className='header-helpMenu'>
-            <div className='header-helpMenu-item'>
-                <ProfileOutlined className='header-dropdown-icon'/>
-                文档
-            </div>
-            <div className='header-helpMenu-item'>
-                <ExpandOutlined className='header-dropdown-icon'/>
-                社区支持
-            </div>
-            <div className='header-helpMenu-item'>
-                <ScheduleOutlined className='header-dropdown-icon'/>
-                在线工单
-            </div>
-            <div className='header-helpMenu-item'>
-                <WhatsAppOutlined className='header-dropdown-icon'/>
-                在线客服
-            </div>
-        </div>
-    )
+    //点击图标跳转首页
+    const goHomePage = () => {
+        props.history.push(`/library/maven`)
+    }
 
     return(
-            <div className=''>
-                <div className='frame-header' >
-                    <div className='frame-header-right'>
-                        <div className='frame-app-link'>
-                            {AppLink}
-                        </div>
-                        <div className='frame-header-logo'>
-                            <div style={{paddingTop:12}}>
-                                <img  src={xpack}  style={{width:22,height:22}}/>
-                            </div>
-                            <div className='frame-header-logo-text'>Xpack</div>
-                        </div>
-                        <div className='headers-link'>
-                            {renderRouter(HeaderRuter)}
-                        </div>
-                    </div>
-                    <div className='frame-header-right'>
-                        <div className='frame-header-right-text'>
-                            <div className='frame-header-set' onClick={()=>goSystem()}>
-                                <SettingOutlined className='frame-header-icon'/>
-                            </div>
-                            <div className='frame-header-message' onClick={()=>setVisible(true)}>
-                                <Badge count={3} size='small'>
-                                    <MessageOutlined className='frame-header-icon'/>
-                                </Badge>
-                            </div>
-                            <HelpLink/>
-                            <AvatarLink {...props}/>
-                        </div>
-                    </div>
+         <div className='hadess-header' >
+            <div className='hadess-header-right'>
+                <div className='recovery-item'>
+                    {AppLink}
                 </div>
-                <Message
-                    {...props}
-                    visible={visible}
-                    setVisible={setVisible}
-                />
+
+                <div className='hadess-header-logo' onClick={goHomePage}>
+                    <img  src={productWhiteImg.matflow}  style={{width:22,height:22}}/>
+                    <div className='hadess-header-logo-text'>Hadess</div>
+                </div>
+             {/*   <div className='hadess-header-link'>
+                    {renderRouter(HeaderRuter)}
+                </div>*/}
             </div>
+            <div className='hadess-header-right'>
+                <div className='hadess-header-right-text'>
+                 {/*   <div className='hadess-header-set' onClick={()=>goSystem()}>
+                        <SettingOutlined className='hadess-header-icon'/>
+                    </div>*/}
+                    <div className='hadess-header-message' onClick={()=>setVisible(true)}>
+                        <Badge count={unread} size='small'>
+                            <BellOutlined className="hadess-header-icon"/>
+                        </Badge>
+                    </div>
+
+                    <div className='recovery-item'>
+                        {HelpLink}
+                    </div>
+                    <div className='recovery-item'>
+                        <PortalFeature/>
+                    </div>
+                    {AvatarLink}
+                </div>
+            </div>
+            <Message
+                {...props}
+                visible={visible}
+                setVisible={setVisible}
+                unread={unread}
+                setUnread={setUnread}
+            />
+         </div>
     )
 }
 

@@ -1,11 +1,11 @@
 
-import React,{ useState} from 'react';
+import React,{ useState,useEffect} from 'react';
 import ReactDOM from 'react-dom';
 import { HashRouter } from 'react-router-dom';
 import { renderRoutes } from 'react-router-config';
-import { enableAxiosCE } from 'tiklab-core-ui'
-import {orgStores} from "tiklab-user-ui/es/store";
-import {privilegeStores} from "tiklab-privilege-ui/es/store";
+import { enableAxios } from 'thoughtware-core-ui'
+import {orgStores} from "thoughtware-user-ui/es/store";
+import {privilegeStores} from "thoughtware-privilege-ui/es/store";
 import { ConfigProvider } from 'antd';
 import { Provider } from 'mobx-react';
 import routes from './routers'
@@ -16,9 +16,9 @@ import "./assets/images/index"
 import './index.scss';
 import {useTranslation} from "react-i18next";
 import zhCN from 'antd/es/locale/zh_CN';
-import {PluginProvider} from "tiklab-plugin-core-ui";
-
-enableAxiosCE()
+import {pluginLoader,PluginProvider} from "thoughtware-plugin-core-ui";
+import resources from "./common/language/Resources";
+enableAxios()
 const App = () => {
     // 注册所有插件
     let allStore = {
@@ -26,21 +26,24 @@ const App = () => {
         ...privilegeStores,
         ...orgStores,
     };
-
     const {i18n} = useTranslation();
 
-    const [viable,setViable] = useState(true);
+    const [visible,setVisible] = useState(true);
 
     const [pluginData,setPluginData] = useState({
         routes,
         pluginStore:[],
         languageStore:[]
     });
-    const resources = {
-        zh: {
-            translation: {},
-        },
-    }
+
+    useEffect(() => {
+        pluginLoader(routes,resources,i18n).then(res => {
+            setPluginData(res)
+            setVisible(false)
+        })
+    }, [])
+
+
     return (
         <PluginProvider store={pluginData}>
             <Provider {...allStore}>

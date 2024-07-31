@@ -1,0 +1,46 @@
+.proxy-path-add{
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background: #ffffff;
+    padding: 15px;
+    .proxy-path-add-head{
+        display: flex;
+        gap: 10px;
+        font-size: 15px;
+        font-weight: 500;
+        .head-nav-opt{
+
+        }
+    }
+
+    .proxy-path-add-top{
+        max-height: 220px;
+        overflow: auto;
+        margin-top: 10px;
+        .add-custom-nav{
+           margin-top: 10px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            .add-custom-input{
+                margin-top: 5px;
+                width: 400px;
+            }
+            .add-custom-text::after{
+                display: inline-block;
+                margin-right: 4px;
+                color: rgb(255, 77, 79);
+                font-size: 14px;
+                font-family: SimSun, sans-serif;
+                line-height: 1;
+                content: "*";
+            }
+        }
+
+
+    }
+    .proxy-path-add-btn{
+        text-align: right;
+        padding-top: 8px;
+    }
+}

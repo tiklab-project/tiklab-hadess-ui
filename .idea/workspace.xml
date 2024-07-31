@@ -4,130 +4,227 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e6378b84-3e20-41b7-be8c-6e4d0df4db5e" name="Changes" comment="路由修改">
-      <change afterPath="$PROJECT_DIR$/src/assets/images/img/hole.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/img/licence.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/img/repair.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/img/return.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/assets/images/img/xpack.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/btn/HoleBtn.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/btn/HoleBtn.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryDetails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryDetails.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryDrawer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryDrawer.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryFileList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryFileList.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryHistory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryHistory.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryTableNav.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/LibraryTableNav.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/library/OmitFiled.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/upload/FileUploading.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/AddScanLibraryPop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanDetails.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanDetails.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanHistory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanHistory.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanList.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanPlayEditPop.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanPlayList.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/components/ScanPlayList.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/store/ScanHoleStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/store/ScanLibraryStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/store/ScanPlayStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/store/ScanRecordStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/detection/store/ScanRelyStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/guide/components/PullDetails.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/guide/components/PushDetails.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/library/LibraryUpload.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/repository/library/LibraryUpload.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/components/BackupReLog.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/components/BackupReLog.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/components/BackupRecovery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/components/BackupRecovery.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/components/Recover.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/backup/store/BackupsStore.js" afterDir="false" />
+    <list default="true" id="891956b4-41a5-48b1-870b-1640607831ae" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/Login/components/LoginWechat.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Login/components/Logout.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/fail.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/goBack.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/library.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/member.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/noExec.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/success.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/upgrade.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/warehouse.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/ProxyPathAdd/ProxyPathAdd.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/ProxyPathAdd/ProxyPathadd.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/delete/DeleteExec.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/delete/DeleteExec.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/downSelect/DownSelect.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/downSelect/DownSelect.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/header/store/MessageStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/navigation/FirstNav.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/navigation/FirstNav.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/timetask/TimeTaskPop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/upgrade/UpgradePopup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/upgrade/UpgradePopup.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanLogCommon.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanLogDrawer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanLogDrawer.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanSetting.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/scan/store/TimeTaskStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryDelete.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryDelete.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushGroup.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushGroup.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushGroupPop.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushLibrary.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushLogDrawer.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushLogDrawer.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/store/PushGroupStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/store/PushOperationStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/basicData/LogType.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/basicData/ProjectFunction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/basicData/ProjectRole.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/basicData/SystemFunction.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/basicData/SystemRole.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/home/components/SettingHome.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/home/components/SettingHome.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/home/store/SystemCountStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/navigator/BasicRouters.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/not/ExcludeProductUserContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/not/NoAccessContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/not/NotFoundContent.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgency.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgency.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/remoteAgency/store/RemoteAgencyStore.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/resources/components/Resources.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/resources/components/Resources.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/setting/resources/store/ResourcesStore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.babelrc.js" beforeDir="false" afterPath="$PROJECT_DIR$/.babelrc.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_7_3,_11_41_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_7_3,_13_08_[Changes]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_7_3__11_41__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2023_7_3__13_08__Changes_.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tiklab-xpack-ui.iml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment/environment-dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/environment/environment-dev.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment/environment-prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/environment/environment-prod.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/environment/environment-test.js" beforeDir="false" afterPath="$PROJECT_DIR$/environment/environment-test.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/btn/Btn.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/btn/Btn.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/rollup.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/rollup.config.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login/api/userApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/api/userApi.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/breadcrumb/Breadcrumb.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/breadcrumb/Breadcrumb.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/breadcrumb/Breadcrumb.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/breadcrumb/Breadcrumb.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/btn/Btn.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/btn/Btn.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/client/Client.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/client/Client.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/header/header.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/header/header.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/header/header.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/header/header.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/FileDetails.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/FileDetails.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/FileList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/History.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTopNav.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTopNav.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/Survey.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/fileList.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/history.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/survey.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/header/message.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/header/message.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/header/message.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/header/message.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/language/cn/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/language/cn/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/language/en/translation.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/language/en/translation.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/language/resources.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/language/resources.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/layout/layout.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/layout/layout.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/layout/layout.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/layout/layout.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/layout/layout.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/layout/static/head.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryDetails.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryDetails.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryDrawer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryDrawer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryFileDetails.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryFileList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryFileList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryFileList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryFileList.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryHistory.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryHistory.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibrarySelect.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibrarySelect.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibrarySelect.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibrarySelect.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTableNav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryTableNav.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/OmitFiled.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/OmitFiled.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/menu/menu.module.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/menu/menu.module.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/modal/Modal.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/modal/Modal.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/modal/Modal.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/modal/Modal.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/page/Page.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/page/Page.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/page/Page.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/page/Page.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/repositoryIcon/Listicon.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/repositoryIcon/Listicon.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/repositoryIcon/Listicon.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/repositoryIcon/Listicon.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/common/styles/Index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/styles/Index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/upload/FileUploading.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/upload/FileUploading.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/utils/axios.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/axios.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryFileList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryFileList.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryHistory.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryHistory.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryHistoryDetail.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibraryHistoryDetail.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/components/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/components/LibraryList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/components/LibraryList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/components/LibraryList.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/components/LibraryNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/components/LibraryNav.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/components/LibraryNav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/components/LibraryNav.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibrarySurvey.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/components/LibrarySurvey.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/components/LibraryTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/components/LibraryTable.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/library/store/LibraryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/store/LibraryStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/Agency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/deploy/components/Agency.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/DeployDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/Voucher.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/Details.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/Details.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideContent.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideType.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideType.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/login/components/ExcludeProductUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/login/components/ExcludeProductUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/api/CopyApi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/api/ProxyApi.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/Agency.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/Agency.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgencyEditPop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/AgencyAddEdit.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/Copy.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/Copy.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/components/CopyAddEdit.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/old/CopyAddEditNew.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/old/Details.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/old/ManageList.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/deploy/store/DeployStore.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/Details.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/Voucher.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideDrawer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/GuideTable.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/guide/components/PullDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/PullDetails.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/guide/components/PushDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/PushDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/components/Voucher.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/components/Voucher.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/library/Library.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/Library.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryFileList.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryHistory.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryExec.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryExec.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryExec.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryExec.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/library/LibrarySurvey.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryUpload.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryUpload.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/library/LibraryUpload.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/LibraryUpload.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/navigator/ChangeRepository.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/ChangeRepository.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/navigator/ChangeRepository.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/ChangeRepository.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryUpdate.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryUpdate.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/repository/store/repositoryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/store/repositoryStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/AddScanLibraryPop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/AddScanLibraryPop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/RelyOnDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/RelyOnDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanDetails.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanDetails.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanHistory.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanHistory.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanList.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayEditPop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayEditPop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/components/ScanPlayList.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/store/ScanLibraryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/store/ScanLibraryStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/store/ScanPlayStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/store/ScanPlayStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/store/ScanRecordStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/store/ScanRecordStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/scan/store/ScanRelyStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/scan/store/ScanRelyStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/setting/ProgramUser.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/ProgramUser.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/setting/ProjectDomainRole.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/ProjectDomainRole.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/navigator/RepositorySetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/navigator/RepositorySetting.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/navigator/RepsoitorySetting.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/navigator/RepsoitorySetting.scss" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryOption.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryOption.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryPush.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryPush.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushCenter.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushCenter.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryPush.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushLibrary.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/components/PushCenter.scss" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/repository/setting/pushCenter/store/PushCenterStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/pushCenter/store/PushCenterStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/survey/components/Survey.js" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/backup/BackupRecoveryContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/backup/BackupRecoveryContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/licence/AuthContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/licence/AuthContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/licence/Version.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/licence/Version.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/message/MessageNotice.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/message/MessageNotice.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/message/Messagesendtype.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/message/Messagesendtype.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/navigator/settingAside.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/settingAside.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/organ/Group.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/organ/Group.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/organ/Orga.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/organ/Orga.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/organ/User.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/organ/User.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/organ/UserDirectory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/organ/UserDirectory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/plugins/Plugin.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/plugins/Plugin.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/role/SystemRole.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/role/SystemRole.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/HoleEditPop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/HoleEditPop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/HoleEditPop.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/HoleEditPop.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/HoleList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/HoleList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/HoleList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/HoleList.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHole.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHole.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHole.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHole.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleAddDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleAddDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleAddDrawer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleAddDrawer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleDetailsDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleDetailsDrawer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleDetailsDrawer.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanHoleDetailsDrawer.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanScheme.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanScheme.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanScheme.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanScheme.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/components/ScanSchemeEditPop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/components/ScanSchemeEditPop.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/store/ScanHoleStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/store/ScanHoleStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/scan/store/ScanSchemeStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/scan/store/ScanSchemeStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/security/MyLog.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/security/MyLog.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/slateStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/slateStore.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stores.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/stores.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.dev.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.prod.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -137,53 +234,55 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="HTML File" />
-        <option value="Sass File" />
         <option value="CSS File" />
-        <option value="SCSS File" />
         <option value="JavaScript File" />
+        <option value="SCSS File" />
       </list>
     </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
-    <option name="UPDATE_TYPE" value="REBASE" />
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/.babelrc.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/environment/environment-dev.js" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/package.json" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/Login/components/LoginXpack.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/common/header/header.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/common/index.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/common/language/i18n.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/common/layout/layout.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/library/components/LibraryList.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/stores.js" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/webpack.dev.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/Login/components/ExcludeProductUser.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/common/language/en/translation.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/common/language/resources.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/common/library/LibraryFileDetails.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/index.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/repository/components/RepositoryList.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/scan/components/ScanList.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/scan/components/ScanLogDrawer.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/scan/components/ScanPlayList.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/scan/store/ScanLibraryStore.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/setting/pushCenter/components/LibraryOption.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/repository/setting/pushCenter/store/PushCenterStore.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/routers.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setting/navigator/SettingAside.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setting/resources/components/Resources.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setting/resources/components/Resources.scss" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/setting/resources/store/ResourcesStore.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/slateStore.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/ui.js" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/webpack.prod.js" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PackageJsonUpdateNotifier">
-    <dismissed value="$PROJECT_DIR$/package.json" />
-  </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="28N3B9RcVenfuRZCJnBIG82IEOE" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectId" id="2ZFoe2XNHirMEM59b8J6G6e9le0" />
   <component name="ProjectViewState">
+    <option name="autoscrollFromSource" value="true" />
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
-    &quot;DefaultHtmlFileTemplate&quot;: &quot;HTML File&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
     &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/limingliang/xcode-xpack/tiklab-xpack-ui/src/repository/detection/store&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/limingliang/work/work-project/web/thoughtware-hadess-ui&quot;,
     &quot;list.type.of.created.stylesheet&quot;: &quot;SCSS&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -197,31 +296,18 @@
 }</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/repository/detection/store" />
-      <recent name="$PROJECT_DIR$/src/assets/images/img" />
-      <recent name="$PROJECT_DIR$/src/setting/backup/store" />
-      <recent name="$PROJECT_DIR$/src/setting/backup/components" />
-      <recent name="$PROJECT_DIR$/src/common/upload" />
+      <recent name="$PROJECT_DIR$/src/repository/setting/pushCenter/components" />
+      <recent name="$PROJECT_DIR$/src/repository/setting/pushCenter/store" />
+      <recent name="$PROJECT_DIR$/src/setting/remoteProxy/components" />
+      <recent name="$PROJECT_DIR$/src/setting/remoteProxy/store" />
+      <recent name="$PROJECT_DIR$/src/repository/scan/store" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/src/repository/detection/components" />
-      <recent name="$PROJECT_DIR$/src/repository/library" />
-      <recent name="$PROJECT_DIR$/src/library/components" />
-      <recent name="$PROJECT_DIR$/src/common/library" />
-      <recent name="$PROJECT_DIR$/src/common/table" />
+      <recent name="$PROJECT_DIR$/src/common/downSelect" />
+      <recent name="$PROJECT_DIR$/src/common/ProxyPathAdd" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
-    <configuration name="build" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="build" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <configuration name="build:rollup" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -252,770 +338,105 @@
       <envs />
       <method v="2" />
     </configuration>
-    <list>
-      <item itemvalue="npm.build:webpack" />
-      <item itemvalue="npm.build:rollup" />
-      <item itemvalue="npm.build" />
-      <item itemvalue="npm.start" />
-    </list>
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
         <item itemvalue="npm.build:rollup" />
         <item itemvalue="npm.build:webpack" />
-        <item itemvalue="npm.build" />
       </list>
     </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="e6378b84-3e20-41b7-be8c-6e4d0df4db5e" name="Changes" comment="" />
-      <created>1651043077680</created>
+      <changelist id="891956b4-41a5-48b1-870b-1640607831ae" name="Changes" comment="" />
+      <created>1702027279817</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1651043077680</updated>
-      <workItem from="1651043079290" duration="8927000" />
-      <workItem from="1651230327876" duration="740000" />
-      <workItem from="1651231081132" duration="598000" />
-      <workItem from="1651805567081" duration="37000" />
-      <workItem from="1651815615374" duration="2310000" />
-      <workItem from="1652094192561" duration="6043000" />
-      <workItem from="1652144229323" duration="5877000" />
-      <workItem from="1652257837033" duration="722000" />
-      <workItem from="1652259406745" duration="1209000" />
-      <workItem from="1652269349987" duration="4000" />
-      <workItem from="1652271278448" duration="1017000" />
-      <workItem from="1652274031502" duration="596000" />
-      <workItem from="1652323931578" duration="1212000" />
-      <workItem from="1652403622865" duration="120000" />
-      <workItem from="1652663718895" duration="20226000" />
-      <workItem from="1652748783412" duration="23202000" />
-      <workItem from="1652835728521" duration="18443000" />
-      <workItem from="1652921709638" duration="18370000" />
-      <workItem from="1653008569927" duration="20245000" />
-      <workItem from="1653095556473" duration="7053000" />
-      <workItem from="1653267822700" duration="7190000" />
-      <workItem from="1653354156532" duration="7238000" />
-      <workItem from="1653480297235" duration="598000" />
-      <workItem from="1653526190050" duration="598000" />
-      <workItem from="1653533835593" duration="1832000" />
-      <workItem from="1653577072963" duration="3190000" />
-      <workItem from="1653732704552" duration="1437000" />
-      <workItem from="1653875408642" duration="19680000" />
-      <workItem from="1653959423634" duration="14472000" />
-      <workItem from="1654045179327" duration="1000" />
-      <workItem from="1654045200254" duration="598000" />
-      <workItem from="1654046259363" duration="642000" />
-      <workItem from="1654131824717" duration="2789000" />
-      <workItem from="1654304470182" duration="607000" />
-      <workItem from="1654313914161" duration="20279000" />
-      <workItem from="1654477101922" duration="9505000" />
-      <workItem from="1654511561550" duration="598000" />
-      <workItem from="1654563560584" duration="235000" />
-      <workItem from="1654571029031" duration="4986000" />
-      <workItem from="1654650195774" duration="13731000" />
-      <workItem from="1654736410725" duration="1721000" />
-      <workItem from="1654822690144" duration="1166000" />
-      <workItem from="1654838542302" duration="9945000" />
-      <workItem from="1654908995488" duration="765000" />
-      <workItem from="1654918259636" duration="23000" />
-      <workItem from="1654918296062" duration="912000" />
-      <workItem from="1655082300729" duration="13550000" />
-      <workItem from="1655168991979" duration="23155000" />
-      <workItem from="1655201234143" duration="6265000" />
-      <workItem from="1655254144679" duration="21594000" />
-      <workItem from="1655341077052" duration="1986000" />
-      <workItem from="1655344704069" duration="12833000" />
-      <workItem from="1655380886383" duration="3968000" />
-      <workItem from="1655428395626" duration="1058000" />
-      <workItem from="1655457225245" duration="2041000" />
-      <workItem from="1655513797845" duration="8168000" />
-      <workItem from="1655686667590" duration="4041000" />
-      <workItem from="1655703856307" duration="29735000" />
-      <workItem from="1655859631443" duration="11630000" />
-      <workItem from="1655982585933" duration="700000" />
-      <workItem from="1656035611578" duration="8506000" />
-      <workItem from="1656118337302" duration="12577000" />
-      <workItem from="1656293013558" duration="9214000" />
-      <workItem from="1656378148639" duration="17050000" />
-      <workItem from="1656465009181" duration="639000" />
-      <workItem from="1656468510638" duration="1797000" />
-      <workItem from="1656550908077" duration="4007000" />
-      <workItem from="1656585091491" duration="625000" />
-      <workItem from="1656638348349" duration="13985000" />
-      <workItem from="1656723351029" duration="9496000" />
-      <workItem from="1656752400924" duration="5940000" />
-      <workItem from="1656909452801" duration="1825000" />
-      <workItem from="1657158890998" duration="3001000" />
-      <workItem from="1657175322773" duration="2330000" />
-      <workItem from="1657243472344" duration="5111000" />
-      <workItem from="1657501237521" duration="4901000" />
-      <workItem from="1657673955350" duration="6795000" />
-      <workItem from="1657700343712" duration="4548000" />
-      <workItem from="1657760654645" duration="4507000" />
-      <workItem from="1657785317269" duration="1232000" />
-      <workItem from="1657867502461" duration="5581000" />
-      <workItem from="1657941549660" duration="2846000" />
-      <workItem from="1657956209865" duration="80000" />
-      <workItem from="1657965374384" duration="31000" />
-      <workItem from="1657966649469" duration="646000" />
-      <workItem from="1658284050462" duration="2904000" />
-      <workItem from="1658306020220" duration="1539000" />
-      <workItem from="1658308196675" duration="4005000" />
-      <workItem from="1658366392829" duration="1828000" />
-      <workItem from="1658370882637" duration="773000" />
-      <workItem from="1658380157655" duration="4300000" />
-      <workItem from="1658451595145" duration="2233000" />
-      <workItem from="1658469245520" duration="37000" />
-      <workItem from="1658476440134" duration="2154000" />
-      <workItem from="1658486300862" duration="294000" />
-      <workItem from="1658491946932" duration="3367000" />
-      <workItem from="1658537981732" duration="33000" />
-      <workItem from="1658562270864" duration="11000" />
-      <workItem from="1658565458983" duration="26000" />
-      <workItem from="1658575463223" duration="2662000" />
-      <workItem from="1658710566914" duration="17793000" />
-      <workItem from="1658802130871" duration="2003000" />
-      <workItem from="1658882818805" duration="450000" />
-      <workItem from="1658886076621" duration="7598000" />
-      <workItem from="1658976291640" duration="4902000" />
-      <workItem from="1659060354785" duration="6647000" />
-      <workItem from="1659093067806" duration="199000" />
-      <workItem from="1659093283273" duration="848000" />
-      <workItem from="1659145303384" duration="18394000" />
-      <workItem from="1659314862481" duration="4944000" />
-      <workItem from="1659345015771" duration="6789000" />
-      <workItem from="1659402070900" duration="1467000" />
-      <workItem from="1659408010678" duration="2536000" />
-      <workItem from="1659444503583" duration="22000" />
-      <workItem from="1659577284128" duration="4106000" />
-      <workItem from="1659660639535" duration="2834000" />
-      <workItem from="1659759930097" duration="599000" />
-      <workItem from="1659936777204" duration="2390000" />
-      <workItem from="1659957849943" duration="925000" />
-      <workItem from="1660006283484" duration="2000" />
-      <workItem from="1660006403746" duration="2000" />
-      <workItem from="1660006547725" duration="1000" />
-      <workItem from="1660006570671" duration="2145000" />
-      <workItem from="1660032762278" duration="21000" />
-      <workItem from="1660032907310" duration="121000" />
-      <workItem from="1660033048648" duration="4000" />
-      <workItem from="1660033094011" duration="2361000" />
-      <workItem from="1660099265309" duration="154000" />
-      <workItem from="1660183362652" duration="82000" />
-      <workItem from="1660183527528" duration="41000" />
-      <workItem from="1660184115636" duration="128000" />
-      <workItem from="1660187175355" duration="131000" />
-      <workItem from="1660281550641" duration="73000" />
-      <workItem from="1660384955599" duration="44000" />
-      <workItem from="1660385088386" duration="37000" />
-      <workItem from="1660697242342" duration="375000" />
-      <workItem from="1660705081039" duration="15000" />
-      <workItem from="1660875820913" duration="1578000" />
-      <workItem from="1660956832583" duration="57000" />
-      <workItem from="1661136012795" duration="23160000" />
-      <workItem from="1661326419816" duration="5866000" />
-      <workItem from="1661412715258" duration="14000" />
-      <workItem from="1661484344477" duration="3462000" />
-      <workItem from="1661499187355" duration="34000" />
-      <workItem from="1661503583018" duration="5890000" />
-      <workItem from="1661734813872" duration="1000" />
-      <workItem from="1661734845172" duration="1068000" />
-      <workItem from="1662015197503" duration="8214000" />
-      <workItem from="1662089881778" duration="3041000" />
-      <workItem from="1662169530428" duration="2235000" />
-      <workItem from="1662346859182" duration="10135000" />
-      <workItem from="1662426025956" duration="8338000" />
-      <workItem from="1662689691131" duration="6000" />
-      <workItem from="1662689874364" duration="12579000" />
-      <workItem from="1662943876280" duration="2674000" />
-      <workItem from="1662975032276" duration="641000" />
-      <workItem from="1663031338071" duration="1297000" />
-      <workItem from="1663120053597" duration="8224000" />
-      <workItem from="1663202897726" duration="859000" />
-      <workItem from="1663395045987" duration="4117000" />
-      <workItem from="1663411796470" duration="40000" />
-      <workItem from="1663740840875" duration="1986000" />
-      <workItem from="1663807802543" duration="672000" />
-      <workItem from="1663984063614" duration="18620000" />
-      <workItem from="1664153438341" duration="12369000" />
-      <workItem from="1664247359230" duration="7676000" />
-      <workItem from="1664258480203" duration="9759000" />
-      <workItem from="1664325943091" duration="7331000" />
-      <workItem from="1664413879100" duration="12434000" />
-      <workItem from="1664500820830" duration="4634000" />
-      <workItem from="1665190729458" duration="1000" />
-      <workItem from="1665190862620" duration="1951000" />
-      <workItem from="1665276749259" duration="599000" />
-      <workItem from="1665363771248" duration="7317000" />
-      <workItem from="1665450849578" duration="615000" />
-      <workItem from="1665474339739" duration="1304000" />
-      <workItem from="1665535471717" duration="14341000" />
-      <workItem from="1665622126901" duration="9637000" />
-      <workItem from="1665708932103" duration="1812000" />
-      <workItem from="1665881853396" duration="619000" />
-      <workItem from="1666000045765" duration="1711000" />
-      <workItem from="1666015353667" duration="8000" />
-      <workItem from="1666057486912" duration="2864000" />
-      <workItem from="1666141111972" duration="141000" />
-      <workItem from="1666146614935" duration="90000" />
-      <workItem from="1666146759582" duration="13480000" />
-      <workItem from="1666227363451" duration="9329000" />
-      <workItem from="1666314808028" duration="22626000" />
-      <workItem from="1666400122666" duration="8049000" />
-      <workItem from="1666572989280" duration="4522000" />
-      <workItem from="1666659393973" duration="703000" />
-      <workItem from="1666745862848" duration="4070000" />
-      <workItem from="1666832239801" duration="11129000" />
-      <workItem from="1666919361321" duration="5223000" />
-      <workItem from="1666962960870" duration="19000" />
-      <workItem from="1667359682964" duration="1399000" />
-      <workItem from="1667441386157" duration="7680000" />
-      <workItem from="1667523521620" duration="1325000" />
-      <workItem from="1667610343221" duration="1568000" />
-      <workItem from="1667783551868" duration="25661000" />
-      <workItem from="1667869081229" duration="27346000" />
-      <workItem from="1667956034031" duration="37248000" />
-      <workItem from="1668042831923" duration="31693000" />
-      <workItem from="1668128438704" duration="33441000" />
-      <workItem from="1668214978490" duration="23023000" />
-      <workItem from="1668387707522" duration="9571000" />
-      <workItem from="1668474176588" duration="3200000" />
-      <workItem from="1668507056637" duration="1897000" />
-      <workItem from="1668567630215" duration="24892000" />
-      <workItem from="1668647359255" duration="6048000" />
-      <workItem from="1668663519482" duration="1511000" />
-      <workItem from="1668671276175" duration="4462000" />
-      <workItem from="1668733723940" duration="6412000" />
-      <workItem from="1668756945943" duration="122000" />
-      <workItem from="1668757163560" duration="4757000" />
-      <workItem from="1668840806989" duration="40000" />
-      <workItem from="1668840886066" duration="714000" />
-      <workItem from="1668849361402" duration="10000" />
-      <workItem from="1669022263550" duration="2741000" />
-      <workItem from="1669079249274" duration="3756000" />
-      <workItem from="1669165339697" duration="672000" />
-      <workItem from="1669192624145" duration="31000" />
-      <workItem from="1669192794039" duration="2944000" />
-      <workItem from="1669271272631" duration="3130000" />
-      <workItem from="1669283296665" duration="2696000" />
-      <workItem from="1669338351502" duration="12070000" />
-      <workItem from="1669424677681" duration="599000" />
-      <workItem from="1669426918827" duration="21813000" />
-      <workItem from="1669597341339" duration="17898000" />
-      <workItem from="1669683233576" duration="1687000" />
-      <workItem from="1669701686473" duration="3682000" />
-      <workItem from="1669717420294" duration="1120000" />
-      <workItem from="1669769649068" duration="13537000" />
-      <workItem from="1669815116330" duration="739000" />
-      <workItem from="1669973110029" duration="2106000" />
-      <workItem from="1670028646903" duration="14741000" />
-      <workItem from="1670205857243" duration="988000" />
-      <workItem from="1670207408042" duration="5166000" />
-      <workItem from="1670288280713" duration="598000" />
-      <workItem from="1670635808154" duration="294000" />
-      <workItem from="1671083842356" duration="747000" />
-      <workItem from="1671084623308" duration="14000" />
-      <workItem from="1671090081107" duration="628000" />
-      <workItem from="1671178614835" duration="2659000" />
-      <workItem from="1671239169102" duration="4581000" />
-      <workItem from="1672024694911" duration="3852000" />
-      <workItem from="1672033353323" duration="3853000" />
-      <workItem from="1672102503237" duration="31489000" />
-      <workItem from="1672189206883" duration="28131000" />
-      <workItem from="1672275720700" duration="26617000" />
-      <workItem from="1672366852220" duration="17088000" />
-      <workItem from="1672448016776" duration="10968000" />
-      <workItem from="1672550618316" duration="160000" />
-      <workItem from="1672709488544" duration="19303000" />
-      <workItem from="1672968725264" duration="3409000" />
-      <workItem from="1673071487538" duration="5735000" />
-      <workItem from="1673228291140" duration="17007000" />
-      <workItem from="1673312652506" duration="8840000" />
-      <workItem from="1673419641505" duration="2122000" />
-      <workItem from="1673501483283" duration="1448000" />
-      <workItem from="1673836555668" duration="5623000" />
-      <workItem from="1673917926575" duration="17909000" />
-      <workItem from="1675213781588" duration="14624000" />
-      <workItem from="1675300071027" duration="8249000" />
-      <workItem from="1675386719792" duration="11418000" />
-      <workItem from="1675472672194" duration="19487000" />
-      <workItem from="1675645854892" duration="9678000" />
-      <workItem from="1675661027751" duration="396000" />
-      <workItem from="1675661524829" duration="22466000" />
-      <workItem from="1675731987300" duration="25256000" />
-      <workItem from="1675818712868" duration="32161000" />
-      <workItem from="1675905004008" duration="293000" />
-      <workItem from="1675905683166" duration="5940000" />
-      <workItem from="1675914136025" duration="1383000" />
-      <workItem from="1675919397581" duration="18189000" />
-      <workItem from="1675991294250" duration="22269000" />
-      <workItem from="1676078582539" duration="18076000" />
-      <workItem from="1676252839966" duration="9155000" />
-      <workItem from="1676339764557" duration="1300000" />
-      <workItem from="1676423220441" duration="13974000" />
-      <workItem from="1676451069848" duration="216000" />
-      <workItem from="1676513242264" duration="1349000" />
-      <workItem from="1676536126250" duration="610000" />
-      <workItem from="1676595722319" duration="28138000" />
-      <workItem from="1676681976576" duration="22989000" />
-      <workItem from="1676854631178" duration="6386000" />
-      <workItem from="1676886654554" duration="214000" />
-      <workItem from="1676889518954" duration="92000" />
-      <workItem from="1677122349450" duration="178000" />
-      <workItem from="1677131229463" duration="690000" />
-      <workItem from="1677288956511" duration="679000" />
-      <workItem from="1677493974967" duration="575000" />
-      <workItem from="1677564507794" duration="5386000" />
-      <workItem from="1677638381372" duration="517000" />
-      <workItem from="1677639219783" duration="75000" />
-      <workItem from="1677742652538" duration="358000" />
-      <workItem from="1677824895760" duration="9027000" />
-      <workItem from="1678152497179" duration="120000" />
-      <workItem from="1678849292326" duration="3840000" />
-      <workItem from="1678871650856" duration="11937000" />
-      <workItem from="1678927953957" duration="5382000" />
-      <workItem from="1678964293734" duration="7082000" />
-      <workItem from="1679015200334" duration="19487000" />
-      <workItem from="1679051232262" duration="10945000" />
-      <workItem from="1679106772160" duration="15774000" />
-      <workItem from="1679274051541" duration="1198000" />
-      <workItem from="1679448790726" duration="9695000" />
-      <workItem from="1680053434441" duration="1722000" />
-      <workItem from="1680483926404" duration="16745000" />
-      <workItem from="1680570029945" duration="7974000" />
-      <workItem from="1680742357778" duration="1925000" />
-      <workItem from="1680770244074" duration="843000" />
-      <workItem from="1680775395062" duration="1290000" />
-      <workItem from="1680778107263" duration="47000" />
-      <workItem from="1680867940978" duration="509000" />
-      <workItem from="1680868474719" duration="259000" />
-      <workItem from="1680868766978" duration="1029000" />
-      <workItem from="1680916397190" duration="20645000" />
-      <workItem from="1681088846639" duration="4161000" />
-      <workItem from="1681121871837" duration="1807000" />
-      <workItem from="1681174400731" duration="1500000" />
-      <workItem from="1681189415691" duration="2174000" />
-      <workItem from="1681260614240" duration="598000" />
-      <workItem from="1681289301132" duration="7461000" />
-      <workItem from="1681309988613" duration="861000" />
-      <workItem from="1681347450385" duration="879000" />
-      <workItem from="1681349646867" duration="4046000" />
-      <workItem from="1681435321793" duration="3299000" />
-      <workItem from="1681449757784" duration="6598000" />
-      <workItem from="1681471977061" duration="2929000" />
-      <workItem from="1681520411968" duration="4917000" />
-      <workItem from="1681555326610" duration="2466000" />
-      <workItem from="1681701562309" duration="4270000" />
-      <workItem from="1681779045634" duration="6392000" />
-      <workItem from="1681803021474" duration="66000" />
-      <workItem from="1681803319129" duration="20767000" />
-      <workItem from="1681990890689" duration="4475000" />
-      <workItem from="1682043109736" duration="370000" />
-      <workItem from="1682047139725" duration="7442000" />
-      <workItem from="1682066268891" duration="7256000" />
-      <workItem from="1682074782011" duration="1216000" />
-      <workItem from="1682211848978" duration="26856000" />
-      <workItem from="1682298203006" duration="1189000" />
-      <workItem from="1682300936120" duration="2304000" />
-      <workItem from="1682322053692" duration="7581000" />
-      <workItem from="1682384750904" duration="2819000" />
-      <workItem from="1682387731103" duration="25029000" />
-      <workItem from="1682486475847" duration="358000" />
-      <workItem from="1682486968861" duration="10150000" />
-      <workItem from="1682503538252" duration="1457000" />
-      <workItem from="1682589134882" duration="1272000" />
-      <workItem from="1682647941968" duration="5000" />
-      <workItem from="1682684752343" duration="13888000" />
-      <workItem from="1682702100951" duration="1666000" />
-      <workItem from="1683178421517" duration="15338000" />
-      <workItem from="1683248552373" duration="5294000" />
-      <workItem from="1683273160752" duration="3621000" />
-      <workItem from="1683334748718" duration="598000" />
-      <workItem from="1684489277538" duration="675000" />
-      <workItem from="1684717916581" duration="599000" />
-      <workItem from="1684722015549" duration="668000" />
-      <workItem from="1684733120848" duration="3778000" />
-      <workItem from="1684804765801" duration="1968000" />
-      <workItem from="1684890790223" duration="598000" />
-      <workItem from="1685069963805" duration="1716000" />
-      <workItem from="1685078042237" duration="3735000" />
-      <workItem from="1685093836390" duration="3890000" />
-      <workItem from="1685099872717" duration="1806000" />
-      <workItem from="1685325915715" duration="1060000" />
-      <workItem from="1686059511585" duration="1123000" />
-      <workItem from="1686100289810" duration="835000" />
-      <workItem from="1686292216846" duration="2486000" />
-      <workItem from="1686531874921" duration="777000" />
-      <workItem from="1686540040177" duration="9000" />
-      <workItem from="1686625066099" duration="13757000" />
-      <workItem from="1686704764832" duration="1621000" />
-      <workItem from="1686797080517" duration="46000" />
-      <workItem from="1686797245545" duration="1083000" />
-      <workItem from="1686805820988" duration="1588000" />
-      <workItem from="1686815571029" duration="10000" />
-      <workItem from="1686883910204" duration="32000" />
-      <workItem from="1686918223235" duration="1213000" />
-      <workItem from="1686968082785" duration="601000" />
-      <workItem from="1686987435855" duration="1436000" />
-      <workItem from="1686995301370" duration="103000" />
-      <workItem from="1687242366295" duration="607000" />
-      <workItem from="1687308992141" duration="15886000" />
-      <workItem from="1687345146949" duration="5020000" />
-      <workItem from="1687500864872" duration="598000" />
-      <workItem from="1687654901986" duration="12622000" />
-      <workItem from="1687741889656" duration="194000" />
-      <workItem from="1687742096249" duration="20000" />
-      <workItem from="1687742124893" duration="303000" />
-      <workItem from="1688360931931" duration="416000" />
-      <workItem from="1688361422956" duration="560000" />
-      <workItem from="1688720780027" duration="24000" />
-      <workItem from="1688725841917" duration="181000" />
-      <workItem from="1688957608182" duration="1273000" />
-      <workItem from="1689040633857" duration="596000" />
-      <workItem from="1689167668263" duration="157000" />
-      <workItem from="1689211078949" duration="604000" />
-      <workItem from="1689319970241" duration="2004000" />
-      <workItem from="1689556060746" duration="2858000" />
-      <workItem from="1689590967843" duration="1299000" />
-      <workItem from="1689642093179" duration="6151000" />
-      <workItem from="1689656784147" duration="17445000" />
-      <workItem from="1689728866162" duration="24692000" />
-      <workItem from="1689815890112" duration="25879000" />
-      <workItem from="1689900688986" duration="13362000" />
-      <workItem from="1690160614438" duration="9311000" />
-      <workItem from="1690192681458" duration="5559000" />
-      <workItem from="1690246649319" duration="3429000" />
-      <workItem from="1690261403195" duration="2272000" />
-      <workItem from="1690371249160" duration="1273000" />
-      <workItem from="1690419689398" duration="721000" />
-      <workItem from="1690439073022" duration="5275000" />
-      <workItem from="1690459174628" duration="192000" />
-      <workItem from="1690511744739" duration="410000" />
-      <workItem from="1690783443419" duration="11475000" />
-      <workItem from="1690852648624" duration="598000" />
-      <workItem from="1690867668640" duration="3799000" />
-      <workItem from="1690943760405" duration="596000" />
-      <workItem from="1690952568628" duration="4049000" />
-      <workItem from="1691024649229" duration="3418000" />
-      <workItem from="1691065579536" duration="1237000" />
-      <workItem from="1691131969385" duration="25746000" />
-      <workItem from="1691284409478" duration="9398000" />
-      <workItem from="1691370413808" duration="28880000" />
-      <workItem from="1691456389576" duration="9568000" />
-      <workItem from="1691543102216" duration="2135000" />
-      <workItem from="1691629469352" duration="13743000" />
-      <workItem from="1691666051720" duration="3940000" />
-      <workItem from="1691715255692" duration="1713000" />
-      <workItem from="1692081160617" duration="5110000" />
-      <workItem from="1692087603646" duration="11596000" />
-      <workItem from="1692148440390" duration="1882000" />
-      <workItem from="1692162633543" duration="8085000" />
-      <workItem from="1692188432453" duration="1857000" />
-      <workItem from="1692234055926" duration="239000" />
-      <workItem from="1692321101159" duration="2080000" />
-      <workItem from="1692335229624" duration="7168000" />
-      <workItem from="1692579763668" duration="1205000" />
-      <workItem from="1692945827311" duration="19209000" />
-      <workItem from="1692972326785" duration="149000" />
-      <workItem from="1693184562645" duration="32942000" />
-      <workItem from="1693270765690" duration="9916000" />
-      <workItem from="1693285559144" duration="27790000" />
-      <workItem from="1693318559736" duration="2340000" />
-      <workItem from="1693357663273" duration="4867000" />
-      <workItem from="1693372249060" duration="12013000" />
-      <workItem from="1693443607244" duration="8260000" />
-      <workItem from="1693458404962" duration="17231000" />
-      <workItem from="1693529823192" duration="19600000" />
-      <workItem from="1693640893342" duration="22000" />
-      <workItem from="1693717271550" duration="630000" />
-      <workItem from="1693790039047" duration="35059000" />
-      <workItem from="1693875130204" duration="7861000" />
-      <workItem from="1693913074092" duration="1538000" />
-      <workItem from="1693925000304" duration="96000" />
-      <workItem from="1693925235607" duration="12000" />
-      <workItem from="1693925348781" duration="605000" />
-      <workItem from="1693962117561" duration="643000" />
-      <workItem from="1693969393582" duration="4522000" />
-      <workItem from="1694014082527" duration="513000" />
-      <workItem from="1694048439766" duration="1938000" />
-      <workItem from="1694064102699" duration="8770000" />
-      <workItem from="1694135047344" duration="9278000" />
-      <workItem from="1694314935299" duration="625000" />
-      <workItem from="1694394977663" duration="9572000" />
-      <workItem from="1694481434524" duration="6255000" />
-      <workItem from="1694567052263" duration="9382000" />
-      <workItem from="1694581387300" duration="14644000" />
-      <workItem from="1694653619059" duration="6027000" />
-      <workItem from="1694667790564" duration="8614000" />
-      <workItem from="1694740194835" duration="5300000" />
-      <workItem from="1694912492251" duration="394000" />
-      <workItem from="1694916660722" duration="598000" />
-      <workItem from="1694999502317" duration="318000" />
-      <workItem from="1695000341679" duration="12251000" />
-      <workItem from="1695085657297" duration="1187000" />
-      <workItem from="1695099804902" duration="1017000" />
-      <workItem from="1695105249752" duration="9090000" />
-      <workItem from="1695171630019" duration="18329000" />
-      <workItem from="1695257939817" duration="27891000" />
-      <workItem from="1695303893521" duration="2023000" />
-      <workItem from="1695344305930" duration="30943000" />
-      <workItem from="1695521893501" duration="14377000" />
-      <workItem from="1695604684472" duration="25372000" />
-      <workItem from="1695689595264" duration="16568000" />
-      <workItem from="1695776323760" duration="8208000" />
-      <workItem from="1696124255229" duration="598000" />
-      <workItem from="1696386397263" duration="622000" />
-      <workItem from="1696557499046" duration="1547000" />
-      <workItem from="1696576224835" duration="3022000" />
-      <workItem from="1696640373045" duration="241000" />
-      <workItem from="1696640718088" duration="11030000" />
-      <workItem from="1696726154538" duration="5111000" />
-      <workItem from="1696741333319" duration="5192000" />
-      <workItem from="1696813422468" duration="3069000" />
-      <workItem from="1696832383596" duration="2729000" />
-      <workItem from="1696900292973" duration="7504000" />
-      <workItem from="1696914092450" duration="8342000" />
-      <workItem from="1696986071702" duration="5124000" />
-      <workItem from="1697072035457" duration="3283000" />
-      <workItem from="1697158977897" duration="1479000" />
-      <workItem from="1697418202579" duration="1430000" />
-      <workItem from="1697454198852" duration="1799000" />
-      <workItem from="1697594526367" duration="1936000" />
-      <workItem from="1697606911892" duration="12418000" />
-      <workItem from="1697677449845" duration="12078000" />
-      <workItem from="1697708665120" duration="4235000" />
-      <workItem from="1697763832460" duration="8895000" />
-      <workItem from="1698023114722" duration="12919000" />
-      <workItem from="1698108355338" duration="7714000" />
-      <workItem from="1698195892680" duration="2443000" />
-      <workItem from="1698210560979" duration="8879000" />
-      <workItem from="1698282156765" duration="12171000" />
-      <workItem from="1698368638747" duration="632000" />
-      <workItem from="1698372260615" duration="8631000" />
-      <workItem from="1698415416802" duration="508000" />
-      <workItem from="1698416757182" duration="639000" />
-      <workItem from="1698454755014" duration="1506000" />
-      <workItem from="1698469441263" duration="2945000" />
-      <workItem from="1698479762705" duration="4313000" />
-      <workItem from="1698714293427" duration="9232000" />
-      <workItem from="1698728681678" duration="22758000" />
-      <workItem from="1698800269659" duration="7893000" />
-      <workItem from="1698815877756" duration="11346000" />
-      <workItem from="1698886766871" duration="12585000" />
+      <updated>1702027279817</updated>
+      <workItem from="1702027280969" duration="5190000" />
+      <workItem from="1702033553189" duration="611000" />
+      <workItem from="1702040489753" duration="3063000" />
+      <workItem from="1702259390599" duration="18769000" />
+      <workItem from="1702343002967" duration="6658000" />
+      <workItem from="1702357648712" duration="5261000" />
+      <workItem from="1702429718678" duration="354000" />
+      <workItem from="1702430659909" duration="5667000" />
+      <workItem from="1702515743048" duration="17546000" />
+      <workItem from="1702602935340" duration="605000" />
+      <workItem from="1702608538938" duration="1517000" />
+      <workItem from="1702644269790" duration="5621000" />
+      <workItem from="1702862298088" duration="6243000" />
+      <workItem from="1702897617518" duration="1831000" />
+      <workItem from="1702976762665" duration="7183000" />
+      <workItem from="1703034376915" duration="4594000" />
+      <workItem from="1703048472214" duration="3989000" />
+      <workItem from="1703052900356" duration="11605000" />
+      <workItem from="1703120631091" duration="724000" />
+      <workItem from="1703135201332" duration="598000" />
+      <workItem from="1703207305428" duration="594000" />
+      <workItem from="1703221574704" duration="617000" />
+      <workItem from="1703255841400" duration="684000" />
+      <workItem from="1703466296808" duration="44000" />
+      <workItem from="1703467105809" duration="2206000" />
+      <workItem from="1703480635613" duration="1196000" />
+      <workItem from="1703552400144" duration="805000" />
+      <workItem from="1703686305285" duration="1294000" />
+      <workItem from="1703725365587" duration="3960000" />
+      <workItem from="1703740099745" duration="5593000" />
+      <workItem from="1703839820250" duration="9419000" />
+      <workItem from="1704158575847" duration="40278000" />
+      <workItem from="1704329910316" duration="13818000" />
+      <workItem from="1704419708481" duration="7109000" />
+      <workItem from="1704446307988" duration="6310000" />
+      <workItem from="1704675637467" duration="4744000" />
+      <workItem from="1704690496326" duration="1978000" />
+      <workItem from="1704776507954" duration="312000" />
+      <workItem from="1704793195392" duration="893000" />
+      <workItem from="1704808710642" duration="1001000" />
+      <workItem from="1704848433147" duration="4241000" />
+      <workItem from="1704934807571" duration="312000" />
+      <workItem from="1704935689380" duration="5667000" />
+      <workItem from="1705021656640" duration="6212000" />
+      <workItem from="1705062983605" duration="601000" />
+      <workItem from="1705280826864" duration="821000" />
+      <workItem from="1705385929914" duration="9450000" />
+      <workItem from="1705453220710" duration="32626000" />
+      <workItem from="1705629903203" duration="27502000" />
+      <workItem from="1705679781472" duration="3029000" />
+      <workItem from="1705731382246" duration="39980000" />
+      <workItem from="1705971784170" duration="25018000" />
+      <workItem from="1706057895378" duration="7405000" />
+      <workItem from="1706072596613" duration="14036000" />
+      <workItem from="1707099248621" duration="1970000" />
+      <workItem from="1707124240824" duration="1763000" />
+      <workItem from="1708304457991" duration="33000" />
+      <workItem from="1708308638672" duration="14967000" />
+      <workItem from="1708391047431" duration="8823000" />
+      <workItem from="1708477470057" duration="1457000" />
+      <workItem from="1708491725061" duration="2303000" />
+      <workItem from="1708563867749" duration="8920000" />
+      <workItem from="1708650776987" duration="9880000" />
+      <workItem from="1708909488278" duration="1209000" />
+      <workItem from="1708995782082" duration="9745000" />
+      <workItem from="1709204891771" duration="599000" />
+      <workItem from="1709254981701" duration="599000" />
+      <workItem from="1709277488121" duration="615000" />
+      <workItem from="1709516155402" duration="5928000" />
+      <workItem from="1709528678735" duration="8940000" />
+      <workItem from="1709600408865" duration="171000" />
+      <workItem from="1709600782192" duration="4283000" />
+      <workItem from="1709614918898" duration="36114000" />
+      <workItem from="1709772933469" duration="10570000" />
+      <workItem from="1709787943784" duration="16803000" />
+      <workItem from="1709859805936" duration="15457000" />
+      <workItem from="1710119277835" duration="599000" />
+      <workItem from="1710899135442" duration="7584000" />
+      <workItem from="1710911350490" duration="5668000" />
+      <workItem from="1710917727377" duration="9382000" />
+      <workItem from="1720593737338" duration="2230000" />
+      <workItem from="1720667388758" duration="63000" />
     </task>
-    <task id="LOCAL-00001" summary="登陆相关修改">
-      <created>1653906386945</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1653906386945</updated>
-    </task>
-    <task id="LOCAL-00002" summary="结构调整修改">
-      <created>1654607984759</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1654607984759</updated>
-    </task>
-    <task id="LOCAL-00003" summary="header 调整修改">
-      <created>1654665534918</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1654665534918</updated>
-    </task>
-    <task id="LOCAL-00004" summary="header 调整修改">
-      <created>1654665793029</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1654665793029</updated>
-    </task>
-    <task id="LOCAL-00005" summary="布局调整">
-      <created>1654845172619</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1654845172619</updated>
-    </task>
-    <task id="LOCAL-00006" summary="优惠券 对公转账">
-      <created>1655803696487</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1655803696487</updated>
-    </task>
-    <task id="LOCAL-00007" summary="产品版本修改">
-      <created>1656742048624</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1656742048624</updated>
-    </task>
-    <task id="LOCAL-00008" summary="db 数据源修改">
-      <created>1657948669064</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1657948669064</updated>
-    </task>
-    <task id="LOCAL-00009" summary="db 数据源修改">
-      <created>1659076574247</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1659076574247</updated>
-    </task>
-    <task id="LOCAL-00010" summary="修改调整">
-      <created>1662356972071</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1662356972071</updated>
-    </task>
-    <task id="LOCAL-00011" summary="修改调整">
-      <created>1662369361746</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1662369361746</updated>
-    </task>
-    <task id="LOCAL-00012" summary="修改调整">
-      <created>1666254755517</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1666254755517</updated>
-    </task>
-    <task id="LOCAL-00013" summary="修改调整">
-      <created>1668588407740</created>
-      <option name="number" value="00013" />
-      <option name="presentableId" value="LOCAL-00013" />
-      <option name="project" value="LOCAL" />
-      <updated>1668588407740</updated>
-    </task>
-    <task id="LOCAL-00014" summary="修改调整">
-      <created>1670206020766</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1670206020766</updated>
-    </task>
-    <task id="LOCAL-00015" summary="修改调整">
-      <created>1676451187952</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1676451187952</updated>
-    </task>
-    <task id="LOCAL-00016" summary="界面修改调整">
-      <created>1676718807471</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1676718807471</updated>
-    </task>
-    <task id="LOCAL-00017" summary="修改调整">
-      <created>1677494527855</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1677494527855</updated>
-    </task>
-    <task id="LOCAL-00018" summary="修改调整">
-      <created>1677569874969</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1677569874969</updated>
-    </task>
-    <task id="LOCAL-00019" summary="结构调整修改">
-      <created>1677638887630</created>
-      <option name="number" value="00019" />
-      <option name="presentableId" value="LOCAL-00019" />
-      <option name="project" value="LOCAL" />
-      <updated>1677638887630</updated>
-    </task>
-    <task id="LOCAL-00020" summary="结构调整修改">
-      <created>1677639288228</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1677639288228</updated>
-    </task>
-    <task id="LOCAL-00021" summary="结构调整修改">
-      <created>1677826779833</created>
-      <option name="number" value="00021" />
-      <option name="presentableId" value="LOCAL-00021" />
-      <option name="project" value="LOCAL" />
-      <updated>1677826779833</updated>
-    </task>
-    <task id="LOCAL-00022" summary="结构调整修改">
-      <created>1677826963341</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1677826963341</updated>
-    </task>
-    <task id="LOCAL-00023" summary="注释添加">
-      <created>1677833930698</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1677833930698</updated>
-    </task>
-    <task id="LOCAL-00024" summary="问题修改调整">
-      <created>1680957323263</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1680957323263</updated>
-    </task>
-    <task id="LOCAL-00025" summary="界面修改调整">
-      <created>1682403766970</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1682403766970</updated>
-    </task>
-    <task id="LOCAL-00026" summary="组合库界面修改">
-      <created>1682412478420</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1682412478420</updated>
-    </task>
-    <task id="LOCAL-00027" summary="界面调整修改">
-      <created>1682414221132</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1682414221132</updated>
-    </task>
-    <task id="LOCAL-00028" summary="界面调整修改">
-      <created>1682416375950</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1682416375950</updated>
-    </task>
-    <task id="LOCAL-00029" summary="权限角色修改">
-      <created>1682698648181</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1682698648181</updated>
-    </task>
-    <task id="LOCAL-00030" summary="权限设置修改">
-      <created>1686720272985</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1686720272985</updated>
-    </task>
-    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -1031,23 +452,5 @@
         </entry>
       </map>
     </option>
-  </component>
-  <component name="VcsManagerConfiguration">
-    <MESSAGE value="登陆相关修改" />
-    <MESSAGE value="header 调整修改" />
-    <MESSAGE value="布局调整" />
-    <MESSAGE value="优惠券 对公转账" />
-    <MESSAGE value="产品版本修改" />
-    <MESSAGE value="db 数据源修改" />
-    <MESSAGE value="修改调整" />
-    <MESSAGE value="结构调整修改" />
-    <MESSAGE value="注释添加" />
-    <MESSAGE value="问题修改调整" />
-    <MESSAGE value="界面修改调整" />
-    <MESSAGE value="组合库界面修改" />
-    <MESSAGE value="界面调整修改" />
-    <MESSAGE value="权限角色修改" />
-    <MESSAGE value="权限设置修改" />
-    <option name="LAST_COMMIT_MESSAGE" value="权限设置修改" />
   </component>
 </project>

@@ -6,11 +6,11 @@
  * @update: 2021-08-09 14:30
  */
 import React from "react";
-import {MessageSendType} from 'tiklab-message-ui';
+import {MessageSendType} from 'thoughtware-message-ui';
 
 const OmsMessageSendType = (props) => {
     return (
-        <MessageSendType {...props} bgroup={"xpack"}/>
+        <MessageSendType {...props} bgroup={"hadess"}/>
     )
 }
 export default OmsMessageSendType;

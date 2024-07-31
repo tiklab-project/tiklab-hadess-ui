@@ -4,10 +4,10 @@
     background-color: #ffffff;
     width: 250px;
     .select-item {
-        padding: 10px var(--tiklab-padding-item);
+        padding: 10px var(--thoughtware-padding-item);
         .select-title{
             font-size: 16px;
-            font-weight: var(--tiklab-font-weight-bold);
+            font-weight: var(--thoughtware-font-weight-bold);
             margin-bottom: 10px;
         }
     }
@@ -15,7 +15,7 @@
     .select-exec{
         display: flex;
         align-items: center;
-        //margin-top: var(--tiklab-padding-item);
+        //margin-top: var(--thoughtware-padding-item);
         justify-content:flex-end;
         padding: 20px 15px 15px 20px;
     }

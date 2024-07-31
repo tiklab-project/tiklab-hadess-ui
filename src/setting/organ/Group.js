@@ -1,5 +1,5 @@
 import React from "react";
-import {UserGroup} from "tiklab-user-ui";
+import {UserGroup} from "thoughtware-user-ui";
 
 /**
  * 用户组
@@ -9,7 +9,7 @@ import {UserGroup} from "tiklab-user-ui";
  */
 const Group = props => {
 
-    return <UserGroup {...props} bgroup={"xpack"}/>
+    return <UserGroup {...props} bgroup={"hadess"}/>
 
 }
 

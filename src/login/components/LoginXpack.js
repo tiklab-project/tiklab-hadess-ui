@@ -1,10 +1,14 @@
 import React from 'react';
-import {Login} from "tiklab-eam-ui";
+import {Login} from "thoughtware-eam-ui";
 
 
 const LoginXpack  = props => {
     return (
-        <Login  loginGoRouter="/"  {...props} />
+        <Login {...props}
+                loginGoRouter="/"
+                bgroup={'hadess'}
+                vaildUserAuthRouter={"/no-auth"}
+        />
     )
 }
 

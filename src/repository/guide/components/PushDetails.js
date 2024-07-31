@@ -7,8 +7,22 @@
  */
 import React,{Fragment} from "react";
 import "./PushDetails.scss"
+import {getUser} from "thoughtware-core-ui";
 const PushDetails = (props) => {
     const {type,serverIp}=props
+
+
+    const helm = () => {
+      return(
+          <Fragment>
+              <div className='push-details-title '>推送打包后的 Chart</div>
+              <div className='nav-style'>
+                  {`curl [repositoryPath] -F "file=@[CHART_NAME]-[VERSION].tgz" -u ${getUser().name}:[password]`}
+              </div>
+          </Fragment>
+      )
+    }
+
     return(
         <div className='push-details '>
             {
@@ -141,7 +155,9 @@ const PushDetails = (props) => {
                             版本
                         </div>
                     </div>
-                </Fragment>
+                </Fragment>||
+                type==='Helm'&&
+                helm()
             }
         </div>
     )

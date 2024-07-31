@@ -1,13 +1,24 @@
 .file-details {
-    margin-top: var(---xpack-data-top);
-    .file-details-name{
-        font-weight: var(--tiklab-font-weight-bold);
-        margin-top: 5px;
-        margin-left: 5px;
-        font-size: 14px;
+    margin-top: var(--xpack-table-top);
+    .file-name-style{
+        display: flex;
+        align-items: center;
+        margin-bottom: 15px;
+        gap: 5px;
+        .file-name-icon{
+            cursor: pointer;
+            font-size: medium;
+        }
+        .file-details-name{
+            font-weight: var(--thoughtware-font-weight-bold);
+            margin-left: 5px;
+            font-size: 14px;
+        }
     }
+
+
     .file-details-title{
-        font-weight: var(--tiklab-font-weight-bold);
+        font-weight: var(--thoughtware-font-weight-bold);
         margin-bottom: 5px;
         font-size: 13px;
     }
@@ -21,6 +32,43 @@
             }
         }
     }
+
+    .file-details-basic{
+        display: flex;
+        width: 100%;
+        margin: 20px 0;
+        flex: 1;
+        .basic-body-left{
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap:25px
+        }
+
+        .basic-body-right{
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap:25px
+        }
+    }
+    .basic-body-item{
+        display: flex;
+        .basic-body-item-title{
+            min-width: 80px ;
+            color: var(--thoughtware-gray-500);
+        }
+    }
+
+    .basic-path-cursor:hover{
+        border-bottom: #1890ff;
+        border-bottom-style: solid;
+    }
+    .basic-path-color{
+        color: #1890ff;
+        cursor: pointer;
+    }
+
 
     .file-details-use{
         margin-top: 35px;
@@ -37,15 +85,6 @@
             }
         }
     }
-    .nav-path {
-        height: 20px;
-        .nav-path-cursor:hover{
-            border-bottom: #1890ff;
-            border-bottom-style: solid;
-        }
-        .nav-path-color{
-            color: #1890ff;
-            cursor: pointer;
-        }
-    }
+
+
 }

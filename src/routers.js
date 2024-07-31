@@ -1,11 +1,22 @@
 import React from 'react';
 import { Redirect } from 'react-router';
-import {Logout} from 'tiklab-eam-ui'
+
 import SyncComponent from './common/lazy/SyncComponent';
-import LayoutHoc from './common/layout/layout';
 import Home from './home/Home';
+import SettingHome from "./setting/home/components/SettingHome";
+import NotFoundContent from "./setting/not/NotFoundContent";
+import NoAccessContent from "./setting/not/NoAccessContent";
 
 
+
+//登陆
+const Login = SyncComponent(() => import('./login/components/LoginXpack'));
+
+//退出
+const Logout = SyncComponent(() => import('./login/components/Logout'));
+
+
+const FirstNav = SyncComponent(() => import('./common/navigation/FirstNav'));
 // 制品库设置模块
 const RepositoryAside = SyncComponent(() => import('./repository/navigator/RepositoryAside'));
 // 制品库设置-设置模块
@@ -14,8 +25,6 @@ const RepositorySetting = SyncComponent(() => import('./repository/setting/navig
 const SettingAside = SyncComponent(() => import('./setting/navigator/SettingAside'));
 
 
-
-const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
 
 // 制品列表
@@ -31,30 +40,18 @@ const RepositoryAdd = SyncComponent(() => import('./repository/repository/compon
 //制品列表
 const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
 
-//制品扫描
-const ScanPlayList = SyncComponent(() => import('./repository/detection/components/ScanPlayList'))
-const ScanList = SyncComponent(() => import('./repository/detection/components/ScanList'))
-const ScanDetails = SyncComponent(() => import('./repository/detection/components/ScanDetails'))
-const ScanHistory = SyncComponent(() => import('./repository/detection/components/ScanHistory'))
-
-// 制品库-概览
-const repositorySurvey = SyncComponent(() => import('./repository/survey/components/Survey'))
 
 //制品库信息
 //const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
 const RepositoryInfo = SyncComponent(() => import('./repository/setting/basicInfo/RepositoryBasicInfo'))
-
-//配置-代理信息
-const agency = SyncComponent(() => import('./repository/deploy/components/Agency'))
-//配置-复制信息
-const copy = SyncComponent(() => import('./repository/deploy/components/Copy'))
 
 //制品库-成员
 const programUser = SyncComponent(() => import('./repository/setting/ProgramUser'))
 //制品库-权限
 const programDomainRole = SyncComponent(() => import('./repository/setting/ProjectDomainRole'))
 //推送中央仓库
-const LibraryPush = SyncComponent(() => import('./repository/setting/pushCenter/components/LibraryPush'))
+const PushGroup = SyncComponent(() => import('./repository/setting/pushCenter/components/PushGroup'))
+const PushLibrary = SyncComponent(() => import('./repository/setting/pushCenter/components/PushLibrary'))
 
 
 
@@ -79,14 +76,33 @@ const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
 //设置-操作日志
 const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
+
 //设置-版本与许可证
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
-
-//设置-版本与许可证
-const ManageList =SyncComponent(()=>import('./repository/deploy/old/ManageList'))
+const AuthContent =SyncComponent(()=>import('./setting/licence/AuthContent'))
 
 //设置-备份与恢复
-const BackupRecovery =SyncComponent(()=>import('./setting/backup/components/BackupRecovery'))
+const BackupRecovery =SyncComponent(()=>import('./setting/backup/BackupRecoveryContent'))
+
+//扫描方案
+const ScanScheme =SyncComponent(()=>import('./setting/scan/components/ScanScheme'))
+const ScanHole =SyncComponent(()=>import('./setting/scan/components/ScanHole'))
+const HoleList =SyncComponent(()=>import('./setting/scan/components/HoleList'))
+
+//资源监控
+const Resources =SyncComponent(()=>import('./setting/resources/components/Resources'))
+//设置-代理地址
+const RemoteAgency =SyncComponent(()=>import('./setting/remoteAgency/components/RemoteAgency'))
+
+
+//基础数据
+const SystemFunction =SyncComponent(()=>import('./setting/basicData/SystemFunction'))
+const ProjectFunction =SyncComponent(()=>import('./setting/basicData/ProjectFunction'))
+const ProjectRole =SyncComponent(()=>import('./setting/basicData/ProjectRole'))
+const SystemRole =SyncComponent(()=>import('./setting/basicData/SystemRole'))
+const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
+
+
 
 
 const routers = [
@@ -102,108 +118,87 @@ const routers = [
         component: Logout,
         key:'logout'
     },
-
     {
         path:'/no-auth',
         exact:true,
         component:ExcludeProductUser,
     },
     {
-        path: '/',
         exact: true,
-        render: ()=><Redirect to="/index/library/maven"/>
+        path: '/404',
+        render: props => <NotFoundContent {...props}/>
+    },
+    {
+        exact: true,
+        path: '/noaccess',
+        render: props => <NoAccessContent {...props}/>
+    },
+    {
+        path:'/',
+        exact: true,
+        render: ()=><Redirect to="/library/maven"/>
     },
     {
         component: Home,
-        path: "/index",
+        path: "/",
         routes: [
             {
-                path: '/index/library/:type',
+                path: '/library/:type',
                 component: librarys,
                 exact: true,
             },
             {
-                path: '/index/repository',
+                path: '/repository',
                 component: RepositoryList,
                 exact: true,
             },
             {
-                path: '/index/repository/add/:type',
+                path: '/repository/add/:type',
                 component: RepositoryAdd,
                 exact: true,
             },
             {
                 component: RepositoryAside,
-                path:'/index/repository/:id',
+                path:'/repository/:id',
                 routes:[
                     {
-                        path: '/index/repository/:id/libraryList',
+                        path: '/repository/:id/libraryList',
                         component: LibraryList,
                         exact: true,
                     },
                     {
-                        path: '/index/repository/:id/scanPlay',
-                        component: ScanPlayList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/scanPlay/:playId',
-                        component: ScanList,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/scanDetails/:scanRecordId/:type',
-                        component: ScanDetails,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/scanHistory/:scanRecordId',
-                        component: ScanHistory,
-                        exact: true,
-                    },
-                    {
-                        path: '/index/repository/:id/setting',
+                        path: '/repository/:id/setting',
                         component: RepositorySetting,
                         routes:[
                             {
-                                path: '/index/repository/:id/setting/repositoryInfo',
+                                path: '/repository/:id/setting/repositoryInfo',
                                 component: RepositoryInfo,
                                 exact: true,
                             },
                             {
-                                path: '/index/repository/:id/setting/agency',
-                                component: agency,
-                                exact: true,
-                            },
-                            {
-                                path: '/index/repository/:id/setting/copy',
-                                component: copy,
-                                exact: true,
-                            },
-                            {
-                                path: '/index/repository/:id/setting/programDomainRole',
+                                path: '/repository/:id/setting/programDomainRole',
                                 component: programDomainRole,
                                 exact: true,
                             },
                             {
-                                path: '/index/repository/:id/setting/pushCenter',
-                                component: LibraryPush,
+                                path: '/repository/:id/setting/pushGroup',
+                                component: PushGroup,
                                 exact: true,
                             },
                             {
-                                path: '/index/repository/:id/setting/programUser',
+                                path: '/repository/:id/setting/:pushGroupId/pushLibrary',
+                                component: PushLibrary,
+                                exact: true,
+                            },
+                            {
+                                path: '/repository/:id/setting/programUser',
                                 component: programUser,
                                 exact: true,
                             },
                             {
-                                path: '/index/repository/:id/setting/ManageList',
-                                component: ManageList,
+                                path: '/repository/:id/setting',
                                 exact: true,
-                            },
-                            {
-                                path: '/index/repository/:id/setting',
-                                exact: true,
-                                render: ()=><Redirect to='/index/repository/:id/setting/repositoryInfo'/>
+                                render: ()=><Redirect to='/repository/:id/setting/repositoryInfo'/>
                             },
 
                             ]
@@ -214,72 +209,123 @@ const routers = [
             },
             {
                 component: SettingAside,
-                path:'/index/sysmgr',
+                path:'/setting',
                 routes: [
                     {
-                        path: '/index/sysmgr/notice',
+                        path: '/setting/home',
+                        component: SettingHome,
+                    },
+                    {
+                        path: '/setting/mes/notice',
                         component:messageNotice,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/messageSend',
+                        path: '/setting/mes/send',
                         component:messagesendtype,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/orga',
+                        path: '/setting/orga',
                         component:orga,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/user',
+                        path: '/setting/user',
                         component:user,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/userGroup',
+                        path: '/setting/userGroup',
                         component:group,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/user/directory',
+                        path: '/setting/dir',
                         component:userDirectory,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/role',
+                        path: '/setting/role',
                         component:systemRole,
                         exact: true,
                     },
                     {
-                        path: '/index/sysmgr/plugin',
+                        path: '/setting/plugin',
                         component: plugin,
                     },
                     {
-                        path: '/index/sysmgr/logList',
+                        path: '/setting/myLog',
                         component: MyLog,
                     },
                     {
-                        path: '/index/sysmgr/version',
+                        path: '/setting/version',
                         component: Version,
                     },
                     {
-                        path:'/index/sysmgr/backupRecovery',
+                        path:'/setting/authContent',
+                        component: AuthContent,
+                    },
+                    {
+                        path:'/setting/backupRecovery',
                         component: BackupRecovery,
                     },
                     {
+                        path:'/setting/scanScheme',
+                        component: ScanScheme,
+                    },
+                    {
+                        path:'/setting/scanHole/:schemeId',
+                        component: ScanHole,
+                    },
+                    {
+                        path:'/setting/holeList',
+                        component: HoleList,
+                    },
+                    {
+                        path:'/setting/agency',
+                        component: RemoteAgency,
+                    },
+                    {
+                        path:'/setting/resources',
+                        component: Resources,
+                    },
+
+
+
+                    {
+                        path:'/setting/systemFunction',
+                        component: SystemFunction,
+                    },
+                    {
+                        path:'/setting/projectFunction',
+                        component: ProjectFunction,
+                    },
+                    {
+                        path:'/setting/projectRole',
+                        component: ProjectRole,
+                    },
+                    {
+                        path:'/setting/systemRole',
+                        component: SystemRole,
+                    },
+                    {
+                        path:'/setting/logType',
+                        component: LogType,
+                    },
+
+
+                    {
                         path: '/',
                         exact: true,
-                        render: ()=><Redirect to="/index/sysmgr/systemRole"/>
+                        render: ()=><Redirect to="/setting/systemRole"/>
                     },
                 ]
             },
+
         ],
 
     },
-
-
-
 ];
 
 export default routers

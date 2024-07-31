@@ -1,6 +1,5 @@
 .library-upload {
     gap: 20px;
-
     .library-upload-content {
         display: flex;
         flex-direction: column;
@@ -25,8 +24,8 @@
         }
 
         .library-upload-title {
-            font-size: var(--tiklab-font-16);
-            font-weight: var(--tiklab-font-weight-bold);
+            font-size: var(--thoughtware-font-16);
+            font-weight: var(--thoughtware-font-weight-bold);
             padding: 10px 15px;
         }
 
@@ -85,7 +84,7 @@
 
             .desc-true {
                 cursor: pointer;
-                color: var(--tiklab-blue);
+                color: var(--thoughtware-blue);
             }
         }
 
@@ -101,13 +100,13 @@
         }
 
         .ant-upload-drag {
-            background: var(--tiklab-gray-300);
+            background: var(--thoughtware-gray-300);
 
         }
     }
 
     .library-upload-right {
-        background-color: var(--tiklab-gray-600);
+        background-color: var(--thoughtware-gray-600);
         flex: 1;
         padding: 15px;
         overflow: auto;

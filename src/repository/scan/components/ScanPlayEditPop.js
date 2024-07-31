@@ -8,22 +8,40 @@
 import React,{useState,useEffect} from 'react';
 import Modals from "../../../common/modal/Modal";
 import Btn from "../../../common/btn/Btn";
-import {Form, Input,} from 'antd';
+import {Form, Input, message, Select,} from 'antd';
+import {inject, observer} from "mobx-react";
+import ScanSchemeStore from "../../../setting/scan/store/ScanSchemeStore";
+import {withRouter} from "react-router";
 const ScanPlayEditPop = (props) => {
+    const {repositoryStore} = props;
     const [form] = Form.useForm()
-    const {editVisible,setEditVisible,createScanPlay,repositoryId,scanPlay,updateScanPlay}=props
+    const {editVisible,setEditVisible,createScanPlay,repositoryId,scanPlay,setScanPlay,updateScanPlay}=props
+    const {findRepository}=repositoryStore
+    const {findAllScanScheme}=ScanSchemeStore
+
+    const [scanSchemeList,setScanSchemeList]=useState([])
+    const [scanScheme,setScanScheme]=useState()
 
     useEffect(()=>{
         if (scanPlay){
             form.setFieldsValue({
                 playName:scanPlay?.playName,
+                scanSchemeId:scanPlay?.scanScheme?.id
             })
         }
-    },[scanPlay])
+        findAllScanScheme().then(res=>{
+            setScanSchemeList(res.data)
+        })
+
+    },[scanPlay,editVisible])
+
+
+
 
     //取消编辑弹窗
     const  cancel= () => {
         form.resetFields()
+        setScanPlay('')
         setEditVisible(false)
     }
 
@@ -31,7 +49,9 @@ const ScanPlayEditPop = (props) => {
     const onOk = (value) => {
         form.validateFields().then(async values => {
             if (!scanPlay){
-                createScanPlay({playName:values.playName,repository:{id:repositoryId}}).then(res=>{
+                createScanPlay({playName:values.playName,repository:{id:repositoryId},
+                    scanScheme:{id:scanScheme}
+                }).then(res=>{
                     res.code===0&&cancel()
                 })
             }else {
@@ -40,6 +60,10 @@ const ScanPlayEditPop = (props) => {
                 })
             }
         })
+    }
+    //选择扫描方案
+    const choiceScheme = (value) => {
+        setScanScheme(value)
     }
 
     const modalFooter = (
@@ -69,8 +93,24 @@ const ScanPlayEditPop = (props) => {
                 >
                     <Input  placeholder={"计划名称"}/>
                 </Form.Item>
+                <Form.Item
+                    label={'扫描方案'}
+                    name={'scanSchemeId'}
+                    rules={[{required:true,message:'扫描方案不能为空'}]}
+                >
+                    <Select     allowClear onChange={choiceScheme} placeholder={"请选择"}>
+                        {
+                            scanSchemeList.length&&scanSchemeList.map(item=>{
+                                    return(
+                                        <Select.Option key={item.schemeName} value={item.id}>{item.schemeName}</Select.Option>
+                                    )
+                                }
+                            )
+                        }
+                    </Select>
+                </Form.Item>
             </Form>
         </Modals>
     )
 }
-export default ScanPlayEditPop
+export default withRouter(inject('repositoryStore')(observer(ScanPlayEditPop)))

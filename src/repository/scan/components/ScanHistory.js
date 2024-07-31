@@ -8,13 +8,14 @@
 import React,{useState,useEffect,Fragment} from 'react';
 import "./ScanHistory.scss"
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
-import {Popconfirm, Table, Tooltip} from "antd";
+import {Col, Popconfirm, Table, Tooltip} from "antd";
 import Page from "../../../common/page/Page";
 import {
     DeleteOutlined,
 } from "@ant-design/icons";
 import {observer} from "mobx-react";
 import scanRecordStore from "../store/ScanRecordStore";
+import EmptyText from "../../../common/emptyText/EmptyText";
 const ScanHistory = (props) => {
     const {match:{params}} = props;
     const { findScanRecordPage,deleteScanRecord}=scanRecordStore
@@ -22,6 +23,7 @@ const ScanHistory = (props) => {
     const [scanLibraryList,setScanLibraryList]=useState([])
     const [currentPage,setCurrentPage]=useState(1)
     const [totalPage,setTotalPage]=useState()
+    const [totalRecord,setTotalRecord]=useState()
 
     useEffect(async () => {
         findScanRecord(1)
@@ -96,13 +98,14 @@ const ScanHistory = (props) => {
             if (res.code===0){
                 setScanLibraryList(res.data.dataList)
                 setTotalPage(res.data.totalPage)
+                setTotalRecord(res.data.totalRecord)
             }
         })
     }
 
     //跳转扫描详情
     const goScanDetails = (value) => {
-        props.history.push(`/index/repository/${params.id}/scanDetails/${value.id}/one`)
+        props.history.push(`/repository/${params.id}/scanDetails/${value.id}/one`)
     }
 
     //分页
@@ -110,14 +113,24 @@ const ScanHistory = (props) => {
          setCurrentPage(value)
         findScanRecord(value)
     }
+    //刷新查询
+    const refreshFind = () => {
+        findScanRecord(currentPage)
+    }
 
     //跳转上页
     const goBack = () => {
         props.history.go(-1)
     }
     return(
-        <div className='scanHistory'>
-            <div className='scanHistory-width'>
+        <div className='scanHistory hadess-data-width'>
+            <Col
+                sm={{ span: "24" }}
+                md={{ span: "24" }}
+                lg={{ span: "24" }}
+                xl={{ span: "20", offset: "2" }}
+                xxl={{ span: "18", offset: "3" }}
+            >
                 <Breadcrumb firstItem={"扫描历史"} goBack={goBack}/>
                 <div className='scanHistory-data-style'>
                     <Table
@@ -125,14 +138,17 @@ const ScanHistory = (props) => {
                         dataSource={scanLibraryList}
                         rowKey={record=>record.id}
                         pagination={false}
+                        locale={{emptyText: <EmptyText title={"暂无数据"}/>}}
                     />
 
-                    {
-                        (totalPage>1)?
-                            <Page pageCurrent={currentPage} changPage={changPage} totalPage={totalPage}/>:null
-                    }
+                    <Page pageCurrent={currentPage}
+                          changPage={changPage}
+                          totalPage={totalPage}
+                          totalRecord={totalRecord}
+                          refresh={refreshFind}
+                    />
                 </div>
-            </div>
+            </Col>
         </div>
     )
 }

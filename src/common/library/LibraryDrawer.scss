@@ -1,5 +1,8 @@
 .library-drawer{
-    top: 48px !important;
+    height: 100%;
+    width: 100%;
+    min-width: 500px;
+    overflow: hidden;
     .ant-drawer-header {
         display: flex;
         flex: 0;
@@ -9,12 +12,18 @@
         line-height: 22px;
         border-bottom: none;
     }
-    .ant-drawer-body{
+    .library-drawer-bread{
+        padding: 0 0 10px;
+    }
+    .library-drawer-bottom{
+        height: calc(100% - 83px);
+        flex-direction: row;
+        overflow-y: auto;
         flex: 1;
-        min-width: 0;
-        min-height: 0;
-        padding: 0 14px 20px 14px;
-        overflow: auto;
+    }
+    .library-drawer-bottom::-webkit-scrollbar {
+        width: 0.1rem;
+        background-color: transparent;
     }
 
 }
