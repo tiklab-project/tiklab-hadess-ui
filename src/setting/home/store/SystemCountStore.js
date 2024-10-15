@@ -1,6 +1,6 @@
 import {observable,action} from 'mobx';
 import {message} from 'antd';
-import {Axios, getUser} from 'thoughtware-core-ui';
+import {Axios, getUser} from 'tiklab-core-ui';
 
 export class SystemCountStore {
 
@@ -16,9 +16,14 @@ export class SystemCountStore {
     @action
     collectCount = async () =>{
         const data = await Axios.post('/systemCount/collectCount')
-        if (data.code===0){
-            this.systemCount=data.data
-        }
+        return data
+    }
+
+    @action
+    findUseLicence = async () =>{
+        const data = await Axios.post('/licence/findUseLicence')
+
+        return data
     }
 }
 

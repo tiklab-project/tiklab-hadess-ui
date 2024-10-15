@@ -1,0 +1,29 @@
+.overview-use{
+
+    .overview-use-input{
+        display: flex;
+        margin-left: 3px;
+    }
+   .overview-use-table{
+       background-color:#F4F4F4;
+       margin-top: 20px;
+   }
+    .maven-tab{
+        margin-left: 30px;
+        padding: 3px 0;
+    }
+    .overview-guide-table{
+        display: flex;
+        background-color:#F4F4F4;
+        padding: 10px 15px;
+        margin-top: 10px;
+        justify-content: space-between;
+        gap: 14px;
+        .overview-guide-table-copy{
+            display: flex;
+            cursor: pointer;
+        }
+
+
+    }
+}

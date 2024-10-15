@@ -1,0 +1,78 @@
+.basic-dropdown{
+    position: relative;
+    cursor: pointer;
+    /*border: 1px solid #d9d9d9;*/
+    .select-content{
+        display: flex;
+        padding: 5px 10px;
+        background-color: #f7f7f7;
+        border-radius:3px;
+        align-items: center;
+        justify-content: space-between;
+        .select-number {
+            width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            background: #e3e8f0;
+            border-radius: 16px;
+            font-size: 12px;
+        }
+        .select-content-nav{
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    }
+
+}
+
+.down-select{
+    box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
+    border-radius: 4px;
+    background-color: #ffffff;
+    .down-select-nav{
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 7px 0 7px 20px;
+        cursor: pointer;
+        &:hover{
+            background-color: #f7f7f7;
+        }
+    }
+
+    .down-select-rpy-nav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 7px 10px;
+        cursor: pointer;
+        &:hover{
+            background-color: #f7f7f7;
+        }
+        .rpy-nav-name{
+            flex: 1;
+            overflow: hidden;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+            -o-text-overflow: ellipsis;
+        }
+        .rpy-nav-desc{
+            color: #999999;
+        }
+    }
+
+    .select-exec{
+        display: flex;
+        padding: 10px;
+        justify-content:flex-end;
+    }
+}
+
+.select-width-middle{
+    width: 120px;
+}
+.select-width-lager{
+    width: 300px;
+}

@@ -14,7 +14,8 @@ const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 
 //退出
 const Logout = SyncComponent(() => import('./login/components/Logout'));
-
+const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
+const LoginRpwContent=SyncComponent(()=>import('./login/components/LoginRpwContent'))
 
 const FirstNav = SyncComponent(() => import('./common/navigation/FirstNav'));
 // 制品库设置模块
@@ -25,11 +26,12 @@ const RepositorySetting = SyncComponent(() => import('./repository/setting/navig
 const SettingAside = SyncComponent(() => import('./setting/navigator/SettingAside'));
 
 
-const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
+
 
 // 制品列表
-const librarys = SyncComponent(() => import('./library/components/LibraryList'))
-
+//const librarys = SyncComponent(() => import('./library/components/LibraryList'))
+const librarys = SyncComponent(() => import('./library/component/LibraryList'))
+const LibraryDetails = SyncComponent(() => import('./library/component/LibraryDetails'))
 
 
 // 制品库列表
@@ -37,9 +39,13 @@ const RepositoryList = SyncComponent(() => import('./repository/repository/compo
 // 制品库-创建
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
 
-//制品列表
-const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
+const Guide = SyncComponent(() => import('./repository/guide/component/Guide'))
 
+
+//制品列表
+//const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
+const LibraryList = SyncComponent(() => import('./repository/library/components/LibraryList'))
+const RpyLibraryDetails = SyncComponent(() => import('./repository/library/components/LibraryDetails'))
 
 //制品库信息
 //const RepositoryInfo = SyncComponent(() => import('./repository/repository/components/RepositoryUpdate'))
@@ -72,8 +78,6 @@ const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
 const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 
-//设置-插件
-const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
 //设置-操作日志
 const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
 
@@ -123,6 +127,7 @@ const routers = [
         exact:true,
         component:ExcludeProductUser,
     },
+
     {
         exact: true,
         path: '/404',
@@ -134,17 +139,32 @@ const routers = [
         render: props => <NoAccessContent {...props}/>
     },
     {
+        path: '/loginRpw',
+        component: LoginRpwContent,
+        exact:true,
+    },
+    {
         path:'/',
         exact: true,
-        render: ()=><Redirect to="/library/maven"/>
+        render: ()=><Redirect to="/library"/>
     },
     {
         component: Home,
         path: "/",
         routes: [
             {
-                path: '/library/:type',
+                path: '/library',
                 component: librarys,
+                exact: true,
+            },
+            {
+                path: '/library/:searchName',
+                component: librarys,
+                exact: true,
+            },
+            {
+                path: '/library/:libraryId/details',
+                component: LibraryDetails,
                 exact: true,
             },
             {
@@ -162,8 +182,18 @@ const routers = [
                 path:'/repository/:id',
                 routes:[
                     {
-                        path: '/repository/:id/libraryList',
+                        path: '/repository/:id/guide',
+                        component: Guide,
+                        exact: true,
+                    },
+                    {
+                        path: '/repository/:id/library',
                         component: LibraryList,
+                        exact: true,
+                    },
+                    {
+                        path: '/repository/:id/library/:libraryId',
+                        component: RpyLibraryDetails,
                         exact: true,
                     },
                     {
@@ -171,17 +201,17 @@ const routers = [
                         component: RepositorySetting,
                         routes:[
                             {
-                                path: '/repository/:id/setting/repositoryInfo',
+                                path: '/repository/:id/setting/info',
                                 component: RepositoryInfo,
                                 exact: true,
                             },
                             {
-                                path: '/repository/:id/setting/programDomainRole',
+                                path: '/repository/:id/setting/role',
                                 component: programDomainRole,
                                 exact: true,
                             },
                             {
-                                path: '/repository/:id/setting/pushGroup',
+                                path: '/repository/:id/setting/push',
                                 component: PushGroup,
                                 exact: true,
                             },
@@ -191,14 +221,14 @@ const routers = [
                                 exact: true,
                             },
                             {
-                                path: '/repository/:id/setting/programUser',
+                                path: '/repository/:id/setting/user',
                                 component: programUser,
                                 exact: true,
                             },
                             {
                                 path: '/repository/:id/setting',
                                 exact: true,
-                                render: ()=><Redirect to='/repository/:id/setting/repositoryInfo'/>
+                                render: ()=><Redirect to='/repository/:id/setting/info'/>
                             },
 
                             ]
@@ -249,10 +279,6 @@ const routers = [
                         path: '/setting/role',
                         component:systemRole,
                         exact: true,
-                    },
-                    {
-                        path: '/setting/plugin',
-                        component: plugin,
                     },
                     {
                         path: '/setting/myLog',

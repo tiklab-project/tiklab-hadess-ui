@@ -10,7 +10,7 @@ import {renderRoutes} from 'react-router-config'
 import './RepsoitorySetting.scss'
 import {inject, observer} from "mobx-react";
 import {SettingOutlined} from "@ant-design/icons";
-import {ProjectNav,PrivilegeProjectButton} from 'thoughtware-privilege-ui';
+import {ProjectNav,PrivilegeProjectButton} from 'tiklab-privilege-ui';
 const RepositorySetting = (props) => {
     const {match:{params},location,repositoryStore} = props
     let path = location.pathname
@@ -24,26 +24,26 @@ const RepositorySetting = (props) => {
         {
             id:'1',
             title: '仓库信息',
-            router:`/repository/${repositoryId}/setting/repositoryInfo`,
+            router:`/repository/${repositoryId}/setting/info`,
         },
 
         {
             id:'4',
             title: '成员',
-            router:`/repository/${repositoryId}/setting/programUser`,
+            router:`/repository/${repositoryId}/setting/user`,
             icon:   <SettingOutlined className='icon-nav'/>,
             purviewCode: "rpy_user",
         },
         {
             id:'5',
             title: '权限',
-            router:`/repository/${repositoryId}/setting/programDomainRole`,
+            router:`/repository/${repositoryId}/setting/role`,
             purviewCode: "rpy_authority",
         },
         {
             id:'6',
-            title: '推送',
-            router:`/repository/${repositoryId}/setting/pushGroup`,
+            title: '制品推送',
+            router:`/repository/${repositoryId}/setting/push`,
         }
     ];
 
@@ -51,7 +51,7 @@ const RepositorySetting = (props) => {
     useEffect(async () => {
         if (path.endsWith("/pushLibrary")){
             const pa= path.substr(0,path.lastIndexOf("setting")+7);
-            setNavPath(pa+"/pushGroup")
+            setNavPath(pa+"/push")
         }else {
             setNavPath(path)
         }
@@ -84,7 +84,6 @@ const RepositorySetting = (props) => {
 
 
     const renderRouter = item => {
-        debugger
         return  <PrivilegeProjectButton key={item.id} code={item.purviewCode} domainId={repositoryId}>
             {navContent(item)}
         </PrivilegeProjectButton>

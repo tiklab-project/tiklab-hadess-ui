@@ -31,7 +31,7 @@ const ChangeRepository = (props) => {
 
     //切换制品
     const cuteRepository =async (value) => {
-        props.history.push(`/repository/${value.id}/libraryList`)
+        props.history.push(`/repository/${value.id}/library`)
         setTriggerVisible(false)
         setType("2")
     }
@@ -48,7 +48,10 @@ const ChangeRepository = (props) => {
                     repositoryList.map(item=>{
                         return(
                             <div className={`menu-toggle-item ${repositoryId && repositoryId===item.id?'menu-toggle-active':''}`}  key={item.id} onClick={()=>cuteRepository(item)}>
-                                <ListIcon text={item.name} colors={item.color}/>
+                                <ListIcon text={item.name}
+                                          colors={item.color}
+                                          type={"common"}
+                                />
                                 <div className='right-page-nav-text'>{item.name}</div>
                             </div>
 

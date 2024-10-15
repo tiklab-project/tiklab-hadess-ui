@@ -1,0 +1,15 @@
+.rpy-library{
+    .rpy-library-head-nav{
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+    .rpy-library-search{
+        margin-top: 15px;
+        display: flex;
+        gap:16px;
+        .input-icon{
+            font-size: var(--thoughtware-input-icon-15);
+        }
+    }
+}

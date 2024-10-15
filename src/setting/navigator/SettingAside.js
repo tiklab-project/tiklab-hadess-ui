@@ -118,8 +118,7 @@ const SettingAside = (props) => {
             children:[
                 {
                     id:'/setting/myLog',
-                    title: '操作日记',
-                    purviewCode:'hadess_log',
+                    title: '操作日志',
                 },
                 {
                     id:'/setting/backupRecovery',

@@ -7,132 +7,192 @@
 
 import React ,{useEffect,useState}from 'react';
 import "./FirstNav.scss"
-import {CaretDownOutlined, CodeOutlined, SettingOutlined} from "@ant-design/icons";
-import {renderRoutes} from "react-router-config";
-import warehouse from "../../assets/images/img/warehouse.png"
-import library from "../../assets/images/img/library.png"
-import create from "../../assets/images/img/create.png"
-import {Dropdown, Tooltip} from "antd";
+import {
+    CaretDownOutlined, CaretLeftOutlined,
+    CaretRightOutlined,
+    SettingOutlined
+} from "@ant-design/icons";
+import {productImg, productFrameImg, productWhiteImg} from "tiklab-core-ui";
+
+import Sider from "antd/es/layout/Sider";
+import TopNav from "./TopNav";
+import {observer} from "mobx-react";
+import ProjectImage from "../image/NavigationImage";
+import libraryStore from "../../library/store/LibraryStore";
 const FirstNav = (props) => {
-    const {location,HelpLink}=props
+    const {location}=props
+    const {setSearchName}=libraryStore
     const [navPath,setNavPath]=useState('')   //选中的导航栏路径
-    const [triggerVisible,setTriggerVisible] = useState(false)
+
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "default");
+
+    //导航折叠状态
+    const [foldState] = useState(localStorage.getItem("collapsed") ? localStorage.getItem("collapsed") : false);
+
+    const [themeClass, setThemeClass] = useState("theme-gray")
+
+    const [collapsed, setCollapsed] = useState(true)
+
+    useEffect(()=> {
+        getThemeClass(theme)
+        return null;
+    }, [theme])
+
+
+
 
     useEffect(async () => {
+
         if (location){
             if (location.pathname.startsWith("/library")){
-                setNavPath("/library/maven")
+                setNavPath("/library")
             }else if (location.pathname.startsWith("/repository")){
+                setSearchName()
                 setNavPath("/repository")
             } else {
+                setSearchName()
                 setNavPath(location.pathname)
             }
         }
     }, [location.pathname]);
 
 
+    const getThemeClass = (theme) => {
+        let name
+        switch (theme) {
+            case "black":
+                name = "theme-black";
+                break;
+            case "gray":
+                name = "theme-gray";
+                break;
+            case "blue":
+                name = "theme-blue";
+                break;
+            default:
+                name = "theme-gray";
+                break;
+
+        }
+        setThemeClass(name)
+        setTheme(theme)
+        return name;
+    }
+
 
     let navigation = [
         {
             key: 'library',
-            id:`/library/maven`,
-            title:'制品',
-            icon:   <img src={library} style={{ width:20,height:20}}/>
+            id:`/library`,
+            title:'搜索',
+            icon: <ProjectImage theme={theme} icon={"library"} type={`${collapsed?'close':'open'}`}/>
         },
         {
             key: 'repository',
             id:`/repository`,
             title:'制品库',
-            icon:   <img src={warehouse} style={{ width:20,height:20}}/>
+            icon: <ProjectImage theme={theme} icon={"repository"} type={`${collapsed?'close':'open'}`}/>
         },
-        {
-            key: 'create',
-            id:`/create`,
-            title:'新建',
-            icon:   <img src={create} style={{ width:20,height:20}}/>
-        },
+       /* {
+            key: 'setting',
+            id:`/setting/version`,
+            title:'设置',
+            icon:  <SettingOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
+        },*/
     ];
 
     //切换nav
     const cuteNav = (value) => {
-        if (value.id==='/create'){
-            return
-        }
         setNavPath(value.id)
-        props.history.push(value.id)
+        if (value.key==='setting'){
+            if (version==='cloud'){
+                props.history.push('/setting/myLog')
+            }else {
+                props.history.push('/setting/version')
+            }
+        }else {
+            props.history.push(value.id)
+        }
     }
+
+    /**
+     * 点击折叠或展开菜单
+     */
+    const toggleCollapsed = () => {
+        setCollapsed(!collapsed)
+        const a=localStorage.getItem("collapsed")
+        localStorage.setItem("collapsed",!a )
+
+    }
+
 
     const cutSetting = () => {
         props.history.push('/setting/version')
         setNavPath("setting")
     }
 
-    /**
-     * 跳转添加制品库
-     * @param  type （local、remote、group）
-     */
-    const goRepositoryAdd=async (type)=>{
-        setTriggerVisible(false)
-        props.history.push(`/repository/add/${type}`)
-    }
 
     return(
         <div className="fist-nav">
-            <div className='fist-nav-style '>
-                <div>
-                    {navigation?.map(item=>{
-                        return(
-                            <div key={item.key} className={`${navPath===item.id&&' fist-nav-tab-choice'} fist-nav-tab `} onClick={()=>cuteNav(item)} >
-                                <div className='table-nav-place'>
+            <Sider trigger={null} collapsible collapsed={collapsed} collapsedWidth="75" width="200" className={`${themeClass} fist-nav-style `}>
+                <div className='fist-tab-up'>
+                    <div className='fist-nav-icon'>
+                        {
+                            collapsed?
+                                <div className='fist-nav-close-icon'>
                                     {
-                                        item.key==='create'?
-                                            <Dropdown
-                                                overlay={
-                                                    <>
-                                                        <div className="create-dropdown-link" onClick={()=>goRepositoryAdd("local")} >
-                                                            本地库
-                                                        </div>
-                                                        <div className="create-dropdown-link" onClick={()=>goRepositoryAdd('remote')}>
-                                                            远程库
-                                                        </div>
-                                                        <div className="create-dropdown-link" onClick={()=>goRepositoryAdd('group')}>
-                                                            组合库
-                                                        </div>
-                                                    </>
-                                                }
-                                                trigger={['click']}
-                                                open={triggerVisible}
-                                                onOpenChange={visible=>setTriggerVisible(visible)}
-                                                overlayClassName='create-dropdown'
-                                            >
-                                                <div>
-                                                    <div>{item.icon}</div>
-                                                    <div>{item.title}</div>
-                                                </div>
-                                            </Dropdown>:
-                                            <div>
-                                                <div>{item.icon}</div>
-                                                <div>{item.title}</div>
-                                            </div>
+                                        (theme==='default'||theme==='gray')?
+                                            <img  src={productImg.hadess }  className='icon-size'/>:
+                                            <img  src={productWhiteImg.hadess }  className='icon-size'/>
                                     }
 
+                                </div>:
+                                <div className='fist-nav-open-icon'>
+                                    {
+                                        (theme==='default'||theme==='gray')?
+                                            <img  src={productImg.hadess }  className='icon-size'/>:
+                                            <img  src={productWhiteImg.hadess }  className='icon-size'/>
+                                    }
+                                    <div className='icon-text'>Hadess</div>
                                 </div>
+                        }
+                    </div>
+
+                    {navigation?.map(item=>{
+                        return(
+                            <div key={item.key} className={`${navPath===item.id&&' tab-link-active'} tab-link `} onClick={()=>cuteNav(item)} >
+                                {
+                                    collapsed?
+                                        <div className='table-close-nav'>
+                                            <div>
+                                                <div className='user-icon'>{item.icon}</div>
+                                                <div>{item.title}</div>
+                                            </div>
+                                        </div>:
+                                        <div className='table-open-nav'>
+                                            <div className='open-icon-style'>{item.icon}</div>
+                                            <div>{item.title}</div>
+                                        </div>
+                                }
                             </div>
                         )
                     })}
                 </div>
-                <div className={`${navPath==="setting"&&' fist-nav-tab-choice'} fist-nav-setting `} onClick={cutSetting} >
-                    <div className='table-nav-place' >
-                        <Tooltip title='设置' placement={"left"}>
-                            <SettingOutlined style={{fontSize:20}}/>
-                        </Tooltip >
+
+                <TopNav {...props} showType={"all"} collapsed={collapsed} setTheme={setTheme} theme={theme}/>
+
+                <div className="menu-box-right-border" >
+                    <div className={"menu-box-isexpanded"} onClick={toggleCollapsed}>
+                        {
+                            collapsed ?
+                                <CaretRightOutlined  className='first-menu-expend-icon'/>
+                                : <CaretLeftOutlined className='first-menu-expend-icon'/>
+                        }
                     </div>
                 </div>
-            </div>
-            <div className='fist-data-tab' >
-                {renderRoutes(props.route.routes)}
-            </div>
+            </Sider>
+            <div className='fist-nav-style-border'></div>
         </div>
     )
 }
-export default FirstNav
+export default observer(FirstNav)

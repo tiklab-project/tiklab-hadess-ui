@@ -9,7 +9,7 @@
 import React,{useEffect,useState} from "react";
 import {Button, Upload} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 const FileUploading = (props) => {
 

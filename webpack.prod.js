@@ -33,8 +33,9 @@ module.exports = merge(baseWebpackConfig, {
         new CleanWebpackPlugin(),
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
-            title:'Xcode',
-            template: path.resolve(__dirname, './public/index.template.html'),
+            title:'Hadess',
+            favicon:'./src/assets/images/img/hadess.png',
+            template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',
             inject: 'body',
@@ -85,30 +86,30 @@ module.exports = merge(baseWebpackConfig, {
                     reuseExistingChunk: true //遇到重复包直接引用，不重新打包
                 },
                 tiklabEamUI: {
-                    name: 'chunk-thoughtware-eam-ui',
+                    name: 'chunk-tiklab-eam-ui',
                     chunks: 'all',
-                    test: /thoughtware-eam-ui/,
+                    test: /tiklab-eam-ui/,
                     priority: 60,
                     reuseExistingChunk: true
                 },
                 tiklabUserUI: {
-                    name: 'chunk-thoughtware-user-ui',
+                    name: 'chunk-tiklab-user-ui',
                     chunks: 'all',
-                    test: /thoughtware-user-ui/,
+                    test: /tiklab-user-ui/,
                     priority: 65,
                     reuseExistingChunk: true
                 },
                 tiklabPrivilegeUI: {
-                    name: 'chunk-thoughtware-licence-ui',
+                    name: 'chunk-tiklab-licence-ui',
                     chunks: 'all',
-                    test: /thoughtware-licence-ui/,
+                    test: /tiklab-licence-ui/,
                     priority: 70,
                     reuseExistingChunk: true
                 },
                 tiklabMessageUI: {
-                    name: 'chunk-thoughtware-message-ui',
+                    name: 'chunk-tiklab-message-ui',
                     chunks: 'all',
-                    test: /thoughtware-message-ui/,
+                    test: /tiklab-message-ui/,
                     priority: 70,
                     reuseExistingChunk: true
                 },

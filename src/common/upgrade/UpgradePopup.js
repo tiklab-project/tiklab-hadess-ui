@@ -13,7 +13,7 @@ const UpgradePopup = (props) => {
     }
 
     const onOk = () => {
-        window.open(`https://thoughtware.cn/account/subscribe/apply/hadess`)
+        window.open(`https://tiklab.net/account/subscribe/apply/hadess`)
     }
 
     const modalFooter = (
@@ -25,7 +25,7 @@ const UpgradePopup = (props) => {
 
     return(
         <Modals
-            open={visible}
+            visible={visible}
             onCancel={cancel}
             closable={false}
             footer={modalFooter}

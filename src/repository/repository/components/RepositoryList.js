@@ -7,7 +7,8 @@
  */
 import React, {useState, useEffect} from "react";
 import './RepositoryList.scss'
-import {Table, Dropdown, Menu, Tooltip, Col, Input} from "antd";
+import {Table, Dropdown, Menu, Tooltip, Col, Select} from "antd";
+const { Option } = Select;
 import ListIcon from "../../../common/repositoryIcon/Listicon";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
@@ -15,15 +16,19 @@ import {SearchOutlined, SettingOutlined} from "@ant-design/icons";
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
 import GuideDrawer from "../../guide/components/GuideDrawer";
 import Page from "../../../common/page/Page";
-import {PrivilegeButton} from 'thoughtware-privilege-ui';
-import Btn from "../../../common/btn/Btn";
 import EmptyText from "../../../common/emptyText/EmptyText";
 import {SpinLoading} from "../../../common/loading/Loading";
+import SearchInput from "../../../common/input/SearchInput";
+import LibraryDropdown from "../../../common/downSelect/LibraryDropdown";
+import BasicsDown from "../../../common/downSelect/BasicsDown";
+const categoryList=[
+    {value: 'local', label: '本地库'},
+    {value: 'remote', label: '远程库'},
+    {value: 'group', label: '组合库'}
+]
 const RepositoryList = (props) => {
-    const {repositoryStore}=props
+    const {repositoryStore,publicState}=props
     const {findRepositoryPage,addRepositoryType,setRepositoryTypeNull}=repositoryStore
-    //制品库类型
-    const [repositoryType,setRepositoryType]=useState('all')
 
     const [currentPage,setCurrentPage]=useState(1)
     const [totalPage,setTotalPage]=useState()
@@ -39,16 +44,31 @@ const RepositoryList = (props) => {
     const [repositoryName,setRepositoryName]=useState()
     const [isLoading,setIsLoading]=useState(false)
 
+    const [columns,setColumns]=useState([])
 
-    const columns = [
+
+    const [type,setType]=useState()
+    //仓库类型下拉打开状态
+    const [typeVisible,setTypeVisible]=useState(false)
+
+    //制品库类别
+    const [category,setCategory]=useState()
+    const [categoryLabel,setCategoryLabel]=useState()
+    //仓库种类下拉打开状态
+    const [categoryVisible,setCategoryVisible]=useState(false)
+
+    const baseColumns = [
         {
             title: '制品库名称',
             dataIndex: 'name',
-            width:'30%',
+            width:'25%',
             ellipsis:true,
             render:(text,record)=>{
                 return <span className='repository-name' onClick={()=>goRepositoryDetails(record)}>
-                            <ListIcon text={record?.name} colors={record.color}/>
+                            <ListIcon text={record?.name}
+                                      colors={record.color}
+                                      type={"common"}
+                            />
                             <span>{text}</span>
                             {
                                 record.category===1&&
@@ -62,6 +82,20 @@ const RepositoryList = (props) => {
             dataIndex: 'type',
             ellipsis:true,
             width:'10%',
+            render:(text,record)=>  <div className='repository-tables-nav'>{text}</div>
+        },
+        {
+            title: '种类',
+            dataIndex: 'repositoryType',
+            ellipsis:true,
+            width:'10%',
+            render:(text,record)=>  <div>
+                {
+                    text==='remote'&&'远程库'||
+                    text==='local'&&'本地库'||
+                    text==='group'&&'组合库'
+                }
+            </div>
         },
         {
             title: '制品数量',
@@ -74,7 +108,7 @@ const RepositoryList = (props) => {
             title: '地址',
             dataIndex: 'repositoryUrl',
             ellipsis:true,
-            width:'30%',
+            width:'25%',
             render:(text,record)=>{
                 return filedState(record?.repositoryUrl)
             }
@@ -85,41 +119,49 @@ const RepositoryList = (props) => {
             ellipsis:true,
             width:'15%',
         },
-        {
-            title: '操作',
-            key: 'activity',
-            ellipsis:true,
-            width:'5%',
-            render: (text, record) => (
-                <Tooltip title='设置'>
-                    <span className='repository-tables-set' onClick={()=>goDeploy(record)}>
-                        <SettingOutlined className='actions-se'/>
-                    </span>
-                </Tooltip>
 
-            )
-        },
     ];
 
     useEffect(async () => {
+        if (!publicState){
+          baseColumns.push( {
+                title: '操作',
+                key: 'activity',
+                ellipsis:true,
+                width:'5%',
+                render: (text, record) => (
+                    <Tooltip title='设置'>
+                    <span className='repository-tables-set' onClick={()=>goDeploy(record)}>
+                        <SettingOutlined className='actions-se'/>
+                    </span>
+                    </Tooltip>
+                )
+            },)
+        }
+        setColumns(baseColumns)
+    }, [publicState]);
+
+    useEffect(async () => {
       if (addRepositoryType){
-          setRepositoryType(addRepositoryType)
-          getRepositoryPage(1,addRepositoryType,repositoryName)
+          setCategory(addRepositoryType)
+          getRepositoryPage(1,addRepositoryType,type,repositoryName)
       }else {
           setCurrentPage(1)
-          setRepositoryType(repositoryType)
-          getRepositoryPage(1,repositoryType,repositoryName)
+          setCategory(category)
+          getRepositoryPage(1,category,type,repositoryName)
       }
 
-    }, [repositoryType]);
+    }, [category,type]);
 
 
-    //分页查询租户
-    const getRepositoryPage = (currentPage,repositoryType,name) => {
+
+    //分页查询仓库
+    const getRepositoryPage = (currentPage,category,type,name) => {
         setIsLoading(true)
-        findRepositoryPage({ repositoryType:repositoryType,
+        findRepositoryPage({ repositoryType:category,
                             name:name,
                             findType:"like",
+                            type:type,
                             pageParam:{currentPage:currentPage, pageSize:pageSize}}).then(res=>{
             setIsLoading(false)
             if (res.code===0){
@@ -137,7 +179,7 @@ const RepositoryList = (props) => {
      * @param  value 当前制品库
      */
     const goRepositoryDetails =async (value) => {
-        props.history.push(`/repository/${value.id}/libraryList`)
+        props.history.push(`/repository/${value.id}/library`)
     }
 
     /**
@@ -146,7 +188,7 @@ const RepositoryList = (props) => {
      */
     const cuteType =async (value) => {
         setRepositoryTypeNull()
-        setRepositoryType(value)
+        setCategory(value)
     }
 
 
@@ -162,7 +204,7 @@ const RepositoryList = (props) => {
      * 跳转配置界面
      */
     const goDeploy =async (value) => {
-        props.history.push(`/repository/${value.id}/setting/repositoryInfo`)
+        props.history.push(`/repository/${value.id}/setting/info`)
     }
 
     //添加仓库名字
@@ -170,24 +212,41 @@ const RepositoryList = (props) => {
         const value=e.target.value
         setRepositoryName(value)
         if (value===''){
-            getRepositoryPage(1,repositoryType)
+            getRepositoryPage(1,category,type)
         }
     }
     //条件查询
     const onSearch = () => {
-        getRepositoryPage(1,repositoryType,repositoryName)
+        getRepositoryPage(1,category,type,repositoryName)
     }
 
     //分页查询
     const changPage = (value) => {
         setCurrentPage(value)
-        getRepositoryPage(value,repositoryType,repositoryName)
+        getRepositoryPage(value,category,type,repositoryName)
     }
 
     //刷新查询
     const refreshFind = () => {
-        getRepositoryPage(currentPage,repositoryType,repositoryName)
+        getRepositoryPage(currentPage,category,type,repositoryName)
     }
+
+    //切换仓库版本
+    const cuteRpyCategory = (data) => {
+        if (data){
+            setCategory(data.value)
+            setCategoryLabel(data.label)
+        }else {
+            setCategory()
+            setCategoryLabel()
+        }
+    }
+    //切换仓库类型
+    const cuteRpyType = (value) => {
+        setType(value)
+    }
+
+
     /**
      * 字段过长省略
      * @param text
@@ -197,7 +256,6 @@ const RepositoryList = (props) => {
             value?.length>10?
                 <Tooltip placement="rightBottom" title={value}>
                     <div style={{
-
                         overflow: "hidden",
                         textOverflow: "ellipsis",
                         whiteSpace: "nowrap"
@@ -225,38 +283,40 @@ const RepositoryList = (props) => {
         </Menu>
     );
     return(
-        <div className='repository'>
+        <div className='drop-down repository hadess-data-width'>
             <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "20", offset: "2" }} xxl={{ span: "18", offset: "3" }}>
                 <div className='repository-head-style'>
                     <Breadcrumb firstItem={'制品库'}/>
-                    <div className='repository-flex'>
-                        <PrivilegeButton  code={"hadess_operate_guide"} key={'hadess_operate_guide'} >
+                    {
+                       !publicState&&
+                        <div className='repository-flex'>
                             <div className='guide-button'  onClick={()=>setDrawerVisible(true)} >
                                 操作指引
                             </div>
-                        </PrivilegeButton>
-                        <PrivilegeButton  code={"hadess_rpy_add"} key={'hadess_rpy_add'} >
                             <Dropdown overlay={()=>SystemTypes()} >
                                 <div className='add-button' >
                                     新建制品库
                                 </div>
                             </Dropdown>
-                         </PrivilegeButton>
-                    </div>
+                        </div>
+                    }
                 </div>
 
                 <div className='repository-filter'>
-                    <div className='repository-flex '>
-                        <div className={`${repositoryType==='all'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("all")}>所有库</div>
-                        <div className={`${repositoryType==='local'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("local")}>本地库</div>
-                        <div className={`${repositoryType==='remote'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("remote")}>远程库</div>
-                        <div className={`${repositoryType==='group'&& ' choose-type '}  repository_tab`} onClick={()=>cuteType("group")}>组合库</div>
-                    </div>
                     <div>
-                        <Input allowClear  placeholder={'搜索制品库名称'} value={repositoryName}  onChange={onInputName}
-                               onPressEnter={onSearch}    size='middle' style={{ width: 200 }}
-                               prefix={<SearchOutlined className='input-icon'/>} className='library-border '/>
+                        <SearchInput
+                            placeholder={'搜索制品库名称'}
+                            onChange={onInputName}
+                            onPressEnter={onSearch}
+                        />
                     </div>
+                    <LibraryDropdown
+                        visible={typeVisible}
+                        setVisible={setTypeVisible}
+                        libraryType={type}
+                        cuteLibraryType={cuteRpyType}
+                        type={"repository"}
+                    />
                 </div>
 
                 <div className='repository-table '>

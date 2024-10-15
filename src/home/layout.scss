@@ -1,0 +1,12 @@
+.hadess-frame{
+    height: 100vh;
+    overflow: hidden;
+    .frame-content{
+        height: var(--xpack-content-height);
+    }
+}
+
+.portals-content{
+    background: var(--thoughtware-white);
+    height: var(--xpack-content-height)
+}

@@ -8,13 +8,11 @@
 
 import React,{useState,useEffect} from 'react';
 import {renderRoutes} from 'react-router-config'
-import {PrivilegeButton,SystemNav} from 'thoughtware-privilege-ui';
-import {SYSTEM_ROLE_STORE} from "thoughtware-privilege-ui/es/store"
+import {PrivilegeButton,SystemNav} from 'tiklab-privilege-ui';
 
 import {inject, observer} from "mobx-react";
 import "./SettingAside.scss"
-import {DownOutlined, ExportOutlined, UpOutlined} from "@ant-design/icons";
-import goBack from "../../assets/images/img/goBack.png";
+import {DownOutlined, ExportOutlined, HomeOutlined, UpOutlined} from "@ant-design/icons";
 const SettingContent = (props) => {
     const {route,applicationRouters,basicRouter,isDepartment,systemRoleStore,setNavLevel} = props
     const {systemPermissions}=systemRoleStore
@@ -24,17 +22,16 @@ const SettingContent = (props) => {
     const [expandedTree,setExpandedTree] = useState([''])  // 树的展开与闭合
     const [authConfig,setAuthConfig]=useState(null)
 
+
+
     useEffect(()=>{
         if (path.startsWith("/setting/scanHole")){
             setSelectKey("/setting/scanScheme")
         }else {
             setSelectKey(path)
         }
-
         const authConfig=localStorage.getItem('authConfig')
         setAuthConfig(JSON.parse(authConfig))
-
-
     },[path])
 
     // 菜单
@@ -61,6 +58,7 @@ const SettingContent = (props) => {
         } else {
             setExpandedTree(expandedTree.concat(key))
         }
+
     }
 
     //跳转
@@ -85,7 +83,13 @@ const SettingContent = (props) => {
         props.history.push(`/repository`)
     }
 
+    //跳转设置首页
+    const goSettingHome = () => {
+        props.history.push('/setting/home')
+    }
+
     const renderMenu = (data,deep)=> {
+
         return (
             <PrivilegeButton key={data.id} code={data.purviewCode} {...props}>
                 <li
@@ -93,7 +97,6 @@ const SettingContent = (props) => {
                     onClick={()=>skip(data)}
                     key={data.id}
                 >
-
                     <div className='nav-style'>
                         <span className='sys-content-icon'>{data.icon}</span>
                         <span className='nav-style-title'>{data.title}</span>
@@ -108,7 +111,6 @@ const SettingContent = (props) => {
             </PrivilegeButton>
         )
     }
-
     const subMenu = (item,deep)=> {
         return (
             <li key={item.id} className='system-aside-li'>
@@ -116,10 +118,10 @@ const SettingContent = (props) => {
                      style={{paddingLeft: `${deep * 20 + 10}`}}
                      onClick={()=>setOpenOrClose(item.id)}
                 >
-                    <span>
-                        <span className='sys-content-icon'>{item.icon}</span>
-                        <span className='system-aside-title'>{item.title}</span>
-                    </span>
+                    <div className='system-aside-item-space'>
+                        <div className='sys-content-icon'>{item.icon}</div>
+                        <div className='system-aside-title'>{item.title}</div>
+                    </div>
                     <div className='system-aside-item-icon'>
                         {
                             item.children ?
@@ -149,6 +151,8 @@ const SettingContent = (props) => {
         const isPromise = item.children.some(list=> systemPermissions.includes(list.purviewCode))
         return isPromise && subMenu(item,deep)
     }
+
+
     return (
         <SystemNav
             {...props}
@@ -161,21 +165,29 @@ const SettingContent = (props) => {
         >
             <div className='system'>
                 <div className='system-aside'>
-                    <div className='system-aside-title-nav'>
-                        <img src={goBack} className='system-aside-icon' onClick={backHome}/>
-                        <div className='system-aside-title-text'>设置</div>
+                    <div className='system-aside-tab-up'>
+                        <div className='system-icon' onClick={goSettingHome}>
+                            <div className='aside-text-size'>设置</div>
+                        </div>
+                        <div className='system-aside-goHome'>
+                            <div className='system-aside-title-nav' onClick={backHome}>
+                                <HomeOutlined className='system-aside-icon'/>
+                                <div>返回首页</div>
+                            </div>
+                        </div>
+
+                        <ul className='system-aside-top' style={{padding:0}}>
+                            {
+                                menus().map(firstItem => {
+                                    return firstItem.children && firstItem.children.length > 0 ?
+                                        renderSubMenu(firstItem,0) : renderMenu(firstItem,0)
+                                })
+                            }
+                        </ul>
                     </div>
-                    <ul className='system-aside-top' style={{padding:0}}>
-                        {
-                            menus().map(firstItem => {
-                                return firstItem.children && firstItem.children.length > 0 ?
-                                    renderSubMenu(firstItem,0) : renderMenu(firstItem,0)
-                            })
-                        }
-                    </ul>
                 </div>
                 <div className='system-content'>
-                    {renderRoutes(route.routes)}
+                    {renderRoutes(props.route.routes)}
                 </div>
             </div>
         </SystemNav>

@@ -19,7 +19,7 @@ import fail from "../../../assets/images/img/fail.png";
 import noExec from "../../../assets/images/img/noExec.png";
 import {observer} from "mobx-react";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import {PrivilegeProjectButton} from 'thoughtware-privilege-ui';
+import {PrivilegeProjectButton} from 'tiklab-privilege-ui';
 import EmptyText from "../../../common/emptyText/EmptyText";
 const ScanPlayList = (props) => {
     const {match:{params}} = props;

@@ -1,4 +1,9 @@
 .basicInfo{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    min-width: 700px;
     .basicInfo-up{
         padding-bottom: var(--thoughtware-padding-item);
     }

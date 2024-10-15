@@ -51,7 +51,7 @@ const PushGroupPop = (props) => {
 
     return(
         <Modals
-            open={visible}
+            visible={visible}
             onCancel={cancel}
             closable={false}
             footer={modalFooter}
@@ -67,7 +67,7 @@ const PushGroupPop = (props) => {
                     name={'groupName'}
                     rules={[{required:true,message:'组名称不能为空'}]}
                 >
-                    <Input  placeholder={"组名称"}/>
+                    <Input  placeholder={"组名称"}  className='custom-input'/>
                 </Form.Item>
             </Form>
 

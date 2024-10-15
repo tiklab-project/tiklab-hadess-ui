@@ -13,7 +13,7 @@ import Btn from "../../../common/btn/Btn";
 import TimeTaskStore from "../store/TimeTaskStore";
 import TimeTaskPop from "../../../common/timetask/TimeTaskPop";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import {PrivilegeProjectButton} from 'thoughtware-privilege-ui';
+import {PrivilegeProjectButton} from 'tiklab-privilege-ui';
 import {observer} from "mobx-react";
 import EmptyText from "../../../common/emptyText/EmptyText";
 const ScanSetting = (props) => {

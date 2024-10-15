@@ -27,7 +27,7 @@ import fail from "../../../../assets/images/img/fail.png";
 import DeleteExec from "../../../../common/delete/DeleteExec";
 import pushGroupStore from "../store/PushGroupStore";
 import PushOperationStore from "../store/PushOperationStore";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import PushLogDrawer from "./PushLogDrawer";
 const PushLibrary = (props) => {
     const {match:{params},repositoryStore} = props;
@@ -208,7 +208,6 @@ const PushLibrary = (props) => {
     const openPushLibrary = () => {
         findNotPushLibraryList({repositoryId:params.id})
       setAddVisible(true)
-
     }
 
     //回跳到上一个页面
@@ -217,7 +216,7 @@ const PushLibrary = (props) => {
     }
 
     return(
-        <div className='hadess-data-width push-library'>
+        <div className=' push-library'>
             <Col
                 sm={{ span: "24" }}
                 md={{ span: "24" }}

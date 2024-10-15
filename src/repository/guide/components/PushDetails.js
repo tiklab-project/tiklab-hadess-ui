@@ -7,7 +7,7 @@
  */
 import React,{Fragment} from "react";
 import "./PushDetails.scss"
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 const PushDetails = (props) => {
     const {type,serverIp}=props
 

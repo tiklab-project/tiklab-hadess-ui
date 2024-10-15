@@ -1,6 +1,6 @@
 import {stores as xpackStore} from "./stores";
 import  Routers  from "./routers";
-import Layout from "./common/layout/layout";
+import Portals from "./home/Portals";
 import SyncComponent from "./common/lazy/SyncComponent";
 
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
@@ -9,12 +9,15 @@ const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludePro
 const Breadcrumb=SyncComponent(()=>import('./common/breadcrumb/Breadcrumb'))
 const btn=SyncComponent(()=>import('./common/btn/btn'))
 const HoleBtn=SyncComponent(()=>import('./common/btn/HoleBtn'))
+const NavigationImage=SyncComponent(()=>import('./common/image/NavigationImage'))
+const TopNav=SyncComponent(()=>import('./common/navigation/TopNav'))
+const FirstNav=SyncComponent(()=>import('./common/navigation/FirstNav'))
+const LibraryHistory = SyncComponent(() => import('./common/library/History'))
+const Modals = SyncComponent(() => import('./common/modal/Modal'))
 
-
-
-
-// 制品列表
-const librarys = SyncComponent(() => import('./library/components/LibraryList'))
+//制品
+const LibraryDetails = SyncComponent(() => import('./library/component/LibraryDetails'))
+const RpyLibraryDetails = SyncComponent(() => import('./repository/library/components/LibraryDetails'))
 
 //制品扫描
 const ScanPlayList = SyncComponent(() => import('./repository/scan/components/ScanPlayList'))
@@ -32,8 +35,7 @@ const HoleEdit =SyncComponent(()=>import('./setting/scan/components/HoleEditPop'
 const RepositoryList = SyncComponent(() => import('./repository/repository/components/RepositoryList'))
 // 制品库-创建
 const RepositoryAdd = SyncComponent(() => import('./repository/repository/components/RepositoryAdd'))
-//制品列表
-const LibraryList = SyncComponent(() => import('./repository/library/LibraryList'))
+
 
 //制品库信息
 const RepositoryInfo = SyncComponent(() => import('./repository/setting/basicInfo/RepositoryBasicInfo'))
@@ -68,8 +70,6 @@ const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
 const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 
-//设置-插件
-const plugin =SyncComponent(()=>import('./setting/plugins/Plugin'))
 //设置-操作日志
 const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
 //设置-版本与许可证
@@ -93,17 +93,25 @@ const ProjectRole =SyncComponent(()=>import('./setting/basicData/ProjectRole'))
 const SystemRole =SyncComponent(()=>import('./setting/basicData/SystemRole'))
 const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
 
+
+
 export {
+    NavigationImage,
+    TopNav,
+    FirstNav,
+    Modals,
+
+    LibraryHistory,
+    LibraryDetails,
+    RpyLibraryDetails,
     SettingHome,
     ExcludeProductUser,
-    librarys,
     ScanPlayList,
     ScanList,
     ScanDetails,
     ScanHistory,
     RepositoryList,
     RepositoryAdd,
-    LibraryList,
     programDomainRole,
     RepositoryAside,
     RepositorySetting,
@@ -116,7 +124,6 @@ export {
     group,
     userDirectory,
     systemRole,
-    plugin,
     MyLog,
     Version,
     AuthContent,
@@ -126,7 +133,6 @@ export {
 
     Routers ,
     xpackStore,
-    Layout,
     SettingContent,
     BackupRecovery,
 
@@ -143,4 +149,5 @@ export {
     ProjectRole,
     SystemRole,
     LogType,
+    Portals,
 }

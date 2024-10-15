@@ -17,7 +17,7 @@ import Page from "../../../common/page/Page";
 import ScanSchemeStore from "../store/ScanSchemeStore";
 import ScanSchemeEditPop from "./ScanSchemeEditPop";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import {PrivilegeButton} from 'thoughtware-privilege-ui';
+import {PrivilegeButton} from 'tiklab-privilege-ui';
 import EmptyText from "../../../common/emptyText/EmptyText";
 const ScanScheme = (props) => {
     const {findScanSchemePage,deleteScanScheme,createScanScheme,fresh}=ScanSchemeStore

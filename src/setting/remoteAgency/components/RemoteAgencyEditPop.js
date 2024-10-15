@@ -68,7 +68,7 @@ const RemoteAgencyEditPop = (props) => {
     )
     return(
         <Modals
-            open={editVisible}
+            visible={editVisible}
             closable={false}
             footer={modalFooter}
             destroyOnClose={true}

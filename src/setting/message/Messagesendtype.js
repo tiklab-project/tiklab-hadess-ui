@@ -6,7 +6,7 @@
  * @update: 2021-08-09 14:30
  */
 import React from "react";
-import {MessageSendType} from 'thoughtware-message-ui';
+import {MessageSendType} from 'tiklab-message-ui';
 
 const OmsMessageSendType = (props) => {
     return (

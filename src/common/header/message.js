@@ -17,9 +17,9 @@ import {
     MessageOutlined
 } from "@ant-design/icons";
 import MessageStore from "./store/MessageStore";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 const Message = (props) => {
-    const {visible,setVisible,unread,setUnread} = props
+    const {visible,setVisible,unread,setUnread,translateX} = props
     const {findMessageItemPage,updateMessageItem,deleteMessageItem}=MessageStore
 
     const [isLoading,setIsLoading] = useState(false)
@@ -158,9 +158,7 @@ const Message = (props) => {
                     onClick={()=>goHref(item)}
                 >
                     <div className='message-item-left'>
-                        <div className='message-item-icon'>
-                            <MessageOutlined />
-                        </div>
+                        <div className="message-user-icon">{getUser()?.nickname.slice(0, 1).toUpperCase()}</div>
                         <div className='message-item-center'>
                             <div className='message-item-user'>
                                 <div>
@@ -189,69 +187,68 @@ const Message = (props) => {
         })
     }
 
-    return(
-        <Drawer
-            closable={false}
-            placement='right'
-            onClose={onClose}
-            visible={visible}
-            maskStyle={{background:'transparent'}}
-            contentWrapperStyle={{width:450,top:48,height:'calc(100% - 48px)'}}
-            bodyStyle={{padding:0}}
-
-        >
-            <div className='messageModal'>
-                <div className='messageModal-up'>
-                    <div className='messageModal-up-title'>
-                        <span className='messageModal-up-icon'><BellOutlined/></span>
-                        <span>消息</span>
-                    </div>
-                    <div className='messageModal-up-close' onClick={closeMsg}>
-                        <CloseOutlined />
-                    </div>
+    return visible&&<Drawer
+        closable={false}
+        placement='left'
+        onClose={onClose}
+        visible={visible}
+        maskStyle={{background:'transparent'}}
+        contentWrapperStyle={visible?{transform:`translateX(${translateX})`,width:450,height:'calc(100%)'}:{}}
+        className='custom-message'
+    >
+        <div className='messageModal'>
+            <div className='messageModal-up'>
+                <div className='messageModal-up-title'>
+                    <span className='messageModal-up-icon'><BellOutlined/></span>
+                    <span>消息</span>
                 </div>
-                <div className='messageModal-content'>
-                    <div className='messageModal-title'>
-                        {
-                            tabs.map(item=>renderTabs(item))
-                        }
-                    </div>
-                    <div className='messageModal-list'>
-                        {
-                            renderMessageList(messageList)
-                        }
-                        {
-                            currentPage===totalPage&&state==='more'&&
-                            <Divider plain>没有更多了 🤐</Divider>
-                        }
-                        {
-                            totalPage===0&&
-                            <div>
-                               {/* <EmptyText
-                                    title={emptyTitle}
-                                />*/}
-                            </div>
-                        }
-                        {
-                            currentPage<totalPage && !isLoading &&
-                            <div
-                                className='messageModal-more'
-                                onClick={()=>moreMessage()}
-                            >
-                                加载更多...
-                            </div>
-                        }
-                        {
-                            isLoading &&
-                            <div className='messageModal-more'>
-                                <LoadingOutlined/>
-                            </div>
-                        }
-                    </div>
+                <div className='messageModal-up-close' onClick={closeMsg}>
+                    <CloseOutlined />
                 </div>
             </div>
-        </Drawer>
+            <div className='messageModal-content'>
+                <div className='messageModal-title'>
+                    {
+                        tabs.map(item=>renderTabs(item))
+                    }
+                </div>
+                <div className='messageModal-list'>
+                    {
+                        renderMessageList(messageList)
+                    }
+                    {
+                        currentPage===totalPage&&state==='more'&&
+                        <Divider plain>没有更多了 🤐</Divider>
+                    }
+                    {
+                        totalPage===0&&
+                        <div>
+                            {/* <EmptyText
+                                    title={emptyTitle}
+                                />*/}
+                        </div>
+                    }
+                    {
+                        currentPage<totalPage && !isLoading &&
+                        <div
+                            className='messageModal-more'
+                            onClick={()=>moreMessage()}
+                        >
+                            加载更多...
+                        </div>
+                    }
+                    {
+                        isLoading &&
+                        <div className='messageModal-more'>
+                            <LoadingOutlined/>
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </Drawer>
 
-    )
+
+
 }
 export default Message

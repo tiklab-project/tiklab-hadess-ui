@@ -15,7 +15,7 @@ import {DeleteOutlined, EditOutlined, StopOutlined} from "@ant-design/icons";
 import Btn from "../../../common/btn/Btn";
 import RemoteAgencyEditPop from "./RemoteAgencyEditPop";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import {PrivilegeButton} from 'thoughtware-privilege-ui';
+import {PrivilegeButton} from 'tiklab-privilege-ui';
 const RemoteAgency = (props) => {
     const {createRemoteProxy,updateRemoteProxy,findRemoteProxyList,deleteRemoteProxy,findRepositoryByProxyId,fresh}=RemoteProxyStore
 
@@ -55,6 +55,7 @@ const RemoteAgency = (props) => {
             key: 'agencyType',
             width:'20%',
             ellipsis:true,
+            render:(text,record)=>  <div className='proxy-tab-nav'>{text}</div>
         },
         {
             title:'操作',
@@ -92,7 +93,7 @@ const RemoteAgency = (props) => {
                 sm={{ span: "24" }}
                 md={{ span: "24" }}
                 lg={{ span: "24" }}
-                xl={{ span: "20", offset: "2" }}
+                xl={{ span: "22", offset: "1" }}
                 xxl={{ span: "18", offset: "3" }}
             >
                 <div className='proxy-head-up'>

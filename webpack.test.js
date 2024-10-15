@@ -11,6 +11,8 @@ const ProgressBarPlugin = require('progress-bar-webpack-plugin')
 
 
 const baseWebpackConfig = require('./webpack.base.js');
+const {CleanWebpackPlugin} = require("clean-webpack-plugin");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 
 
@@ -30,8 +32,24 @@ module.exports = merge(baseWebpackConfig, {
                 }
             }
         }),
+        new CleanWebpackPlugin(),
+        new HtmlWebpackPlugin({
+            alwaysWriteToDisk: true,
+            title:'Hadess',
+            favicon:'./src/assets/images/img/hadess.png',
+            template: path.resolve(__dirname, './public/index.html'),
+            hash: false,
+            filename: 'index.html',
+            inject: 'body',
+            minify: {
+                collapseWhitespace: true,
+                removeComments: true,
+                removeAttributeQuotes: true
+            }
+        }),
         new ProgressBarPlugin()
     ],
+
     optimization: {
         minimize: true,
         nodeEnv: process.env.NODE_ENV,

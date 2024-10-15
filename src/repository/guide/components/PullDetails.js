@@ -109,7 +109,7 @@ const PullDetails = (props) => {
                 <Fragment>
                     <div className='push-details-title'>命令拉取：</div>
                     <div className='nav-style'>
-                        {`curl -H "type:download"  -u [USER_NAME]:[PASSWORD]  "${node_env? base_url:window.location.origin}/generic/generic/[GENERIC_RPY]/[FILE_NAME]" -o [OUTPUT_FILE]`}
+                        {`curl -H "type:download"  -u [USER_NAME]:[PASSWORD]  "${node_env? base_url:window.location.origin}/generic/[GENERIC_RPY]/[FILE_NAME]" -o [OUTPUT_FILE]`}
                     </div>
                     <div className='text-style'>
                         <div>替换文本：</div>

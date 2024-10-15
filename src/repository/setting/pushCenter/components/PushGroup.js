@@ -19,7 +19,7 @@ import PushGroupStore from "../store/PushGroupStore";
 import PushGroupPop from "./PushGroupPop";
 import pushOperationStore from "../store/PushOperationStore";
 import PushLogDrawer from "./PushLogDrawer";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 const PushGroup = (props) => {
     const {match:{params},repositoryStore} = props;
 
@@ -173,7 +173,7 @@ const PushGroup = (props) => {
     }
 
     return(
-        <div className='hadess-data-width push-group'>
+        <div className=' push-group'>
             <Col
                 sm={{ span: "24" }}
                 md={{ span: "24" }}
@@ -182,7 +182,7 @@ const PushGroup = (props) => {
                 xxl={{ span: "18", offset: "3" }}
             >
                 <div className='push-group-up'>
-                    <BreadcrumbContent firstItem={'制品组'}/>
+                    <BreadcrumbContent firstItem={'制品推送'}/>
                     <Btn   type={'primary'}
                            title={'添加组'}
                            onClick={openPushGroupPop}/>

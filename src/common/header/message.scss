@@ -45,7 +45,6 @@
             align-items: center;
             cursor: pointer;
             padding: 0 20px;
-
             .title-item{
                 height: 40px;
                 line-height: 40px;
@@ -74,6 +73,7 @@
                     display: flex;
                     align-items: center;
                     width: 100%;
+                    gap: 10px;
                 }
                 &-icon{
                     display: inline-block;
@@ -149,4 +149,23 @@
             }
         }
     }
+
+
+}
+
+
+.custom-message .ant-drawer-body{
+    padding:0 !important;
+}
+.message-user-icon{
+    width: var(--thoughtware-size-32);
+    height: var(--thoughtware-size-32);
+    border-radius: 32px;
+    color: #fff;
+    background-color: #cadbf3;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    font-size: 15px
 }

@@ -6,8 +6,9 @@
  * @update: 2023-03-15 15:00
  */
 import { observable, action } from "mobx";
-import {Axios} from 'thoughtware-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {data} from "autoprefixer";
+import {message} from 'antd';
 
 export class LibraryStore{
 
@@ -23,9 +24,49 @@ export class LibraryStore{
     @observable serverIp=''
 
     @observable libraryVersion=''
-
+    //搜索的信息
+    @observable searchMessage=''
+    //仓库类型
+    @observable libraryType='maven'
     //刷新
     @observable refresh=false
+
+    //详情加载状态
+    @observable detailsLoad=false
+    //制品列表加载状态
+    @observable libraryLoad=false
+    //版本刷新
+    @observable versionLoad=false
+
+    @observable detailsType=''
+
+    @observable page=1
+
+    @action
+    setRefresh=async (refresh)=>{
+        this.refresh=refresh
+    }
+
+    //设置跳转制品详情类型
+    @action
+    setDetailsType=async (value)=>{
+        this.detailsType=value
+    }
+
+    //添加搜索的信息
+    @action
+    setLibraryType=async (type)=>{
+        this.libraryType=type
+    }
+
+
+    //添加搜索的信息
+    @action
+    setSearchName=async (type,value,page)=>{
+        this.searchMessage=value
+        this.libraryType=type
+        this.page=page
+    }
 
     @action
     setLibraryVersion=async (value)=>{
@@ -55,6 +96,7 @@ export class LibraryStore{
      */
     @action
     findLibraryVersion=async (versionId)=>{
+        this.detailsLoad=false
         const param = new FormData()
         param.append('id',versionId)
         const res = await Axios.post("/libraryVersion/findLibraryVersion",param)
@@ -62,20 +104,7 @@ export class LibraryStore{
         if (res.code===0){
             this.libraryVersionData=res.data
         }
-        return res;
-    }
-    /**
-     * 通过id查询
-     * @param  versionId 版本id
-     */
-    @action
-    findLibraryVersionById=async (versionId)=>{
-        const param = new FormData()
-        param.append('versionId',versionId)
-        const res = await Axios.post("/libraryVersion/findLibraryVersionById",param)
-        if (res.code===0){
-            this.libraryVersion = res.data&&res.data
-        }
+        this.detailsLoad=true
         return res;
     }
 
@@ -84,13 +113,21 @@ export class LibraryStore{
      * @param  data data
      */
     @action
-    findLibraryList=async (data)=>{
-        const res = await Axios.post("/library/findLibraryList",data)
-        if (res.code===0){
-            this.libraryList=res.data
+    findVersionByLibraryId=async (libraryId,versionId)=>{
+        this.detailsLoad=false
+        const param = new FormData()
+        param.append("libraryId",libraryId)
+        if (versionId){
+            param.append("versionId",versionId)
         }
+        const res = await Axios.post("/libraryVersion/findVersionByLibraryId",param)
+        if (res.code===0){
+            this.libraryVersionData=res.data
+        }
+        this.detailsLoad=true
         return res;
     }
+
 
     /**
      * 查询未添加到推送中央仓表的制品
@@ -107,6 +144,18 @@ export class LibraryStore{
         return res;
     }
 
+    /**
+     * 分页查询
+     * @param  data data
+     */
+    @action
+    findLibraryPage=async (data)=>{
+        const res = await Axios.post("/library/findLibraryPage",data)
+        if (res.code===0){
+            this.libraryList=res.data
+        }
+        return res;
+    }
 
     /**
      * 制品库下面条件查询制品列表
@@ -114,10 +163,12 @@ export class LibraryStore{
      */
     @action
     findLibraryListByRepository=async (data)=>{
+        this.libraryLoad=false
         const res = await Axios.post("/library/findLibraryListByRepository",data)
         if (res.code===0){
             this.libraryList=res.data
         }
+        this.libraryLoad=true
         return res;
     }
 
@@ -126,11 +177,13 @@ export class LibraryStore{
      * @param  data data
      */
     @action
-    findLibraryListByCondition=async (data)=>{
-        const res = await Axios.post("/library/findLibraryListByCondition",data)
+    findLibraryListByCond=async (data)=>{
+        this.libraryLoad=false
+        const res = await Axios.post("/library/findLibraryListByCond",data)
         if (res.code===0){
             this.libraryList=res.data
         }
+        this.libraryLoad=true
         return res;
     }
 
@@ -180,13 +233,35 @@ export class LibraryStore{
      * @param  versionId 版本id
      */
     @action
-    deleteVersion=async (versionId)=>{
+    deleteVersion=async (versionId,type)=>{
         const param=new FormData();
         param.append("id",versionId)
         const res = await Axios.post("/libraryVersion/deleteVersion",param)
         if (res.code===0){
-            this.refresh=!this.refresh
+            if (type==='version'){
+                this.versionLoad=!this.versionLoad
+            }else {
+                this.refresh=!this.refresh
+            }
+            message.success("删除成功")
         }
+        return res;
+    }
+
+    /**
+     * 根据时间搓和版本id 删除文件
+     * @param  versionId 版本id
+     */
+    @action
+    deleteSnapshotFile=async (versionId,snapshotVersion)=>{
+        const param=new FormData();
+        param.append("versionId",versionId)
+        param.append("snapshotVersion",snapshotVersion)
+        const res = await Axios.post("/libraryFile/deleteSnapshotFile",param)
+        if (res.code===0){
+            message.success("删除成功")
+        }
+
         return res;
     }
 
@@ -283,6 +358,8 @@ export class LibraryStore{
         const res = await Axios.post("/fileHand/findHandPushResult",param)
         return res
     }
+
+
 }
 
 let libraryStore=new LibraryStore()

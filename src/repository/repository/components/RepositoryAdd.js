@@ -7,7 +7,15 @@
  */
 
 import React, {useState, useEffect,useRef} from "react";
-import {Form, Input, Button, Select, Space, Divider, Dropdown, Menu, Table, Tooltip} from 'antd';
+import {
+    Form,
+    Input,
+    Button,
+    Select,
+    Dropdown,
+    Table,
+    Col
+} from 'antd';
 import './RepositoryAdd.scss'
 import {
     DeleteOutlined,
@@ -16,7 +24,7 @@ import {
     RightCircleOutlined,
     UnlockOutlined,
 } from "@ant-design/icons";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {Validation} from "../../../common/client/Client";
@@ -25,7 +33,6 @@ import Print from "../../../common/image/Print";
 import Btn from "../../../common/btn/Btn";
 import RemoteAgencyStore from "../../../setting/remoteAgency/store/RemoteAgencyStore";
 import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
-import {SpinLoading} from "../../../common/loading/Loading";
 import EmptyText from "../../../common/emptyText/EmptyText";
 const { TextArea } = Input;
 const layout = {labelCol: {span: 6}};
@@ -54,13 +61,14 @@ const RepositoryAdd = (props) => {
     //错误信息
     const [errorMessage,setErrorMessage]=useState({})
 
-    const [powerType,setPowerType] = useState("public")  //权限控制
     const [version,setVersion]=useState("Release")   //版本控制
     const [createState,setCreateState]=useState(false)
 
     const [proxyVisible,setProxyVisible]=useState(false)  //代理地址弹窗状态
     const [proxyPathList,setProxyPathList]=useState([])  //选择后的代理地址
     const [remoteProxyList,setRemoteProxyList]=useState([])  //所有的
+
+    const [typeList,setTypeList]=useState([])
 
 
     useEffect(async () => {
@@ -69,7 +77,29 @@ const RepositoryAdd = (props) => {
         getRemoteProxyList(type)
     }, []);
 
+    useEffect(async () => {
+        let options;
+        if (params.type==='local'){
+            options = [ {value: 'Maven', label: 'maven'},
+                {value: 'Npm', label: 'npm'},
+                {value: 'Docker', label: 'docker'},
+                {value: 'Generic', label: 'generic'},
+                {value: 'Helm', label: 'helm'}]
+        }else if(params.type==='remote'){
+            options = [ {value: 'Maven', label: 'maven'},
+                {value: 'Npm', label: 'npm'},
+                {value: 'Docker', label: 'docker'},
+                {value: 'Helm', label: 'helm'},
+                {value: 'Go', label: 'go'}]
+        }else if (params.type==='group') {
+            options = [ {value: 'Maven', label: 'maven'},
+                {value: 'Npm', label: 'npm'},
+                {value: 'Docker', label: 'docker'},
+                {value: 'Helm', label: 'helm'}]
+        }
+        setTypeList(options)
 
+    }, [params.type]);
 
     //获取代理list
     const getRemoteProxyList = (agencyType) => {
@@ -89,8 +119,6 @@ const RepositoryAdd = (props) => {
             item.code===0&&setRepositoryList(item.data)
         })
     }
-
-
 
     /**
      * 创建制品库提交
@@ -227,20 +255,6 @@ const RepositoryAdd = (props) => {
         props.history.go(-1)
     }
 
-    const powerLis = [
-        {
-            id:"public",
-            title:'全局',
-            icon:<UnlockOutlined />,
-            desc:'公共项目，全部成员可见'
-        },
-        {
-            id:"private",
-            title:'私有',
-            icon:<LockOutlined />,
-            desc: '私有项目，只有项目成员可以见'
-        }
-    ]
 
     const columns = [
         {
@@ -287,9 +301,15 @@ const RepositoryAdd = (props) => {
 
     return(
         <div className='repository-add '>
-            <div className='repository-add-width'>
+            <Col
+                sm={{span: "24" }}
+                md={{ span: "24"  }}
+                lg={{ span: "22", offset: "1" }}
+                xl={{ span: "18", offset: "3" }}
+                xxl={{ span: "16", offset: "4" }}
+            >
                 <BreadcrumbContent className='add-title' firstItem={`新建${params.type=="local"&&"本地"||
-                                    params.type=="group"&&"组合"||params.type=="remote"&&"远程"}仓库`} goBack={goBack}/>
+                params.type=="group"&&"组合"||params.type=="remote"&&"远程"}仓库`} goBack={goBack}/>
                 <div className='add-top'>
                     <Form
                         {...layout}
@@ -302,7 +322,19 @@ const RepositoryAdd = (props) => {
                             name="type"
                         >
                             <div className='repository-type'>
-                                <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
+                                {
+                                    typeList.map(item=>{
+                                        return(
+                                            <div>
+                                                <div key={item.value} className={`type-border ${type===item.value&&' type-opt '}`} onClick={()=>cuteType(item.value)}>
+                                                    <Print type={item.label} width={40} height={40} />
+                                                    <div className='type-text'>{item.value}</div>
+                                                </div>
+                                            </div>
+                                        )
+                                    })
+                                }
+                               {/* <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
                                     <Print type={"maven"} width={40} height={40} />
                                     <div className='type-text'>Maven</div>
                                 </div>
@@ -326,7 +358,7 @@ const RepositoryAdd = (props) => {
                                     <Print type={"go"} width={40} height={40}/>
                                     <div className='type-text'>Go</div>
                                 </div>
-                                {/*<div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
+                                <div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
                                     <Print type={"pypi"} width={40} height={40}/>
                                     <div className='type-text'>PyPI</div>
                                 </div>
@@ -334,8 +366,8 @@ const RepositoryAdd = (props) => {
                                 <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
                                     <Print type={"nuget"} width={40} height={40}/>
                                     <div className='type-text'>NuGet</div>
-                                </div>
-                                */}
+                                </div>*/}
+
                             </div>
                         </Form.Item>
                         <Form.Item
@@ -372,7 +404,7 @@ const RepositoryAdd = (props) => {
                                     options={[
                                         {value: 'Release', label: 'Release'},
                                         {value: 'Snapshot', label: 'Snapshot'},
-                                       /* {value: 'Mixed', label: 'Mixed'},*/
+                                        /* {value: 'Mixed', label: 'Mixed'},*/
                                     ]}
                                     onChange={setVersion}
                                 />
@@ -403,16 +435,15 @@ const RepositoryAdd = (props) => {
                                         visible={proxyVisible}
                                         onVisibleChange={proxyVisible=>onVisibleChange(proxyVisible)}
                                         trigger={['click']}
-                                        placement={'topRight'}
+                                        placement={'bottomRight'}
                                         overlayStyle={{width:540}}
-
                                     >
-                                        <div className='add-proxy-text' >+添加代理地址</div>
+                                        <div className='add-proxy-text'>添加代理地址</div>
                                     </Dropdown>
                                 </div>
                                 <div className="pipeline-user-table">
                                     <Table
-                                       /* rowKey={(record) => record.id}*/
+                                        /* rowKey={(record) => record.id}*/
                                         columns={columns}
                                         dataSource={proxyPathList}
                                         pagination={false}
@@ -423,7 +454,7 @@ const RepositoryAdd = (props) => {
                                 </div >
                             </div>
                         }
-                       {/* <Form.Item
+                        {/* <Form.Item
                             label="可见范围"
                             name="visible"
                         >
@@ -486,9 +517,7 @@ const RepositoryAdd = (props) => {
                         }
                     </Form>
                 </div>
-
-            </div>
-
+            </Col>
         </div>
     )
 }

@@ -18,6 +18,7 @@ import ScanHoleDetailsDrawer from "./ScanHoleDetailsDrawer";
 import HoleEditPop from "./HoleEditPop";
 import DownSelect from "../../../common/downSelect/DownSelect";
 import EmptyText from "../../../common/emptyText/EmptyText";
+import SearchInput from "../../../common/input/SearchInput";
 const leveList=[{key:1,value:"严重漏洞"},{key:2,value:"高危漏洞"},{key:3,value:"中危漏洞"},{key:4,value:"低危漏洞"}]
 const languageList=[{key:'java',value:"Java"},{key:"node",value:"Node.js"}]
 const HoleList = (props) => {
@@ -221,11 +222,12 @@ const HoleList = (props) => {
                     />*/}
                 </div>
                 <div className='hole-search-style'>
-                    <Input allowClear placeholder={'漏洞名称'}  onChange={onInputHole}
-                           onPressEnter={onSearchHole}
-                           size='middle' style={{ width: 200 }}
-                           prefix={<SearchOutlined className='input-icon'/>}
+                    <SearchInput
+                        placeholder={'漏洞名称'}
+                        onChange={onInputHole}
+                        onPressEnter={onSearchHole}
                     />
+
                     <DownSelect visible={languageVisible}
                                 setVisible={setLanguageVisible}
                                 dataList={languageList}

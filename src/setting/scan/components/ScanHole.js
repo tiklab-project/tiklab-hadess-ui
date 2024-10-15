@@ -20,7 +20,7 @@ import {observer} from "mobx-react";
 import DeleteExec from "../../../common/delete/DeleteExec";
 import {SearchOutlined} from "@ant-design/icons";
 import DownSelect from "../../../common/downSelect/DownSelect";
-import {PrivilegeButton} from 'thoughtware-privilege-ui';
+import {PrivilegeButton} from 'tiklab-privilege-ui';
 import EmptyText from "../../../common/emptyText/EmptyText";
 const leveList=[{key:1,value:"严重漏洞"},{key:2,value:"高危漏洞"},{key:3,value:"中危漏洞"},{key:4,value:"低危漏洞"}]
 const ScanHole = (props) => {

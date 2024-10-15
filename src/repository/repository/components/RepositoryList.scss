@@ -1,6 +1,6 @@
 .repository{
     padding: var(--thoughtware-padding-item);
-    height: calc(100vh - 50px);
+    height: var(--xpack-content-height);
     overflow: auto;
     .repository-head-style{
         display: flex;
@@ -45,12 +45,23 @@
             font-size: 16px;
         }
     }
+    .repository-tables-nav{
+        width: 50px;
+        background: #F4F4F4;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 13px;
+        /* width: -moz-fit-content;
+         width: fit-content;*/
+        color: #2b333e;
+    }
 }
 .repository-filter{
     display: flex;
-    justify-content:space-between;
+    /*justify-content:space-between;*/
     align-items: center;
     margin-top: 10px;
+    gap: 30px;
     .input-icon{
         font-size: var(--thoughtware-input-icon-15);
     }

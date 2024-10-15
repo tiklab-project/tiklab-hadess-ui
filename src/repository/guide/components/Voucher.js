@@ -6,7 +6,7 @@
  * @update: 2022-12-27 10:30
  */
 import React ,{useState,useEffect}from "react";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 import "./Voucher.scss"
 const Voucher = (props) => {
     const {type,serverIp}=props
@@ -29,7 +29,6 @@ const Voucher = (props) => {
           </div>
       )
     }
-    debugger
 
     return(
       <div className='guide-details'>

@@ -117,6 +117,7 @@ const DownSelect = (props) => {
             placement={'bottomLeft'}
             visible={visible}
             onVisibleChange={visible=>setVisible(visible)}
+            getPopupContainer={triggerNode => triggerNode.parentElement}
         >
             <div  onClick={()=>setVisible(!visible)}>
                 <div className='select-view'>
@@ -138,8 +139,7 @@ const DownSelect = (props) => {
                                 }
                                 {
                                     nav?
-                                        <CloseCircleTwoTone twoToneColor="#999" onClick={closeMulti}/>:
-
+                                        <CloseCircleTwoTone twoToneColor="#A9A9A9" onClick={closeMulti}/>:
                                         <DownOutlined style={{fontSize:10}} twoToneColor="#52c41a"/>
                                 }
                             </div>

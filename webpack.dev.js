@@ -21,6 +21,7 @@ module.exports = merge(baseWebpackConfig,{
         new HtmlWebpackPlugin({
             alwaysWriteToDisk: true,
             title:'Hadess',
+            favicon:'./src/assets/images/img/hadess.png',
             template: path.resolve(__dirname, './public/index.html'),
             hash: false,
             filename: 'index.html',

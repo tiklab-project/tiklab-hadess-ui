@@ -22,7 +22,7 @@ import success from "../../../assets/images/img/success.png";
 import fail from "../../../assets/images/img/fail.png";
 import ScanSetting from "./ScanSetting";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import {PrivilegeProjectButton} from 'thoughtware-privilege-ui';
+import {PrivilegeProjectButton} from 'tiklab-privilege-ui';
 import EmptyText from "../../../common/emptyText/EmptyText";
 const ScanList = (props) => {
     const {match:{params}} = props;
@@ -308,7 +308,7 @@ const ScanList = (props) => {
     }
 
     const findNotScanLibrary = (name) => {
-        findNotScanLibraryList({repositoryId:params.id,name:name}).then(res=>{
+        findNotScanLibraryList({repositoryId:params.id,libraryName:name}).then(res=>{
             res.code===0&&setNotScanLibrary(res.data)
         })
     }

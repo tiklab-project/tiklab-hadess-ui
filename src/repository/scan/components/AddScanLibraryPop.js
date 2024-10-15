@@ -72,7 +72,7 @@ const AddScanLibraryPop = (props) => {
 
     return(
         <Modals
-            open={addVisible}
+            visible={addVisible}
             onCancel={cancel}
             closable={false}
             footer={modalFooter}

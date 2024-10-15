@@ -5,7 +5,7 @@
  * @description：user.service
  * @update: 2021-07-12 15:17
  */
-import {Axios} from 'thoughtware-core-ui';
+import {Axios} from 'tiklab-core-ui';
 export const loginApi = '/passport/login';
 export const logoutApi = '/passport/logout';
 export const registerApi = '/member/registeMember'; // 注册会员

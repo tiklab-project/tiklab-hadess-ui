@@ -1,6 +1,6 @@
 
 import React from "react";
-import {SystemRole} from "thoughtware-privilege-ui";
+import {SystemRole} from "tiklab-privilege-ui";
 import { inject, observer } from "mobx-react";
 const SystemRoleWrap = props => {
     return (

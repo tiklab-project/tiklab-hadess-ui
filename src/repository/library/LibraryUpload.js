@@ -13,7 +13,7 @@ import Btn from "../../common/btn/Btn";
 import {Form, Input, message, Switch} from "antd";
 import FileUploading  from "../../common/upload/FileUploading"
 import libraryStore from "../../library/store/LibraryStore";
-import {getUser} from "thoughtware-core-ui";
+import {getUser} from "tiklab-core-ui";
 const layout = {
     labelCol: { span: 6},
     wrapperCol: { span: 30},
@@ -181,7 +181,7 @@ const LibraryUpload = (props) => {
 
     return(
         <Modals
-            open={visible}
+            visible={visible}
             onCancel={cancel}
             closable={false}
             footer={modalFooter}

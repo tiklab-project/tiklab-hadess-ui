@@ -1,11 +1,14 @@
 .proxy{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
     .proxy-head-up{
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
     }
-  .proxy-table-style{
+    .proxy-table-style{
       margin-top: 10px;
   }
     .proxy-icon-style{
@@ -15,5 +18,15 @@
     }
     .proxy-icon-no{
         color: #cccccc;
+    }
+    .proxy-tab-nav{
+        width: 50px;
+        background: #e1e1e8;
+        border-radius: 4px;
+        text-align: center;
+        font-size: 13px;
+        /* width: -moz-fit-content;
+         width: fit-content;*/
+        color: #2b333e;
     }
 }

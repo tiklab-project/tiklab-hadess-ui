@@ -6,7 +6,7 @@
  * @update: 2023-07-19 15:00
  */
 import { observable, action } from "mobx";
-import {Axios} from 'thoughtware-core-ui';
+import {Axios} from 'tiklab-core-ui';
 import {message} from "antd";
 export class PushCenterStore{
 
