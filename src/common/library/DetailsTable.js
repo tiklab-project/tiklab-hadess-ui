@@ -63,7 +63,6 @@ const DetailsTable = (props) => {
     const findSnapshotVersion = (snapshot) => {
         setTableType("info")
         cuteVersion(snapshot.versionId)
-
     }
 
     return(

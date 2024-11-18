@@ -14,18 +14,13 @@ import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {SearchOutlined, SettingOutlined} from "@ant-design/icons";
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
-import GuideDrawer from "../../guide/components/GuideDrawer";
+import GuideDrawer from "../../guide/component/GuideDrawer";
 import Page from "../../../common/page/Page";
 import EmptyText from "../../../common/emptyText/EmptyText";
 import {SpinLoading} from "../../../common/loading/Loading";
 import SearchInput from "../../../common/input/SearchInput";
 import LibraryDropdown from "../../../common/downSelect/LibraryDropdown";
-import BasicsDown from "../../../common/downSelect/BasicsDown";
-const categoryList=[
-    {value: 'local', label: '本地库'},
-    {value: 'remote', label: '远程库'},
-    {value: 'group', label: '组合库'}
-]
+
 const RepositoryList = (props) => {
     const {repositoryStore,publicState}=props
     const {findRepositoryPage,addRepositoryType,setRepositoryTypeNull}=repositoryStore
@@ -54,8 +49,7 @@ const RepositoryList = (props) => {
     //制品库类别
     const [category,setCategory]=useState()
     const [categoryLabel,setCategoryLabel]=useState()
-    //仓库种类下拉打开状态
-    const [categoryVisible,setCategoryVisible]=useState(false)
+
 
     const baseColumns = [
         {
@@ -142,15 +136,9 @@ const RepositoryList = (props) => {
     }, [publicState]);
 
     useEffect(async () => {
-      if (addRepositoryType){
-          setCategory(addRepositoryType)
-          getRepositoryPage(1,addRepositoryType,type,repositoryName)
-      }else {
-          setCurrentPage(1)
-          setCategory(category)
-          getRepositoryPage(1,category,type,repositoryName)
-      }
-
+        setCurrentPage(1)
+        //setCategory(category)
+        getRepositoryPage(1,category,type,repositoryName)
     }, [category,type]);
 
 

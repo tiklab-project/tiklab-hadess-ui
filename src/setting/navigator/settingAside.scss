@@ -10,8 +10,8 @@
         gap: 10px;
         margin-left: var(--nav-left-space);
         .icon-size{
-            width: var(--thoughtware-size-26);
-            height: var(--thoughtware-size-26);
+            width: var(--tiklab-size-26);
+            height: var(--tiklab-size-26);
         }
         .icon-text{
             font-size: 22px;
@@ -39,7 +39,7 @@
             text-align: center;
             padding-top: 10px;
             height: 45px;
-            border-top: 1px solid var(--thoughtware-gray-200);
+            border-top: 1px solid var(--tiklab-gray-200);
             cursor: pointer;
         }
         &-top{
@@ -61,7 +61,7 @@
             align-items: center;
             height: 40px;
             line-height: 40px;
-            padding: 0 20px 0 var(--thoughtware-distance-20);
+            padding: 0 20px 0 var(--tiklab-distance-20);
             cursor: pointer;
            &-space{
                gap: var(--nav-icone-text-space);
@@ -70,7 +70,7 @@
         }
         .system-aside-goHome{
             :hover{
-                background: var(--thoughtware-gray-400);
+                background: var(--tiklab-gray-400);
             }
             .system-aside-title-nav{
                 display: flex;
@@ -91,10 +91,10 @@
 
 
         .system-aside-first:hover {
-            background: var(--thoughtware-gray-400);
+            background: var(--tiklab-gray-400);
         }
         .system-aside-second:hover{
-            background: var(--thoughtware-gray-400);
+            background: var(--tiklab-gray-400);
         }
 
         &-li {
@@ -112,8 +112,8 @@
             padding: 0;
         }
         &-select {
-            background: var(--thoughtware-gray-400);
-            border-left: 3px solid var(--thoughtware-blue);
+            background: var(--tiklab-gray-400);
+            border-left: 3px solid var(--tiklab-blue);
         }
     }
     .system-content{

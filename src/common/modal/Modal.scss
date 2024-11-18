@@ -4,10 +4,10 @@
         justify-content: space-between;
         align-items: center;
         margin-bottom: 10px;
-        padding: var(--thoughtware-padding) var(--thoughtware-padding) 0;
+        padding: var(--tiklab-padding) var(--tiklab-padding) 0;
         &>div:first-child{
             font-size: 15px;
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-weight: var(--tiklab-font-weight-bold);
         }
     }
 
@@ -15,7 +15,7 @@
 
 .tiklab_modal {
     .ant-table-thead > tr > th {
-        background: var(--thoughtware-white);
+        background: var(--tiklab-white);
         font-weight: normal;
     }
     .ant-table-thead > tr > th, .ant-table-tbody > tr > td, .ant-table tfoot > tr > th, .ant-table tfoot > tr > td {

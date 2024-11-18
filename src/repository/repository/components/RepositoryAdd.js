@@ -239,7 +239,6 @@ const RepositoryAdd = (props) => {
         }else {
             setErrorMessage(null)
         }
-        setAgencyUrl(e.target.value)
     }
 
      const goCancel = async () => {

@@ -12,14 +12,14 @@
             font-size: medium;
         }
         .file-details-name{
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-weight: var(--tiklab-font-weight-bold);
             margin-left: 5px;
             font-size: 14px;
         }
     }
 
     .file-details-title{
-        font-weight: var(--thoughtware-font-weight-bold);
+        font-weight: var(--tiklab-font-weight-bold);
         margin-bottom: 5px;
         font-size: 13px;
     }
@@ -58,7 +58,7 @@
         display: flex;
         .basic-body-item-title{
             min-width: 80px ;
-            color: var(--thoughtware-gray-500);
+            color: var(--tiklab-gray-500);
         }
     }
 

@@ -5,7 +5,7 @@
     padding: 20px 30px;
     min-width: 700px;
     .basicInfo-up{
-        padding-bottom: var(--thoughtware-padding-item);
+        padding-bottom: var(--tiklab-padding-item);
     }
     .repository-type-table{
         border-style: solid;
@@ -42,17 +42,17 @@
             line-height: 16px;
             margin-right: 10px;
             margin-top: 4px;
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-weight: var(--tiklab-font-weight-bold);
         }
         .basicInfo-li-center{
             flex-grow: 1;
         }
         .basicInfo-li-title{
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-weight: var(--tiklab-font-weight-bold);
         }
         .basicInfo-li-desc{
-            font-size: var(--thoughtware-font-13);
-            color: var(--thoughtware-gray-500);
+            font-size: var(--tiklab-font-13);
+            color: var(--tiklab-gray-500);
         }
         .basicInfo-li-down{
             align-self: center;
@@ -116,7 +116,7 @@
         margin-bottom: 10px;
         justify-content: space-between;
         .add-proxy-text{
-            color:var(--thoughtware-blue) ;
+            color:var(--tiklab-blue) ;
             margin-left: 10px;
             cursor: pointer;
         }

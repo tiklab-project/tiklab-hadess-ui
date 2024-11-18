@@ -1,5 +1,5 @@
 .repository{
-    padding: var(--thoughtware-padding-item);
+    padding: var(--tiklab-padding-item);
     height: var(--xpack-content-height);
     overflow: auto;
     .repository-head-style{
@@ -9,7 +9,7 @@
             padding: 5px;
             margin-left: 7px;
             border: 1px solid #d9d9d9;
-            background-color: var(--thoughtware-blue);
+            background-color: var(--tiklab-blue);
             color: #EBECF0;
             cursor: pointer;
             border-radius: 6px;
@@ -31,7 +31,7 @@
         border-bottom:2px solid #0063FF;
     }
     .repository_tab{
-        font-size: var(--thoughtware-font-13);;
+        font-size: var(--tiklab-font-13);;
         cursor: pointer;
         height: 50px;
         line-height: 50px;
@@ -63,7 +63,7 @@
     margin-top: 10px;
     gap: 30px;
     .input-icon{
-        font-size: var(--thoughtware-input-icon-15);
+        font-size: var(--tiklab-input-icon-15);
     }
 }
 .repository-flex{

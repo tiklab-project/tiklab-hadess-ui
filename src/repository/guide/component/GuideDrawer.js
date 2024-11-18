@@ -18,7 +18,6 @@ import helm from "../../../assets/images/img/helm.png"
 import Print from "../../../common/image/Print";
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
 import {CloseOutlined} from "@ant-design/icons";
-import GuideTable from "./GuideTable";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router";
 import BasicsDown from "../../../common/downSelect/BasicsDown";
@@ -49,6 +48,7 @@ const GuideDrawer = props => {
         setType(type)
         setDetailsType("content")
         getRepository(type)
+        setRepository(null)
     }
 
     const goBack = () => {
@@ -120,27 +120,6 @@ const GuideDrawer = props => {
                 <div className='guide-drawer-tab'>
                     <div>仓库选择</div>
                     <div className='guide-drawer-repository'>
-                       {/* <Select  allowClear
-                                 onChange={cuteRepository}
-                                 placeholder={"请选择"}
-                                 showSearch
-                                 onSearch={searchRepository}
-                                 filterOption={(input, option) =>
-                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                 }
-                                 style={{
-                                     width: 300,
-                                 }}
-                        >
-                            {
-                                repositoryList&&repositoryList.map(item=>{
-                                        return(
-                                            <Select.Option key={item.id} value={item.id}>{item.name}</Select.Option>
-                                        )
-                                    }
-                                )
-                            }
-                        </Select>*/}
                         <BasicsDown
                             visible={rpyVisible}
                             setVisible={setRpyVisible}
@@ -157,59 +136,6 @@ const GuideDrawer = props => {
 
                 </div>
             </div>
-
-         {/*   {
-                detailsType==="type"?
-                    <Fragment>
-                        <div className='guide-type'>
-                            {
-                                typeList.map(item=>{
-                                    return(
-                                        <div key={item.value} className={`border-style`} onClick={()=>cuteType(item.value)}>
-                                            <Print type={item.label} width={40} height={40}/>
-                                            <div className='border-text'>{item.value}</div>
-                                        </div>
-                                    )
-                                })
-                            }
-                            <div className={`border-style`} onClick={()=>cuteType("Maven")}>
-                                <Print type={"maven"} width={40} height={40}/>
-                                <div className='border-text'>Maven</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("npm")}>
-                                <Print type={"npm"} width={40} height={40}/>
-                                <div className='border-text'>npm</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("Docker")}>
-                                <Print type={"docker"} width={40} height={40}/>
-                                <div className='border-text'>Docker</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("Generic")}>
-                                <Print type={"generic"} width={40} height={40}/>
-                                <div className='border-text'>Generic</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("Helm")}>
-                                <Print type={"helm"} width={40} height={40}/>
-                                <div className='border-text'>HeIm</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("PyPI")}>
-                                <Print type={"pypi"} width={40} height={40}/>
-                                <div className='border-text'>PyPI</div>
-                            </div>
-
-                            <div className={`border-style`} onClick={()=>cuteType("NuGet")}>
-                                <Print type={"nuget"} width={40} height={40}/>
-                                <div className='border-text'>NuGet</div>
-                            </div>
-                            <div className={`border-style`} onClick={()=>cuteType("Go")}>
-                                <Print type={"go"} width={40} height={40}/>
-                                <div className='border-text'>Go</div>
-                            </div>
-                        </div>
-                    </Fragment>:
-                    <GuideTable type={type}/>
-            }*/}
-
         </Drawer>
     )
 

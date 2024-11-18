@@ -37,9 +37,9 @@ const GuideMaven = (props) => {
                              {
                                  " <servers>\n" +
                                  "    <server>\n" +
-                                 "       <id>hadess</version>\n" +
-                                 "       <username>admin</version>\n" +
-                                 "       <password>[PASSWORD]</version>\n" +
+                                 "       <id>hadess</id>\n" +
+                                 "       <username>admin</username>\n" +
+                                 "       <password>[PASSWORD]</password>\n" +
                                  "    </server>\n" +
                                  "</servers>"
                              }
@@ -63,12 +63,11 @@ const GuideMaven = (props) => {
                                         {
                                             "<distributionManagement>\n"+
                                             `    <${deployValue}>\n`+
-                                            "        <repository> \n"+
-                                            "        <id>hadess</version>\n"+
-                                            `        <name>${repositoryData.name}</version>\n`+
-                                            `        <url>${repositoryData.repositoryUrl}</version>\n`+
-                                            `    <${deployValue}>\n`+
-                                            "<distributionManagement>\n"
+                                            "        <id>hadess</id>\n"+
+                                            `        <name>${repositoryData.name}</name>\n`+
+                                            `        <url>${repositoryData.repositoryUrl}</url>\n`+
+                                            `    </${deployValue}>\n`+
+                                            "</distributionManagement>\n"
                                         }
                                     </code>
                                     <div className='rpy-guide-table-copy' onClick={()=>clickCopy("mavenDeploy1")}>
@@ -99,20 +98,20 @@ const GuideMaven = (props) => {
                                         {
                                             "<profiles>\n" +
                                             "   <profile>\n" +
-                                            "       <id>Repository Proxy</version>\n" +
+                                            "       <id>Repository Proxy</id>\n" +
                                             "       <activation>\n" +
-                                            "           <activeByDefault>true</version>\n"+
+                                            "           <activeByDefault>true</activeByDefault>\n"+
                                             "       </activation>\n" +
                                             "       <repositories>\n"+
                                             "           <repository>\n"+
-                                            "               <id>hadess</version>\n"+
-                                            `               <name>${repositoryData.name}</version>\n`+
-                                            `               <url>${repositoryData.repositoryUrl}</version>\n`+
+                                            "               <id>hadess</id>\n"+
+                                            `               <name>${repositoryData.name}</name>\n`+
+                                            `               <url>${repositoryData.repositoryUrl}</url>\n`+
                                             "               <releases>\n"+
-                                            "                   <enabled>true</version>\n"+
+                                            "                   <enabled>true</enabled>\n"+
                                             "               </releases>\n"+
                                             "               <snapshots>\n"+
-                                            "                    <enabled>true</version>\n"+
+                                            "                    <enabled>true</enabled>\n"+
                                             "               </snapshots>\n"+
                                             "            </repository>\n"+
                                             "        </repositories>\n"+
@@ -131,8 +130,8 @@ const GuideMaven = (props) => {
                                     <code id={'mavenPull2'}>
                                         {
                                             "<dependency>\n" +
-                                            "   <groupId>[GROUP_ID]</version>\n" +
-                                            "   <artifactId>[ARTIFACT_ID]</version>\n" +
+                                            "   <groupId>[GROUP_ID]</groupId>\n" +
+                                            "   <artifactId>[ARTIFACT_ID]</artifactId>\n" +
                                             "   <version>[VERSION]</version>\n"+
                                             "</dependency>"
                                         }

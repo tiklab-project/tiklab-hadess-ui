@@ -37,7 +37,7 @@ const LibraryOption = (props) => {
 
     //添加制品到推送表中
     const onOk = () => {
-       libraryIds.map(item=>{
+       libraryIds?.map(item=>{
            createPushLibrary({repositoryId:params.id, library: {id:item}, pushGroupId: pushGroupId})
         })
         cancel()

@@ -44,7 +44,7 @@
             }
         }
         .choice-table-nav{
-            background-color: var(--thoughtware-gray-400);
+            background-color: var(--tiklab-gray-400);
             border-left:2px solid #0063FF;
         }
     }
@@ -55,21 +55,21 @@
             cursor: pointer;
             border-left: var(--nav-left-border-size) solid transparent;
             &:hover{
-                background: var(--thoughtware-gray-400);
+                background: var(--tiklab-gray-400);
             }
         }
         .tab-link-active {
-            /*    color: var(--thoughtware-blue);*/
-            background-color: var(--thoughtware-gray-400);
-            border-left:var(--nav-left-border-size) solid var(--thoughtware-blue);
+            /*    color: var(--tiklab-blue);*/
+            background-color: var(--tiklab-gray-400);
+            border-left:var(--nav-left-border-size) solid var(--tiklab-blue);
         }
         /*  .user-icon {
-              background-color: var(--thoughtware-blue);
+              background-color: var(--tiklab-blue);
               color: #ffffff;
           }*/
     }
     .theme-blue {
-        background-color: var(--thoughtware-motif-color-blue);
+        background-color: var(--tiklab-motif-color-blue);
         color: #fff;
         .tab-link{
             cursor: pointer;
@@ -88,7 +88,7 @@
         }
     }
     .theme-black {
-        background-color: var(--thoughtware-motif-color-black);
+        background-color: var(--tiklab-motif-color-black);
         color: #D8D8D8;
         .tab-link{
             cursor: pointer;
@@ -144,7 +144,7 @@
         overflow-y:hidden;
         overflow-x: auto;
         height: var(--xpack-content-height);
-        background: var(--thoughtware-white);
+        background: var(--tiklab-white);
     }
 
     .rpy-nav-setting {
@@ -286,16 +286,16 @@
 }
 
 .close-icon-size{
-    width: var(--thoughtware-size-20);
-    height: var(--thoughtware-size-20);
+    width: var(--tiklab-size-20);
+    height: var(--tiklab-size-20);
 }
 .close-iconfont{
-    font-size: var(--thoughtware-size-20);
+    font-size: var(--tiklab-size-20);
 }
 .open-icon-size{
-    width: var(--thoughtware-size-18);
-    height: var(--thoughtware-size-18);
+    width: var(--tiklab-size-18);
+    height: var(--tiklab-size-18);
 }
 .open-iconfont{
-    font-size: var(--thoughtware-size-18);
+    font-size: var(--tiklab-size-18);
 }

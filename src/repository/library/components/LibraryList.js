@@ -24,7 +24,7 @@ const { Search } = Input;
 const LibraryList = (props) => {
     const {repositoryStore,match:{params},publicState} = props;
     const {findRepository,repositoryData}=repositoryStore
-    const {findLibraryListByRepository,searchMessage,libraryLoad}=libraryStore
+    const {findLibraryListByRepository,searchMessage,libraryLoad,libraryType,setDetailsType,setSearchName}=libraryStore
 
     const [name,setName]=useState(null)   //搜索的名称
     const [groupId,setGroupId]=useState(null)  //搜索的groupId
@@ -141,6 +141,12 @@ const LibraryList = (props) => {
         props.history.push(`/repository/${params.id}/library/${value.id}`)
     }
 
+    const goDetailsType = (library,type) => {
+        setDetailsType(type)
+        props.history.push(`/library/${library.id}/details`)
+    }
+
+
     return(
         <div className='rpy-library hadess-data-width'>
             <Col
@@ -189,7 +195,7 @@ const LibraryList = (props) => {
                     libraryLoad?<>
                         <LibraryTable libraryList={libraryList}
                                       goDetails={goDetails}
-                                      libraryLoad={libraryLoad}
+                                      goDetailsType={goDetailsType}
                         />
                         <Page pageCurrent={currentPage}
                               changPage={changPage}

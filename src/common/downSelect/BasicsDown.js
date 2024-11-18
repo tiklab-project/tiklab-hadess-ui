@@ -26,7 +26,7 @@ const BasicsDown = (props) => {
 
     //基本的
     const basicsMenu = (
-        <div className={ `down-select select-width-${size}`}>
+        <div className={ `basics-down-select select-width-${size}`}>
             {
                 dataList.map(item=>{
                     return(
@@ -37,12 +37,11 @@ const BasicsDown = (props) => {
             }
         </div>
     )
-
     //仓库的
     const repositoryMenu = (
-        <div className={ `down-select select-width-${size}`}>
+        <div className={ `basics-down-select select-width-${size}`}>
             {
-                dataList.map(item=>{
+                dataList.length>0?dataList.map(item=>{
                     return(
                         <div key={item.id} className='down-select-rpy-nav' onClick={()=>onClickLibraryType(item)} >
                             <div className='rpy-nav-name'>{item.name}</div>
@@ -53,7 +52,8 @@ const BasicsDown = (props) => {
                                 }
                             </div>
                         </div>
-                    )})
+                    )}):
+                    <div className='down-select-rpy-non'>没有查询到仓库</div>
             }
         </div>
     )

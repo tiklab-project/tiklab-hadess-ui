@@ -15,7 +15,7 @@
         display: none;
     }
     .project-type-col {
-        padding: var(--thoughtware-padding-item);;
+        padding: var(--tiklab-padding-item);;
     }
     .title{
         font-weight: bold;
@@ -104,7 +104,7 @@
             margin-left:60px;
         }
         .repository-power-select{
-            border: 2px solid var(--thoughtware-blue) !important;
+            border: 2px solid var(--tiklab-blue) !important;
         }
     }
 }
@@ -129,7 +129,7 @@
     margin-bottom: 10px;
     justify-content: space-between;
     .add-proxy-text{
-        color:var(--thoughtware-blue) ;
+        color:var(--tiklab-blue) ;
         margin-left: 10px;
         cursor: pointer;
     }

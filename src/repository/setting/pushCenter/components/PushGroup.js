@@ -10,7 +10,7 @@ import {observer} from "mobx-react";
 import BreadcrumbContent from "../../../../common/breadcrumb/Breadcrumb";
 import Btn from "../../../../common/btn/Btn";
 import "./PushGroup.scss"
-import {Table, Tooltip,Col} from "antd";
+import {Table, Tooltip, Col, Dropdown, Menu} from "antd";
 import success from "../../../../assets/images/img/success.png";
 import fail from "../../../../assets/images/img/fail.png";
 import {EditOutlined} from "@ant-design/icons";
@@ -130,8 +130,11 @@ const PushGroup = (props) => {
     };
 
     //执行推送组-多个执行
-    const multiPushCenter = () => {
-        executePushGroup({pushGroupIds:pushGroupIds}).then(res=>{
+    const multiPushCenter = (value) => {
+        executePushGroup({
+            pushGroupIds:pushGroupIds,
+            pushType:value
+        }).then(res=>{
             if (res.code===0&&res.data==='ok'){
                 setLogVisible(true)
                 setPushState(true)
@@ -172,6 +175,22 @@ const PushGroup = (props) => {
         props.history.push(`/repository/${params.id}/setting/${value.id}/pushLibrary`)
     }
 
+
+    const items = (
+        <Menu>
+            <Menu.Item>
+                <div  onClick={()=>multiPushCenter("center")}>
+                    推送中央仓库
+                </div>
+            </Menu.Item>
+            <Menu.Item>
+                <div  onClick={()=>multiPushCenter("hadess")}>
+                   推送pubHadess
+                </div>
+            </Menu.Item>
+        </Menu>
+    );
+
     return(
         <div className=' push-group'>
             <Col
@@ -192,12 +211,18 @@ const PushGroup = (props) => {
                         pushGroupIds.length>0&&
                         <div className='push-group-multi'>
                             <div className='push-num'>推送组数：{pushGroupIds.length}</div>
-                            <div onClick={multiPushCenter}>
-                                <Btn  type={'common'} title={'推送'}/>
+                            <div >
+                                <Dropdown
+                                    overlay={items}
+                                    trigger={['click']}
+                                    getPopupContainer={triggerNode => triggerNode.parentElement}
+                                >
+                                    <Btn type={'common'} title={'推送'}/>
+                                </Dropdown>
+                               {/* <Btn  type={'common'} title={'推送'}/>*/}
                             </div>
                         </div>
                     }
-
                     <Table
                         rowKey = {record => record.id}
                         rowSelection={{

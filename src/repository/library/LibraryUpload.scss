@@ -24,8 +24,8 @@
         }
 
         .library-upload-title {
-            font-size: var(--thoughtware-font-16);
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-size: var(--tiklab-font-16);
+            font-weight: var(--tiklab-font-weight-bold);
             padding: 10px 15px;
         }
 
@@ -84,7 +84,7 @@
 
             .desc-true {
                 cursor: pointer;
-                color: var(--thoughtware-blue);
+                color: var(--tiklab-blue);
             }
         }
 
@@ -100,13 +100,13 @@
         }
 
         .ant-upload-drag {
-            background: var(--thoughtware-gray-300);
+            background: var(--tiklab-gray-300);
 
         }
     }
 
     .library-upload-right {
-        background-color: var(--thoughtware-gray-600);
+        background-color: var(--tiklab-gray-600);
         flex: 1;
         padding: 15px;
         overflow: auto;

@@ -15,7 +15,7 @@ import Page from "../page/Page";
 import SearchInput from "../input/SearchInput";
 const History = (props) => {
     const {versionData,setVersionId,setSnapshotVersion,location:{pathname},publicState}=props
-    const {findHistoryVersionPage,deleteVersion,deleteSnapshotFile,versionLoad,refresh,setRefresh}=libraryStore
+    const {findHistoryVersionPage,deleteLibraryVersion,deleteSnapshotFile,versionLoad,refresh,setRefresh}=libraryStore
     //制品版本列表
     const [historyList,setHistoryList]=useState([])
     //当前页
@@ -81,6 +81,34 @@ const History = (props) => {
         }
     ];
 
+    const publicColumns = [
+        {
+            title: '版本',
+            dataIndex: 'version',
+            width:'40%',
+            ellipsis:true,
+            render:(text,record)=>{
+                return(
+                    (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>goVersion(record)}> {text}</div>:
+                        record.type!=='child'?<div> {text}</div>:
+                            <div className='text-color' onClick={()=>goSnapshotVersion(record)}> {text}</div>
+                )
+            }
+        },
+        {
+            title: '大小',
+            dataIndex: 'showSize',
+            width:'30%',
+            ellipsis:true,
+        },
+        {
+            title: '推送时间',
+            dataIndex: "updateTime",
+            width:'30%',
+            ellipsis:true,
+        }
+    ];
+
     useEffect(async () => {
         if (pathname.endsWith('details')){
             setReturnPath("/library")
@@ -94,18 +122,6 @@ const History = (props) => {
     useEffect(async () => {
         await findHistoryVersion(currentPage)
     }, [versionLoad]);
-
- /*   useEffect(async () => {
-        if (!publicState){
-            versionColumns.push( )
-
-        }
-        setColumns(versionColumns)
-    }, []);*/
-
-
-
-
 
     /**
      * 查询制品版本列表
@@ -197,10 +213,8 @@ const History = (props) => {
         }else {
             //删除版本
             if (versionData.version===data.version){
-                debugger
                 if (totalRecord===1){
-                    deleteVersion(data.id)
-                    debugger
+                    deleteLibraryVersion(data.id,data.library.id)
                     props.history.push(returnPath)
                 }else {
                     // type：library 删除后刷新查询制品详情想数据
@@ -222,7 +236,7 @@ const History = (props) => {
             />
             <Table
                 dataSource={historyList}
-                columns={columns}
+                columns={publicState?publicColumns:columns}
                 pagination={false}
                 rowKey = {record => record.id}
                 className={'history-table'}

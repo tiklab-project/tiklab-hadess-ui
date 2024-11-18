@@ -27,7 +27,7 @@
 
 }
 
-.down-select{
+.basics-down-select{
     box-shadow: 0 4px 8px -2px #091e4240, 0 0 1px #091e424f;
     border-radius: 4px;
     background-color: #ffffff;
@@ -61,6 +61,11 @@
         .rpy-nav-desc{
             color: #999999;
         }
+    }
+    .down-select-rpy-non{
+        color: #999999;
+        cursor: none;
+        padding: 7px 10px;
     }
 
     .select-exec{

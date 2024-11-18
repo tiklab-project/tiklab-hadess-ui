@@ -21,9 +21,14 @@ Hadess 支持多种格式的制品管理，如 Maven、NPM、Docker、helm 等�
 * Npm 6.14+
 
 ### 克隆仓库
+```
 git clone https://gitee.com/tiklab/tiklab-hadess-ui.git
-### 配置镜像源
-npm config set registry https://mirror.tiklab.net/repository/tiklab-npm
+```
+### 配置Npm镜像源拉取依赖
+```
+npm config set registry  https://mirror.tiklab.net/repository/tiklab-npm
+```
+
 ### 启动
 cd tiklab-hadess-ui
 

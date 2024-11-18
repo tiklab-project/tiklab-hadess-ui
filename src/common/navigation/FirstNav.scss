@@ -3,13 +3,13 @@
     height: 100%;
 
     .fist-nav-icon{
-        padding: var(--thoughtware-distance-15) 0;
+        padding: var(--tiklab-distance-15) 0;
         .fist-nav-close-icon{
             display: flex;
             justify-content: center;
             .icon-size{
-                height: var(--thoughtware-size-32);
-                width: var(--thoughtware-size-32);
+                height: var(--tiklab-size-32);
+                width: var(--tiklab-size-32);
             }
         }
         .fist-nav-open-icon{
@@ -18,8 +18,8 @@
             gap: 12px;
             align-items: center;
             .icon-size{
-                height: var(--thoughtware-size-24);
-                width: var(--thoughtware-size-24);
+                height: var(--tiklab-size-24);
+                width: var(--tiklab-size-24);
             }
             .icon-text{
                 font-size: 20px;
@@ -33,7 +33,7 @@
         flex-direction: column;
         height: auto;
         /*overflow: auto;*/
-   /*     background-color: var(--thoughtware-motif-color-defult);*/
+   /*     background-color: var(--tiklab-motif-color-defult);*/
         justify-content: space-between;
         width: 76px;
         min-width: 76px;
@@ -50,11 +50,11 @@
             margin: 10px 0;
             padding: 5px;
             .close-icon-size{
-                width: var(--thoughtware-size-20);
-                height: var(--thoughtware-size-20);
+                width: var(--tiklab-size-20);
+                height: var(--tiklab-size-20);
             }
             .close-iconfont{
-               font-size: var(--thoughtware-size-20);
+               font-size: var(--tiklab-size-20);
             }
         }
         .table-open-nav{
@@ -69,11 +69,11 @@
                 justify-content: center;
             }
             .open-icon-size{
-                width: var(--thoughtware-size-18);
-                height: var(--thoughtware-size-18);
+                width: var(--tiklab-size-18);
+                height: var(--tiklab-size-18);
             }
             .open-iconfont{
-                font-size: var(--thoughtware-size-18);
+                font-size: var(--tiklab-size-18);
             }
         }
 
@@ -85,7 +85,7 @@
             border-top-width: 1px;
             padding: 15px;
             &:hover{
-                background: var(--thoughtware-gray-300);
+                background: var(--tiklab-gray-300);
             }
         }
 
@@ -133,21 +133,21 @@
             border-left: var(--nav-left-border-size) solid transparent;
             cursor: pointer;
             &:hover{
-                background: var(--thoughtware-gray-400);
+                background: var(--tiklab-gray-400);
             }
         }
         .tab-link-active {
-            /*    color: var(--thoughtware-blue);*/
-            background-color: var(--thoughtware-gray-400);
-            border-left:var(--nav-left-border-size) solid var(--thoughtware-blue);
+            /*    color: var(--tiklab-blue);*/
+            background-color: var(--tiklab-gray-400);
+            border-left:var(--nav-left-border-size) solid var(--tiklab-blue);
         }
         /*  .user-icon {
-              background-color: var(--thoughtware-blue);
+              background-color: var(--tiklab-blue);
               color: #ffffff;
           }*/
     }
     .theme-blue {
-        background-color: var(--thoughtware-motif-color-blue);
+        background-color: var(--tiklab-motif-color-blue);
         color: #fff;
         .tab-link{
             border-left: var(--nav-left-border-size) solid transparent;
@@ -166,7 +166,7 @@
         }
     }
     .theme-black {
-        background-color: var(--thoughtware-motif-color-black);
+        background-color: var(--tiklab-motif-color-black);
         color: #D8D8D8;
         .tab-link{
             border-left: var(--nav-left-border-size) solid transparent;
@@ -188,7 +188,7 @@
 
     .fist-data-tab{
         width: 100%;
-        background: var(--thoughtware-white);
+        background: var(--tiklab-white);
         .fist-data-data{
             height: var(--xpack-content-height)
         }

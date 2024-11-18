@@ -3,13 +3,13 @@
     .library-details-tab{
         display: flex;
         column-gap: 30px;
-        border-bottom: 1px solid var(--thoughtware-gray-200);
+        border-bottom: 1px solid var(--tiklab-gray-200);
         .choose-library-type{
             color: #0063FF;
             border-bottom:2px solid #0063FF;
         }
         .library-tab-nav{
-            font-size: var(--thoughtware-font-14);;
+            font-size: var(--tiklab-font-14);;
             cursor: pointer;
             height: 50px;
             line-height: 50px;
@@ -25,7 +25,7 @@
 
     .overview-body-title{
         margin: 20px 0;
-        font-weight: var(--thoughtware-font-weight-bold);
+        font-weight: var(--tiklab-font-weight-bold);
         font-size: 13px;
     }
     .overview-body{
@@ -51,7 +51,7 @@
             align-items: center;
             .overview-body-item-title{
                 min-width: 80px ;
-                color: var(--thoughtware-gray-500);
+                color: var(--tiklab-gray-500);
             }
             .overview-body-item-type{
                 display: flex;

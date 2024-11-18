@@ -8,18 +8,22 @@
 import React,{useEffect,useState} from "react";
 import "./OverviewUse.scss"
 import {message, Select} from "antd";
-import {observer} from "mobx-react";
+import {inject, observer} from "mobx-react";
 import {CopyOutlined} from "@ant-design/icons";
+import {withRouter} from "react-router";
 const { Option } = Select;
 
 const mavenList=[{key:"maven",value:"Maven"},{key:"gradle",value:"Gradle"}]
 const npmList=[{key:"npm",value:"npm"},{key:"yarn",value:"yarn"}]
 const OverviewUse = (props) => {
-    const {versionData}=props
+    const {versionData,repositoryStore}=props
+    const {findRepository}=repositoryStore
+
     const [selectData,setSelectData]=useState([])
 
     const [type,setType]=useState("")
     const [value,setValue]=useState('')
+    const [repository,setRepository]=useState()
 
     useEffect(async () => {
         if (versionData.libraryType==='maven'){
@@ -29,6 +33,9 @@ const OverviewUse = (props) => {
             setSelectData(npmList)
             setType("npm")
         }
+        findRepository(versionData.repository.id).then(res=>{
+            setRepository(res.data)
+        })
     }, [versionData]);
 
 
@@ -144,7 +151,7 @@ const OverviewUse = (props) => {
                     <pre className='overview-guide-table'>
                         <code id={'npm'}>
                             {
-                                `${value} ${versionData.library?.name} @ ${versionData?.version}`
+                                `${value} ${versionData.library?.name}@${versionData?.version}`
                             }
                         </code>
                          <div className='overview-guide-table-copy' onClick={()=>clickCopy("npm")}>
@@ -163,7 +170,7 @@ const OverviewUse = (props) => {
                     versionData.libraryType === 'docker' &&
                     <div className='overview-guide-table'>
                         <code id={'docker'}>
-                            {`docker pull ${node_env? base_url:window.location.origin}/${versionData.repository?.name}/${versionData.library?.name}:${versionData.version}`}
+                            {`docker pull ${repository?.prefixPath}${versionData.repository?.name}/${versionData.library?.name}:${versionData.version}`}
                         </code>
                         <div className='overview-guide-table-copy' onClick={()=>clickCopy("docker")}>
                             <CopyOutlined />
@@ -183,6 +190,5 @@ const OverviewUse = (props) => {
             </div>
         </div>
     )
-
 }
-export default observer(OverviewUse)
+export default withRouter(inject('repositoryStore')(observer(OverviewUse)))

@@ -11,7 +11,7 @@ import NoAccessContent from "./setting/not/NoAccessContent";
 
 //登陆
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
-
+const SysException=SyncComponent(()=>import('./Login/components/SysExceptionContent'))
 //退出
 const Logout = SyncComponent(() => import('./login/components/Logout'));
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
@@ -115,6 +115,11 @@ const routers = [
         exact: true,
         component: Login,
         key:'login'
+    },
+    {
+        path:"/500",
+        exact:true,
+        component:SysException,
     },
     {
         path: "/logout",

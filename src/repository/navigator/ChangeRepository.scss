@@ -2,18 +2,18 @@
     width: 240px;
     min-height: 100px;
     &-title{
-        font-weight: var(--thoughtware-font-weight-bold);
-        padding: 0 var(--thoughtware-padding-item);
+        font-weight: var(--tiklab-font-weight-bold);
+        padding: 0 var(--tiklab-padding-item);
         height: 40px;
         line-height: 40px;
-        border-bottom: 1px solid var(--thoughtware-gray-200);
+        border-bottom: 1px solid var(--tiklab-gray-200);
     }
     &-group{
         max-height: 500px;
         overflow: auto;
     }
     &-item{
-        padding: 8px var(--thoughtware-padding-item);
+        padding: 8px var(--tiklab-padding-item);
         display: flex;
         cursor: pointer;
         text-overflow: ellipsis;
@@ -39,7 +39,7 @@
         cursor: pointer;
         padding: 5px 0;
         text-align: center;
-        border-top: 1px solid var(--thoughtware-gray-200);
+        border-top: 1px solid var(--tiklab-gray-200);
         color: #3967FF;
     }
     .cursor:hover{

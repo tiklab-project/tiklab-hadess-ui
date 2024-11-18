@@ -21,7 +21,7 @@ const GuideNpm = (props) => {
                     <div className='rpy-guide-title'>步骤一: 设置仓库凭证</div>
                     <div className='rpy-guide-desc'>设置仓库为npm的默认仓库</div>
                     <div className='rpy-guide-table'>
-                        <code id={"npmConfig"}>{`npm config set registry=${repositoryData.repositoryUrl}`}</code>
+                        <code id={"npmConfig"}>{`npm config set registry ${repositoryData.repositoryUrl}`}</code>
                         <div className='rpy-guide-table-copy' onClick={()=>clickCopy("npmConfig")}>
                             <CopyOutlined />
                         </div>

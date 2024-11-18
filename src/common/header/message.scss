@@ -1,11 +1,11 @@
 .messageModal{
-    padding: var(--thoughtware-padding-item) 0;
+    padding: var(--tiklab-padding-item) 0;
     .messageModal-up{
-        padding: 0 var(--thoughtware-padding);
+        padding: 0 var(--tiklab-padding);
         display: flex;
         justify-content: space-between;
         .messageModal-up-title{
-            font-weight: var(--thoughtware-font-weight-bold);
+            font-weight: var(--tiklab-font-weight-bold);
         }
         .messageModal-up-icon{
             padding-right: 10px;
@@ -53,7 +53,7 @@
                 }
             }
             .title-select{
-                border-bottom: 2px solid var(--thoughtware-blue);
+                border-bottom: 2px solid var(--tiklab-blue);
             }
         }
         .messageModal-list{
@@ -65,7 +65,7 @@
                 justify-content: space-between;
                 align-items: center;
                 cursor: pointer;
-                padding: 10px var(--thoughtware-padding);
+                padding: 10px var(--tiklab-padding);
                 &:hover{
                     background: #f4f4f4;
                 }
@@ -94,8 +94,8 @@
                     justify-content: space-between;
                     padding-bottom: 5px;
                     .user-title{
-                        font-size: var(--thoughtware-font-13);
-                        font-weight: var(--thoughtware-font-weight-bold);
+                        font-size: var(--tiklab-font-13);
+                        font-weight: var(--tiklab-font-weight-bold);
                     }
                     .user-time{
                         color: #999;
@@ -103,7 +103,7 @@
                     }
                     .user-data{
                         font-size: 13px;
-                        color: var(--thoughtware-gray-500);
+                        color: var(--tiklab-gray-500);
                         padding-top: 3px;
                     }
                 }
@@ -112,7 +112,7 @@
         .message-item:hover .message-hidden{
             display: block;
             &:hover{
-                color: var(--thoughtware-blue);
+                color: var(--tiklab-blue);
             }
         }
         .message-hidden{
@@ -126,7 +126,7 @@
             border-radius: 4px;
             cursor: pointer;
             padding-top: 5px;
-            color: var(--thoughtware-blue);
+            color: var(--tiklab-blue);
         }
         .icon{
             &-0{
@@ -158,8 +158,8 @@
     padding:0 !important;
 }
 .message-user-icon{
-    width: var(--thoughtware-size-32);
-    height: var(--thoughtware-size-32);
+    width: var(--tiklab-size-32);
+    height: var(--tiklab-size-32);
     border-radius: 32px;
     color: #fff;
     background-color: #cadbf3;
