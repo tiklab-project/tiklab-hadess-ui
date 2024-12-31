@@ -66,7 +66,10 @@ const FileList = (props) => {
 
     //查询制品文件
     const findLibraryFileList = (searchName) => {
-        findLibraryNewFileList({libraryVersionId:versionData.id,fileName:searchName}).then(item=>{
+        findLibraryNewFileList({
+            libraryVersionId:versionData.id,
+            fileName:searchName
+        }).then(item=>{
             item.code===0&&setLibraryFileList(item.data)
         })
     }

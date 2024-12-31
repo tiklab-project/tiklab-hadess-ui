@@ -17,7 +17,7 @@ import {SpinLoading} from "../loading/Loading";
 import Print from "../image/Print";
 const DetailsTable = (props) => {
     const {libraryVersionData,cuteVersion,detailsLoad,publicState}=props
-    const {findLibraryMaven,libraryMavenData,detailsType}=libraryStore
+    const {findLibraryMaven,libraryMavenData,detailsType,readLibraryFileData,findLibraryFileList,findDockerLayers}=libraryStore
     const [tableType,setTableType]=useState("info")   //table 类型
 
     //文件详情弹窗状态
@@ -26,6 +26,10 @@ const DetailsTable = (props) => {
     const [fileDetail,setFileDetail]=useState()
 
     const [libraryType,setLibraryType]=useState()
+
+    const [manifest,setManifest]=useState()
+    //镜像历史列表
+    const [layersList,setLayersList]=useState([])
 
     useEffect(async () => {
         setLibraryType(capitalizeFirstLetter(libraryVersionData?.libraryType))
@@ -38,6 +42,37 @@ const DetailsTable = (props) => {
             }
         }
     }, [libraryVersionData]);
+
+    useEffect(async () => {
+        //docker类型查询文件内容
+        if (libraryVersionData.libraryType==='docker'){
+            //查询manifest
+            if (tableType==='manifest'){
+                findLibraryFileList(libraryVersionData.id).then(res=>{
+                    if (res.code===0&&res.data.length>0){
+                        readLibraryFileData({repositoryId:libraryVersionData.repository.id,
+                            fileUrl:res.data[0].fileUrl
+                        }).then(data=>{
+                            setManifest(data.data)
+                        })
+                    }
+                })
+            }
+            //查询镜像历史
+            if (tableType==='layers'){
+                findLibraryFileList(libraryVersionData.id).then(res=>{
+                    if (res.code===0&&res.data.length>0){
+                        findDockerLayers({repositoryId:libraryVersionData.repository.id,
+                            fileUrl:res.data[0].fileUrl,
+                            libraryId:res.data[0].library.id
+                        }).then(data=>{
+                            setLayersList(data.data)
+                        })
+                    }
+                })
+            }
+        }
+    }, [tableType]);
 
     //将首字母大写
     const capitalizeFirstLetter = (string) => {
@@ -61,6 +96,7 @@ const DetailsTable = (props) => {
 
     //快照版本切换
     const findSnapshotVersion = (snapshot) => {
+
         setTableType("info")
         cuteVersion(snapshot.versionId)
     }
@@ -72,13 +108,27 @@ const DetailsTable = (props) => {
                 <>
                 <div className='library-details-tab'>
                     {
-                        libraryVersionData.libraryType!=="go"&&
+                        /*libraryVersionData.libraryType!=="go"&&*/
                         <div className={`${tableType==='info'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("info")}>制品信息</div>
                     }
-                    <div className={`${tableType==='file'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("file")}>
-                        文件
-                        <div className='library-tab-num'>{libraryVersionData?.fileNum}</div>
-                    </div>
+                    {
+                        libraryVersionData.libraryType!=="docker"&&<div className={`${tableType==='file'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("file")}>
+                            文件
+                            <div className='library-tab-num'>{libraryVersionData?.fileNum}</div>
+                        </div>
+                    }
+                    {
+                        libraryVersionData.libraryType==="docker"&&
+                        <div className={`${tableType==='layers'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("layers")}>
+                            镜像历史
+                        </div>
+                    }
+                    {
+                        libraryVersionData.libraryType==="docker"&&
+                        <div className={`${tableType==='manifest'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("manifest")}>
+                            manifest
+                        </div>
+                    }
                     <div className={`${tableType==='history'&& ' choose-library-type '}  library-tab-nav`} onClick={()=>setTableType("history")}>
                         版本
                         <div className='library-tab-num'>{libraryVersionData?.versionNum}</div>
@@ -139,6 +189,23 @@ const DetailsTable = (props) => {
                             <div className='overview-body-title'>使用指南</div>
                             <OverviewUse {...props} versionData={libraryVersionData}/>
                         </div> ||
+                        tableType==='manifest'&&
+                        <pre style={{ whiteSpace: "pre-wrap" }} className='manifest-data'>
+                                                <code>{manifest}</code>
+                                            </pre>||
+                        tableType==='layers'&&
+                        <div className='layers-data'>
+                            {
+                                layersList&&layersList.map((item,key)=>{
+                                    return(
+                                        <div key={key} className='layers-data-nav'>
+                                            {item}
+                                        </div>
+                                    )
+                                })
+                            }
+                        </div>||
+
                         tableType==='file'&&<FileList {...props} versionData={libraryVersionData}
                                                       openFileDetails={openFileDetails}/>||
                         tableType==='history'&&<History {...props} versionData={libraryVersionData}

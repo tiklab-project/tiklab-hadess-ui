@@ -29,6 +29,20 @@ const GuideMaven = (props) => {
     return(
         <>
             <div className='rpy-guide-tab'>
+                <div className='rpy-guide-illustrate'>
+                    <div>注意：Maven制品推送只支持推送到本地库</div>
+                    <div>;</div>
+                    <div>制品拉取地址建议配置组合库的地址</div>
+                    <div>;</div>
+                    <div>
+                        {repositoryData.repositoryType==='local'&&"该制品库为本地库"}
+                        {repositoryData.repositoryType==='remote'&&"该制品库为远程库"}
+                        {repositoryData.repositoryType==='group'&&"该制品库为组合库"}
+                    </div>
+                </div>
+              {/*  {
+                    repositoryData.repositoryType==='local'&&""
+                }*/}
                 <div>
                     <div className='rpy-guide-title'>步骤一: 设置仓库凭证</div>
                     <div className='rpy-guide-desc'>{`请在 settings.xml 文件中设置以下仓库的访问凭证`}</div>

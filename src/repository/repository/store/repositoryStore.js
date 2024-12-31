@@ -40,6 +40,7 @@ export class RepositoryStore{
         const res = await Axios.post("/xpackRepository/createRepository",value)
         if (res.code===0){
             this.repositoryId=res.data
+            message.success("创建成功")
         }
         return res;
     }

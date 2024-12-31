@@ -24,11 +24,20 @@ const GuideDocker = (props) => {
     return(
         <>
             <div className='rpy-guide-tab'>
+                <div className='rpy-guide-illustrate'>
+                    <div>注意：Docker因网络原因远程库暂时无法拉取中央仓库的镜像</div>
+                    <div>;</div>
+                    <div>
+                        {repositoryData.repositoryType==='local'&&"该制品库为本地库"}
+                        {repositoryData.repositoryType==='remote'&&"该制品库为远程库"}
+                        {repositoryData.repositoryType==='group'&&"该制品库为组合库"}
+                    </div>
+                </div>
                 <div>
                     <div className='rpy-guide-title'>步骤一: 设置仓库凭证</div>
                     <div className='rpy-guide-desc'>请在命令行执行一下命令登陆仓库</div>
                     <div className='rpy-guide-table'>
-                        <code id={"dockerConfig"}>{`docker login -u ${getUser().name} -p [password] ${serverIp}`}</code>
+                        <code id={"dockerConfig"}>{`docker login -u ${getUser().name} -p [password] ${repositoryData.repositoryUrl}`}</code>
                         <div className='rpy-guide-table-copy' onClick={()=>clickCopy("dockerConfig")}>
                             <CopyOutlined />
                         </div>

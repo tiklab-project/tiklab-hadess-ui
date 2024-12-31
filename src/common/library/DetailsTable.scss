@@ -65,6 +65,22 @@
             }
         }
     }
+    .manifest-data{
+        margin-top: 20px;
+        background-color:#F4F4F4;
+        padding: 20px;
+    }
+    .layers-data{
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        .layers-data-nav{
+            background-color:#F4F4F4;
+            padding: 10px;
+         /*   border-bottom: 1px solid #f0f0f0;;*/
+        }
+    }
 }
 
 

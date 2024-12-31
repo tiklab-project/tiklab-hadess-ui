@@ -18,6 +18,15 @@ const GuideHelm = (props) => {
     return(
         <>
             <div className='rpy-guide-tab'>
+                <div className='rpy-guide-illustrate'>
+                    <div>注意：Helm暂时只支持本地库</div>
+                    <div>;</div>
+                    <div>
+                        {repositoryData.repositoryType==='local'&&"该制品库为本地库"}
+                        {repositoryData.repositoryType==='remote'&&"该制品库为远程库"}
+                        {repositoryData.repositoryType==='group'&&"该制品库为组合库"}
+                    </div>
+                </div>
                 <div>
                     <div className='rpy-guide-title'>步骤一: 设置仓库凭证</div>
                     <div className='rpy-guide-desc'>添加helm仓库</div>

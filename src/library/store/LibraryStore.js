@@ -300,6 +300,7 @@ export class LibraryStore{
         if (res.code===0){
             this.libraryFileList=res.data
         }
+        return res;
     }
 
 
@@ -315,7 +316,32 @@ export class LibraryStore{
             this.libraryFileList=res.data
         }
         return res;
+    }
 
+    /**
+     * 读取制品文件内容
+     * @param  value
+     */
+    @action
+    readLibraryFileData=async (value)=>{
+        const res = await Axios.post("/libraryFile/readLibraryFileData",value)
+        if (res.code!==0) {
+            message.error(res.msg)
+        }
+        return res;
+    }
+
+    /**
+     * 获取镜像历史
+     * @param  value
+     */
+    @action
+    findDockerLayers=async (value)=>{
+        const res = await Axios.post("/libraryFile/findDockerLayers",value)
+        if (res.code!==0) {
+            message.error(res.msg)
+        }
+        return res;
     }
 
     /**

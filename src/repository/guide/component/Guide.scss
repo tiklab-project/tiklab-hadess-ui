@@ -51,5 +51,16 @@
             }
         }
 
+        .rpy-guide-illustrate{
+            display: flex;
+            margin: var(--tiklab-padding-item) 0;
+            padding: 10px;
+            background: #F8FFFF;
+            color: var(--tiklab-blue);
+            border: 1px solid #e3e9ed;
+            letter-spacing: 0.5px;
+            gap: 5px;
+        }
+
     }
 }
