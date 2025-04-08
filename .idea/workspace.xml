@@ -5,65 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46f894f8-90d6-447d-ae61-30bd2cddde3c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryDrawer.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryDrawer.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryFile.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryFile.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryInfo.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryInfo.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/agency/components/NetworkProxy.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/agency/components/NetworkProxyEdit.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/agency/components/RemoteAgency.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/agency/store/RemoteAgencyStore.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/integration/OpenApi.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/integration/OpenApi.scss" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/setting/integration/OpenApiDoc.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/environment/environment-dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/environment/environment-dev.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login/api/userApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/api/userApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/FileDetailsDrawer.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/FileDetailsDrawer.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/FileList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/FileList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/History.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/History.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryTable.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTableNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryTableNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTableNav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryTableNav.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/library/OverviewUse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/OverviewUse.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/navigation/FirstNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/navigation/FirstNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/navigation/FirstNav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/navigation/FirstNav.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/navigation/TopNav.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/navigation/TopNav.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/navigation/TopNav.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/navigation/TopNav.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/utils/staticConfig.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/utils/staticConfig.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/home/Home.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/home/Home.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/library/component/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/component/LibraryList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/common/GuideDocker.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideDocker.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/common/GuideGeneric.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideGeneric.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/common/GuideGo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideGo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/common/GuideHelm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideHelm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/common/GuideNpm.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideNpm.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/library/components/LibraryDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/components/LibraryDetails.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/library/components/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/components/LibraryList.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryAdd.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/repository/store/repositoryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/store/repositoryStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/basicInfo/RepositoryBasicInfo.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/repository/setting/navigator/RepositorySetting.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/setting/navigator/RepositorySetting.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/routers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routers.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/home/components/SettingHome.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/home/components/SettingHome.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/not/NoAccessContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/not/NoAccessContent.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgency.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/agency/components/RemoteAgency.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgency.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/agency/components/NetworkProxy.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/remoteAgency/components/RemoteAgencyEditPop.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/agency/components/RemoteAgencyEditPop.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/setting/remoteAgency/store/RemoteAgencyStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/agency/store/NetworkProxyStore.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ui.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/ui.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.prod.js" beforeDir="false" afterPath="$PROJECT_DIR$/webpack.prod.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -152,6 +95,7 @@
       <workItem from="1736234394260" duration="442000" />
       <workItem from="1736405420473" duration="141000" />
       <workItem from="1743150270776" duration="1321000" />
+      <workItem from="1744106504154" duration="587000" />
     </task>
     <servers />
   </component>
