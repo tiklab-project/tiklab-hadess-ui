@@ -4,7 +4,7 @@ import Btn from "../btn/Btn";
 import upgrade from "../../assets/images/img/upgrade.png"
 import "./UpgradePopup.scss"
 const UpgradePopup = (props) => {
-    const {visible,setVisible}=props
+    const {visible,setVisible,title,data}=props
 
 
     //取消编辑弹窗
@@ -31,13 +31,13 @@ const UpgradePopup = (props) => {
             footer={modalFooter}
             destroyOnClose={true}
             width={500}
-            title={'制品扫描'}
+            title={title}
         >
             <div className='upgrade'>
                 <div className='upgrade-icon'>
                     <img  src={upgrade}  style={{width:140,height:140}}/>
                 </div>
-                <div className='upgrade-text'>如需使用制品扫描，请购买企业版Licence</div>
+                <div className='upgrade-text'>{data}</div>
             </div>
         </Modals>
 

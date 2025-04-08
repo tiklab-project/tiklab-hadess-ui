@@ -6,8 +6,9 @@
  * @description：设置 左侧导航栏
  * @update: 2022-05-21 16:51
  */
-import {DeploymentUnitOutlined, FileDoneOutlined,
-    LayoutOutlined,
+import {
+    DeploymentUnitOutlined, FileDoneOutlined,
+    LayoutOutlined, SafetyCertificateOutlined,
     SoundOutlined,
     TeamOutlined, VerifiedOutlined
 } from "@ant-design/icons";
@@ -89,7 +90,11 @@ const SettingAside = (props) => {
                 },
                 {
                     id:'/setting/agency',
-                    title: '代理地址',
+                    title: '仓库代理地址',
+                },
+                {
+                    id:'/setting/networkProxy',
+                    title: '网络代理地址',
                 },
             ]
         },
@@ -111,10 +116,22 @@ const SettingAside = (props) => {
             ]
         },
         {
+            id:'9',
+            title: '集成与开放',
+            icon: <LayoutOutlined />,
+            children: [
+                {
+                    id:'/setting/openApi',
+                    title:'openApi',
+                },
+
+            ]
+        },
+        {
             id:'5',
             key:'5',
             title: '安全',
-            icon:<LayoutOutlined />,
+            icon:<SafetyCertificateOutlined />,
             children:[
                 {
                     id:'/setting/myLog',

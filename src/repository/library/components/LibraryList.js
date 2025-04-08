@@ -210,7 +210,7 @@ const LibraryList = (props) => {
                 <LibraryUpload visible={visible}
                                setVisible={setVisible}
                                repositoryId={params.id}
-                               type={repositoryData.type}
+                               type={repositoryData?.type}
                                setUploadState={setUploadState}/>
             </Col>
         </div>

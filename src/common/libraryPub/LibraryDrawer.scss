@@ -1,0 +1,50 @@
+.library-drawer{
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 100%;
+    .crumbs-nav{
+        display: flex;
+        justify-content: space-between;
+        .crumbs-nav-title{
+            display: flex;
+            cursor: pointer;
+            align-items: center;
+            gap: 5px;
+            font-size: 16px;
+            font-weight: 500;
+        }
+    }
+
+    .ant-drawer-body{
+        flex: 1;
+        min-width: 0;
+        min-height: 0;
+        padding: 0 14px 20px 14px;
+        overflow: auto;
+    }
+
+    .library-drawer-bottom{
+      /*  overflow: auto;
+        height:calc(100% - 48px);*/
+     /*   min-width: 600px;*/
+    }
+    .layers-data{
+        margin-top: 20px;
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+        .layers-data-nav{
+            background-color:#F4F4F4;
+            padding: 10px;
+            /*   border-bottom: 1px solid #f0f0f0;;*/
+        }
+    }
+
+    .manifest-data{
+        background-color:#F4F4F4;
+        padding: 10px;
+       /* border: 1px solid #ccc;*/
+        white-space: pre-wrap; /* 使长行自动换行 */
+        margin-top: 20px;
+    }
+}

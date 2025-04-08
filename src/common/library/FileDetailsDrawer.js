@@ -53,7 +53,6 @@ const FileDetailsDrawer = (props) => {
         >
             {fileDetail&&
                 <div className='file-details-drawer'>
-
                     <div className='file-details-body'>
                         <div className='file-details-basic'>
                             <div className='basic-body-left'>
@@ -104,7 +103,6 @@ const FileDetailsDrawer = (props) => {
                             <span className='basic-path-cursor basic-path-color' onClick={goContent}>{omitFiled(fileDetail?.relativePath)}</span>
                         </div>
                     </div>
-
                 </div>
             }
         </Drawer>

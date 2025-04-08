@@ -31,7 +31,7 @@ import {Validation} from "../../../common/client/Client";
 import BreadcrumbContent from "../../../common/breadcrumb/Breadcrumb";
 import Print from "../../../common/image/Print";
 import Btn from "../../../common/btn/Btn";
-import RemoteAgencyStore from "../../../setting/remoteAgency/store/RemoteAgencyStore";
+import RemoteAgencyStore from "../../../setting/agency/store/RemoteAgencyStore";
 import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
 import EmptyText from "../../../common/emptyText/EmptyText";
 const { TextArea } = Input;
@@ -84,18 +84,24 @@ const RepositoryAdd = (props) => {
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
                 {value: 'Generic', label: 'generic'},
-                {value: 'Helm', label: 'helm'}]
+                {value: 'Helm', label: 'helm'},
+                {value: 'Pypi', label: 'pypi'},
+            ]
         }else if(params.type==='remote'){
             options = [ {value: 'Maven', label: 'maven'},
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
                 {value: 'Helm', label: 'helm'},
-                {value: 'Go', label: 'go'}]
+                {value: 'Go', label: 'go'},
+                {value: 'Pypi', label: 'pypi'},
+            ]
         }else if (params.type==='group') {
             options = [ {value: 'Maven', label: 'maven'},
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
-                {value: 'Helm', label: 'helm'}]
+                {value: 'Helm', label: 'helm'},
+                {value: 'Pypi', label: 'pypi'},
+            ]
         }
         setTypeList(options)
 

@@ -1,0 +1,44 @@
+.library-info{
+    .overview-body-title{
+        margin: 20px 0;
+        font-weight: var(--tiklab-font-weight-bold);
+        font-size: 13px;
+    }
+    .overview-body{
+        display: flex;
+        width: 100%;
+        flex: 1;
+        margin-bottom: 40px;
+        .overview-body-left{
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap:25px
+        }
+        .overview-body-right{
+            display: flex;
+            flex-direction: column;
+            width: 44%;
+            gap:25px
+        }
+        .overview-body-item{
+            display: flex;
+            flex: 1;
+            align-items: center;
+            .overview-body-item-title{
+                min-width: 80px ;
+                color: var(--tiklab-gray-500);
+            }
+            .overview-body-item-type{
+                display: flex;
+                align-items: center;
+                gap: 3px;
+                .item-type-text{
+                    background-color: #f4f4f4;
+                    padding: 0 5px;
+                    border-radius: 4px;
+                }
+            }
+        }
+    }
+}

@@ -23,10 +23,6 @@ import {getUser, getVersionInfo, productWhiteImg} from "tiklab-core-ui";
 import UpgradePopup from "../../common/upgrade/UpgradePopup";
 import member from "../../assets/images/img/member.png";
 import Sider from "antd/es/layout/Sider";
-import NavOpen from "../../assets/images/img/nav-open.png";
-import NavFold from "../../assets/images/img/nav-fold.png";
-import TopNav from "../../common/navigation/TopNav";
-import NavigationImage from "../../common/image/NavigationImage";
 const RepositoryAside = (props) => {
     const {location,match:{params},repositoryStore,systemRoleStore,publicState}=props
     const {repositoryData,findRepository,findAllRepository,repositoryAllList,setNavLevel}=repositoryStore
@@ -72,6 +68,12 @@ const RepositoryAside = (props) => {
        ];
 
     let scrumRouter2 = [
+        {
+            key:'1',
+            title: '操作指南',
+            id:`/repository/${repositoryId}/guide`,
+            icon:   <BookOutlined  className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
+        },
         {
             key:'2',
             title: '制品',
@@ -296,7 +298,11 @@ const RepositoryAside = (props) => {
                 </div>
             </Layout>
 
-            <UpgradePopup visible={upgradeVisible} setVisible={setUpgradeVisible}/>
+            <UpgradePopup visible={upgradeVisible}
+                          setVisible={setUpgradeVisible}
+                          title={"制品扫描"}
+                          data={'如需使用制品扫描，请购买企业版Licence'}
+            />
         </Layout>
 
     )

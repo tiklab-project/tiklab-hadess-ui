@@ -7,29 +7,23 @@ const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludePro
 
 //公共组件
 const Breadcrumb=SyncComponent(()=>import('./common/breadcrumb/Breadcrumb'))
-const btn=SyncComponent(()=>import('./common/btn/btn'))
+const Btn=SyncComponent(()=>import('./common/btn/btn'))
 const HoleBtn=SyncComponent(()=>import('./common/btn/HoleBtn'))
 const NavigationImage=SyncComponent(()=>import('./common/image/NavigationImage'))
 const TopNav=SyncComponent(()=>import('./common/navigation/TopNav'))
 const FirstNav=SyncComponent(()=>import('./common/navigation/FirstNav'))
 const LibraryHistory = SyncComponent(() => import('./common/library/History'))
 const Modals = SyncComponent(() => import('./common/modal/Modal'))
+const DownSelect = SyncComponent(() => import('./common/downSelect/DownSelect'))
+const EmptyText = SyncComponent(() => import('./common/emptyText/EmptyText'))
+const SearchInput = SyncComponent(() => import('./common/input/SearchInput'))
+
 
 //制品
 const LibraryDetails = SyncComponent(() => import('./library/component/LibraryDetails'))
 const RpyLibraryDetails = SyncComponent(() => import('./repository/library/components/LibraryDetails'))
 
-//制品扫描
-const ScanPlayList = SyncComponent(() => import('./repository/scan/components/ScanPlayList'))
-const ScanList = SyncComponent(() => import('./repository/scan/components/ScanList'))
-const ScanDetails = SyncComponent(() => import('./repository/scan/components/ScanDetails'))
-const ScanHistory = SyncComponent(() => import('./repository/scan/components/ScanHistory'))
 
-//扫描方案
-const ScanScheme =SyncComponent(()=>import('./setting/scan/components/ScanScheme'))
-const ScanHole =SyncComponent(()=>import('./setting/scan/components/ScanHole'))
-const HoleList =SyncComponent(()=>import('./setting/scan/components/HoleList'))
-const HoleEdit =SyncComponent(()=>import('./setting/scan/components/HoleEditPop'))
 
 // 制品库列表
 const RepositoryList = SyncComponent(() => import('./repository/repository/components/RepositoryList'))
@@ -82,7 +76,7 @@ const BackupRecovery =SyncComponent(()=>import('./setting/backup/BackupRecoveryC
 
 //资源监控
 const Resources =SyncComponent(()=>import('./setting/resources/components/Resources'))
-const RemoteAgency =SyncComponent(()=>import('./setting/remoteAgency/components/RemoteAgency'))
+const RemoteAgency =SyncComponent(()=>import('./setting/agency/components/RemoteAgency'))
 
 import SettingHome from "./setting/home/components/SettingHome";
 
@@ -96,20 +90,21 @@ const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
 
 
 export {
+    Breadcrumb,
+    Btn,
     NavigationImage,
     TopNav,
     FirstNav,
     Modals,
+    DownSelect,
+    EmptyText,
+    SearchInput,
 
     LibraryHistory,
     LibraryDetails,
     RpyLibraryDetails,
     SettingHome,
     ExcludeProductUser,
-    ScanPlayList,
-    ScanList,
-    ScanDetails,
-    ScanHistory,
     RepositoryList,
     RepositoryAdd,
     programDomainRole,
@@ -135,11 +130,6 @@ export {
     xpackStore,
     SettingContent,
     BackupRecovery,
-
-    ScanScheme,
-    ScanHole,
-    HoleList,
-    HoleEdit,
 
     Resources,
     RemoteAgency,

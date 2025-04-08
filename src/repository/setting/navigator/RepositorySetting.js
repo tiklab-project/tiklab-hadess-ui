@@ -20,6 +20,7 @@ const RepositorySetting = (props) => {
     const [navPath,setNavPath]=useState()   //左侧导航览类型
     const [navList,setNavList]=useState([])
 
+
     let remoteLayerRouter = [
         {
             id:'1',
@@ -78,6 +79,9 @@ const RepositorySetting = (props) => {
         }
         if ( repositoryData?.repositoryType ==='local'){
             navList=remoteLayerRouter.filter(a=>a.id!==2)
+        }
+        if (version==='ce'){
+            navList=remoteLayerRouter.filter(a=>a.id!==5)
         }
         setNavList(navList)
     }

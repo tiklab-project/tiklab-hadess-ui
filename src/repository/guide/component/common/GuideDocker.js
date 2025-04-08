@@ -8,7 +8,6 @@
 import React,{useEffect,useState} from "react";
 import {message} from "antd";
 import {CopyOutlined} from "@ant-design/icons";
-import {copy} from "../../../../common/utils";
 import {observer} from "mobx-react";
 import {getUser} from "tiklab-core-ui";
 const GuideDocker = (props) => {

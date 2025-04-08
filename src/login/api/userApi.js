@@ -1,8 +1,8 @@
 /**
- * @name: user.service
+ * @name: element.service
  * @author: mahai
  * @date: 2021-07-12 15:17
- * @description：user.service
+ * @description：element.service
  * @update: 2021-07-12 15:17
  */
 import {Axios} from 'tiklab-core-ui';

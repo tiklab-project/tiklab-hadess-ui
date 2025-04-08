@@ -7,30 +7,41 @@
  */
 import React, {useState, useEffect} from "react";
 import {observer} from "mobx-react";
-import Print from "../image/Print";
 import "./LibraryTable.scss"
 import EmptyText from "../emptyText/EmptyText";
 import ListIcon from "../repositoryIcon/Listicon";
 import {Dropdown, Menu, Tooltip} from 'antd';
 import {EllipsisOutlined} from "@ant-design/icons";
 import {formatSize} from "../utils";
+import LibraryDrawer from "../libraryPub/LibraryDrawer";
 const LibraryTable = (props) => {
     const {libraryList,goDetails,goDetailsType}=props
 
-
+    const [libraryDrawer,setLibraryDrawer]=useState(false)
+    const [libraryDetails,setLibraryDetails]=useState()
+    const [tabType,setTabType]=useState()
     /**
      * 操作下拉
      */
     const execPullDown=(value) => (
         <Menu>
-            <Menu.Item  style={{width:100}} onClick={()=>goDetailsType(value,"info")}>
+            <Menu.Item  style={{width:100}} onClick={(e) => {
+                openLibraryDrawer(value, 'info')}}>
                 使用指南
             </Menu.Item>
-            <Menu.Item onClick={()=>goDetailsType(value,'file')}>
+            <Menu.Item onClick={(e) => {
+                openLibraryDrawer(value, 'file')}}>
                 文件
             </Menu.Item>
         </Menu>
     );
+
+    //打开抽屉弹窗
+    const openLibraryDrawer = (library,type) => {
+        setLibraryDetails(library)
+        setLibraryDrawer(true)
+        setTabType(type)
+    }
 
     return(
         <div className='library-table'>
@@ -45,7 +56,7 @@ const LibraryTable = (props) => {
             {
                 libraryList.length>0?libraryList.map((library,size)=>{
                         return(
-                            <div key={library.id} className='library-tab-nav' onClick={()=>goDetails(library)}>
+                            <div key={library.id} className='library-tab-nav' onClick={()=>openLibraryDrawer(library,"info")}>
                                 <div className='library-tab-left'>
                                     <ListIcon   text={library?.name}
                                                 colors={(size - 1) % 2 + 1}
@@ -76,13 +87,16 @@ const LibraryTable = (props) => {
                                         </Tooltip>
                                     </div>
                                     <div className='tab-right-exec'>
-                                        <div className='right-exec-version-size' onClick={()=>goDetailsType(library,'history')}>版本数：{library.versionCount}</div>
+                                        <div className='right-exec-version-size' onClick={(e) => {
+                                            e.stopPropagation(); // 阻止事件冒泡
+                                            openLibraryDrawer(library, 'history')}}>
+                                            版本数：{library.versionCount}
+                                        </div>
                                         <div>
                                             <Dropdown    overlay={()=>execPullDown(library)}
                                                          placement="bottomRight"
                                                          trigger={['click']}
                                                          getPopupContainer={e => e.parentElement}
-
                                             >
                                                 <div onClick={(e) => e.stopPropagation()}>
                                                     <EllipsisOutlined style={{fontSize:20}}/>
@@ -96,6 +110,14 @@ const LibraryTable = (props) => {
                     }):
                     <EmptyText/>
             }
+
+            <LibraryDrawer {...props}
+                             library={libraryDetails}
+                             visible={libraryDrawer}
+                             setVisible={setLibraryDrawer}
+                             tab={tabType}
+
+            />
         </div>
     )
 

@@ -33,7 +33,7 @@ const OverviewUse = (props) => {
             setSelectData(npmList)
             setType("npm")
         }
-        findRepository(versionData.repository.id).then(res=>{
+        findRepository(versionData?.repository.id).then(res=>{
             setRepository(res.data)
         })
     }, [versionData]);

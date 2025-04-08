@@ -8,7 +8,6 @@
 import React from "react";
 import {message} from "antd";
 import {CopyOutlined} from "@ant-design/icons";
-import {copy} from "../../../../common/utils";
 import {observer} from "mobx-react";
 const GuideNpm = (props) => {
     const {repositoryData,tableType,clickCopy}=props

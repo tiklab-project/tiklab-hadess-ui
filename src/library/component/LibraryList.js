@@ -161,13 +161,6 @@ const LibraryList = (props) => {
                                 defaultValue={searchMessage}
                                 type={'library'}
                             />
-                            {/* <Search
-                            placeholder={placeholder}
-                            allowClear
-                            onChange={onInputName}
-                            onSearch={onSearch}
-                            defaultValue={searchMessage}
-                        />*/}
                         </div>
                         {
                             sort==='asc'?

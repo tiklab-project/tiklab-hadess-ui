@@ -13,8 +13,11 @@ import {PrivilegeButton,SystemNav} from 'tiklab-privilege-ui';
 import {inject, observer} from "mobx-react";
 import "./SettingAside.scss"
 import {DownOutlined, ExportOutlined, HomeOutlined, UpOutlined} from "@ant-design/icons";
+import {getVersionInfo} from "tiklab-core-ui";
+import member from "../../assets/images/img/member.png";
+import UpgradePopup from "../../common/upgrade/UpgradePopup";
 const SettingContent = (props) => {
-    const {route,applicationRouters,basicRouter,isDepartment,systemRoleStore,setNavLevel} = props
+    const {route,applicationRouters,basicRouter,isDepartment,systemRoleStore,setNavLevel,openDrawer} = props
     const {systemPermissions}=systemRoleStore
 
     const path = props.location.pathname
@@ -22,7 +25,7 @@ const SettingContent = (props) => {
     const [expandedTree,setExpandedTree] = useState([''])  // 树的展开与闭合
     const [authConfig,setAuthConfig]=useState(null)
 
-
+    const [upgradeVisible,setUpgradeVisible]=useState(false)
 
     useEffect(()=>{
         if (path.startsWith("/setting/scanHole")){
@@ -53,17 +56,36 @@ const SettingContent = (props) => {
     }
 
     const setOpenOrClose = key => {
-        if (isExpandedTree(key)) {
-            setExpandedTree(expandedTree.filter(item => item !== key))
-        } else {
-            setExpandedTree(expandedTree.concat(key))
+        if (key==="4"&&(getVersionInfo().expired&&getVersionInfo().release!==3)){
+            setUpgradeVisible(true)
+        }else {
+            if (isExpandedTree(key)) {
+                setExpandedTree(expandedTree.filter(item => item !== key))
+            } else {
+                setExpandedTree(expandedTree.concat(key))
+            }
         }
+
 
     }
 
     //跳转
     const skip = data =>{
         const value=data.id;
+        //未订阅
+        if (getVersionInfo().expired){
+            //自定义log
+            if (value==='/setting/customLogo'){
+                openDrawer("logo")
+                return
+            }
+            //ip黑白名单
+            if (value==='/setting/ipRoster'){
+                openDrawer("ip")
+                return
+            }
+        }
+
         if (value.endsWith("orga")||value.endsWith("user")||value.endsWith("userGroup")||value.endsWith("dir")){
             //统一登陆
             if (!authConfig.authType) {
@@ -106,6 +128,12 @@ const SettingContent = (props) => {
                                 <ExportOutlined  />
                             </span>
                         }
+                        {
+                            getVersionInfo().expired&&data.character&&
+                            <span>
+                             <img  src={member}  style={{width:18,height:18}}/>
+                          </span>
+                        }
                     </div>
                 </li>
             </PrivilegeButton>
@@ -121,6 +149,12 @@ const SettingContent = (props) => {
                     <div className='system-aside-item-space'>
                         <div className='sys-content-icon'>{item.icon}</div>
                         <div className='system-aside-title'>{item.title}</div>
+                        <div>
+                            {item.id==="4"&&(getVersionInfo().expired)&&
+                                <img  src={member}  style={{width:18,height:18}}/>
+                            }
+                        </div>
+
                     </div>
                     <div className='system-aside-item-icon'>
                         {
@@ -190,6 +224,7 @@ const SettingContent = (props) => {
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
+            <UpgradePopup visible={upgradeVisible} setVisible={setUpgradeVisible} title={"扫描配置"} data={"扫描配置功能，请购买企业版Licence"}/>
         </SystemNav>
     )
 

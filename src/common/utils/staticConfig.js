@@ -41,7 +41,7 @@ const  onSelectMenuSwitch = (history, key) => {
             break;
         case '2-3':
             history.push('/privilege/project-custom-role/')
-            // history.push('/privilege/project-user/')
+            // history.push('/privilege/project-element/')
             break;
         case '6':
             history.push('/privilege/project-custom-role')

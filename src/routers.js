@@ -29,7 +29,7 @@ const SettingAside = SyncComponent(() => import('./setting/navigator/SettingAsid
 
 
 // 制品列表
-//const librarys = SyncComponent(() => import('./library/components/LibraryList'))
+//const libraryPub = SyncComponent(() => import('./library/components/LibraryList'))
 const librarys = SyncComponent(() => import('./library/component/LibraryList'))
 const LibraryDetails = SyncComponent(() => import('./library/component/LibraryDetails'))
 
@@ -88,16 +88,12 @@ const AuthContent =SyncComponent(()=>import('./setting/licence/AuthContent'))
 //设置-备份与恢复
 const BackupRecovery =SyncComponent(()=>import('./setting/backup/BackupRecoveryContent'))
 
-//扫描方案
-const ScanScheme =SyncComponent(()=>import('./setting/scan/components/ScanScheme'))
-const ScanHole =SyncComponent(()=>import('./setting/scan/components/ScanHole'))
-const HoleList =SyncComponent(()=>import('./setting/scan/components/HoleList'))
-
 //资源监控
 const Resources =SyncComponent(()=>import('./setting/resources/components/Resources'))
-//设置-代理地址
-const RemoteAgency =SyncComponent(()=>import('./setting/remoteAgency/components/RemoteAgency'))
-
+//设置-仓库代理地址
+const RemoteAgency =SyncComponent(()=>import('./setting/agency/components/RemoteAgency'))
+//设置-网络地理地址
+const NetworkProxy =SyncComponent(()=>import('./setting/agency/components/NetworkProxy'))
 
 //基础数据
 const SystemFunction =SyncComponent(()=>import('./setting/basicData/SystemFunction'))
@@ -106,7 +102,9 @@ const ProjectRole =SyncComponent(()=>import('./setting/basicData/ProjectRole'))
 const SystemRole =SyncComponent(()=>import('./setting/basicData/SystemRole'))
 const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
 
-
+//集成与开放openapi
+const OpenApi =SyncComponent(()=>import('./setting/integration/OpenApi'))
+const OpenApiDoc =SyncComponent(()=>import('./setting/integration/OpenApiDoc'))
 
 
 const routers = [
@@ -131,6 +129,11 @@ const routers = [
         path:'/no-auth',
         exact:true,
         component:ExcludeProductUser,
+    },
+    {
+        path: "/openApi",
+        component: OpenApiDoc,
+        key:'OpenApiDocPage',
     },
 
     {
@@ -301,28 +304,26 @@ const routers = [
                         path:'/setting/backupRecovery',
                         component: BackupRecovery,
                     },
-                    {
-                        path:'/setting/scanScheme',
-                        component: ScanScheme,
-                    },
-                    {
-                        path:'/setting/scanHole/:schemeId',
-                        component: ScanHole,
-                    },
-                    {
-                        path:'/setting/holeList',
-                        component: HoleList,
-                    },
+
                     {
                         path:'/setting/agency',
                         component: RemoteAgency,
                     },
                     {
+                        path:'/setting/networkProxy',
+                        component:NetworkProxy,
+                    },
+
+                    {
                         path:'/setting/resources',
                         component: Resources,
                     },
 
-
+                    {
+                        path: "/setting/openApi",
+                        component: OpenApi,
+                        key:'OpenApi',
+                    },
 
                     {
                         path:'/setting/systemFunction',

@@ -1,21 +1,15 @@
-/**
- * @name: History
- * @author: limingliang
- * @date: 2023-09-04 10:30
- * @description：历史版本
- * @update: 2023-09-04 10:30
- */
-import React, {useState, useEffect} from "react";
-import {Input, Popconfirm, Table, Tooltip} from "antd";
-import "./History.scss"
-import {EllipsisOutlined, SettingOutlined} from "@ant-design/icons";
-import libraryStore from "../../library/store/LibraryStore";
 import {observer} from "mobx-react";
-import Page from "../page/Page";
+import "./LibraryHistory.scss"
 import SearchInput from "../input/SearchInput";
-const History = (props) => {
-    const {versionData,setVersionId,setSnapshotVersion,location:{pathname},publicState}=props
-    const {findHistoryVersionPage,deleteLibraryVersion,deleteSnapshotFile,versionLoad,refresh,setRefresh}=libraryStore
+import {Popconfirm, Table, Tooltip} from "antd";
+import Page from "../page/Page";
+import React, {useEffect, useState} from "react";
+import libraryStore from "../../library/store/LibraryStore";
+import {EllipsisOutlined} from "@ant-design/icons";
+const LibraryHistory = (props) => {
+    const {crumbsType,versionData,publicState,setVisible,cuteVersion}=props
+
+    const {findHistoryVersionPage,deleteLibraryVersion,deleteSnapshotFile,versionLoad,deleteVersion}=libraryStore
     //制品版本列表
     const [historyList,setHistoryList]=useState([])
     //当前页
@@ -29,10 +23,6 @@ const History = (props) => {
     //搜索信息
     const [searchName,setSearchName]=useState()
 
-    //删除唯一版本后、返回的路径
-    const [returnPath,setReturnPath]=useState()
-    //const [columns,setColumns]=useState([])
-
 
     const columns = [
         {
@@ -42,7 +32,7 @@ const History = (props) => {
             ellipsis:true,
             render:(text,record)=>{
                 return(
-                    (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>goVersion(record)}> {text}</div>:
+                    (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>cuteVersion(record)}> {text}</div>:
                         record.type!=='child'?<div> {text}</div>:
                             <div className='text-color' onClick={()=>goSnapshotVersion(record)}> {text}</div>
                 )
@@ -89,7 +79,7 @@ const History = (props) => {
             ellipsis:true,
             render:(text,record)=>{
                 return(
-                    (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>goVersion(record)}> {text}</div>:
+                    (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>cuteVersion(record)}> {text}</div>:
                         record.type!=='child'?<div> {text}</div>:
                             <div className='text-color' onClick={()=>goSnapshotVersion(record)}> {text}</div>
                 )
@@ -110,31 +100,25 @@ const History = (props) => {
     ];
 
     useEffect(async () => {
-        if (pathname.endsWith('details')){
-            setReturnPath("/library")
-        }else {
-           const path= pathname.substring(0,pathname.lastIndexOf("/"))
-            setReturnPath(path)
+        if (crumbsType==='history'){
+            await findHistoryVersion(currentPage)
         }
-    }, []);
 
+    }, [versionLoad,versionData,crumbsType]);
 
-    useEffect(async () => {
-        await findHistoryVersion(currentPage)
-    }, [versionLoad]);
 
     /**
      * 查询制品版本列表
      * @param  currentPage 当前页
      */
     const findHistoryVersion = async (currentPage,searchName) => {
-      findHistoryVersionPage(insertData(currentPage,searchName)).then(res=>{
-          if (res.code===0){
-              setHistoryList(res.data.dataList)
-              setTotalPage(res.data.totalPage)
-              setTotalRecord(res.data.totalRecord)
-          }
-      })}
+        findHistoryVersionPage(insertData(currentPage,searchName)).then(res=>{
+            if (res.code===0){
+                setHistoryList(res.data.dataList)
+                setTotalPage(res.data.totalPage)
+                setTotalRecord(res.data.totalRecord)
+            }
+        })}
 
     //整合查询条件
     const insertData = (currentPage,searchName) => {
@@ -149,16 +133,24 @@ const History = (props) => {
         }
     }
 
-    //跳转历史
-    const goVersion = (value) => {
-        setVersionId(value.id)
+    //条件查询
+    const onSearch = () => {
+        if (searchName===''){
+            findHistoryVersion(1)
+        }else {
+            findHistoryVersion(1,searchName)
+        }
     }
 
-    //快照版本跳转
-    const goSnapshotVersion = (value) => {
-        setSnapshotVersion(value)
-    }
 
+    //搜索版本
+    const onInputName = (e) => {
+        const value=e.target.value
+        setSearchName(value)
+        if (value===''){
+            findHistoryVersion(1)
+        }
+    }
     /**
      * 分页查询制品版本
      * @param  value 页面数据
@@ -173,48 +165,35 @@ const History = (props) => {
         findHistoryVersion(currentPage,searchName)
     }
 
-    //搜索版本
-    const onInputName = (e) => {
-        const value=e.target.value
-        setSearchName(value)
-        if (value===''){
-            findHistoryVersion(1)
-        }
-    }
-    //条件查询
-    const onSearch = () => {
-        findHistoryVersion(1,searchName)
-    }
-
     //删除 type：child 时间戳版本
     const deleteVer = (data,type) => {
         //删除快照版本
         if (type==='child'){
             deleteSnapshotFile(data.versionId,data.version).then(res=>{
                 res.code===0&& findHistoryVersionPage(insertData(currentPage,searchName)).then(res=>{
-                    //删除成功后 切不存在版了 直接跳转制品列表界面
+                    //删除成功后 且不存在版了 直接跳转制品列表界面
                     if (res.code===0&&res.data.totalRecord===0){
-                        props.history.push(returnPath)
+                        setVisible(false)
                     }
                     if (res.code===0&&res.data.totalRecord>0){
                         //删除显示详情版本的最后一个快照版本时 刷新详情
                         const versions=res.data.dataList.filter(a=>a.id===data.versionId)
                         if (versions.length===0){
-                            setRefresh(!refresh)
+                            setVisible(false)
                         }else {
                             setHistoryList(res.data.dataList)
                             setTotalPage(res.data.totalPage)
                             setTotalRecord(res.data.totalRecord)
                         }
                     }
-                 })
+                })
             })
         }else {
             //删除版本
             if (versionData.version===data.version){
                 if (totalRecord===1){
                     deleteLibraryVersion(data.id,data.library.id)
-                    props.history.push(returnPath)
+                    setVisible(false)
                 }else {
                     // type：library 删除后刷新查询制品详情想数据
                     deleteVersion(data.id,"library")
@@ -225,6 +204,7 @@ const History = (props) => {
             }
         }
     }
+
 
     return(
         <div className='history'>
@@ -241,13 +221,16 @@ const History = (props) => {
                 className={'history-table'}
             />
 
-            <Page totalPage={totalPage}
-                  pageCurrent={currentPage}
-                  changPage={handleTableChange}
-                  totalRecord={totalRecord}
-                  refresh={refreshFind}
-            />
+            {  totalPage>1&&
+                <Page totalPage={totalPage}
+                      pageCurrent={currentPage}
+                      changPage={handleTableChange}
+                      totalRecord={totalRecord}
+                      refresh={refreshFind}
+                />
+            }
+
         </div>
     )
 }
-export default observer(History)
+export default observer(LibraryHistory)

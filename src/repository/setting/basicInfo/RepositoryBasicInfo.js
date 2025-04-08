@@ -22,7 +22,7 @@ import Btn from "../../../common/btn/Btn";
 import {PrivilegeProjectButton} from 'tiklab-privilege-ui';
 const { TextArea } = Input;
 import Print from "../../../common/image/Print";
-import RemoteAgencyStore from "../../../setting/remoteAgency/store/RemoteAgencyStore";
+import RemoteAgencyStore from "../../../setting/agency/store/RemoteAgencyStore";
 import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
 import RepositoryDelete from "./RepositoryDelete";
 const RepositoryBasicInfo = (props) => {

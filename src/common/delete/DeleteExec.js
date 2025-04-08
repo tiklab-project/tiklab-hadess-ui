@@ -9,7 +9,6 @@ import React from "react";
 import {Dropdown, Menu, Modal} from "antd";
 const { confirm } = Modal;
 import {EllipsisOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
-import TimeTaskStore from "../../repository/scan/store/TimeTaskStore";
 import "./DeleteExec.scss"
 const DeleteExec = (props) => {
 
@@ -30,17 +29,6 @@ const DeleteExec = (props) => {
 
      //校验
      const verify = () => {
-         //当删除为扫描制品 且为最后一个制品 需要校验是否有定时任务
-         if (type==='scanLibrary'){
-             findTimeTaskList({scanPlayId:value.scanPlayId}).then(res=>{
-                 if (res.code===0&&res.data.length>0){
-                     DeletePop("存在关联的定时任务，请先移除定时任务","1")
-                 }else {
-                     DeletePop(title)
-                 }
-             })
-         }
-
          //类型为代理地址
          if (type==='agency'){
              findRepositoryByProxyId(value.id).then(res=>{

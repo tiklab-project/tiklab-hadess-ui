@@ -12,7 +12,7 @@ import {
     CaretRightOutlined,
     SettingOutlined
 } from "@ant-design/icons";
-import {productImg, productFrameImg, productWhiteImg} from "tiklab-core-ui";
+import {productImg, productWhiteImg,productTitle} from "tiklab-core-ui";
 
 import Sider from "antd/es/layout/Sider";
 import TopNav from "./TopNav";
@@ -20,7 +20,7 @@ import {observer} from "mobx-react";
 import ProjectImage from "../image/NavigationImage";
 import libraryStore from "../../library/store/LibraryStore";
 const FirstNav = (props) => {
-    const {location}=props
+    const {location,AppLink,HelpLink,AvatarLink,customLogo}=props
     const {setSearchName}=libraryStore
     const [navPath,setNavPath]=useState('')   //选中的导航栏路径
 
@@ -126,10 +126,20 @@ const FirstNav = (props) => {
     }
 
 
-    const cutSetting = () => {
-        props.history.push('/setting/version')
-        setNavPath("setting")
-    }
+    //设置图标
+    const logoHtml = () => {
+        let image;
+        if (theme==='default'||theme==='gray'){
+            image=productImg.gitpuk
+        }else {
+            image=productWhiteImg.gitpuk;
+        }
+        return {
+            image: customLogo?.image ? customLogo.image : image,
+            name: customLogo?.name ? customLogo.name :  productTitle.hadess
+        };
+    };
+    const logoData = logoHtml();
 
 
     return(
@@ -140,20 +150,11 @@ const FirstNav = (props) => {
                         {
                             collapsed?
                                 <div className='fist-nav-close-icon'>
-                                    {
-                                        (theme==='default'||theme==='gray')?
-                                            <img  src={productImg.hadess }  className='icon-size'/>:
-                                            <img  src={productWhiteImg.hadess }  className='icon-size'/>
-                                    }
-
+                                    <img  src={logoData.image }  className='icon-size'/>
                                 </div>:
                                 <div className='fist-nav-open-icon'>
-                                    {
-                                        (theme==='default'||theme==='gray')?
-                                            <img  src={productImg.hadess }  className='icon-size'/>:
-                                            <img  src={productWhiteImg.hadess }  className='icon-size'/>
-                                    }
-                                    <div className='icon-text'>Hadess</div>
+                                    <img  src={logoData.image }  className='icon-size'/>
+                                    <div className='icon-text'>{logoData.name}</div>
                                 </div>
                         }
                     </div>
@@ -179,7 +180,13 @@ const FirstNav = (props) => {
                     })}
                 </div>
 
-                <TopNav {...props} showType={"all"} collapsed={collapsed} setTheme={setTheme} theme={theme}/>
+                <TopNav {...props} showType={"all"} collapsed={collapsed}
+                        setTheme={setTheme}
+                        theme={theme}
+                        AppLink={AppLink}
+                        HelpLink={HelpLink}
+                        AvatarLink={AvatarLink}
+                />
 
                 <div className="menu-box-right-border" >
                     <div className={"menu-box-isexpanded"} onClick={toggleCollapsed}>

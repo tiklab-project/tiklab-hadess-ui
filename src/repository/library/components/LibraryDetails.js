@@ -27,7 +27,7 @@ const LibraryDetails = (props) => {
     const findVersion = async (versionId) => {
         findVersionByLibraryId(params.libraryId,versionId).then(res=>{
             //文件不存在
-            if (res.code===4041){
+            if (res.code===57404){
                 setFileState(false)
             }
         })

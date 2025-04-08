@@ -11,7 +11,7 @@ const NoAccessContent = props =>{
     return (
         <NoAccess
             {...props}
-            homePath={'/library/maven'} //传返回的页面路由参数
+            homePath={'/library'} //传返回的页面路由参数
         />
     )
 }

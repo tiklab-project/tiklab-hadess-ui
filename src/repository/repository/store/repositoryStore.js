@@ -176,9 +176,7 @@ export class RepositoryStore{
     @action
     createRepositoryMaven=async (value)=>{
         const res = await Axios.post("/repositoryMaven/createRepositoryMaven",value)
-        if (res.code===0){
-            message.success("创建成功",1)
-        }
+
     }
 
     /**
