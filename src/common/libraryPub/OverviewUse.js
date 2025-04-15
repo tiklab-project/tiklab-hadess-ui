@@ -25,7 +25,13 @@ const OverviewUse = (props) => {
     const [value,setValue]=useState('')
     const [repository,setRepository]=useState()
 
+    const [path,setPath]=useState(null)
+    const [ipPath,setIpPath]=useState();
+
     useEffect(async () => {
+        const proPath=node_env? base_url:window.location.origin
+        setPath(proPath)
+
         if (versionData.libraryType==='maven'){
             setSelectData(mavenList)
             setType("Maven")
@@ -33,9 +39,16 @@ const OverviewUse = (props) => {
             setSelectData(npmList)
             setType("npm")
         }
-        findRepository(versionData?.repository.id).then(res=>{
+        findRepository(versionData?.repository?.id).then(res=>{
             setRepository(res.data)
         })
+
+        if (versionData.libraryType==='pypi'){
+            if (proPath.startsWith("http://")){
+                const result = proPath.replace(/^[^:]+:\/\//, '').split(':')[0];
+                setIpPath(result)
+            }
+        }
     }, [versionData]);
 
 
@@ -185,7 +198,17 @@ const OverviewUse = (props) => {
                           <div className='overview-guide-table-copy' onClick={()=>clickCopy("helm")}>
                                 <CopyOutlined />
                             </div>
-                    </pre>
+                    </pre>||
+                    versionData.libraryType === 'pypi'&&
+                    <div className='overview-guide-table'>
+                        <code id={'generic'}>
+                            {`pip install  ${versionData.library?.name} -i ${path}/pypi/${versionData.repository?.name}  ${path?.startsWith("http:")? `--trusted-host ${ipPath}` :''}`}
+                        </code>
+                        <div className='overview-guide-table-copy' onClick={()=>clickCopy("generic")}>
+                            <CopyOutlined />
+                        </div>
+                    </div>
+
                 }
             </div>
         </div>

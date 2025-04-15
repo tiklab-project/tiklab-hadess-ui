@@ -24,7 +24,7 @@ const { Search } = Input;
 const LibraryList = (props) => {
     const {repositoryStore,match:{params},publicState} = props;
     const {findRepository,repositoryData}=repositoryStore
-    const {findLibraryListByRepository,searchMessage,libraryLoad,libraryType,setDetailsType,setSearchName}=libraryStore
+    const {findLibraryListByRepository,searchMessage,libraryLoad,setDetailsType,refresh}=libraryStore
 
     const [name,setName]=useState(null)   //搜索的名称
     const [groupId,setGroupId]=useState(null)  //搜索的groupId
@@ -45,7 +45,12 @@ const LibraryList = (props) => {
         }else {
             await findLibraryList(1)
         }
-    }, [uploadState]);
+    }, [uploadState,refresh]);
+
+
+    useEffect(async () => {
+        await findLibraryList(currentPage,name)
+    }, [refresh]);
 
     //通过条件查询制品
     const findLibraryList =async (currentPage,name) => {

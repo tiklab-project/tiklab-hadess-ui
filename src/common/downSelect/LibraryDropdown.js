@@ -12,7 +12,7 @@ import {CloseCircleTwoTone, DownOutlined} from "@ant-design/icons";
 import Print from "../image/Print";
 import {observer} from "mobx-react";
 const typeList=[{type:'generic',value:'Generic'},{type:'maven',value:'Maven'},{type:'npm',value:'Npm'},{type:'docker',value:'Docker'},
-    {type:'helm',value:'Helm'},{type:'go',value:'Go'}/*,{type:'pypi',value:'Pypi'},{type:'nuget',value:'Nuget'}*/]
+    {type:'helm',value:'Helm'},{type:'go',value:'Go'},{type:'pypi',value:'Pypi'}/*,{type:'nuget',value:'Nuget'}*/]
 const LibraryDropdown = (props) => {
     const {visible,setVisible,cuteLibraryType,libraryType,type, down}=props
 

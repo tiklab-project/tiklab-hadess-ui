@@ -14,7 +14,6 @@ const DeleteExec = (props) => {
 
     const {value ,deleteData,title,type,findRepositoryByProxyId,schemeId}=props
 
-    const {findTimeTaskList}=TimeTaskStore
 
     /**
      * 删除下拉

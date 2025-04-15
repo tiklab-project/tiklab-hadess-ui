@@ -42,6 +42,8 @@ export class LibraryStore{
 
     @observable page=1
 
+
+
     @action
     setRefresh=async (refresh)=>{
         this.refresh=refresh
@@ -277,11 +279,7 @@ export class LibraryStore{
         param.append("libraryId",libraryId)
         const res = await Axios.post("/libraryVersion/deleteLibraryVersion",param)
         if (res.code===0){
-            if (type==='version'){
-                this.versionLoad=!this.versionLoad
-            }else {
-                this.refresh=!this.refresh
-            }
+            this.refresh=!this.refresh
             message.success("删除成功")
         }
         return res;

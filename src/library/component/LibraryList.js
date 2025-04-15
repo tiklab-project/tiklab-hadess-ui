@@ -24,7 +24,8 @@ import sortDesc from "../../assets/images/img/sortDesc.png"
 import sortAsc from "../../assets/images/img/sortAsc.png"
 const LibraryList = (props) => {
     const {repositoryStore,match:{params}}=props
-    const {findLibraryListByCond,searchMessage,libraryType,setLibraryType,libraryLoad,page,setDetailsType,setSearchName}=libraryStore
+    const {findLibraryListByCond,searchMessage,libraryType,setLibraryType,
+        libraryLoad,page,setDetailsType,setSearchName,refresh}=libraryStore
 
     //制品列表
     const [libraryList,setLibraryList]=useState([])
@@ -54,6 +55,10 @@ const LibraryList = (props) => {
         }
     }, [sort]);
 
+
+    useEffect(async () => {
+        await findLibraryByCondition(libraryType,page)
+    }, [refresh]);
 
 
     /**

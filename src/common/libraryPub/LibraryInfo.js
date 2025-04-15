@@ -1,5 +1,5 @@
 import React,{useState,useEffect} from "react";
-import OverviewUse from "../library/OverviewUse";
+import OverviewUse from "./OverviewUse";
 import "./LibraryInfo.scss"
 import {observer} from "mobx-react";
 import {Tooltip} from "antd";

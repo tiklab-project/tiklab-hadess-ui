@@ -46,8 +46,6 @@
                     display: flex;
                     cursor: pointer;
                 }
-
-
             }
         }
 
@@ -62,5 +60,11 @@
             gap: 5px;
         }
 
+    }
+
+    .rpy-guide-data-nav{
+        display: flex;
+        gap: 50px;
+        flex-direction: column;
     }
 }

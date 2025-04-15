@@ -194,6 +194,7 @@ const LibraryHistory = (props) => {
                 if (totalRecord===1){
                     deleteLibraryVersion(data.id,data.library.id)
                     setVisible(false)
+
                 }else {
                     // type：library 删除后刷新查询制品详情想数据
                     deleteVersion(data.id,"library")

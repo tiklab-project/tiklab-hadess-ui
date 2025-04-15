@@ -86,6 +86,7 @@ const RepositoryAdd = (props) => {
                 {value: 'Generic', label: 'generic'},
                 {value: 'Helm', label: 'helm'},
                 {value: 'Pypi', label: 'pypi'},
+                {value: 'Composer', label: 'composer'},
             ]
         }else if(params.type==='remote'){
             options = [ {value: 'Maven', label: 'maven'},
@@ -94,6 +95,7 @@ const RepositoryAdd = (props) => {
                 {value: 'Helm', label: 'helm'},
                 {value: 'Go', label: 'go'},
                 {value: 'Pypi', label: 'pypi'},
+                {value: 'Composer', label: 'composer'},
             ]
         }else if (params.type==='group') {
             options = [ {value: 'Maven', label: 'maven'},
@@ -101,6 +103,7 @@ const RepositoryAdd = (props) => {
                 {value: 'Docker', label: 'docker'},
                 {value: 'Helm', label: 'helm'},
                 {value: 'Pypi', label: 'pypi'},
+                {value: 'Composer', label: 'composer'},
             ]
         }
         setTypeList(options)
@@ -339,40 +342,6 @@ const RepositoryAdd = (props) => {
                                         )
                                     })
                                 }
-                               {/* <div className={`type-border ${type==='Maven'&&' type-opt '}`} onClick={()=>cuteType("Maven")}>
-                                    <Print type={"maven"} width={40} height={40} />
-                                    <div className='type-text'>Maven</div>
-                                </div>
-                                <div className={`type-border ${type==='Npm'&&' type-opt'}`} onClick={()=>cuteType("Npm")}>
-                                    <Print type={"npm"} width={40} height={40}/>
-                                    <div className='type-text'>Npm</div>
-                                </div>
-                                <div className={`type-border ${type==='Docker'&&' type-opt'}`} onClick={()=>cuteType("Docker")}>
-                                    <Print type={"docker"} width={40} height={40}/>
-                                    <div className='type-text'>Docker</div>
-                                </div>
-                                <div className={`type-border ${type==='Generic'&&' type-opt'}`} onClick={()=>cuteType("Generic")}>
-                                    <Print type={"generic"} width={40} height={40}/>
-                                    <div className='type-text'>Generic</div>
-                                </div>
-                                <div className={`type-border ${type==='Helm'&&' type-opt'}`} onClick={()=>cuteType("Helm")}>
-                                    <Print type={"helm"} width={40} height={40}/>
-                                    <div className='type-text'>Helm</div>
-                                </div>
-                                <div className={`type-border ${type==='Go'&&' type-opt'}`} onClick={()=>cuteType("Go")}>
-                                    <Print type={"go"} width={40} height={40}/>
-                                    <div className='type-text'>Go</div>
-                                </div>
-                                <div className={`type-border ${type==='PyPI'&&' type-opt'}`} onClick={()=>cuteType("PyPI")}>
-                                    <Print type={"pypi"} width={40} height={40}/>
-                                    <div className='type-text'>PyPI</div>
-                                </div>
-
-                                <div className={`type-border ${type==='NuGet'&&' type-opt'}`} onClick={()=>cuteType("NuGet")}>
-                                    <Print type={"nuget"} width={40} height={40}/>
-                                    <div className='type-text'>NuGet</div>
-                                </div>*/}
-
                             </div>
                         </Form.Item>
                         <Form.Item

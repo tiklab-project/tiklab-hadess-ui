@@ -17,6 +17,7 @@ import GuideGeneric from "./common/GuideGeneric";
 import GuideDocker from "./common/GuideDocker";
 import GuideHelm from "./common/GuideHelm";
 import GuideGo from "./common/GuideGo";
+import GuidePypi from "./common/GuidePypi";
 const Guide = (props) => {
     const {repositoryStore}=props
     const valueRef = useRef();
@@ -98,11 +99,15 @@ const Guide = (props) => {
                             />||
                             repositoryData.type==='go'&&
                             <GuideGo repositoryData={repositoryData}
-                                       tableType={tableType}
+                                     tableType={tableType}
                                      clickCopy={clickCopy}
+                            />||
+                            repositoryData.type==='pypi'&&
+                            <GuidePypi repositoryData={repositoryData}
+                                        tableType={tableType}
+                                        clickCopy={clickCopy}
                             />
                         }
-
                     </div>
                 </div>
             </Col>

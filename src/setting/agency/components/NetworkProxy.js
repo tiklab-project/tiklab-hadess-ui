@@ -11,10 +11,8 @@ import BreadcrumbContent from "../../../common/breadcrumb/Breadcrumb";
 import {Col, Switch, Table,message} from "antd";
 import Btn from "../../../common/btn/Btn";
 import {observer} from "mobx-react";
-import {PrivilegeButton} from "tiklab-privilege-ui";
 import {EditOutlined, StopOutlined} from "@ant-design/icons";
 import DeleteExec from "../../../common/delete/DeleteExec";
-import EmptyText from "../../../common/emptyText/EmptyText";
 import NetworkProxyEdit from "./NetworkProxyEdit";
 import NetworkProxyStore from "../store/NetworkProxyStore";
 const networkProxy = (props) => {

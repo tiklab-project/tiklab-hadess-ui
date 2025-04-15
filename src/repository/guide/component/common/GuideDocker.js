@@ -24,7 +24,7 @@ const GuideDocker = (props) => {
         <>
             <div className='rpy-guide-tab'>
                 <div className='rpy-guide-illustrate'>
-                    <div>注意：Docker因网络原因远程库暂时无法拉取中央仓库的镜像</div>
+                    <div>注意：Docker因网络原因远程库拉取需要先去系统设置->仓库配置中添加网络代理</div>
                     <div>;</div>
                     <div>
                         {repositoryData.repositoryType==='local'&&"该制品库为本地库"}
@@ -81,6 +81,5 @@ const GuideDocker = (props) => {
             }
         </>
     )
-
 }
 export default observer(GuideDocker)
