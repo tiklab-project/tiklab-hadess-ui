@@ -201,14 +201,22 @@ const OverviewUse = (props) => {
                     </pre>||
                     versionData.libraryType === 'pypi'&&
                     <div className='overview-guide-table'>
-                        <code id={'generic'}>
+                        <code id={'pypi'}>
                             {`pip install  ${versionData.library?.name} -i ${path}/pypi/${versionData.repository?.name}  ${path?.startsWith("http:")? `--trusted-host ${ipPath}` :''}`}
                         </code>
-                        <div className='overview-guide-table-copy' onClick={()=>clickCopy("generic")}>
+                        <div className='overview-guide-table-copy' onClick={()=>clickCopy("pypi")}>
+                            <CopyOutlined />
+                        </div>
+                    </div> ||
+                    versionData.libraryType === 'composer'&&
+                    <div className='overview-guide-table'>
+                        <code id={'composer'}>
+                            {`composer require ${versionData.library?.name}:${versionData.version}`}
+                        </code>
+                        <div className='overview-guide-table-copy' onClick={()=>clickCopy("composer")}>
                             <CopyOutlined />
                         </div>
                     </div>
-
                 }
             </div>
         </div>

@@ -10,12 +10,13 @@ import {observer} from "mobx-react";
 import "./LibraryTable.scss"
 import EmptyText from "../emptyText/EmptyText";
 import ListIcon from "../repositoryIcon/Listicon";
-import {Dropdown, Menu, Tooltip} from 'antd';
-import {EllipsisOutlined} from "@ant-design/icons";
+import {Dropdown, Menu, Tooltip,Modal} from 'antd';
+import {EllipsisOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import {formatSize} from "../utils";
 import LibraryDrawer from "../libraryPub/LibraryDrawer";
+const { confirm } = Modal;
 const LibraryTable = (props) => {
-    const {libraryList,goDetails,goDetailsType}=props
+    const {libraryList,deleteLibrary,goDetails,goDetailsType}=props
 
     const [libraryDrawer,setLibraryDrawer]=useState(false)
     const [libraryDetails,setLibraryDetails]=useState()
@@ -25,14 +26,12 @@ const LibraryTable = (props) => {
      */
     const execPullDown=(value) => (
         <Menu>
-            <Menu.Item  style={{width:100}} onClick={(e) => {
-                openLibraryDrawer(value, 'info')}}>
-                使用指南
+            <Menu.Item  style={{width:70}} onClick={(e) => {
+                e.domEvent.stopPropagation(); // 阻止事件冒泡
+                deletePop(value)}}>
+                删除
             </Menu.Item>
-            <Menu.Item onClick={(e) => {
-                openLibraryDrawer(value, 'file')}}>
-                文件
-            </Menu.Item>
+
         </Menu>
     );
 
@@ -41,6 +40,24 @@ const LibraryTable = (props) => {
         setLibraryDetails(library)
         setLibraryDrawer(true)
         setTabType(type)
+    }
+
+    //删除弹窗
+    const  deletePop = (value) =>{
+        confirm({
+            title: "注意: 该操作会删除该制品所有版本和文件",
+            icon: <ExclamationCircleOutlined />,
+            content: '',
+            okText: '确认',
+            okType: 'danger',
+            cancelText: '取消',
+
+            onOk() {
+                deleteLibrary(value.id)
+            },
+            onCancel() {
+            },
+        });
     }
 
     return(
@@ -108,7 +125,10 @@ const LibraryTable = (props) => {
                             </div>
                         )
                     }):
-                    <EmptyText/>
+                    <div style={{paddingTop:20}}>
+                        <EmptyText/>
+                    </div>
+
             }
 
             <LibraryDrawer {...props}

@@ -251,6 +251,25 @@ export class LibraryStore{
     }
 
     /**
+     * 批量删除版本
+     * @param  param param
+     */
+    @action
+    deleteBatchesVersion=async (param,type)=>{
+        debugger
+        const res = await Axios.post("/libraryVersion/deleteBatchesVersion",param)
+        if (res.code===0){
+            if (type==='version'){
+                this.versionLoad=!this.versionLoad
+            }else {
+                this.refresh=!this.refresh
+            }
+            message.success("删除成功")
+        }
+        return res;
+    }
+
+    /**
      * 根据时间搓和版本id 删除文件
      * @param  versionId 版本id
      */

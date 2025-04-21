@@ -24,7 +24,7 @@ const { Search } = Input;
 const LibraryList = (props) => {
     const {repositoryStore,match:{params},publicState} = props;
     const {findRepository,repositoryData}=repositoryStore
-    const {findLibraryListByRepository,searchMessage,libraryLoad,setDetailsType,refresh}=libraryStore
+    const {findLibraryListByRepository,searchMessage,libraryLoad,setDetailsType,refresh,  deleteLibrary}=libraryStore
 
     const [name,setName]=useState(null)   //搜索的名称
     const [groupId,setGroupId]=useState(null)  //搜索的groupId
@@ -201,6 +201,7 @@ const LibraryList = (props) => {
                         <LibraryTable libraryList={libraryList}
                                       goDetails={goDetails}
                                       goDetailsType={goDetailsType}
+                                      deleteLibrary={deleteLibrary}
                         />
                         <Page pageCurrent={currentPage}
                               changPage={changPage}

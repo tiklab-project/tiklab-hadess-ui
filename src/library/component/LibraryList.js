@@ -25,7 +25,7 @@ import sortAsc from "../../assets/images/img/sortAsc.png"
 const LibraryList = (props) => {
     const {repositoryStore,match:{params}}=props
     const {findLibraryListByCond,searchMessage,libraryType,setLibraryType,
-        libraryLoad,page,setDetailsType,setSearchName,refresh}=libraryStore
+        libraryLoad,page,setDetailsType,setSearchName,refresh,deleteLibrary}=libraryStore
 
     //制品列表
     const [libraryList,setLibraryList]=useState([])
@@ -184,6 +184,7 @@ const LibraryList = (props) => {
                             <LibraryTable libraryList={libraryList}
                                           goDetails={goDetails}
                                           goDetailsType={goDetailsType}
+                                          deleteLibrary={deleteLibrary}
                             />
                             <Page pageCurrent={currentPage}
                                   changPage={changPage}

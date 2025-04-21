@@ -5,9 +5,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="46f894f8-90d6-447d-ae61-30bd2cddde3c" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/scan-code.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/assets/images/img/scan-scheme.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/upgrade/ScanCodeFree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/upgrade/ScanCodeFree.scss" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/upgrade/ScanConfigFree.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/repository/guide/component/common/GuideComposer.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/environment/environment-dev.js" beforeDir="false" afterPath="$PROJECT_DIR$/environment/environment-dev.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login/api/userApi.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/api/userApi.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Login/components/LoginXpack.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/delete/DeleteExecLibrary.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/downSelect/LibraryDropdown.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/downSelect/LibraryDropdown.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/downSelect/LibraryDropdown.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/downSelect/LibraryDropdown.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/library/LibraryTable.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/library/LibraryTable.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/libraryPub/LibraryHistory.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/libraryPub/OverviewUse.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/libraryPub/OverviewUse.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/common/upgrade/UpgradePopup.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/upgrade/UpgradePopup.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/library/component/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/component/LibraryList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/library/store/LibraryStore.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/library/store/LibraryStore.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/guide/component/Guide.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/guide/component/Guide.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/library/components/LibraryList.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/library/components/LibraryList.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/navigator/RepositoryAside.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/repository/repository/components/RepositoryList.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingAside.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/SettingContent.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/setting/navigator/settingAside.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/setting/navigator/settingAside.scss" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -97,6 +120,7 @@
       <workItem from="1736405420473" duration="141000" />
       <workItem from="1743150270776" duration="1321000" />
       <workItem from="1744106504154" duration="698000" />
+      <workItem from="1744960615241" duration="280000" />
     </task>
     <servers />
   </component>

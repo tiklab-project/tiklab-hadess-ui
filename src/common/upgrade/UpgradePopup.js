@@ -30,7 +30,7 @@ const UpgradePopup = (props) => {
             closable={false}
             footer={modalFooter}
             destroyOnClose={true}
-            width={500}
+            width={980}
             title={title}
         >
             <div className='upgrade'>

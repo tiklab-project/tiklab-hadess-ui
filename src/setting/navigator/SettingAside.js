@@ -10,7 +10,7 @@ import {
     DeploymentUnitOutlined, FileDoneOutlined,
     LayoutOutlined, SafetyCertificateOutlined,
     SoundOutlined,
-    TeamOutlined, VerifiedOutlined
+    TeamOutlined, UserDeleteOutlined, VerifiedOutlined
 } from "@ant-design/icons";
 import React,{useEffect} from 'react';
 import SettingContent from './SettingContent';
@@ -29,7 +29,7 @@ const SettingAside = (props) => {
         {
             id:'1',
             key:'1',
-            title: '用户与权限',
+            title: '用户',
             icon:<TeamOutlined />,
             children:[
                 {
@@ -52,18 +52,20 @@ const SettingAside = (props) => {
                     title: '用户目录',
                     purviewCode: "user_dir",
                 },
-                {
-                    id:'/setting/role',
-                    title: '权限',
-                    purviewCode:'hadess_authority',
-                },
             ]
+        },
+
+        {
+            id:'/setting/role',
+            title: '权限',
+            icon: <UserDeleteOutlined />,
+            purviewCode:'hadess_authority',
         },
 
         {
             id:'3',
             key:'3',
-            title: '消息中心',
+            title: '消息',
             icon:<SoundOutlined />,
             children:[
                 {

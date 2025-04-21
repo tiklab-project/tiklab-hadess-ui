@@ -14,10 +14,14 @@ import {inject, observer} from "mobx-react";
 import "./SettingAside.scss"
 import {DownOutlined, ExportOutlined, HomeOutlined, UpOutlined} from "@ant-design/icons";
 import {getVersionInfo} from "tiklab-core-ui";
+import customLogo from "../../assets/images/img/custom-logo.png";
+import ipAllow from "../../assets/images/img/ip-allow.png";
 import member from "../../assets/images/img/member.png";
-import UpgradePopup from "../../common/upgrade/UpgradePopup";
+import ScanConfigFree from "../../common/upgrade/ScanConfigFree";
+import {LicenceEnhance} from "tiklab-licence-ui";
+import {SecurityEnhance} from "tiklab-security-ui";
 const SettingContent = (props) => {
-    const {route,applicationRouters,basicRouter,isDepartment,systemRoleStore,setNavLevel,openDrawer} = props
+    const {route,applicationRouters,basicRouter,isDepartment,systemRoleStore,setNavLevel} = props
     const {systemPermissions}=systemRoleStore
 
     const path = props.location.pathname
@@ -26,6 +30,10 @@ const SettingContent = (props) => {
     const [authConfig,setAuthConfig]=useState(null)
 
     const [upgradeVisible,setUpgradeVisible]=useState(false)
+
+
+    const [licenceVisible,setLicenceVisible]=useState(false)
+    const [securityVisible,setSecurityVisible]=useState(false)
 
     useEffect(()=>{
         if (path.startsWith("/setting/scanHole")){
@@ -76,12 +84,12 @@ const SettingContent = (props) => {
         if (getVersionInfo().expired){
             //自定义log
             if (value==='/setting/customLogo'){
-                openDrawer("logo")
+                setLicenceVisible(true)
                 return
             }
             //ip黑白名单
             if (value==='/setting/ipRoster'){
-                openDrawer("ip")
+                setSecurityVisible(true)
                 return
             }
         }
@@ -128,12 +136,12 @@ const SettingContent = (props) => {
                                 <ExportOutlined  />
                             </span>
                         }
-                        {
+                       {/* {
                             getVersionInfo().expired&&data.character&&
                             <span>
                              <img  src={member}  style={{width:18,height:18}}/>
                           </span>
-                        }
+                        }*/}
                     </div>
                 </li>
             </PrivilegeButton>
@@ -149,11 +157,11 @@ const SettingContent = (props) => {
                     <div className='system-aside-item-space'>
                         <div className='sys-content-icon'>{item.icon}</div>
                         <div className='system-aside-title'>{item.title}</div>
-                        <div>
+                     {/*   <div>
                             {item.id==="4"&&(getVersionInfo().expired)&&
                                 <img  src={member}  style={{width:18,height:18}}/>
                             }
-                        </div>
+                        </div>*/}
 
                     </div>
                     <div className='system-aside-item-icon'>
@@ -224,7 +232,27 @@ const SettingContent = (props) => {
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
-            <UpgradePopup visible={upgradeVisible} setVisible={setUpgradeVisible} title={"扫描配置"} data={"扫描配置功能，请购买企业版Licence"}/>
+            <ScanConfigFree visible={upgradeVisible}
+                            setVisible={setUpgradeVisible}
+            />
+
+            <LicenceEnhance
+                visible={licenceVisible} //必填
+                setVisible={setLicenceVisible} //必填
+                bgroup={'hadess'} //必填
+                list={[
+                    {id:'logo',title:'自定义Logo',icon:customLogo}
+                ]}  //必填
+            />
+
+            <SecurityEnhance
+                visible={securityVisible} //必填
+                setVisible={setSecurityVisible} //必填
+                bgroup={'hadess'} //必填
+                list={[
+                    {id:'ipRoster',title:'IP黑白名单',icon:ipAllow}
+                ]}  //必填
+            />
         </SystemNav>
     )
 

@@ -1,5 +1,15 @@
 .history {
     margin-top: 20px;
+    .history-header-nav{
+        display: flex;
+        justify-content:space-between;
+        .history-header-icon{
+            cursor: pointer;
+            .header-icon-test:hover{
+                color: #1890ff;
+            }
+        }
+    }
     .history-table{
         margin-top: 10px;
     }

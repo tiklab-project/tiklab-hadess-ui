@@ -1,15 +1,20 @@
 import {observer} from "mobx-react";
 import "./LibraryHistory.scss"
 import SearchInput from "../input/SearchInput";
-import {Popconfirm, Table, Tooltip} from "antd";
+import {Modal, Popconfirm, Switch, Table, Tooltip} from "antd";
 import Page from "../page/Page";
 import React, {useEffect, useState} from "react";
+import batchClose from "../../assets/images/img/batch-close.png";
+import batchOpen from "../../assets/images/img/batch-open.png";
 import libraryStore from "../../library/store/LibraryStore";
-import {EllipsisOutlined} from "@ant-design/icons";
+import {AlignLeftOutlined, EllipsisOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
+const { confirm } = Modal;
 const LibraryHistory = (props) => {
     const {crumbsType,versionData,publicState,setVisible,cuteVersion}=props
 
-    const {findHistoryVersionPage,deleteLibraryVersion,deleteSnapshotFile,versionLoad,deleteVersion}=libraryStore
+    const {findHistoryVersionPage,deleteLibraryVersion,deleteSnapshotFile,versionLoad
+        ,deleteVersion,deleteBatchesVersion}=libraryStore
+
     //制品版本列表
     const [historyList,setHistoryList]=useState([])
     //当前页
@@ -23,7 +28,19 @@ const LibraryHistory = (props) => {
     //搜索信息
     const [searchName,setSearchName]=useState()
 
+    const [selectedRowKeys, setSelectedRowKeys] = useState([]);
+    //批量删除状态
+    const [enableRowSelection, setEnableRowSelection] = useState(false);
 
+
+
+    // 定义 rowSelection
+    const rowSelection = {
+        selectedRowKeys,
+        onChange: (selectedRowKeys, selectedRows) => {
+            setSelectedRowKeys(selectedRowKeys);
+        },
+    };
     const columns = [
         {
             title: '版本',
@@ -34,7 +51,8 @@ const LibraryHistory = (props) => {
                 return(
                     (record.type!=='child'&& !record.children)? <div className='text-color' onClick={()=>cuteVersion(record)}> {text}</div>:
                         record.type!=='child'?<div> {text}</div>:
-                            <div className='text-color' onClick={()=>goSnapshotVersion(record)}> {text}</div>
+                            <div className='text-color'> {text}</div>
+
                 )
             }
         },
@@ -207,14 +225,65 @@ const LibraryHistory = (props) => {
     }
 
 
+    //批量删除状态
+    const setDeleteInState = (enable) => {
+        setEnableRowSelection(enable);
+    };
+
+    //批量删除状态
+    const deleteIn = () => {
+        if (totalRecord===selectedRowKeys.length){
+            deleteBatchesVersion({versionList:selectedRowKeys},"library")
+            setVisible(false)
+        }else {
+            deleteBatchesVersion({versionList:selectedRowKeys},"version")
+            setEnableRowSelection(false)
+            setSelectedRowKeys([])
+        }
+
+    };
+
+
     return(
         <div className='history'>
-            <SearchInput
-                placeholder={'搜索版本'}
-                onChange={onInputName}
-                onPressEnter={onSearch}
-            />
+            <div className='history-header-nav'>
+                <SearchInput
+                    placeholder={'搜索版本'}
+                    onChange={onInputName}
+                    onPressEnter={onSearch}
+                />
+                    <div className='history-header-icon' >
+                        {
+
+                            enableRowSelection&&selectedRowKeys.length>0?
+                                <Popconfirm
+                                    title="确定批量删除"
+                                    onConfirm={deleteIn}
+                                    okText="确定"
+                                    cancelText="取消"
+                                    placement="bottomLeft"
+                                >
+                                    <div className='header-icon-test'>批量删除</div>
+                                </Popconfirm>:
+
+                                <div>
+                                    {
+                                        enableRowSelection?
+                                            <div className='header-icon-test' onClick={()=>setDeleteInState(false)}>取消批量操作</div>:
+                                            <Tooltip title='打开批量操作'>
+                                                <img  src={batchOpen}  style={{width:22,height:22}} onClick={()=>setDeleteInState(true)}/>
+                                            </Tooltip>
+                                    }
+                                </div>
+
+
+                               /* <Switch checkedChildren="开启" unCheckedChildren="关闭"  onChange={setDeleteInState} />*/
+                        }
+                    </div>
+            </div>
+
             <Table
+                rowSelection={enableRowSelection ? rowSelection : undefined}
                 dataSource={historyList}
                 columns={publicState?publicColumns:columns}
                 pagination={false}

@@ -23,6 +23,7 @@ import {getUser, getVersionInfo, productWhiteImg} from "tiklab-core-ui";
 import UpgradePopup from "../../common/upgrade/UpgradePopup";
 import member from "../../assets/images/img/member.png";
 import Sider from "antd/es/layout/Sider";
+import ScanCodeFree from "../../common/upgrade/ScanCodeFree";
 const RepositoryAside = (props) => {
     const {location,match:{params},repositoryStore,systemRoleStore,publicState}=props
     const {repositoryData,findRepository,findAllRepository,repositoryAllList,setNavLevel}=repositoryStore
@@ -62,8 +63,7 @@ const RepositoryAside = (props) => {
             key:'3',
             title: '制品扫描',
             id:`/repository/${repositoryId}/scanPlay`,
-            icon: !getVersionInfo().expired||getVersionInfo().release===3?<BarChartOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>:
-                <img  src={member}  className={`${collapsed?'close-icon-size':'open-icon-size'}`}/>
+            icon: <BarChartOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
         },
        ];
 
@@ -251,9 +251,7 @@ const RepositoryAside = (props) => {
                                                         <div className='open-icon-style'>{item.icon}</div>
                                                 }
                                                 <div>{item.title}</div>
-                                                {
-                                                    (item.key==="3"&&getVersionInfo().expired&&getVersionInfo().release!==3)&& <div className='open-icon-vip'>{item.icon}</div>
-                                                }
+
                                             </div>
                                     }
                                 </div>
@@ -298,10 +296,8 @@ const RepositoryAside = (props) => {
                 </div>
             </Layout>
 
-            <UpgradePopup visible={upgradeVisible}
+            <ScanCodeFree visible={upgradeVisible}
                           setVisible={setUpgradeVisible}
-                          title={"制品扫描"}
-                          data={'如需使用制品扫描，请购买企业版Licence'}
             />
         </Layout>
 
