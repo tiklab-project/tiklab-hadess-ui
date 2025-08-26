@@ -6,12 +6,15 @@ import Home from './home/Home';
 import SettingHome from "./setting/home/components/SettingHome";
 import NotFoundContent from "./setting/not/NotFoundContent";
 import NoAccessContent from "./setting/not/NoAccessContent";
+import RepositorySettingNav from "./repository/setting/navigator/RepositorySettingNav";
 
 
 
 //登陆
 const Login = SyncComponent(() => import('./login/components/LoginXpack'));
 const SysException=SyncComponent(()=>import('./Login/components/SysExceptionContent'))
+const RequestErrorContent = SyncComponent(() => import('./login/components/RequestErrorContent'))
+
 //退出
 const Logout = SyncComponent(() => import('./login/components/Logout'));
 const ExcludeProductUser=SyncComponent(()=>import('./login/components/ExcludeProductUser'))
@@ -21,7 +24,9 @@ const FirstNav = SyncComponent(() => import('./common/navigation/FirstNav'));
 // 制品库设置模块
 const RepositoryAside = SyncComponent(() => import('./repository/navigator/RepositoryAside'));
 // 制品库设置-设置模块
-const RepositorySetting = SyncComponent(() => import('./repository/setting/navigator/RepositorySetting'));
+const RepositorySetting = SyncComponent(() => import('./repository/setting/navigator/RepositorySettingNav'));
+
+
 // 系统管理模块
 const SettingAside = SyncComponent(() => import('./setting/navigator/SettingAside'));
 
@@ -60,7 +65,8 @@ const PushGroup = SyncComponent(() => import('./repository/setting/pushCenter/co
 const PushLibrary = SyncComponent(() => import('./repository/setting/pushCenter/components/PushLibrary'))
 
 
-
+//消息
+const MessageContent =SyncComponent(()=>import('./setting/message/MessageContent'))
 //设置-消息通知方案
 const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
 //设置-消息发送方式
@@ -118,6 +124,11 @@ const routers = [
         path:"/500",
         exact:true,
         component:SysException,
+    },
+    {
+        path:'/requestError',
+        exact:true,
+        component:RequestErrorContent,
     },
     {
         path: "/logout",
@@ -252,6 +263,13 @@ const routers = [
                     {
                         path: '/setting/home',
                         component: SettingHome,
+                    },
+
+
+                    {
+                        path: '/setting/message',
+                        component:MessageContent,
+                        exact: true,
                     },
                     {
                         path: '/setting/mes/notice',

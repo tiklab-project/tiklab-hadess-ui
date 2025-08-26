@@ -9,7 +9,7 @@
 import React,{useEffect,useState} from "react";
 import {Button, Upload} from "antd";
 import {UploadOutlined} from "@ant-design/icons";
-import {getUser} from "tiklab-core-ui";
+import {getAPIgateway, getUser} from "tiklab-core-ui";
 import {inject, observer} from "mobx-react";
 const FileUploading = (props) => {
 
@@ -22,7 +22,7 @@ const FileUploading = (props) => {
         name: 'uploadFile',
         action: `${node_env? base_url:window.location.origin}/fileHand/fileUpload/${getUser().tenant&&getUser().tenant}`,
         headers:{
-            ticket:getUser().ticket
+            ticket:getUser().ticket,
         },
         progress:{
             strokeColor: {

@@ -29,3 +29,16 @@
     }
   }
 }
+.share-left-list {
+    padding: 0 10px;
+    overflow: auto;
+    height: calc(100% - 55px)!important;
+}
+
+.postin-share-box-right {
+    padding: 10px 90px;
+    max-width: 1040px;
+    margin: 0 auto;
+    width: calc(100% - 55px)!important;
+    height: 100%;
+}

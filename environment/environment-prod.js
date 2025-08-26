@@ -11,7 +11,7 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( 'http://114.215.180.181:8080/plugin/getPluginConfig'),
     method:JSON.stringify('get'),
 
-    appKey : JSON.stringify(""),
+    appKey : JSON.stringify("tiklab_hadess"),
     appSecret : JSON.stringify(""),
     version : JSON.stringify("ce"),
     client : JSON.stringify("web"),

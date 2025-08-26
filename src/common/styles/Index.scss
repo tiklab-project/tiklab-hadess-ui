@@ -1,6 +1,12 @@
 @import "Normalize";
 
 
+/*弹窗右侧关闭按钮样式*/
+.ant-modal-close-x {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+}
 
 .antd-custom,.ant-modal,.ant-drawer,.ant-table{
     .ant-form-item{
@@ -99,9 +105,6 @@
         fill: currentColor;
         overflow: hidden;
     }
-
-
-
 }
 
 

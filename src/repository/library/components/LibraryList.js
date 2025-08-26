@@ -165,12 +165,16 @@ const LibraryList = (props) => {
                     <Breadcrumb firstItem={"制品"}/>
                     {
                         (repositoryData?.repositoryType==="local"&&(repositoryData?.type==="maven"||repositoryData?.type==="generic"))&&
-                        <PrivilegeProjectButton code={"library_rpy_upload"} domainId={params.id} >
+                       /* <PrivilegeProjectButton code={"library_rpy_upload"} domainId={params.id} >
                             <Btn   type={'primary'}
                                    title={'上传制品'}
                                    onClick={()=> setVisible(true)}
                             />
-                        </PrivilegeProjectButton>
+                        </PrivilegeProjectButton>*/
+                        <Btn   type={'primary'}
+                        title={'上传制品'}
+                        onClick={()=> setVisible(true)}
+                        />
                     }
                 </div>
                 <div className={'rpy-library-search'}>

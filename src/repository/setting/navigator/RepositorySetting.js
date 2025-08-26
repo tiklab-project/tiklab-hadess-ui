@@ -11,8 +11,10 @@ import './RepsoitorySetting.scss'
 import {inject, observer} from "mobx-react";
 import {SettingOutlined} from "@ant-design/icons";
 import {ProjectNav,PrivilegeProjectButton} from 'tiklab-privilege-ui';
+import {getVersionInfo} from "tiklab-core-ui";
+import CleanStrategyFree from "../../../common/upgrade/CleanStrategyFree";
 const RepositorySetting = (props) => {
-    const {match:{params},location,repositoryStore} = props
+    const {match:{params},location,repositoryStore,remoteLayerRouter} = props
     let path = location.pathname
 
     const repositoryId = params.id;      // 仓库id
@@ -20,33 +22,9 @@ const RepositorySetting = (props) => {
     const [navPath,setNavPath]=useState()   //左侧导航览类型
     const [navList,setNavList]=useState([])
 
+    //清理策略状态
+    const [cleanVisible,setCleanVisible]=useState(false)
 
-    let remoteLayerRouter = [
-        {
-            id:'1',
-            title: '仓库信息',
-            router:`/repository/${repositoryId}/setting/info`,
-        },
-
-        {
-            id:'4',
-            title: '成员',
-            router:`/repository/${repositoryId}/setting/user`,
-            icon:   <SettingOutlined className='icon-nav'/>,
-            purviewCode: "rpy_user",
-        },
-        {
-            id:'5',
-            title: '权限',
-            router:`/repository/${repositoryId}/setting/role`,
-            purviewCode: "rpy_authority",
-        },
-        {
-            id:'6',
-            title: '制品推送',
-            router:`/repository/${repositoryId}/setting/push`,
-        }
-    ];
 
 
     useEffect(async () => {
@@ -65,6 +43,10 @@ const RepositorySetting = (props) => {
 
     //切换类型
     const cuteType =async (value) => {
+        /*if (value.id==="7"&&(getVersionInfo().expired&&getVersionInfo().release!==3)){
+            setCleanVisible(true)
+            return
+        }*/
         setNavPath(value.router)
         props.history.push(value.router)
     }
@@ -120,6 +102,9 @@ const RepositorySetting = (props) => {
                     {renderRoutes(props.route.routes)}
                 </div>
             </div>
+            <CleanStrategyFree  visible={cleanVisible}
+                                setVisible={setCleanVisible}
+            />
         </ProjectNav>
 
     )

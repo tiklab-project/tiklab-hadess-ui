@@ -1,10 +1,8 @@
 .library {
-    padding: var(--tiklab-padding-item);
-    height: var(--xpack-content-height);
-    overflow: auto;
+    display: flex;
+    height: 100%;
     .library-data-style{
-        margin-top: 15px;
-
+        margin-top: 10px;
         .library-head-style{
             display: flex;
             justify-content: space-between;
@@ -13,7 +11,7 @@
             .library-head-Select{
                 display: flex;
                 align-items: center;
-                gap: 50px;
+                gap: 30px;
             }
             .library-head-icon{
               cursor: pointer;
@@ -62,3 +60,24 @@
 
 }
 
+.code-page-width{
+    width: 100%;;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 10px;
+    .ant-col{
+        min-width: 720px;
+    }
+}
+
+
+.nav-type{
+    display: flex;
+    gap: 20px;
+    font-size: 15px;
+    margin: 10px 0 15px 0;
+
+    .nav-type-nav{
+        display: flex;
+    }
+}

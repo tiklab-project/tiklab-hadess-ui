@@ -93,18 +93,19 @@ const FirstNav = (props) => {
             title:'制品库',
             icon: <ProjectImage theme={theme} icon={"repository"} type={`${collapsed?'close':'open'}`}/>
         },
-       /* {
+        {
             key: 'setting',
-            id:`/setting/version`,
+            id:`/setting/home`,
             title:'设置',
             icon:  <SettingOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
-        },*/
+        },
     ];
 
     //切换nav
     const cuteNav = (value) => {
         setNavPath(value.id)
-        if (value.key==='setting'){
+        props.history.push(value.id)
+        /*if (value.key==='setting'){
             if (version==='cloud'){
                 props.history.push('/setting/myLog')
             }else {
@@ -112,7 +113,7 @@ const FirstNav = (props) => {
             }
         }else {
             props.history.push(value.id)
-        }
+        }*/
     }
 
     /**
@@ -188,7 +189,7 @@ const FirstNav = (props) => {
                         AvatarLink={AvatarLink}
                 />
 
-                <div className="menu-box-right-border" >
+               {/* <div className="menu-box-right-border" >
                     <div className={"menu-box-isexpanded"} onClick={toggleCollapsed}>
                         {
                             collapsed ?
@@ -196,7 +197,7 @@ const FirstNav = (props) => {
                                 : <CaretLeftOutlined className='first-menu-expend-icon'/>
                         }
                     </div>
-                </div>
+                </div>*/}
             </Sider>
             <div className='fist-nav-style-border'></div>
         </div>

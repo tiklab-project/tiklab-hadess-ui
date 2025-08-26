@@ -37,7 +37,7 @@ const SettingContent = (props) => {
 
     useEffect(()=>{
         if (path.startsWith("/setting/scanHole")){
-            setSelectKey("/setting/scanScheme")
+            setSelectKey("/setting/oldScheme")
         }else {
             setSelectKey(path)
         }
@@ -80,7 +80,7 @@ const SettingContent = (props) => {
     //跳转
     const skip = data =>{
         const value=data.id;
-        //未订阅
+       /* //未订阅
         if (getVersionInfo().expired){
             //自定义log
             if (value==='/setting/customLogo'){
@@ -92,7 +92,7 @@ const SettingContent = (props) => {
                 setSecurityVisible(true)
                 return
             }
-        }
+        }*/
 
         if (value.endsWith("orga")||value.endsWith("user")||value.endsWith("userGroup")||value.endsWith("dir")){
             //统一登陆
@@ -245,14 +245,14 @@ const SettingContent = (props) => {
                 ]}  //必填
             />
 
-            <SecurityEnhance
+          {/*  <SecurityEnhance
                 visible={securityVisible} //必填
                 setVisible={setSecurityVisible} //必填
                 bgroup={'hadess'} //必填
                 list={[
                     {id:'ipRoster',title:'IP黑白名单',icon:ipAllow}
                 ]}  //必填
-            />
+            />*/}
         </SystemNav>
     )
 

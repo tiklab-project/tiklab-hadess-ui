@@ -1,33 +1,34 @@
-.repository-info{
-    .info-title{
-        font-weight: bold;
-        font-size: 16px;
-        margin-top: 20px;
-    }
-    .info-table{
-        margin-top:15px
-    }
-
-    .delete-style{
-        border-top: 1px solid #E8E8E8;
-        margin-top: 25px;
-    }
-    .delete-text{
-        color: red;
-        margin-top: 4px;
-    }
+.repository-update{
     .repository-type-table{
         border-style: solid;
         border-width: 1px;
         border-color: #DCDCDC;
-        width: 100px;
-        padding: 15px 0;
+        width: 80px;
+        padding: 10px 0;
         border-radius: 5px;
         .type-text{
             flex-direction: row;
             text-align: center;
         }
     }
+    .proxy-style{
+
+        .add-table-proxy{
+            display: flex;
+            margin-bottom: 10px;
+            justify-content: space-between;
+            .add-proxy-text{
+                color:var(--tiklab-blue) ;
+                margin-left: 10px;
+                cursor: pointer;
+            }
+        }
+        .user-table-ban{
+            color: #cccccc;
+            cursor: not-allowed;
+        }
+    }
+
     .repository-group{
         display: flex;
         justify-content: space-between;
@@ -35,11 +36,11 @@
             border-style: solid;
             border-width: 1px;
             border-color: #DCDCDC;
-            width: 40%;
+            width: 45%;
             height: 150px;
             overflow: auto;
         }
-        .cut-repository.hover{
+        .cut-repository:hover{
             background-color: #EBECF0;
             cursor: pointer;
         }
@@ -56,7 +57,5 @@
             margin-top: 30px;
         }
     }
-    .click-cursor{
-        cursor: pointer;
-    }
 }
+

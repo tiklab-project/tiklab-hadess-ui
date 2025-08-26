@@ -1,5 +1,5 @@
 /**
- * @name: RepositoryAdd
+ * @name: RepositoryAddPop
  * @author: limingliang
  * @date: 2022-12-27 10:30
  * @description：添加制品库
@@ -16,7 +16,7 @@ import {
     Table,
     Col
 } from 'antd';
-import './RepositoryAdd.scss'
+import './RepositoryAddPop.scss'
 import {
     DeleteOutlined,
     LeftCircleOutlined,
@@ -28,21 +28,20 @@ import {getUser} from "tiklab-core-ui";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {Validation} from "../../../common/client/Client";
-import BreadcrumbContent from "../../../common/breadcrumb/Breadcrumb";
 import Print from "../../../common/image/Print";
 import Btn from "../../../common/btn/Btn";
 import RemoteAgencyStore from "../../../setting/agency/store/RemoteAgencyStore";
 import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
 import EmptyText from "../../../common/emptyText/EmptyText";
+import Modals from "../../../common/modal/Modal";
 const { TextArea } = Input;
 const layout = {labelCol: {span: 6}};
 
-const RepositoryAdd = (props) => {
+const RepositoryAddPop = (props) => {
+    const {visible,setVisible,addType,repositoryStore}=props
     const [form] = Form.useForm();
-    const {match:{params}} = props;
 
-    const {repositoryStore}=props
-    const {createRepository,createRepositoryMaven,repositoryAllList,findAllRepository,findLocalAndRemoteRepository ,createRepositoryGroup,createRepositoryRemoteProxy}=repositoryStore
+    const {createRepository,createRepositoryMaven,repositoryAllList,findAllRepository,findLocalAndRemoteRepository ,createRepositoryGroup}=repositoryStore
     const {findRemoteProxyList}=RemoteAgencyStore
 
     //制品库类型
@@ -79,7 +78,7 @@ const RepositoryAdd = (props) => {
 
     useEffect(async () => {
         let options;
-        if (params.type==='local'){
+        if (addType==='local'){
             options = [ {value: 'Maven', label: 'maven'},
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
@@ -88,8 +87,9 @@ const RepositoryAdd = (props) => {
                 {value: 'Pypi', label: 'pypi'},
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
+                {value: 'Conan', label: 'conan'},
             ]
-        }else if(params.type==='remote'){
+        }else if(addType==='remote'){
             options = [ {value: 'Maven', label: 'maven'},
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
@@ -98,8 +98,9 @@ const RepositoryAdd = (props) => {
                 {value: 'Pypi', label: 'pypi'},
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
+                {value: 'Conan', label: 'conan'},
             ]
-        }else if (params.type==='group') {
+        }else if (addType==='group') {
             options = [ {value: 'Maven', label: 'maven'},
                 {value: 'Npm', label: 'npm'},
                 {value: 'Docker', label: 'docker'},
@@ -107,11 +108,12 @@ const RepositoryAdd = (props) => {
                 {value: 'Pypi', label: 'pypi'},
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
+                {value: 'Conan', label: 'conan'},
             ]
         }
         setTypeList(options)
 
-    }, [params.type]);
+    }, [addType,visible]);
 
     //获取代理list
     const getRemoteProxyList = (agencyType) => {
@@ -136,14 +138,14 @@ const RepositoryAdd = (props) => {
      * 创建制品库提交
      */
     const onFinish =async () => {
-        if (params.type==='remote'&&proxyPathList.length===0){
+        if (addType==='remote'&&proxyPathList.length===0){
             setErrorMessage({key:"agency",value:'代理地址不能为空'})
         }else {
             form.validateFields().then(async values => {
                 const param={
                     name:values.name,
                     type:type,
-                    repositoryType:params.type,
+                    repositoryType:addType,
                     description:values.description,
                     createUser:getUser().userId,
                     category:2,
@@ -158,7 +160,7 @@ const RepositoryAdd = (props) => {
                 const res = await createRepository(param)
                 setCreateState(false)
                 if (res.code===0){
-                    switch (params.type){
+                    switch (addType){
                         case "group":
                             await createGroupItems(res.data)
                             break
@@ -166,7 +168,7 @@ const RepositoryAdd = (props) => {
                             await createRepositoryMaven({repository:{id:res.data},version:version})
                             break
                     }
-                    await goCancel()
+                    props.history.push(`/repository/${res.data}/guide`)
                 }
             })
         }
@@ -177,14 +179,14 @@ const RepositoryAdd = (props) => {
      */
     const createGroupItems =async (repositoryGroupId) => {
         choiceRepositoryList.map(items=>{
-                createRepositoryGroup({
-                    repositoryGroup:{
-                        id:repositoryGroupId,
-                    },
-                    repository:{
-                        id:items.id
-                    }
-                })}
+            createRepositoryGroup({
+                repositoryGroup:{
+                    id:repositoryGroupId,
+                },
+                repository:{
+                    id:items.id
+                }
+            })}
         )
     }
 
@@ -197,7 +199,7 @@ const RepositoryAdd = (props) => {
         getRemoteProxyList(value)
         setType(value)
         setChoiceRepositoryList([])
-       await findRepository(value)
+        await findRepository(value)
     }
     /**
      * 选中制品库
@@ -253,18 +255,12 @@ const RepositoryAdd = (props) => {
         }
     }
 
-     const goCancel = async () => {
-         props.history.push(`/repository`)
-     }
-
-
-
-    /**
-     * 跳转到上一级路由
-     */
-    const goBack = () => {
-        props.history.go(-1)
+    //关闭弹窗
+    const cancel = async () => {
+        form.resetFields()
+        setVisible(false)
     }
+
 
 
     const columns = [
@@ -310,22 +306,31 @@ const RepositoryAdd = (props) => {
         setProxyVisible(value)
     }
 
+    const modalFooter = (
+        <>
+            <Btn onClick={cancel} title={'取消'} isMar={true}/>
+            {createState?
+                <Btn  title={'加载中'} type={'primary'}/>:
+                <Btn onClick={onFinish} title={'确定'} type={'primary'}/>
+            }
+        </>
+    )
+
     return(
-        <div className='repository-add '>
-            <Col
-                sm={{span: "24" }}
-                md={{ span: "24"  }}
-                lg={{ span: "22", offset: "1" }}
-                xl={{ span: "18", offset: "3" }}
-                xxl={{ span: "16", offset: "4" }}
-            >
-                <BreadcrumbContent className='add-title' firstItem={`新建${params.type=="local"&&"本地"||
-                params.type=="group"&&"组合"||params.type=="remote"&&"远程"}仓库`} goBack={goBack}/>
+        <Modals
+            visible={visible}
+            onCancel={cancel}
+            closable={false}
+            footer={modalFooter}
+            destroyOnClose={true}
+            width={840}
+            title={`新建${addType=="local"&&"本地"||
+            addType=="group"&&"组合"||addType=="remote"&&"远程"}仓库`}
+        >
+            <div className='repository-add '>
                 <div className='add-top'>
                     <Form
-                        {...layout}
                         form={form}
-
                         layout="vertical"
                     >
                         <Form.Item
@@ -334,7 +339,7 @@ const RepositoryAdd = (props) => {
                         >
                             <div className='repository-type'>
                                 {
-                                    typeList.map(item=>{
+                                    typeList?.map(item=>{
                                         return(
                                             <div>
                                                 <div key={item.value} className={`type-border ${type===item.value&&' type-opt '}`} onClick={()=>cuteType(item.value)}>
@@ -371,7 +376,7 @@ const RepositoryAdd = (props) => {
                             <Input style={{background:'#fff'}}  placeholder={'名称'}/>
                         </Form.Item>
                         {
-                            ( params.type==='local'&&type==="Maven")&&
+                            ( addType==='local'&&type==="Maven")&&
                             <Form.Item
                                 label="版本控制"
                                 name="version"
@@ -388,7 +393,7 @@ const RepositoryAdd = (props) => {
                             </Form.Item>
                         }
                         {
-                            params.type==='remote'&&
+                            addType==='remote'&&
 
                             <div className='name-nav'>
                                 <div className='add-table-proxy'>
@@ -439,7 +444,7 @@ const RepositoryAdd = (props) => {
                         </Form.Item>*/}
 
                         {
-                            params.type==='group'&&
+                            addType==='group'&&
                             <Form.Item
                                 label="组合选择"
                                 name="name"
@@ -487,15 +492,11 @@ const RepositoryAdd = (props) => {
                         >
                             <TextArea rows={4} />
                         </Form.Item>
-                        <Btn onClick={goCancel} title={'取消'} isMar={true}/>
-                        {createState?
-                            <Btn  title={'加载中'} type={'primary'}/>:
-                            <Btn onClick={onFinish} title={'确定'} type={'primary'}/>
-                        }
                     </Form>
                 </div>
-            </Col>
-        </div>
+            </div>
+        </Modals>
+
     )
 }
-export default withRouter(inject('repositoryStore')(observer(RepositoryAdd)))
+export default withRouter(inject('repositoryStore')(observer(RepositoryAddPop)))

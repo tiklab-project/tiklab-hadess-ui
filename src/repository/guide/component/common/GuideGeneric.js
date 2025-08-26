@@ -37,7 +37,7 @@ const GuideGeneric = (props) => {
                             <div className='rpy-guide-desc'>请在命令行执行以下命令进行制品推送</div>
                             <div className='rpy-guide-table'>
                                 <code id={'genericPull'}>
-                                    {`curl -H "type:download" -u ${getUser().name}:[PASSWORD] "${repositoryData.repositoryUrl}/[FILE_NAME]?version=[version]" -o [OUTPUT_FILE]/[FILE_NAME]`}
+                                    {`curl -fL -u ${getUser().name}:[PASSWORD] "${repositoryData.repositoryUrl}/[FILE_NAME]?version=[version]" -o [OUTPUT_FILE]/[FILE_NAME]`}
                                 </code>
                                 <div className='rpy-guide-table-copy' onClick={()=>clickCopy("genericPull")}>
                                     <CopyOutlined />

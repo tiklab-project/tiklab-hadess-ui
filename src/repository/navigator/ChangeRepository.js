@@ -8,7 +8,7 @@
 import React,{useEffect,useState} from "react";
 import './ChangeRepository.scss'
 
-import ListIcon from "../../common/repositoryIcon/Listicon";
+import ListIcon from "../../common/Repository/Listicon";
 
 const ChangeRepository = (props) => {
     const {setTriggerVisible,setType,repositoryAllList,repositoryId} = props;

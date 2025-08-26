@@ -24,7 +24,8 @@ const { TextArea } = Input;
 import Print from "../../../common/image/Print";
 import RemoteAgencyStore from "../../../setting/agency/store/RemoteAgencyStore";
 import ProxyPathAdd from "../../../common/ProxyPathAdd/ProxyPathAdd";
-import RepositoryDelete from "./RepositoryDelete";
+import RepositoryDelete from "../../../common/Repository/RepositoryDelete";
+import {getUser} from "tiklab-core-ui";
 const RepositoryBasicInfo = (props) => {
     const [form] = Form.useForm();
     const {match:{params},repositoryStore} = props;
@@ -32,7 +33,6 @@ const RepositoryBasicInfo = (props) => {
         findUnRelevanceRepository,updateRepositoryMaven,findRepositoryMavenByRpyId}=repositoryStore
 
     const {findRemoteProxyList,findProxyListByRpyId}=RemoteAgencyStore
-
 
     const [repository,setRepository]=useState(null)  //制品库
     const [repositoryList,setRepositoryList]=useState([])  //未关联的本地和远程库
@@ -112,6 +112,8 @@ const RepositoryBasicInfo = (props) => {
             }
         }
     }
+
+
 
     //提交修改
     const onOk = async (values) => {
@@ -412,14 +414,14 @@ const RepositoryBasicInfo = (props) => {
         },
         {
             key:2,
-            title:'仓库策略',
-            desc: '仓库策略',
+            title:'版本策略',
+            desc: '版本策略',
             icon: <DeleteOutlined />,
             enCode:'house_delete',
             content: <div >
                 <div >制品是否允许覆盖</div>
                 <div className='strategy-style'>
-                    <div className='strategy-text-desc'>开启后，制品允许覆盖</div>
+                    <div className='strategy-text-desc'>开启后，允许推送相同包名、相同版本的制品，且会覆盖老的制品版本</div>
                     <PrivilegeProjectButton code={"rpy_tactics"} domainId={repository && repository.id}>
                         <Switch checkedChildren="允许" unCheckedChildren="不允许" defaultChecked={strategyState} onChange={onChangeStrategy} />
                      </PrivilegeProjectButton>

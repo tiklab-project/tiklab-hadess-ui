@@ -106,7 +106,7 @@ const LibraryDrawer = (props) => {
     }
 
 
- /*   const closeModal = (e) => {
+    const closeModal = (e) => {
 
         if (!detailRef.current || !detailRef) {
             return;
@@ -124,7 +124,7 @@ const LibraryDrawer = (props) => {
             setHistoryName(null)
             setChangeVersionId(null)
         }
-    }*/
+    }
 
 
     //切换table 类型

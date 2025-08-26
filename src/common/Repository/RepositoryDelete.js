@@ -1,5 +1,5 @@
 /**
- * @name: RepositoryDelete
+ * @name: ProjectDeletePop
  * @author: Deploy
  * @date: 2024-03-06 10:30
  * @description：租户删除
@@ -7,8 +7,8 @@
  */
 import React, {useState, useEffect} from "react";
 import { Form, Input,message} from 'antd';
-import Modals from "../../../common/modal/Modal";
-import Btn from "../../../common/btn/Btn";
+import Modals from "../modal/Modal";
+import Btn from "../btn/Btn";
 import "./RepositoryDelete.scss"
 const RepositoryDelete = (props) => {
     const [form] = Form.useForm();

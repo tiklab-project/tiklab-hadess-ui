@@ -12,14 +12,19 @@ import {CloseCircleTwoTone, DownOutlined} from "@ant-design/icons";
 import Print from "../image/Print";
 import {observer} from "mobx-react";
 const typeList=[{type:'generic',value:'Generic'},{type:'maven',value:'Maven'},{type:'npm',value:'Npm'},{type:'docker',value:'Docker'},
-    {type:'helm',value:'Helm'},{type:'go',value:'Go'},{type:'pypi',value:'Pypi'},{type:'composer',value:'Composer'}/*,{type:'nuget',value:'Nuget'}*/]
+    {type:'helm',value:'Helm'},{type:'go',value:'Go'},{type:'pypi',value:'Pypi'},{type:'composer',value:'Composer'},{type:'nuget',value:'Nuget'}
+    ,{type:'conan',value:'Conan'}
+]
 const LibraryDropdown = (props) => {
     const {visible,setVisible,cuteLibraryType,libraryType,type, down}=props
+
+    const [typeValue,setTypeValue]=useState("Maven")
 
     //关闭单选
     const onClickLibraryType=(value)=>{
         setVisible(false)
-        cuteLibraryType(value)
+        cuteLibraryType(value.type)
+        setTypeValue(value.value)
     }
 
     const clearValue = (event) => {
@@ -33,7 +38,7 @@ const LibraryDropdown = (props) => {
             {
                 typeList.map(item=>{
                     return(
-                        <div key={item.type} className='down-select-nav' onClick={()=>onClickLibraryType(item.type)} >
+                        <div key={item.type} className='down-select-nav' onClick={()=>onClickLibraryType(item)} >
                             <Print type={item.type} width={20} height={20}/>
                            <div>{item.value}</div>
                         </div>
@@ -60,7 +65,7 @@ const LibraryDropdown = (props) => {
                         (libraryType||type==='library')?
                             <div className='select-content-nav'>
                                 <Print type={libraryType} width={20} height={20}/>
-                                <div>{libraryType}</div>
+                                <div>{typeValue}</div>
                             </div>:
                             <div>
                                 类型

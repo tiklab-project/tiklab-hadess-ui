@@ -21,8 +21,9 @@ import {CloseOutlined} from "@ant-design/icons";
 import {inject, observer} from "mobx-react";
 import {withRouter} from "react-router";
 import BasicsDown from "../../../common/downSelect/BasicsDown";
-const typeList=[ {value: 'Maven', label: 'maven'}, {value: 'Npm', label: 'npm'}, {value: 'Docker', label: 'docker'},
-    {value: 'Generic', label: 'generic'}, {value: 'Helm', label: 'helm'}, {value: 'Go', label: 'go'}]
+const typeList=[ {value: 'Maven', label: 'maven'}, {value: 'Npm', label: 'npm'}, {value: 'Docker', label: 'docker'}, {value: 'Generic', label: 'generic'},
+    {value: 'Helm', label: 'helm'}, {value: 'Go', label: 'go'},{value:'Pypi',label:'pypi'},{value:'Composer', label: 'composer'},{value:'Nuget', label: 'nuget'}]
+
 const GuideDrawer = props => {
     const {visible, setDrawerVisible,repositoryStore} = props;
     const {findRepositoryList}=repositoryStore

@@ -19,6 +19,8 @@ import GuideHelm from "./common/GuideHelm";
 import GuideGo from "./common/GuideGo";
 import GuidePypi from "./common/GuidePypi";
 import GuideComposer from "./common/GuideComposer";
+import GuideNuget from "./common/GuideNuget";
+import GuideConan from "./common/GuideConan";
 const Guide = (props) => {
     const {repositoryStore}=props
     const valueRef = useRef();
@@ -110,6 +112,16 @@ const Guide = (props) => {
                             />||
                             repositoryData.type==='composer'&&
                             <GuideComposer repositoryData={repositoryData}
+                                        tableType={tableType}
+                                        clickCopy={clickCopy}
+                            />||
+                            repositoryData.type==='nuget'&&
+                            <GuideNuget repositoryData={repositoryData}
+                                           tableType={tableType}
+                                           clickCopy={clickCopy}
+                            />||
+                            repositoryData.type==='conan'&&
+                            <GuideConan repositoryData={repositoryData}
                                         tableType={tableType}
                                         clickCopy={clickCopy}
                             />

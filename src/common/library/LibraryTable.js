@@ -9,7 +9,7 @@ import React, {useState, useEffect} from "react";
 import {observer} from "mobx-react";
 import "./LibraryTable.scss"
 import EmptyText from "../emptyText/EmptyText";
-import ListIcon from "../repositoryIcon/Listicon";
+import ListIcon from "../Repository/Listicon";
 import {Dropdown, Menu, Tooltip,Modal} from 'antd';
 import {EllipsisOutlined, ExclamationCircleOutlined} from "@ant-design/icons";
 import {formatSize} from "../utils";
@@ -64,6 +64,7 @@ const LibraryTable = (props) => {
         <div className='library-table'>
             <div className='library-table-title'>
                 <div className='table-title-left'>制品名称</div>
+                <div className='table-title-num'>版本数</div>
                 <div className='table-title-right'>
                     <div className='title-right-version'>最新版本</div>
                     <div className='title-right-exec'>操作</div>
@@ -93,6 +94,13 @@ const LibraryTable = (props) => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className='library-tab-num'>
+                                     <div className='' onClick={(e) => {
+                                            e.stopPropagation(); // 阻止事件冒泡
+                                            openLibraryDrawer(library, 'history')}}>
+                                            {library.versionCount}
+                                        </div>
+                                </div>
                                 <div className='library-tab-right'>
                                     <div className='tab-right-data'>
                                         <Tooltip placement="top" title={"最后发布时间"}>
@@ -104,11 +112,11 @@ const LibraryTable = (props) => {
                                         </Tooltip>
                                     </div>
                                     <div className='tab-right-exec'>
-                                        <div className='right-exec-version-size' onClick={(e) => {
+                                       {/* <div className='right-exec-version-size' onClick={(e) => {
                                             e.stopPropagation(); // 阻止事件冒泡
                                             openLibraryDrawer(library, 'history')}}>
                                             版本数：{library.versionCount}
-                                        </div>
+                                        </div>*/}
                                         <div>
                                             <Dropdown    overlay={()=>execPullDown(library)}
                                                          placement="bottomRight"

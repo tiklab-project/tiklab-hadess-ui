@@ -59,26 +59,14 @@ const SettingAside = (props) => {
             id:'/setting/role',
             title: '权限',
             icon: <UserDeleteOutlined />,
-            purviewCode:'hadess_authority',
+            purviewCode:'permission',
         },
-
         {
-            id:'3',
+            id:'/setting/message',
             key:'3',
             title: '消息',
             icon:<SoundOutlined />,
-            children:[
-                {
-                    id:'/setting/mes/notice',
-                    title: '消息通知方案',
-                    purviewCode:'news_inform_scheme',
-                },
-                {
-                    id:'/setting/mes/send',
-                    title: '消息发送方式',
-                    purviewCode: 'news_send_way',
-                }
-            ]
+            purviewCode:'message',
         },
         {
             id:'7',
@@ -101,14 +89,14 @@ const SettingAside = (props) => {
             ]
         },
 
-        {
+        /*{
             id:'4',
             key:'4',
             title: '扫描配置',
             icon:<FileDoneOutlined />,
             children:[
                 {
-                    id:'/setting/scanScheme',
+                    id:'/setting/oldScheme',
                     title: '扫描方案',
                 },
                 {
@@ -116,15 +104,16 @@ const SettingAside = (props) => {
                     title: '漏洞列表',
                 },
             ]
-        },
+        },*/
         {
             id:'9',
-            title: '集成与开放',
+            title: '集成开放',
             icon: <LayoutOutlined />,
             children: [
                 {
                     id:'/setting/openApi',
-                    title:'openApi',
+                    title:'OpenApi',
+                    purviewCode:'openapi',
                 },
 
             ]
@@ -138,11 +127,12 @@ const SettingAside = (props) => {
                 {
                     id:'/setting/myLog',
                     title: '操作日志',
+                    purviewCode:'log',
                 },
                 {
                     id:'/setting/backupRecovery',
                     title: '备份与恢复',
-                    purviewCode:'hadess_backup',
+                    purviewCode:'backups_and_recover',
                 }
             ]
         },
@@ -154,12 +144,12 @@ const SettingAside = (props) => {
                 {
                     id:'/setting/version',
                     title:'版本与许可证',
-                    purviewCode:'version',
+                    purviewCode:'licence',
                 },
                 {
                     id:'/setting/authContent',
                     title:'应用访问权限',
-                    purviewCode:'access_auth',
+                    purviewCode:'apply_limits',
                 },
             ]
         },

@@ -1,5 +1,5 @@
 .library-table{
-    margin-top: 30px;
+    margin-top: 20px;
     display: flex;
     flex-direction: column;
     .library-table-title{
@@ -10,11 +10,15 @@
         color: #777;
         font-weight: 600;
         .table-title-left{
-            width: 55%;
+            width: 45%;
+            margin-bottom:10px
+        }
+        .table-title-num{
+            width: 20%;
             margin-bottom:10px
         }
         .table-title-right{
-            width: 45%;
+            width: 35%;
             display: flex;
             .title-right-version{
                 max-width: 450px;
@@ -22,8 +26,8 @@
                 flex: 1;
             }
             .title-right-exec{
-                width:180px;
-                padding-left: 20px;
+              /*  width:180px;
+                padding-left: 20px;*/
             }
         }
     }
@@ -41,7 +45,7 @@
             display: flex;
             align-items: center;
             gap: 15px;
-            width: 55%;
+            width: 45%;
             .library-type-table{
                 border-style: solid;
                 border-color: #DCDCDC;
@@ -65,10 +69,17 @@
                 color: var(--tiklab-gray-500)
             }
         }
+
+        .library-tab-num{
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            width: 20%;
+        }
         .library-tab-right{
             display: flex;
             align-items: center;
-            width: 45%;
+            width: 35%;
             .tab-right-data{
                 display: flex;
                 align-items: center;

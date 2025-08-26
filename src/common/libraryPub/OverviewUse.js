@@ -27,7 +27,6 @@ const OverviewUse = (props) => {
 
     const [path,setPath]=useState(null)
     const [ipPath,setIpPath]=useState();
-
     useEffect(async () => {
         const proPath=node_env? base_url:window.location.origin
         setPath(proPath)
@@ -174,7 +173,7 @@ const OverviewUse = (props) => {
                     versionData.libraryType === 'generic' &&
                         <div className='overview-guide-table'>
                             <code id={'generic'}>
-                                {`curl -H "type:download"  -u [USER_NAME]:[PASSWORD]  "${node_env? base_url:window.location.origin}/generic/${versionData.repository?.name}/${versionData.library?.name}" -o [OUTPUT_FILE]`}
+                                {`curl -fL -u [USER_NAME]:[PASSWORD]  "${node_env? base_url:window.location.origin}/generic/${versionData.repository?.name}/${versionData.library?.name}?version=[VERSION]" -o [OUTPUT_FILE]`}
                             </code>
                               <div className='overview-guide-table-copy' onClick={()=>clickCopy("generic")}>
                                 <CopyOutlined />
@@ -214,6 +213,15 @@ const OverviewUse = (props) => {
                             {`composer require ${versionData.library?.name}:${versionData.version}`}
                         </code>
                         <div className='overview-guide-table-copy' onClick={()=>clickCopy("composer")}>
+                            <CopyOutlined />
+                        </div>
+                    </div>||
+                    versionData.libraryType === 'nuget'&&
+                    <div className='overview-guide-table'>
+                        <code id={'nuget'}>
+                            {`dotnet add package ${versionData.library?.name} --version ${versionData.version}`}
+                        </code>
+                        <div className='overview-guide-table-copy' onClick={()=>clickCopy("nuget")}>
                             <CopyOutlined />
                         </div>
                     </div>

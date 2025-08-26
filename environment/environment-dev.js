@@ -1,4 +1,4 @@
-const api =  'http://192.168.10.39:8080';
+const api =  'http://192.168.10.30:8080';
 const base_url = JSON.stringify(api);
 
 const webpackGlobal = {
@@ -9,7 +9,7 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( api + 'pluginConfig/getPluginConfig'),
     method:JSON.stringify('post'),
 
-    appKey : JSON.stringify(""),
+    appKey : JSON.stringify("tiklab_hadess"),
     appSecret : JSON.stringify(""),
     version : JSON.stringify("ce"),
     client : JSON.stringify("web"),

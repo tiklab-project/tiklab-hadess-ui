@@ -9,6 +9,11 @@ import { observable, action } from "mobx";
 import {Axios} from 'tiklab-core-ui';
 import {message} from 'antd';
 export class RepositoryStore{
+
+
+    @observable
+    refresh=false
+
     //所有制品库
     @observable repositoryAllList = [];
     //制品库list
@@ -39,6 +44,7 @@ export class RepositoryStore{
         this.addRepositoryType=value.repositoryType
         const res = await Axios.post("/xpackRepository/createRepository",value)
         if (res.code===0){
+            this.refresh=!this.refresh
             this.repositoryId=res.data
             message.success("创建成功")
         }
@@ -52,9 +58,9 @@ export class RepositoryStore{
     @action
     updateRepository=async (param)=>{
         const res = await Axios.post("/xpackRepository/updateRepository",param)
-       /* if (res.code===0){
-            message.success("更新成功",1)
-        }*/
+        if (res.code===0){
+            this.refresh=!this.refresh
+        }
         return res
     }
 
@@ -67,6 +73,9 @@ export class RepositoryStore{
         const param = new FormData();
         param.append('id',value)
         const res = await Axios.post("/xpackRepository/deleteRepository",param)
+        if (res.code===0){
+            this.refresh=!this.refresh
+        }
         return res
     }
 

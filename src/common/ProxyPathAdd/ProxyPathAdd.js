@@ -151,7 +151,7 @@ const ProxyPathAdd = (props) => {
             <div className='proxy-path-add-head'>
                 <Radio.Group onChange={onChangeRoot} value={rootType}>
                     <Radio value='public'>公共源</Radio>
-                    <Radio value='custom'>自定义源</Radio>
+                  {/*  <Radio value='custom'>自定义源</Radio>*/}
                </Radio.Group>
             </div>
             <div className='proxy-path-add-top'>

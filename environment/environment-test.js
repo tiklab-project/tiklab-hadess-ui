@@ -10,7 +10,7 @@ const webpackGlobal = {
     plugin_url: JSON.stringify( '/plugin/getPluginConfig'),
     method:JSON.stringify('post'),
 
-     appKey : JSON.stringify(""),
+     appKey : JSON.stringify("tiklab_hadess"),
      appSecret : JSON.stringify(""),
      version : JSON.stringify("ce"),
      client : JSON.stringify("web"),

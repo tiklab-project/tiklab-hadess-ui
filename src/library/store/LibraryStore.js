@@ -7,7 +7,6 @@
  */
 import { observable, action } from "mobx";
 import {Axios} from 'tiklab-core-ui';
-import {data} from "autoprefixer";
 import {message} from 'antd';
 
 export class LibraryStore{
@@ -256,7 +255,6 @@ export class LibraryStore{
      */
     @action
     deleteBatchesVersion=async (param,type)=>{
-        debugger
         const res = await Axios.post("/libraryVersion/deleteBatchesVersion",param)
         if (res.code===0){
             if (type==='version'){

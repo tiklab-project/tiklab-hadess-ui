@@ -11,17 +11,15 @@ import "./RepositoryAside.scss"
 import {
     BarChartOutlined, BookOutlined,
     CaretDownOutlined, CaretLeftOutlined, CaretRightOutlined,
-    CodeOutlined, HomeOutlined,
+    CodeOutlined, DownOutlined, HomeOutlined, MenuFoldOutlined, MenuUnfoldOutlined,
     SettingOutlined
 } from "@ant-design/icons";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
 import {Dropdown, Layout, Tooltip} from "antd";
 import ChangeRepository from "./ChangeRepository";
-import ListIcon from "../../common/repositoryIcon/Listicon";
+import ListIcon from "../../common/Repository/Listicon";
 import {getUser, getVersionInfo, productWhiteImg} from "tiklab-core-ui";
-import UpgradePopup from "../../common/upgrade/UpgradePopup";
-import member from "../../assets/images/img/member.png";
 import Sider from "antd/es/layout/Sider";
 import ScanCodeFree from "../../common/upgrade/ScanCodeFree";
 const RepositoryAside = (props) => {
@@ -59,11 +57,17 @@ const RepositoryAside = (props) => {
             id:`/repository/${repositoryId}/library`,
             icon:   <CodeOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
         },
-        {
+        /*{
             key:'3',
             title: '制品扫描',
             id:`/repository/${repositoryId}/scanPlay`,
             icon: <BarChartOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
+        },*/
+        {
+            key: 'setting',
+            id:`/repository/${repositoryId}/setting/info`,
+            title:'设置',
+            icon:  <SettingOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
         },
        ];
 
@@ -79,6 +83,12 @@ const RepositoryAside = (props) => {
             title: '制品',
             id:`/repository/${repositoryId}/library`,
             icon:   <CodeOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
+        },
+        {
+            key: 'setting',
+            id:`/setting/home`,
+            title:'设置',
+            icon:  <SettingOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
         },
     ];
 
@@ -211,7 +221,10 @@ const RepositoryAside = (props) => {
                                                            type={"openNav"}
                                             /></div>
                                             <div className='repository-open-name'>{repositoryData.name}</div>
-                                            <div><CaretDownOutlined  className='repository-nav-icon'/></div>
+                                            <div>
+                                                <DownOutlined className='repository-nav-icon'/>
+                                              {/*  <CaretDownOutlined  className='repository-nav-icon'/>*/}
+                                            </div>
                                         </div>
                                 }
                             </Dropdown>
@@ -262,24 +275,24 @@ const RepositoryAside = (props) => {
                 }
                 {
                     !publicState&&
-                    <div className={`${themeClass} rpy-nav-setting `}  onClick={goSetting}>
+                    <div className={`${themeClass} rpy-nav-setting `}  onClick={toggleCollapsed}>
                         {
                             collapsed?
-                                <div className='tab-link nav-close-setting-place'>
-                                    <SettingOutlined className='close-iconfont'/>
+                                <div className='tab-link nav-close-setting-place' data-title-right='展开'>
+                                    <MenuUnfoldOutlined className='close-iconfont'/>
                                 </div>:
                                 <div className='tab-link nav-open-setting-place'>
                                     <div className='open-icon-setting-style'>
-                                        <SettingOutlined className={`open-iconfont`}/>
+                                        <MenuFoldOutlined className='open-iconfont'/>
                                     </div>
-                                    <div>设置</div>
+                                    <div>折叠</div>
                                 </div>
                         }
 
                     </div>
                 }
 
-                <div className="menu-box-right-border" >
+               {/* <div className="menu-box-right-border" >
                     <div className={"menu-box-isexpanded"} onClick={toggleCollapsed}>
                         {
                             collapsed ?
@@ -287,7 +300,7 @@ const RepositoryAside = (props) => {
                                 : <CaretLeftOutlined className='first-menu-expend-icon'/>
                         }
                     </div>
-                </div>
+                </div>*/}
             </Sider>
 
             <Layout>

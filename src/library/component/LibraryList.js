@@ -7,14 +7,11 @@
  */
 import React, {useState, useEffect, useRef} from "react";
 import './LibraryList.scss'
-import {Col, Input, Select,Tooltip, Spin} from "antd";
+import {Col,Tooltip, Spin} from "antd";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
-const { Option } = Select;
-const { Search } = Input;
 import libraryStore from "../store/LibraryStore";
 import Breadcrumb from "../../common/breadcrumb/Breadcrumb";
-import Print from "../../common/image/Print";
 import Page from "../../common/page/Page";
 import LibraryTable from "../../common/library/LibraryTable";
 import {SpinLoading} from "../../common/loading/Loading";
@@ -53,12 +50,9 @@ const LibraryList = (props) => {
         }else {
             await findLibraryByCondition(libraryType,page)
         }
-    }, [sort]);
+    }, [sort,refresh]);
 
 
-    useEffect(async () => {
-        await findLibraryByCondition(libraryType,page)
-    }, [refresh]);
 
 
     /**
@@ -146,7 +140,7 @@ const LibraryList = (props) => {
                 xl={{ span: "20", offset: "2" }}
                 xxl={{ span: "18", offset: "3" }}
             >
-                <Breadcrumb  firstItem={"制品"}/>
+                <Breadcrumb  firstItem={"搜索"}/>
                 <div className='library-data-style'>
                     <div className='library-head-style'>
                         <div className='library-head-Select' ref = {down}>

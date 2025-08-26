@@ -35,7 +35,7 @@ const TopNav = (props) => {
 
     return(
         <div className='top-nav'>
-            <div className='tab-link'>
+           {/* <div className='tab-link'>
                 {
                     collapsed?
                         <div className="close-tab" onClick={goSetting} data-title-right='设置'>
@@ -46,7 +46,7 @@ const TopNav = (props) => {
                             <div>设置</div>
                         </div>
                 }
-            </div>
+            </div>*/}
             <div className='tab-link'>
                 {
                     collapsed?

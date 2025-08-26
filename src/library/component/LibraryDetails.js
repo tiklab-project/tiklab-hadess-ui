@@ -12,7 +12,6 @@ import libraryStore from "../store/LibraryStore";
 import {LeftOutlined, RightOutlined} from "@ant-design/icons";
 import {observer} from "mobx-react";
 import DetailsTable from "../../common/library/DetailsTable";
-import Print from "../../common/image/Print";
 const LibraryDetails = (props) => {
     const {match:{params},publicState} = props;
     const {findVersionByLibraryId,libraryVersionData,searchMessage,page,setSearchName,detailsLoad,refresh}=libraryStore

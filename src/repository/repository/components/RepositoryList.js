@@ -9,10 +9,16 @@ import React, {useState, useEffect} from "react";
 import './RepositoryList.scss'
 import {Table, Dropdown, Menu, Tooltip, Col, Select} from "antd";
 const { Option } = Select;
-import ListIcon from "../../../common/repositoryIcon/Listicon";
+import ListIcon from "../../../common/Repository/Listicon";
 import {withRouter} from "react-router";
 import {inject, observer} from "mobx-react";
-import {SearchOutlined, SettingOutlined} from "@ant-design/icons";
+import {
+    DeleteOutlined,
+    EditOutlined,
+    EllipsisOutlined,
+    SearchOutlined,
+    SettingOutlined
+} from "@ant-design/icons";
 import Breadcrumb from "../../../common/breadcrumb/Breadcrumb";
 import GuideDrawer from "../../guide/component/GuideDrawer";
 import Page from "../../../common/page/Page";
@@ -20,10 +26,15 @@ import EmptyText from "../../../common/emptyText/EmptyText";
 import {SpinLoading} from "../../../common/loading/Loading";
 import SearchInput from "../../../common/input/SearchInput";
 import LibraryDropdown from "../../../common/downSelect/LibraryDropdown";
+import RepositoryAddPop from "./RepositoryAddPop";
+import RepositoryDelete from "../../../common/Repository/RepositoryDelete";
+import RepositoryUpdatePop from "./RepositoryUpdatePop";
+import {getUser} from "tiklab-core-ui";
 
 const RepositoryList = (props) => {
-    const {repositoryStore,publicState}=props
-    const {findRepositoryPage,addRepositoryType,setRepositoryTypeNull}=repositoryStore
+    const {repositoryStore,systemRoleStore,publicState}=props
+    const {refresh,findRepositoryPage,setRepositoryTypeNull,deleteRepository}=repositoryStore
+    const {getInitProjectPermissions} = systemRoleStore
 
     const [currentPage,setCurrentPage]=useState(1)
     const [totalPage,setTotalPage]=useState()
@@ -48,7 +59,18 @@ const RepositoryList = (props) => {
 
     //制品库类别
     const [category,setCategory]=useState()
-    const [categoryLabel,setCategoryLabel]=useState()
+
+    //添加弹窗状态
+    const [addVisible,setAddVisible]=useState(false)
+    //添加的类型
+    const [addType,setAddType]=useState(null)
+
+    //删除弹窗
+    const [deleteVisible,setDeleteVisible]=useState(false)
+    //更新弹窗
+    const [updateVisible,setUpdateVisible]=useState(false)
+
+    const [repository,setRepository]=useState(null)
 
 
     const baseColumns = [
@@ -98,7 +120,7 @@ const RepositoryList = (props) => {
             width:'10%',
 
         },
-          {
+          /*{
             title: '地址',
             dataIndex: 'repositoryUrl',
             ellipsis:true,
@@ -106,7 +128,7 @@ const RepositoryList = (props) => {
             render:(text,record)=>{
                 return filedState(record?.repositoryUrl)
             }
-        },
+        },*/
         {
             title: '创建时间',
             dataIndex: 'createTime',
@@ -124,11 +146,20 @@ const RepositoryList = (props) => {
                 ellipsis:true,
                 width:'5%',
                 render: (text, record) => (
-                    <Tooltip title='设置'>
+                    <span className='repository-tables-set' onClick={()=>findAuth(record)}>
+                        <Dropdown    overlay={()=>execPullDown(record)}
+                                     placement="bottomRight"
+                                     trigger={['click']}
+                            /* getPopupContainer={e => e.parentElement}*/
+                        >
+                                        <EllipsisOutlined style={{fontSize:25}}/>
+                                     </Dropdown>
+                                </span>
+                   /* <Tooltip title='设置'>
                     <span className='repository-tables-set' onClick={()=>goDeploy(record)}>
                         <SettingOutlined className='actions-se'/>
                     </span>
-                    </Tooltip>
+                    </Tooltip>*/
                 )
             },)
         }
@@ -136,10 +167,9 @@ const RepositoryList = (props) => {
     }, [publicState]);
 
     useEffect(async () => {
-        setCurrentPage(1)
         //setCategory(category)
-        getRepositoryPage(1,category,type,repositoryName)
-    }, [category,type]);
+        getRepositoryPage(currentPage,category,type,repositoryName)
+    }, [category,type,refresh]);
 
 
 
@@ -185,14 +215,9 @@ const RepositoryList = (props) => {
      * @param  type （local、remote、group）
      */
     const goRepositoryAdd=async (type)=>{
-        props.history.push(`/repository/add/${type}`)
-    }
-
-    /**
-     * 跳转配置界面
-     */
-    const goDeploy =async (value) => {
-        props.history.push(`/repository/${value.id}/setting/info`)
+        setAddVisible(true)
+        setAddType(type)
+        //props.history.push(`/repository/add/${type}`)
     }
 
     //添加仓库名字
@@ -219,21 +244,33 @@ const RepositoryList = (props) => {
         getRepositoryPage(currentPage,category,type,repositoryName)
     }
 
-    //切换仓库版本
-    const cuteRpyCategory = (data) => {
-        if (data){
-            setCategory(data.value)
-            setCategoryLabel(data.label)
-        }else {
-            setCategory()
-            setCategoryLabel()
-        }
-    }
+
     //切换仓库类型
     const cuteRpyType = (value) => {
         setType(value)
     }
 
+    //打开删除弹窗
+    const openDeletePop = (value) => {
+        setDeleteVisible(true)
+        setRepository(value)
+    }
+    //打开编辑弹窗
+    const openEditePop = (value) => {
+        setUpdateVisible(true)
+        setRepository(value)
+    }
+
+    //跳转设置
+    const goSet = (value) => {
+        props.history.push(`/repository/${value.id}/setting/info`)
+    }
+
+    //查询权限
+    const findAuth = (value) => {
+        // 获取项目权限
+        getInitProjectPermissions(getUser().userId,value.id,value.data?.rules==='public')
+    }
 
     /**
      * 字段过长省略
@@ -270,6 +307,35 @@ const RepositoryList = (props) => {
             </Menu.Item>
         </Menu>
     );
+
+
+    /**
+     * 操作下拉
+     */
+    const execPullDown=(value) => (
+        <Menu>
+            <Menu.Item  style={{width:120}} onClick={()=>openEditePop(value)}>
+                <div className='repository-nav-style'>
+                    <div><EditOutlined /></div>
+                    <div>编辑</div>
+                </div>
+            </Menu.Item>
+            <Menu.Item onClick={()=>openDeletePop(value)}>
+                <div className='repository-nav-style'>
+                    <div><DeleteOutlined /></div>
+                    <div>删除</div>
+                </div>
+            </Menu.Item>
+            <Menu.Item  style={{width:120}} onClick={()=>goSet(value)}>
+                <div className='repository-nav-style'>
+                    <div><SettingOutlined /></div>
+                    <div>设置</div>
+                </div>
+            </Menu.Item>
+        </Menu>
+    );
+
+
     return(
         <div className='drop-down repository hadess-data-width'>
             <Col sm={24} md={24} lg={{ span: 24 }} xl={{ span: "20", offset: "2" }} xxl={{ span: "18", offset: "3" }}>
@@ -324,7 +390,24 @@ const RepositoryList = (props) => {
                 </div>
             </Col>
             <GuideDrawer setDrawerVisible={setDrawerVisible} visible={drawerVisible} />
+
+           <RepositoryAddPop {...props}
+                             visible={addVisible}
+                             setVisible={setAddVisible}
+                             addType={addType}
+           />
+
+            <RepositoryDelete {...props}
+                              deleteVisible={deleteVisible}
+                              repository={repository}
+                              setDeleteVisible={setDeleteVisible}
+                              deleteRepository={deleteRepository}/>
+
+            <RepositoryUpdatePop {...props}
+                                 visible={updateVisible}
+                                 repositoryId={repository?.id}
+                                 setVisible={setUpdateVisible}/>
         </div>
     )
 }
-export default withRouter(inject('repositoryStore')(observer(RepositoryList)))
+export default withRouter(inject('repositoryStore','systemRoleStore')(observer(RepositoryList)))

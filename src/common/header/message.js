@@ -218,7 +218,7 @@ const Message = (props) => {
                     }
                     {
                         currentPage===totalPage&&state==='more'&&
-                        <Divider plain>没有更多了 🤐</Divider>
+                        <Divider plain>{"没有更多了 🤐"}</Divider>
                     }
                     {
                         totalPage===0&&
