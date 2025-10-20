@@ -16,7 +16,7 @@ import {formatSize} from "../utils";
 import LibraryDrawer from "../libraryPub/LibraryDrawer";
 const { confirm } = Modal;
 const LibraryTable = (props) => {
-    const {libraryList,deleteLibrary,goDetails,goDetailsType}=props
+    const {libraryList,deleteLibrary,publicState}=props
 
     const [libraryDrawer,setLibraryDrawer]=useState(false)
     const [libraryDetails,setLibraryDetails]=useState()
@@ -67,7 +67,8 @@ const LibraryTable = (props) => {
                 <div className='table-title-num'>版本数</div>
                 <div className='table-title-right'>
                     <div className='title-right-version'>最新版本</div>
-                    <div className='title-right-exec'>操作</div>
+                    {!publicState&&   <div className='title-right-exec'>操作</div>}
+
                 </div>
             </div>
 
@@ -111,24 +112,27 @@ const LibraryTable = (props) => {
                                             <div className='tab-right-data-version'>{library.showVersion}</div>
                                         </Tooltip>
                                     </div>
-                                    <div className='tab-right-exec'>
-                                       {/* <div className='right-exec-version-size' onClick={(e) => {
+                                    {
+                                        !publicState&&
+                                        <div className='tab-right-exec'>
+                                            {/* <div className='right-exec-version-size' onClick={(e) => {
                                             e.stopPropagation(); // 阻止事件冒泡
                                             openLibraryDrawer(library, 'history')}}>
                                             版本数：{library.versionCount}
                                         </div>*/}
-                                        <div>
-                                            <Dropdown    overlay={()=>execPullDown(library)}
-                                                         placement="bottomRight"
-                                                         trigger={['click']}
-                                                         getPopupContainer={e => e.parentElement}
-                                            >
-                                                <div onClick={(e) => e.stopPropagation()}>
-                                                    <EllipsisOutlined style={{fontSize:20}}/>
-                                                </div>
-                                            </Dropdown>
+                                            <div>
+                                                <Dropdown    overlay={()=>execPullDown(library)}
+                                                             placement="bottomRight"
+                                                             trigger={['click']}
+                                                             getPopupContainer={e => e.parentElement}
+                                                >
+                                                    <div onClick={(e) => e.stopPropagation()}>
+                                                        <EllipsisOutlined style={{fontSize:20}}/>
+                                                    </div>
+                                                </Dropdown>
+                                            </div>
                                         </div>
-                                    </div>
+                                    }
                                 </div>
                             </div>
                         )
@@ -144,6 +148,7 @@ const LibraryTable = (props) => {
                              visible={libraryDrawer}
                              setVisible={setLibraryDrawer}
                              tab={tabType}
+                             publicState={publicState}
 
             />
         </div>

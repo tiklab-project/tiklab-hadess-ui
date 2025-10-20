@@ -55,7 +55,7 @@ const LibraryList = (props) => {
     //通过条件查询制品
     const findLibraryList =async (currentPage,name) => {
         findLibraryListByRepository({ pageParam:{currentPage:currentPage, pageSize:15},
-            repositoryId:params.id,
+            repositoryId:repositoryData.id,
             name:name,
             groupId:groupId,
             newVersion:version,
@@ -206,6 +206,7 @@ const LibraryList = (props) => {
                                       goDetails={goDetails}
                                       goDetailsType={goDetailsType}
                                       deleteLibrary={deleteLibrary}
+                                      publicState={publicState}
                         />
                         <Page pageCurrent={currentPage}
                               changPage={changPage}

@@ -20,6 +20,7 @@ const SearchInput = SyncComponent(() => import('./common/input/SearchInput'))
 
 
 //制品
+const LibraryList = SyncComponent(() => import('./library/component/LibraryList'))
 const LibraryDetails = SyncComponent(() => import('./library/component/LibraryDetails'))
 const RpyLibraryDetails = SyncComponent(() => import('./repository/library/components/LibraryDetails'))
 
@@ -64,8 +65,7 @@ const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
 const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 
-//设置-操作日志
-const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
+
 //设置-版本与许可证
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
 const AuthContent =SyncComponent(()=>import('./setting/licence/AuthContent'))
@@ -100,6 +100,7 @@ export {
     EmptyText,
     SearchInput,
 
+    LibraryList,
     LibraryHistory,
     LibraryDetails,
     RpyLibraryDetails,
@@ -119,7 +120,6 @@ export {
     group,
     userDirectory,
     systemRole,
-    MyLog,
     Version,
     AuthContent,
     RepositoryInfo,

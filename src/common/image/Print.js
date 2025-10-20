@@ -11,6 +11,7 @@ import go from "../../assets/images/img/go.png"
 import helm from "../../assets/images/img/helm.png"
 import composer from "../../assets/images/img/composer.png"
 import conan from "../../assets/images/img/conan.png"
+import rpm from "../../assets/images/img/rpm.png"
 import "./Print.scss"
 const Print = (props) => {
     const {type,width,height}=props
@@ -26,7 +27,8 @@ const Print = (props) => {
                 type==='go'&&  <img  src={go}  style={{width:width,height:height}}/>||
                 type==='helm'&&  <img  src={helm}  style={{width:width,height:height}}/>||
                 type==='composer'&&  <img  src={composer}  style={{width:width,height:height}}/>||
-                type==='conan'&&  <img  src={conan}  style={{width:width,height:height}}/>
+                type==='conan'&&  <img  src={conan}  style={{width:width,height:height}}/>||
+                type==='rpm'&&  <img  src={rpm}  style={{width:width,height:height}}/>
             }
         </div>
     )

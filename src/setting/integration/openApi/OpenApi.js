@@ -13,8 +13,6 @@ const OpenApi = (props) => {
             />
         </div>
 
-
-
     )
 
 }

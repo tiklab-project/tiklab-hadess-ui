@@ -394,7 +394,7 @@ const RepositoryBasicInfo = (props) => {
                     {
                         updateState?
                                 <Btn  title={'加载中'} type={'primary'}/>:
-                                <PrivilegeProjectButton code={"rpy_update"} domainId={repository && repository.id}>
+                               /* <PrivilegeProjectButton code={"rpy_update"} domainId={repository && repository.id}>
                                     <Btn
                                         type={'primary'}
                                         title={'确定'}
@@ -405,7 +405,17 @@ const RepositoryBasicInfo = (props) => {
                                                 })
                                         }}
                                     />
-                                </PrivilegeProjectButton>
+                                </PrivilegeProjectButton>*/
+                            <Btn
+                                type={'primary'}
+                                title={'确定'}
+                                onClick={() => {
+                                    form.validateFields()
+                                        .then((values) => {
+                                            onOk(values)
+                                        })
+                                }}
+                            />
 
                     }
 
@@ -440,9 +450,10 @@ const RepositoryBasicInfo = (props) => {
                     此操作无法恢复！请慎重操作！
                 </div>
                 <Btn title={'取消'} isMar={true} onClick={()=>setOpenOrClose(3)}/>
-                <PrivilegeProjectButton code={"rpy_delete"} domainId={repository && repository.id}>
+                {/*<PrivilegeProjectButton code={"rpy_delete"} domainId={repository && repository.id}>
                     <Btn onClick={()=>setDeleteVisible(true)} type={'dangerous'} title={'删除'}/>
-                </PrivilegeProjectButton>
+                </PrivilegeProjectButton>*/}
+                <Btn onClick={()=>setDeleteVisible(true)} type={'dangerous'} title={'删除'}/>
             </div>
         }
     ]

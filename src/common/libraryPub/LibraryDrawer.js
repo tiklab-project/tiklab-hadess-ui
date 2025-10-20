@@ -19,7 +19,7 @@ import LibraryHistory from "./LibraryHistory";
 import {SpinLoading} from "../loading/Loading";
 
 const LibraryDrawer = (props) => {
-    const {visible,setVisible,library,tab}=props
+    const {visible,setVisible,library,tab,publicState}=props
     const detailRef = useRef()
 
     const {findVersionByLibraryId,libraryVersionData,refresh,versionLoad,
@@ -226,7 +226,8 @@ const LibraryDrawer = (props) => {
                             tableType==='history'&&<LibraryHistory  crumbsType={tableType}
                                                                     setVisible={setVisible}
                                                                     versionData={libraryVersionData}
-                                                                        cuteVersion={cuteVersion}
+                                                                    cuteVersion={cuteVersion}
+                                                                    publicState={publicState}
                                 />
                             }
                         </div>

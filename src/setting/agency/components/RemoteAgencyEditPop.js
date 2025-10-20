@@ -18,7 +18,7 @@ const RemoteAgencyEditPop = (props) => {
     const [form] = Form.useForm();
     const {editVisible,setEditVisible,compileType,remoteProxy,createRemoteProxy,updateRemoteProxy,setRemoteProxy}=props
 
-    const [agencyType,setAgencyType]=useState("maven")
+    const [agencyType,setAgencyType]=useState("rpm")
 
     useEffect(()=>{
         if (remoteProxy){
@@ -88,9 +88,7 @@ const RemoteAgencyEditPop = (props) => {
                     <Select
                         defaultValue="maven"
                         options={[
-                            {value: 'maven', label: 'maven'},
-                            {value: 'npm', label: 'npm'},
-                            {value: 'docker', label: 'docker'},
+                            {value: 'rpm', label: 'rpm'},
                         ]}
                            onChange={selectAgencyType}
                     />

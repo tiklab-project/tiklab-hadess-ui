@@ -98,13 +98,18 @@ const RemoteAgency = (props) => {
             >
                 <div className='proxy-head-up'>
                     <BreadcrumbContent firstItem={'仓库代理'} />
-                    <PrivilegeButton  code={"hadess_proxy_add"} key={'hadess_proxy_delete'} >
+                   {/* <PrivilegeButton  code={"hadess_proxy_add"} key={'hadess_proxy_delete'} >
                         <Btn
                             type={'primary'}
                             title={'添加代理'}
                             onClick={()=> setEditVisible(true)}
                         />
-                    </PrivilegeButton>
+                    </PrivilegeButton>*/}
+                    <Btn
+                        type={'primary'}
+                        title={'添加代理'}
+                        onClick={()=> setEditVisible(true)}
+                    />
                 </div>
                 <div className='proxy-table-style'>
                     <Table

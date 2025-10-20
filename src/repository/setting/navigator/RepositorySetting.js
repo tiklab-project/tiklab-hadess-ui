@@ -65,6 +65,12 @@ const RepositorySetting = (props) => {
         if (version==='ce'){
             navList=remoteLayerRouter.filter(a=>a.id!==5)
         }
+        if (repositoryData.type!=='maven'&&repositoryData.type!=='npm'){
+            navList=remoteLayerRouter.filter(a=>a.id!=='8')
+        }else if (repositoryData?.repositoryType !=='local') {
+            navList=remoteLayerRouter.filter(a=>a.id!=='8')
+        }
+
         setNavList(navList)
     }
 

@@ -20,7 +20,7 @@ import SearchInput from "../../common/input/SearchInput";
 import sortDesc from "../../assets/images/img/sortDesc.png"
 import sortAsc from "../../assets/images/img/sortAsc.png"
 const LibraryList = (props) => {
-    const {repositoryStore,match:{params}}=props
+    const {publicState}=props
     const {findLibraryListByCond,searchMessage,libraryType,setLibraryType,
         libraryLoad,page,setDetailsType,setSearchName,refresh,deleteLibrary}=libraryStore
 
@@ -179,6 +179,7 @@ const LibraryList = (props) => {
                                           goDetails={goDetails}
                                           goDetailsType={goDetailsType}
                                           deleteLibrary={deleteLibrary}
+                                          publicState={publicState}
                             />
                             <Page pageCurrent={currentPage}
                                   changPage={changPage}

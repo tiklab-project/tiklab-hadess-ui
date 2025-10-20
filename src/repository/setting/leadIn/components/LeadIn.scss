@@ -1,0 +1,28 @@
+.lead-in{
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    padding: 20px 30px;
+    min-width: 700px;
+
+    .lead-in-desc{
+        margin-top: 15px;
+        color: #999;
+    }
+
+    .lead-in-data{
+        padding-top: 20px;
+        .lead-in-icon{
+            display: flex;
+            justify-content: center;
+        }
+        .lead-in-border{
+            border: 1px solid #e9e9e9;
+            width: 100px;
+            padding: 8px 0;
+            border-radius: 4px;
+            cursor:pointer;
+        }
+    }
+
+}

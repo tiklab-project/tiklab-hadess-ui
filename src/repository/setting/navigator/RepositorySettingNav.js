@@ -24,11 +24,11 @@ const RepositorySettingNav = (props) => {
             router:`/repository/${repositoryId}/setting/role`,
             purviewCode: "domain_permission",
         },
-       /* {
-            id:'7',
-            title: '清理策略',
-            router:`/repository/${repositoryId}/setting/clean`,
-        },*/
+        {
+            id:'8',
+            title: '制品导入',
+            router:`/repository/${repositoryId}/setting/leadIn`,
+        },
         {
             id:'6',
             title: '制品推送',

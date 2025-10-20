@@ -63,6 +63,7 @@ const programDomainRole = SyncComponent(() => import('./repository/setting/Proje
 //推送中央仓库
 const PushGroup = SyncComponent(() => import('./repository/setting/pushCenter/components/PushGroup'))
 const PushLibrary = SyncComponent(() => import('./repository/setting/pushCenter/components/PushLibrary'))
+const LeadIn = SyncComponent(() => import('./repository/setting/leadIn/components/LeadIn'))
 
 
 //消息
@@ -71,6 +72,8 @@ const MessageContent =SyncComponent(()=>import('./setting/message/MessageContent
 const messageNotice =SyncComponent(()=>import('./setting/message/MessageNotice'))
 //设置-消息发送方式
 const messagesendtype =SyncComponent(()=>import('./setting/message/Messagesendtype'))
+
+
 
 
 //设置-部门
@@ -84,8 +87,7 @@ const userDirectory =SyncComponent(()=>import('./setting/organ/UserDirectory'))
 //设置-权限
 const systemRole =SyncComponent(()=>import('./setting/role/SystemRole'))
 
-//设置-操作日志
-const MyLog =SyncComponent(()=>import('./setting/security/MyLog'))
+
 
 //设置-版本与许可证
 const Version =SyncComponent(()=>import('./setting/licence/Version'))
@@ -101,6 +103,10 @@ const RemoteAgency =SyncComponent(()=>import('./setting/agency/components/Remote
 //设置-网络地理地址
 const NetworkProxy =SyncComponent(()=>import('./setting/agency/components/NetworkProxy'))
 
+//设置-第三方集成地址
+const SystemInt =SyncComponent(()=>import('./setting/integration/systemInt/components/SystemInt'))
+
+
 //基础数据
 const SystemFunction =SyncComponent(()=>import('./setting/basicData/SystemFunction'))
 const ProjectFunction =SyncComponent(()=>import('./setting/basicData/ProjectFunction'))
@@ -109,8 +115,8 @@ const SystemRole =SyncComponent(()=>import('./setting/basicData/SystemRole'))
 const LogType =SyncComponent(()=>import('./setting/basicData/LogType'))
 
 //集成与开放openapi
-const OpenApi =SyncComponent(()=>import('./setting/integration/OpenApi'))
-const OpenApiDoc =SyncComponent(()=>import('./setting/integration/OpenApiDoc'))
+const OpenApi =SyncComponent(()=>import('./setting/integration/openApi/OpenApi'))
+const OpenApiDoc =SyncComponent(()=>import('./setting/integration/openApi/OpenApiDoc'))
 
 
 const routers = [
@@ -235,6 +241,11 @@ const routers = [
                                 exact: true,
                             },
                             {
+                                path: '/repository/:id/setting/leadIn',
+                                component:LeadIn,
+                                exact: true,
+                            },
+                            {
                                 path: '/repository/:id/setting/:pushGroupId/pushLibrary',
                                 component: PushLibrary,
                                 exact: true,
@@ -264,8 +275,6 @@ const routers = [
                         path: '/setting/home',
                         component: SettingHome,
                     },
-
-
                     {
                         path: '/setting/message',
                         component:MessageContent,
@@ -276,6 +285,7 @@ const routers = [
                         component:messageNotice,
                         exact: true,
                     },
+
                     {
                         path: '/setting/mes/send',
                         component:messagesendtype,
@@ -307,10 +317,6 @@ const routers = [
                         exact: true,
                     },
                     {
-                        path: '/setting/myLog',
-                        component: MyLog,
-                    },
-                    {
                         path: '/setting/version',
                         component: Version,
                     },
@@ -331,7 +337,10 @@ const routers = [
                         path:'/setting/networkProxy',
                         component:NetworkProxy,
                     },
-
+                    {
+                        path:'/setting/systemInt',
+                        component:SystemInt,
+                    },
                     {
                         path:'/setting/resources',
                         component: Resources,

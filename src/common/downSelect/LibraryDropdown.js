@@ -13,7 +13,7 @@ import Print from "../image/Print";
 import {observer} from "mobx-react";
 const typeList=[{type:'generic',value:'Generic'},{type:'maven',value:'Maven'},{type:'npm',value:'Npm'},{type:'docker',value:'Docker'},
     {type:'helm',value:'Helm'},{type:'go',value:'Go'},{type:'pypi',value:'Pypi'},{type:'composer',value:'Composer'},{type:'nuget',value:'Nuget'}
-    ,{type:'conan',value:'Conan'}
+    ,{type:'conan',value:'Conan'},{type:'rpm',value:'Rpm'}
 ]
 const LibraryDropdown = (props) => {
     const {visible,setVisible,cuteLibraryType,libraryType,type, down}=props

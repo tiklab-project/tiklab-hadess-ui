@@ -84,12 +84,6 @@ const RepositoryAside = (props) => {
             id:`/repository/${repositoryId}/library`,
             icon:   <CodeOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
         },
-        {
-            key: 'setting',
-            id:`/setting/home`,
-            title:'设置',
-            icon:  <SettingOutlined className={`${collapsed?'close-iconfont':'open-iconfont'}`}/>
-        },
     ];
 
     useEffect(async () => {

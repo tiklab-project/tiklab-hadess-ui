@@ -252,6 +252,8 @@ const LibraryHistory = (props) => {
                     onChange={onInputName}
                     onPressEnter={onSearch}
                 />
+                {
+                    !publicState&&
                     <div className='history-header-icon' >
                         {
 
@@ -277,9 +279,11 @@ const LibraryHistory = (props) => {
                                 </div>
 
 
-                               /* <Switch checkedChildren="开启" unCheckedChildren="关闭"  onChange={setDeleteInState} />*/
+                            /* <Switch checkedChildren="开启" unCheckedChildren="关闭"  onChange={setDeleteInState} />*/
                         }
                     </div>
+                }
+
             </div>
 
             <Table
@@ -290,7 +294,6 @@ const LibraryHistory = (props) => {
                 rowKey = {record => record.id}
                 className={'history-table'}
             />
-
             {  totalPage>1&&
                 <Page totalPage={totalPage}
                       pageCurrent={currentPage}

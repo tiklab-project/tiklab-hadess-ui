@@ -38,8 +38,10 @@ const GuideDrawer = props => {
     const [rpyVisible,setRpyVisible]=useState(false)
 
     useEffect(async () => {
-        getRepository(type)
-    }, []);
+        if (visible){
+            getRepository(type)
+        }
+    }, [visible]);
 
     /**
      * 切换制品库

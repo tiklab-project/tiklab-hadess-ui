@@ -42,7 +42,7 @@ export class RepositoryStore{
     @action
     createRepository=async (value)=>{
         this.addRepositoryType=value.repositoryType
-        const res = await Axios.post("/xpackRepository/createRepository",value)
+        const res = await Axios.post("/hadessRepository/createRepository",value)
         if (res.code===0){
             this.refresh=!this.refresh
             this.repositoryId=res.data
@@ -57,7 +57,7 @@ export class RepositoryStore{
      */
     @action
     updateRepository=async (param)=>{
-        const res = await Axios.post("/xpackRepository/updateRepository",param)
+        const res = await Axios.post("/hadessRepository/updateRepository",param)
         if (res.code===0){
             this.refresh=!this.refresh
         }
@@ -72,7 +72,7 @@ export class RepositoryStore{
     deleteRepository=async (value)=>{
         const param = new FormData();
         param.append('id',value)
-        const res = await Axios.post("/xpackRepository/deleteRepository",param)
+        const res = await Axios.post("/hadessRepository/deleteRepository",param)
         if (res.code===0){
             this.refresh=!this.refresh
         }
@@ -85,7 +85,7 @@ export class RepositoryStore{
      */
     @action
     findAllRepository=async ()=>{
-        const res = await Axios.post("/xpackRepository/findAllRepository")
+        const res = await Axios.post("/hadessRepository/findAllRepository")
         if (res.code===0){
             this.repositoryAllList=res.data
         }
@@ -98,7 +98,7 @@ export class RepositoryStore{
      */
     @action
     findRepositoryList=async (param)=>{
-        const res = await Axios.post("/xpackRepository/findRepositoryList",param)
+        const res = await Axios.post("/hadessRepository/findRepositoryList",param)
         if (res.code===0){
             this.repositoryList=res.data
         }
@@ -111,7 +111,7 @@ export class RepositoryStore{
      */
     @action
     findRepositoryPage=async (param)=>{
-        const res = await Axios.post("/xpackRepository/findRepositoryPage",param)
+        const res = await Axios.post("/hadessRepository/findRepositoryPage",param)
         return res
     }
     /**
@@ -122,7 +122,7 @@ export class RepositoryStore{
     findRepository=async (value)=>{
         const param=new FormData()
         param.append("id",value)
-        const res = await Axios.post("/xpackRepository/findRepository",param)
+        const res = await Axios.post("/hadessRepository/findRepository",param)
         if (res.code===0){
             this.repositoryData=res.data
         }
@@ -137,7 +137,7 @@ export class RepositoryStore{
     findRepositoryByGroup=async (value)=>{
         const param = new FormData();
         param.append("repositoryGroupId",value)
-        const res = await Axios.post("/xpackRepository/findRepositoryByGroup",param)
+        const res = await Axios.post("/hadessRepository/findRepositoryByGroup",param)
 
         return res
     }
@@ -152,7 +152,7 @@ export class RepositoryStore{
         const param = new FormData()
         param.append("repositoryType",type)
         param.append("repositoryGroupId",repositoryGroupId)
-        const res = await Axios.post("/xpackRepository/findUnRelevanceRepository",param)
+        const res = await Axios.post("/hadessRepository/findUnRelevanceRepository",param)
         return res
     }
     /**
@@ -163,7 +163,7 @@ export class RepositoryStore{
     findLocalAndRemoteRepository=async (value)=>{
         const param = new FormData()
         param.append("type",value)
-        const res = await Axios.post("/xpackRepository/findLocalAndRemoteRepository",param)
+        const res = await Axios.post("/hadessRepository/findLocalAndRemoteRepository",param)
 
         return res
     }

@@ -111,11 +111,14 @@ const SettingAside = (props) => {
             icon: <LayoutOutlined />,
             children: [
                 {
+                    id:'/setting/systemInt',
+                    title:'系统集成',
+                },
+                {
                     id:'/setting/openApi',
                     title:'OpenApi',
                     purviewCode:'openapi',
                 },
-
             ]
         },
         {
@@ -124,11 +127,6 @@ const SettingAside = (props) => {
             title: '安全',
             icon:<SafetyCertificateOutlined />,
             children:[
-                {
-                    id:'/setting/myLog',
-                    title: '操作日志',
-                    purviewCode:'log',
-                },
                 {
                     id:'/setting/backupRecovery',
                     title: '备份与恢复',

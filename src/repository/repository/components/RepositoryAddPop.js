@@ -71,10 +71,12 @@ const RepositoryAddPop = (props) => {
 
 
     useEffect(async () => {
-        await findRepository(type)
-        await findAllRepository()
-        getRemoteProxyList(type)
-    }, []);
+        if (visible){
+            await findRepository(type)
+            await findAllRepository()
+            getRemoteProxyList(type)
+        }
+    }, [visible]);
 
     useEffect(async () => {
         let options;
@@ -88,6 +90,7 @@ const RepositoryAddPop = (props) => {
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
                 {value: 'Conan', label: 'conan'},
+                {value: 'Rpm', label: 'rpm'},
             ]
         }else if(addType==='remote'){
             options = [ {value: 'Maven', label: 'maven'},
@@ -99,6 +102,7 @@ const RepositoryAddPop = (props) => {
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
                 {value: 'Conan', label: 'conan'},
+                {value: 'Rpm', label: 'rpm'},
             ]
         }else if (addType==='group') {
             options = [ {value: 'Maven', label: 'maven'},
@@ -109,6 +113,7 @@ const RepositoryAddPop = (props) => {
                 {value: 'Composer', label: 'composer'},
                 {value: 'Nuget', label: 'nuget'},
                 {value: 'Conan', label: 'conan'},
+                {value: 'Rpm', label: 'rpm'},
             ]
         }
         setTypeList(options)
