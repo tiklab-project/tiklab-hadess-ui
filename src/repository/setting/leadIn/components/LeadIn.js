@@ -7,7 +7,8 @@
  */
 import React,{useState,useEffect} from 'react';
 import LeadInStore from "../store/LeadInStore";
-import {Col, Spin} from "antd";
+import {Col, Spin,message} from "antd";
+
 import "./LeadIn.scss"
 import BreadcrumbContent from "../../../../common/breadcrumb/Breadcrumb";
 import nexus from "../../../../assets/images/img/nexus.png";

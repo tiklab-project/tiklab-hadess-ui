@@ -33,15 +33,16 @@ const SettingAside = (props) => {
             icon:<TeamOutlined />,
             children:[
                 {
-                    id: '/setting/orga',
-                    title: '部门',
-                    purviewCode: "orga",
-                },
-                {
                     id:'/setting/user',
                     title: '用户',
                     purviewCode: "user",
                 },
+                {
+                    id: '/setting/orga',
+                    title: '部门',
+                    purviewCode: "orga",
+                },
+
                 {
                     id:'/setting/userGroup',
                     title: '用户组',

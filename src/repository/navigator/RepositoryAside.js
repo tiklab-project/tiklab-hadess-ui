@@ -23,14 +23,14 @@ import {getUser, getVersionInfo, productWhiteImg} from "tiklab-core-ui";
 import Sider from "antd/es/layout/Sider";
 import ScanCodeFree from "../../common/upgrade/ScanCodeFree";
 const RepositoryAside = (props) => {
-    const {location,match:{params},repositoryStore,systemRoleStore,publicState}=props
+    const {location,match:{params},repositoryStore,systemRoleStore,basicRouter,publicState}=props
     const {repositoryData,findRepository,findAllRepository,repositoryAllList,setNavLevel}=repositoryStore
     const {getInitProjectPermissions} = systemRoleStore
 
     const repositoryId = params.id;
     let path = location.pathname
 
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "gray");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "blue");
     const [navPath,setNavPath]=useState('')   //左侧导航览类型
     const [triggerVisible,setTriggerVisible] = useState(false)
     const [upgradeVisible,setUpgradeVisible]=useState(false)
@@ -40,9 +40,9 @@ const RepositoryAside = (props) => {
     //导航折叠状态
     const [collapsed, setCollapsed] = useState(true);
 
-
-
     const [themeClass, setThemeClass] = useState("theme-gray")
+
+    const [basicList,setBasicList]=useState([])
 
     let scrumRouter = [
         {
@@ -86,6 +86,7 @@ const RepositoryAside = (props) => {
         },
     ];
 
+
     useEffect(async () => {
         setNavLevel(2)
         findAllRepository()
@@ -101,6 +102,12 @@ const RepositoryAside = (props) => {
 
         //查询主题
         getThemeClass(theme)
+
+        if (basicRouter){
+            setBasicList(basicRouter)
+        }else {
+            setBasicList(scrumRouter)
+        }
 
     }, []);
 
@@ -240,7 +247,7 @@ const RepositoryAside = (props) => {
                                     </div>
                             }
                         </div>
-                        {(!publicState?scrumRouter:scrumRouter2)?.map(item=>{
+                        {(!publicState?basicRouter:scrumRouter2)?.map(item=>{
                             return(
                                 <div key={item.key} className={`${navPath===item.id&&' tab-link-active'} tab-link `} onClick={()=>cuteType(item)} >
                                     {

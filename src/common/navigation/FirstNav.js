@@ -24,7 +24,7 @@ const FirstNav = (props) => {
     const {setSearchName}=libraryStore
     const [navPath,setNavPath]=useState('')   //选中的导航栏路径
 
-    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "default");
+    const [theme, setTheme] = useState(localStorage.getItem("theme") ? localStorage.getItem("theme") : "blue");
 
     //导航折叠状态
     const [foldState] = useState(localStorage.getItem("collapsed") ? localStorage.getItem("collapsed") : false);

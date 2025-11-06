@@ -43,7 +43,7 @@ module.exports = merge(baseWebpackConfig,{
         historyApiFallback: true,
         disableHostCheck: true,
         headers:{
-           'Access-Control-Allow-Origin': "http://192.168.10.68:8083"
+           'Access-Control-Allow-Origin': "http://192.168.10.78:8083"
         }
     }
 });
